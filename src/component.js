@@ -2,6 +2,8 @@
 import React from 'react'
 import appState from './state'
 
+var _state = Symbol( 'state' )
+
 
 export default class Component extends React.Component {
     static propTypes = {
@@ -15,30 +17,39 @@ export default class Component extends React.Component {
     constructor( props ) {
         super( props )
 
-        this._state = null
+        this[ _state ] = appState.state.reference()
     }
 
-    set state( state ) {
-        console.log( 'setting state' )
+    set cursor( state ) {
         if ( !state ) {
             // @TODO should throw
             return console.warn( 'Immreact.Component state unspecified' )
         }
 
-        this.setState( state )
+        this.setCursor( state )
     }
 
-    get state() {
-        return this._state
+    get cursor() {
+        return this[ _state ].cursor()
     }
 
-    setState( state ) {
-        let cursor = this.props
-            ? this.props.cursor || appState.state.cursor()
-            : appState.state.cursor()
+    update( state ) {
+        // let cursor = this.props
+        //     ? this.props.cursor || appState.state.cursor()
+        //     : appState.state.cursor()
+        //
+        // this._state = cursor.update( curs => {
+        //     return curs.merge( state )
+        // })
+        console.log( 'setting state' )
+        console.log( state )
+        try {
+            console.log( state.toJS() )
+        } catch( err ) {
 
-        this._state = cursor.update( curs => {
-            return curs.merge( state )
-        }).toJS()
+        }
+        this[ _state ].cursor().update( cursor => {
+            return cursor.merge( state )
+        })
     }
 }
