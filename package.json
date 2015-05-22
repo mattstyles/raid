@@ -29,5 +29,8 @@
   "peerDependencies": {
     "react": ">=0.13.0",
     "immstruct": "^1.4.0"
+  },
+  "dependencies": {
+    "uuid": "^2.0.1"
   }
 }

@@ -1,8 +1,11 @@
 
 import React from 'react'
 import appState from './state'
+import CONSTANTS from './constants'
+import uuid from 'uuid'
 
 var _state = Symbol( 'state' )
+var _id = Symbol( 'id' )
 
 
 export default class Component extends React.Component {
@@ -17,38 +20,52 @@ export default class Component extends React.Component {
     constructor( props ) {
         super( props )
 
-        this[ _state ] = appState.state.reference()
+        // Be lazy, dont create symbols on the object unless required
     }
 
     set cursor( state ) {
         if ( !state ) {
             // @TODO should throw
-            return console.warn( 'Immreact.Component state unspecified' )
+            return console.warn( '[Immreact.Component] state unspecified' )
         }
 
-        this.setCursor( state )
+        // Only generate stateful container if cursor is defined
+        // Id also serves as an indicator of being linked to centralised state
+        this[ _id ] = uuid.v4()
+
+        // Add new stateful container to the components map
+        appState.state.cursor( CONSTANTS.COMPONENTS ).update( cursor => {
+            // @TODO many components being created at the same time will repeatedly
+            // trigger immstruct swap events, can this be batched? The call to this.update
+            // triggers another swap
+            return cursor.merge({
+                [ this[ _id ] ]: {}
+            })
+        })
+
+        console.log( 'fresh state using cursor = {...}' )
+        this.update( state )
     }
 
     get cursor() {
+        if ( !this[ _id ] ) {
+            // @TODO should throw?
+            return console.warn( '[Immreact.Component] component has no cursor set, can not access' )
+        }
+
+        // Lazily reference the state and cache, will never change
+        if ( !this[ _state ] ) {
+            this[ _state ] = appState.state.reference([ CONSTANTS.COMPONENTS, this[ _id ] ] )
+        }
+
+        // Grab a fresh cursor to the referenced data
         return this[ _state ].cursor()
     }
 
     update( state ) {
-        // let cursor = this.props
-        //     ? this.props.cursor || appState.state.cursor()
-        //     : appState.state.cursor()
-        //
-        // this._state = cursor.update( curs => {
-        //     return curs.merge( state )
-        // })
         console.log( 'setting state' )
         console.log( state )
-        try {
-            console.log( state.toJS() )
-        } catch( err ) {
-
-        }
-        this[ _state ].cursor().update( cursor => {
+        this.cursor.update( cursor => {
             return cursor.merge( state )
         })
     }
