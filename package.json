@@ -1,0 +1,33 @@
+{
+  "name": "immreact",
+  "version": "0.0.0",
+  "description": "Use react classes with an immstruct structure",
+  "main": "lib/",
+  "scripts": {
+    "clean": "rm -rf lib && mkdir lib",
+    "build": "babel src --out-dir lib",
+    "watch": "babel --watch src --out-dir lib",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "immstruct",
+    "immutable",
+    "es6",
+    "es2015",
+    "babel"
+  ],
+  "author": "Matt Styles",
+  "license": "WTFPL",
+  "devDependencies": {
+    "babel": "^5.4.5",
+    "babel-eslint": "^3.1.7",
+    "eslint": "^0.21.2"
+  },
+  "peerDependencies": {
+    "react": ">=0.13.0",
+    "immstruct": "^1.4.0"
+  }
+}
