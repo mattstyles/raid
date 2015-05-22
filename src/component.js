@@ -29,9 +29,14 @@ export default class Component extends React.Component {
             return console.warn( '[Immreact.Component] state unspecified' )
         }
 
+        if ( !state.id ) {
+            return console.warn( '[Immreact.Component] can not create cursor without id' )
+        }
+
         // Only generate stateful container if cursor is defined
         // Id also serves as an indicator of being linked to centralised state
-        this[ _id ] = uuid.v4()
+        // this[ _id ] = uuid.v4()
+        this[ _id ] = state.id
 
         // Add new stateful container to the components map
         appState.state.cursor( CONSTANTS.COMPONENTS ).update( cursor => {
@@ -53,18 +58,23 @@ export default class Component extends React.Component {
             return console.warn( '[Immreact.Component] component has no cursor set, can not access' )
         }
 
-        // Lazily reference the state and cache, will never change
-        if ( !this[ _state ] ) {
-            this[ _state ] = appState.state.reference([ CONSTANTS.COMPONENTS, this[ _id ] ] )
-        }
+        // Lazily reference the state and cache, update when the reference changes
+        // if ( !this[ _state ] ) {
+        //     this[ _state ] = appState.state.reference([ CONSTANTS.COMPONENTS, this[ _id ] ] )
+        // }
 
         // Grab a fresh cursor to the referenced data
-        return this[ _state ].cursor()
+        return appState.state.cursor([ CONSTANTS.COMPONENTS, this[ _id ] ] )
     }
 
     update( state ) {
         console.log( 'setting state' )
         console.log( state )
+
+        if ( state.id ) {
+            delete state.id
+        }
+
         this.cursor.update( cursor => {
             return cursor.merge( state )
         })
