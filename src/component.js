@@ -48,7 +48,7 @@ export default class Component extends React.Component {
             })
         })
 
-        console.log( 'fresh state using cursor = {...}' )
+        // console.log( 'fresh state using cursor = {...}' )
         this.update( state )
     }
 
@@ -68,8 +68,8 @@ export default class Component extends React.Component {
     }
 
     update( state ) {
-        console.log( 'setting state' )
-        console.log( state )
+        // console.log( 'setting state' )
+        // console.log( state )
 
         if ( state.id ) {
             delete state.id
