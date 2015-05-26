@@ -38,18 +38,23 @@ export default class Component extends React.Component {
         // this[ _id ] = uuid.v4()
         this[ _id ] = state.id
 
-        // Add new stateful container to the components map
-        appState.state.cursor( CONSTANTS.COMPONENTS ).update( cursor => {
-            // @TODO many components being created at the same time will repeatedly
-            // trigger immstruct swap events, can this be batched? The call to this.update
-            // triggers another swap
-            return cursor.merge({
-                [ this[ _id ] ]: {}
-            })
-        })
+        console.log( 'gettng state id', state.id )
+        console.log( appState.state.cursor( CONSTANTS.COMPONENTS ).get( state.id ) )
 
-        // console.log( 'fresh state using cursor = {...}' )
-        this.update( state )
+        // Add new stateful container to the components map unless already specified or is forced
+        if ( state.force || !appState.state.cursor( CONSTANTS.COMPONENTS ).get( state.id ) ) {
+            appState.state.cursor( CONSTANTS.COMPONENTS ).update( cursor => {
+                // @TODO many components being created at the same time will repeatedly
+                // trigger immstruct swap events, can this be batched? The call to this.update
+                // triggers another swap
+                return cursor.merge({
+                    [ this[ _id ] ]: {}
+                })
+            })
+
+            // console.log( 'fresh state using cursor = {...}' )
+            this.update( state )
+        }
     }
 
     get cursor() {
