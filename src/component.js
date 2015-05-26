@@ -38,8 +38,6 @@ export default class Component extends React.Component {
         // this[ _id ] = uuid.v4()
         this[ _id ] = state.id
 
-        console.log( 'gettng state id', state.id )
-        console.log( appState.state.cursor( CONSTANTS.COMPONENTS ).get( state.id ) )
 
         // Add new stateful container to the components map unless already specified or is forced
         if ( state.force || !appState.state.cursor( CONSTANTS.COMPONENTS ).get( state.id ) ) {
