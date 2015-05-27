@@ -1,6 +1,6 @@
 {
   "name": "immreact",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Use react classes with an immstruct structure",
   "main": "lib/",
   "scripts": {
