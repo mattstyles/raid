@@ -34,10 +34,10 @@
   },
   "peerDependencies": {
     "react": ">=0.14.0",
-    "immstruct": "^2.0.0"
+    "immstruct": "^2.0.0",
+    "immutable": "^3.7.5"
   },
   "dependencies": {
-    "eventemitter3": "^1.1.1",
-    "uuid": "^2.0.1"
+    "eventemitter3": "^1.1.1"
   }
 }

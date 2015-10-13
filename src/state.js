@@ -1,5 +1,6 @@
 
 import immstruct from 'immstruct'
+import Immutable from 'immutable'
 import CONSTANTS from './constants'
 import EventEmitter from 'eventemitter3'
 

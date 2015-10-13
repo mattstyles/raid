@@ -7,6 +7,7 @@ import Immreact from '../lib'
 var state = new Immreact.State( 'app', {
     count: 0
 })
+window.state = state
 
 function render() {
     ReactDOM.render( <App state={ state.cursor().get( 'app' ) } />, document.querySelector( '.js-main' ) )
