@@ -62,6 +62,10 @@ class Controls extends React.Component {
  * props, choosing instead to grab stuff from outside, it will fail the diff check
  * and remain unrendered even though the data controlling it has changed and the
  * global render function has recalled.
+ *
+ * Given that this.count only references the point in time at instantiation, this
+ * will never be in sync once interactions have occurred on the props cursor above.
+ * This could be solved by using a reference cursor possibly.
  */
 class StateControls extends React.Component {
     constructor( props ) {
@@ -90,9 +94,33 @@ class StateControls extends React.Component {
         return (
             <div>
                 <h3>Using state from outside</h3>
-                <p>This still, just, counts as pure as any changes to the state object outside will have forced a full render refresh</p>
                 <button onClick={ this.onAdd }>Add</button>
                 <button onClick={ this.onRemove }>Remove</button>
+            </div>
+        )
+    }
+}
+
+class Persistence extends React.Component {
+    constructor( props ) {
+        super( props )
+    }
+
+    onSave = () => {
+        // Uses the Immreact.State instance to get the save function
+        localStorage.setItem( 'state', state.save() )
+    }
+
+    onLoad = () => {
+        state.load( localStorage.getItem( 'state' ) )
+    }
+
+    render() {
+        return (
+            <div>
+                <h3>Using save and load helpers to punt state to local storage</h3>
+                <button onClick={ this.onSave }>Save</button>
+                <button onClick={ this.onLoad }>Load</button>
             </div>
         )
     }
@@ -110,6 +138,7 @@ class App extends React.Component {
                 <Counter count={ this.props.state.get( 'count' ) } />
                 <Controls count={ this.props.state.cursor( 'count' ) } />
                 <StateControls />
+                <Persistence />
             </div>
         )
     }

@@ -6,9 +6,22 @@ import EventEmitter from 'eventemitter3'
 
 const _state = Symbol( 'state' )
 
+/**
+ * @class
+ * Holds data representing the current state of the application
+ */
 export default class State extends EventEmitter {
-    constructor( key, value ) {
+
+    /**
+     * @constructs
+     * A default namespace can be passed in here
+     * @param key <String>
+     * @param value <Object> _optional_ defaults to {}
+     */
+    constructor( key, value = {} ) {
         super()
+
+        // Private state immstruct structure
         this[ _state ] = immstruct( 'app', {
             [ CONSTANTS.COMPONENTS ]: {}
         })
@@ -78,15 +91,40 @@ export default class State extends EventEmitter {
      * Returns the dereferenced value for read-only access
      * @param args <Array>|<String> specify structure keyPath to grab
      */
-     get( args ) {
-         if ( !args ) {
-             return this[ _state ].cursor().deref()
-         }
+    get( args ) {
+        if ( !args ) {
+            return this[ _state ].cursor().deref()
+        }
 
-         if ( typeof args === 'string' ) {
-             return this[ _state ].cursor( args ).deref()
-         }
+        if ( typeof args === 'string' ) {
+            return this[ _state ].cursor( args ).deref()
+        }
 
-         return this[ _state ].cursor([ ...args ]).deref()
-     }
+        return this[ _state ].cursor([ ...args ]).deref()
+    }
+
+    /**
+     * Returns a JSON string to save
+     */
+    save() {
+        try {
+            return JSON.stringify( this[ _state ].cursor().toJSON() )
+        } catch( err ) {
+            throw new Error( err )
+        }
+    }
+
+    /**
+     * Loads a JSON string into the current state
+     */
+    load( state ) {
+        try {
+            // this[ _state ].cursor().update( cursor => {
+            //     return cursor.merge( JSON.parse( state ) )
+            // })
+            this[ _state ].cursor().merge( JSON.parse( state ) )
+        } catch( err ) {
+            throw new Error( err )
+        }
+    }
 }

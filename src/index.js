@@ -4,5 +4,7 @@ import Component from './component'
 
 export default {
     State: State,
-    Component: Component
+
+    // Dont use components, not ready yet
+    //Component: Component
 }

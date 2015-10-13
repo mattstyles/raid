@@ -2,7 +2,6 @@
 import React from 'react'
 import appState from './state'
 import CONSTANTS from './constants'
-import uuid from 'uuid'
 
 var _state = Symbol( 'state' )
 var _id = Symbol( 'id' )
@@ -35,7 +34,6 @@ export default class Component extends React.Component {
 
         // Only generate stateful container if cursor is defined
         // Id also serves as an indicator of being linked to centralised state
-        // this[ _id ] = uuid.v4()
         this[ _id ] = state.id
 
 

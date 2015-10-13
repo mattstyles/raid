@@ -8,7 +8,7 @@
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
     "preexample": "npm run build",
-    "example": "browserify -t babelify --debug example/index.js > example/build.js",
+    "example": "browserify -t babelify --debug example/basic.js > example/build.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "npm run build"
   },
