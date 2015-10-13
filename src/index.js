@@ -1,8 +1,8 @@
 
-import appState from './state'
+import State from './state'
 import Component from './component'
 
 export default {
-    appState: appState,
+    State: State,
     Component: Component
 }

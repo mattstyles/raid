@@ -7,6 +7,8 @@
     "clean": "rm -rf lib && mkdir lib",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
+    "preexample": "npm run build",
+    "example": "browserify -t babelify --debug example/index.js > example/build.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "npm run build"
   },
@@ -24,14 +26,18 @@
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-eslint": "^4.1.3",
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
     "eslint": "^1.6.0",
-    "eslint-plugin-react": "^3.5.1"
+    "eslint-plugin-react": "^3.5.1",
+    "react-dom": "^0.14.0"
   },
   "peerDependencies": {
     "react": ">=0.14.0",
     "immstruct": "^2.0.0"
   },
   "dependencies": {
+    "eventemitter3": "^1.1.1",
     "uuid": "^2.0.1"
   }
 }
