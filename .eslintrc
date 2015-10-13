@@ -1,5 +1,8 @@
 {
     "parser": "babel-eslint",
+    "plugins": [
+        "react"
+    ],
     "rules": {
         "strict": 0,
         "semi": [ 1, "never" ],
@@ -9,7 +12,7 @@
         "no-multi-spaces": 1,
         "no-shadow": 1,
         "default-case": 2,
-        "indent": 4,
+        "indent": [ 2, 4 ],
         "camelcase": 2,
         "comma-spacing": [ 2, {
             "before": false,
@@ -27,6 +30,5 @@
         "node": true
     },
     "globals": {
-        "fetch": true
     }
 }
