@@ -86,6 +86,18 @@ npm run build
 
 to prepare your code for an ES5 environment.
 
+## Install
+
+Using [npm](https://www.npmjs.com/),
+
+```sh
+npm install --save immreact
+```
+
+You’ll need to compile the module for use in the browser, my preference is usually [browserify](http://browserify.org/) but I’ve heard very good things about [webpack](https://webpack.github.io/). If you’re feeling really brave and super awesome then [systemjs](https://github.com/systemjs/systemjs) will also let you import modules.
+
+Of course, `immreact` will also work if you’re rendering on the server and can be pretty darned handy for getting your app into whatever state it need to be in.
+
 ## License
 
 ISC
