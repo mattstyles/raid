@@ -34,9 +34,25 @@ class App extends React.Component {
         super( props )
     }
 
+    onAdd = () => {
+        this.props.state.cursor( 'count' ).update( cursor => {
+            return ++cursor
+        })
+    }
+
+    onRemove = () => {
+        this.props.state.cursor( 'count' ).update( cursor => {
+            return --cursor
+        })
+    }
+
     render() {
         return (
-            <Counter count={ this.props.state.cursor( 'count' ).deref() } />
+            <div>
+                <Counter count={ this.props.state.get( 'count' ) } />
+                <button onClick={ this.onAdd }>Add</button>
+                <button onClick={ this.onRemove }>Remove</button>
+            </div>
         )
     }
 }

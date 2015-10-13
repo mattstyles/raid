@@ -73,4 +73,20 @@ export default class State extends EventEmitter {
 
         return this[ _state ].cursor( ...args )
     }
+
+    /**
+     * Returns the dereferenced value for read-only access
+     * @param args <Array>|<String> specify structure keyPath to grab
+     */
+     get( args ) {
+         if ( !args ) {
+             return this[ _state ].cursor().deref()
+         }
+
+         if ( typeof args === 'string' ) {
+             return this[ _state ].cursor( args ).deref()
+         }
+
+         return this[ _state ].cursor( ...args ).deref()
+     }
 }
