@@ -71,7 +71,7 @@ export default class State extends EventEmitter {
             return this[ _state ].cursor( args )
         }
 
-        return this[ _state ].cursor( ...args )
+        return this[ _state ].cursor([ ...args ])
     }
 
     /**
@@ -87,6 +87,6 @@ export default class State extends EventEmitter {
              return this[ _state ].cursor( args ).deref()
          }
 
-         return this[ _state ].cursor( ...args ).deref()
+         return this[ _state ].cursor([ ...args ]).deref()
      }
 }
