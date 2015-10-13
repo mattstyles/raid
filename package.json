@@ -17,12 +17,14 @@
     "react-component",
     "immstruct",
     "immutable",
+    "state",
+    "centralised",
     "es6",
     "es2015",
     "babel"
   ],
   "author": "Matt Styles",
-  "license": "WTFPL",
+  "license": "ISC",
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-eslint": "^4.1.3",
