@@ -2,12 +2,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Immreact from '../lib'
+import Immreact from '../../lib'
 
 var state = new Immreact.State( 'app', {
     count: 0
 })
-window.state = state
 
 function render() {
     ReactDOM.render( <App state={ state.cursor( 'app' ) } />, document.querySelector( '.js-main' ) )

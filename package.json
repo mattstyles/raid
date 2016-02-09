@@ -5,10 +5,11 @@
   "main": "lib/",
   "scripts": {
     "clean": "rm -rf lib && mkdir lib",
+    "prebuild": "npm run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
     "preexample": "npm run build",
-    "example": "browserify -t babelify --debug example/basic.js > example/build.js",
+    "example": "budo examples/basic -lv -d examples",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "npm run build"
   },
@@ -31,8 +32,10 @@
     "babel-preset-urban": "^0.4.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
+    "budo": "^8.0.4",
     "eslint": "^1.10.3",
-    "eslint-plugin-react": "^3.16.1"
+    "eslint-plugin-react": "^3.16.1",
+    "inquirer": "^0.12.0"
   },
   "peerDependencies": {
     "immstruct": "^2.0.0",
