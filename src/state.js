@@ -12,119 +12,119 @@ const _state = Symbol( 'state' )
  */
 export default class State extends EventEmitter {
 
-    /**
-     * @constructs
-     * A default namespace can be passed in here
-     * @param key <String>
-     * @param value <Object> _optional_ defaults to {}
-     */
-    constructor( key, value = {} ) {
-        super()
+  /**
+   * @constructs
+   * A default namespace can be passed in here
+   * @param key <String>
+   * @param value <Object> _optional_ defaults to {}
+   */
+  constructor( key, value = {} ) {
+    super()
 
-        // Private state immstruct structure
-        this[ _state ] = immstruct( 'app', {
-            [ CONSTANTS.COMPONENTS ]: {}
-        })
+    // Private state immstruct structure
+    this[ _state ] = immstruct( 'app', {
+      [ CONSTANTS.COMPONENTS ]: {}
+    })
 
-        if ( key && value ) {
-            this.create( key, value )
-        }
-
-        this[ _state ].on( 'swap', this.onSwap )
+    if ( key && value ) {
+      this.create( key, value )
     }
 
-    /**
-     * Check for a change and emit an update when one occurs
-     */
-    onSwap = ( o, n, k ) => {
-        if ( !o ) {
-            this.emit( 'update' )
-            return
-        }
+    this[ _state ].on( 'swap', this.onSwap )
+  }
 
-        if ( o && n ) {
-            // Check that a change really did happen
-            if ( !Immutable.is( o.getIn( k ), n.getIn( k ) ) ) {
-                this.emit( 'update' )
-            }
-        }
-    };
-
-    /**
-     * Creates a new root level immutable and returns a ref to it
-     * @param key <String> _required_
-     * @param value <Object> _optional_ defaults to {}
-     */
-    create( key, value = {} ) {
-        if ( !key ) {
-            throw new Error( 'No key specified when creating new appState root' )
-        }
-
-        // @TODO should check if key already exists
-
-        this[ _state ].cursor().update( cursor => {
-            return cursor.merge({
-                [ key ]: value
-            })
-        })
-
-        return this[ _state ].reference( key )
+  /**
+   * Check for a change and emit an update when one occurs
+   */
+  onSwap = ( o, n, k ) => {
+    if ( !o ) {
+      this.emit( 'update' )
+      return
     }
 
-    /**
-     * Grabs a fresh cursor to the data structure
-     * @param args <Array>|<String> specify structure keyPath to grab
-     */
-    cursor( args ) {
-        if ( !args ) {
-            return this[ _state ].cursor()
-        }
+    if ( o && n ) {
+      // Check that a change really did happen
+      if ( !Immutable.is( o.getIn( k ), n.getIn( k ) ) ) {
+        this.emit( 'update' )
+      }
+    }
+  };
 
-        if ( typeof args === 'string' ) {
-            return this[ _state ].cursor( args )
-        }
-
-        return this[ _state ].cursor([ ...args ])
+  /**
+   * Creates a new root level immutable and returns a ref to it
+   * @param key <String> _required_
+   * @param value <Object> _optional_ defaults to {}
+   */
+  create( key, value = {} ) {
+    if ( !key ) {
+      throw new Error( 'No key specified when creating new appState root' )
     }
 
-    /**
-     * Returns the dereferenced value for read-only access
-     * @param args <Array>|<String> specify structure keyPath to grab
-     */
-    get( args ) {
-        if ( !args ) {
-            return this[ _state ].cursor().deref()
-        }
+    // @TODO should check if key already exists
 
-        if ( typeof args === 'string' ) {
-            return this[ _state ].cursor( args ).deref()
-        }
+    this[ _state ].cursor().update( cursor => {
+      return cursor.merge({
+        [ key ]: value
+      })
+    })
 
-        return this[ _state ].cursor([ ...args ]).deref()
+    return this[ _state ].reference( key )
+  }
+
+  /**
+   * Grabs a fresh cursor to the data structure
+   * @param args <Array>|<String> specify structure keyPath to grab
+   */
+  cursor( args ) {
+    if ( !args ) {
+      return this[ _state ].cursor()
     }
 
-    /**
-     * Returns a JSON string to save
-     */
-    save() {
-        try {
-            return JSON.stringify( this[ _state ].cursor().toJSON() )
-        } catch( err ) {
-            throw new Error( err )
-        }
+    if ( typeof args === 'string' ) {
+      return this[ _state ].cursor( args )
     }
 
-    /**
-     * Loads a JSON string into the current state
-     */
-    load( state ) {
-        try {
-            // this[ _state ].cursor().update( cursor => {
-            //     return cursor.merge( JSON.parse( state ) )
-            // })
-            this[ _state ].cursor().merge( JSON.parse( state ) )
-        } catch( err ) {
-            throw new Error( err )
-        }
+    return this[ _state ].cursor([ ...args ])
+  }
+
+  /**
+   * Returns the dereferenced value for read-only access
+   * @param args <Array>|<String> specify structure keyPath to grab
+   */
+  get( args ) {
+    if ( !args ) {
+      return this[ _state ].cursor().deref()
     }
+
+    if ( typeof args === 'string' ) {
+      return this[ _state ].cursor( args ).deref()
+    }
+
+    return this[ _state ].cursor([ ...args ]).deref()
+  }
+
+  /**
+   * Returns a JSON string to save
+   */
+  save() {
+    try {
+      return JSON.stringify( this[ _state ].cursor().toJSON() )
+    } catch( err ) {
+      throw new Error( err )
+    }
+  }
+
+  /**
+   * Loads a JSON string into the current state
+   */
+  load( state ) {
+    try {
+      // this[ _state ].cursor().update( cursor => {
+      //     return cursor.merge( JSON.parse( state ) )
+      // })
+      this[ _state ].cursor().merge( JSON.parse( state ) )
+    } catch( err ) {
+      throw new Error( err )
+    }
+  }
 }

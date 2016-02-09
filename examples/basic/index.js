@@ -1,5 +1,8 @@
 /**
  * Basic counter example
+ * ---
+ * The initial state is populated and its contents are then manipulated directly
+ * by action functions
  */
 
 import React from 'react'
@@ -7,6 +10,7 @@ import ReactDOM from 'react-dom'
 
 import Immreact from '../../lib'
 
+import ActionButton from '../common/actionButton'
 import initialState from './initialState'
 
 var el = document.createElement( 'div' )
@@ -18,22 +22,23 @@ Object.assign( el.style, {
 })
 document.body.appendChild( el )
 
-var state = new Immreact.State( 'app', initialState )
-
 const styles = {}
+
+
 
 /**
  * Counter
  */
 styles.counter = {
   fontSize: 34,
-  lineHeight: 2
+  lineHeight: 2,
+  margin: '3px 0'
 }
 const Counter = props => <h1 style={ styles.counter }>Count <span>{ props.count }</span></h1>
 
 
 /**
- * Attach actions to alter State
+ * Explicitly mutate state
  */
 const add = count => {
   return () => {
@@ -49,8 +54,8 @@ const subtract = count => {
 const Controls = props => {
   return (
     <div>
-      <button onClick={ add( props.count ) }>Add</button>
-      <button onClick={ subtract( props.count ) }>Subtract</button>
+      <ActionButton onClick={ add( props.count ) }>+</ActionButton>
+      <ActionButton onClick={ subtract( props.count ) }>-</ActionButton>
     </div>
   )
 }
@@ -67,6 +72,12 @@ const App = props => {
     </div>
   )
 }
+
+
+/**
+ * State object
+ */
+const state = new Immreact.State( 'app', initialState )
 
 
 /**
