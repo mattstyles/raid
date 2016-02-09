@@ -53,7 +53,7 @@ export default class State extends Dispatcher {
    * update function passed back the state tree
    */
   onUpdate() {
-    this.emit( 'update', this[ _state ] )
+    this.emit( 'update', this )
   }
 
   /**
@@ -119,7 +119,7 @@ export default class State extends Dispatcher {
       return this[ _state ].cursor().deref()
     }
 
-    if ( typeof arguments === 'string' ) {
+    if ( typeof args === 'string' ) {
       return this[ _state ].cursor( args ).deref()
     }
 
