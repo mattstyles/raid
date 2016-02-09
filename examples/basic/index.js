@@ -5,27 +5,18 @@ import ReactDOM from 'react-dom'
 import Immreact from '../../lib'
 
 var state = new Immreact.State( 'app', {
-    count: 0
+  count: 0
 })
 
 function render() {
-    ReactDOM.render( <App state={ state.cursor( 'app' ) } />, document.querySelector( '.js-main' ) )
+  ReactDOM.render( <App state={ state.cursor( 'app' ) } />, document.querySelector( '.js-main' ) )
 }
 
 state.on( 'update', render )
 
 
-class Counter extends React.Component {
-    constructor( props ) {
-        super( props )
-    }
+const Counter = props => { <h1>Count <span>{ props.count }</span></h1> }
 
-    render() {
-        return (
-            <h1>Count <span>{ this.props.count }</span></h1>
-        )
-    }
-}
 
 class Controls extends React.Component {
     constructor( props ) {
@@ -36,13 +27,13 @@ class Controls extends React.Component {
         this.props.count.update( cursor => {
             return ++cursor
         })
-    }
+    };
 
     onRemove = () => {
         this.props.count.update( cursor => {
             return --cursor
         })
-    }
+    };
 
     render() {
         return (
@@ -81,13 +72,13 @@ class StateControls extends React.Component {
         this.count = this.count.update( cursor => {
             return ++cursor
         })
-    }
+    };
 
     onRemove = () => {
         this.count = this.count.update( cursor => {
             return --cursor
         })
-    }
+    };
 
     render() {
         return (
@@ -108,11 +99,11 @@ class Persistence extends React.Component {
     onSave = () => {
         // Uses the Immreact.State instance to get the save function
         localStorage.setItem( 'state', state.save() )
-    }
+    };
 
     onLoad = () => {
         state.load( localStorage.getItem( 'state' ) )
-    }
+    };
 
     render() {
         return (
