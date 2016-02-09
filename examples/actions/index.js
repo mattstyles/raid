@@ -3,7 +3,12 @@
  * ---
  * Adds another action stream that creates and destroys stateful components.
  * Decouples business logic from presentational logic using dispatchers and
- * action functions
+ * action functions.
+ *
+ * Presentational logic accesses the state tree in a read-only fashion by
+ * using state.get
+ * Business logic needs to be able to update cursors and so accesses the
+ * data by using state.cursor 
  */
 
 import React from 'react'

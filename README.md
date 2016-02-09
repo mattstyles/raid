@@ -1,8 +1,9 @@
 # immreact
 
-> Centralised immutable data structure for use with React and Flux
+> Centralised immutable data structure designed for use with React
 
-Made possible by the great work by the [immstruct](https://github.com/omniscientjs/immstruct) team.
+_Standing on the shoulders of the [immstruct](https://github.com/omniscientjs/immstruct) and  [immutable](https://github.com/facebook/immutable-js/) teams._
+
 
 ## Getting Started
 
@@ -18,73 +19,165 @@ import Immreact from 'immreact'
 let state = new Immreact.State()
 ```
 
-## Example
+Immreact enforces top-down rendering through update events emitted by the state tree when mutations occur, but the choice of how to structure your app is still in your hands.
 
-The state object created by invoking the `Immreact.State` constructor provides a way to access a single data structure and then pass cursors to that data down through an application. Each mutation triggers an `update` event which can then be used to redraw the application from the top-down.
 
-Create the structure to hold the application data.
+## Example with stateless components
+
+Presentational and business logic can be entirely decoupled by use of the state dispatcher. The dispatcher used is the same one from [Flux](https://github.com/facebook/flux) and responses occur by registering callbacks.
+
+```js
+import Immreact from 'immreact'
+
+let state = new Immreact.State()
+
+state.register( dispatch => {
+  // Respond to dispatches and perform actions
+})
+
+const App = props => {
+  return (
+    <button
+      onClick={ event => {
+        state.dispatch({
+          type: 'dispatchedEventType',
+          payload: { ... }
+        })
+      }}
+    >Click me</button>
+  )
+}
+```
+
+This pattern scales well and allows action objects to attach callbacks to the state tree which respond to dispatches triggered from your UI.
+
+`Immreact.State` exposes two methods for accessing the state tree, `cursor` and `get`. Both methods have the same signature which accepts an array of strings describing a key path to access the tree and return either a cursor to the data or a read-only reference.
+
+Presentational components should be passed references to the data in order to render themselves whilst the application logic should access cursors to allow data updates to occur.
 
 ```js
 import Immreact from 'immreact'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// Create the state structure
+// Set up the initial state of the application
 let state = new Immreact.State( 'app', {
-    count: 0
+  count: 0
 })
-```
 
-Then set up a single render point and have it render whenever the data changes.
+state.register( dispatch => {
+  if ( dispatch.type === 'incrementCounter' ) {
+    state.cursor( 'count' ).update( cursor => ++counter )
+    return
+  }
+})
 
-```js
-function render() {
-    <App state={ state.cursor( 'app' ) } />
+const App = props => {
+  return (
+    <div>
+      <h1>Counter <span>{ props.state.get( 'count' ) }</span></h1>
+      <button
+        onClick={ event => {
+          state.dispatch({
+            type: 'incrementCounter'
+          })
+        }}
+      >Increment</button>
+    </div>
+  )
 }
 
-state.on( 'update', render )
+// Pass only references to the presentational components
+// `State.get` will also accept a string for top-level structures
+function render( appstate ) {
+  ReactDOM.render( <App state={ appstate.get( 'app' ) } />, document.body )
+}
+
+// Re-render on update events
+// Update event pass the state tree to the update callback
+// 'State.start' simply fires an update to render the initial application state
+state
+  .on( 'update', render )
+  .start()
 ```
 
-Now the `<App>` component has access to the `app` structure and can pass data down to its children via props. Any mutations to the data will trigger a render event, whereby `React` will work out the diffs and render only what has changed.
+## Example with stateful-like components
+
+Cursors can be passed directly to components to simulate internal component state. They can be passed down the render tree to children or grabbed directly from the state object by using a key path.
 
 ```js
-// Elsewhere in the application
-state.cursor([ 'app', 'count' ]).update( cursor => {
-    return ++cursor
+import Immreact from 'immreact'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+let state = new Immreact.State( 'app', {
+  count: 0
 })
+
+const App = props => {
+  return (
+    <div>
+      <h1>Counter <span>{ props.state.get( 'count' ) }</span></h1>
+      <button
+        onClick={ event => {
+          props.state.cursor( 'count' ).update( cursor => ++cursor )
+        }}
+      >Increment</button>
+    </div>
+  )
+}
+
+// Pass a cursor in to the stateful-like components
+function render( appstate ) {
+  ReactDOM.render( <App state={ appstate.cursor( 'app' ) } />, document.body )
+}
+
+state
+  .on( 'update', render )
+  .start()
 ```
 
-See the `examples` folder for a slightly more involved use-case.
 
-## Passing properties to children
+## Running the examples
 
-Whilst there are ways to circumvent passing props to children, such as using `state.create` to create a new namespace or accessing `state.cursor( 'app' )` from children, many applications can gain a performance boost by using a pure render function which relies on children only receiving data from their parents.
+Once you’ve cloned and installed all the dependencies you use can use npm to spawn a server to show some example usage of immreact
 
-## Saving and loading centralised state
-
-By using one centralised state object and cursors to subtress within that data saving and loading becomes trivial, there are even helpers to make life super-easy. Try saving the entire state of your app when an error occurs and having the error instantly reproducible, tres cool.
-
-```js
-localStorage.setItem( 'state', state.save() )
-
-state.load( localStorage.setItem( 'state' ) )
 ```
+npm start
+```
+
+The examples server will watch for changes to the library and reload so feel free to also fire the watch script and hack on the code too
+
+```
+npm run watch
+```
+
 
 ## Contributing
 
-This project is still young and subject to change and additions, components that automatically hook into the centralised state aren’t even fully implemented yet!
-
-PR’s are welcome, feel free to open an issue first to discuss.
+PR’s are welcome, feel free to open an issue first to discuss if necessary.
 
 In lieu of a formal styleguide please try to follow the style of the existing, create new tests for all new functionality and ensure all tests are passing.
 
-The source requires a babel transform to make it work everywhere you might want to use it, use
+To build the project use
 
 ```
 npm run build
 ```
 
-to prepare your code for an ES5 environment.
+There is also a watch script
+
+```
+npm run watch
+```
+
+If you’re running the examples server then that will listen for changes to the code and reload, use the following commands to fire up the examples server and the watch task
+
+```
+npm start
+npm run watch
+```
+
 
 ## Install
 
@@ -93,10 +186,6 @@ Using [npm](https://www.npmjs.com/),
 ```sh
 npm install --save immreact
 ```
-
-You’ll need to compile the module for use in the browser, my preference is usually [browserify](http://browserify.org/) but I’ve heard very good things about [webpack](https://webpack.github.io/). If you’re feeling really brave and super awesome then [systemjs](https://github.com/systemjs/systemjs) will also let you import modules.
-
-Of course, `immreact` will also work if you’re rendering on the server and can be pretty darned handy for getting your app into whatever state it need to be in.
 
 ## License
 
