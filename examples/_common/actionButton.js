@@ -21,7 +21,9 @@ const styles = {
 export default props => {
   return (
     <button
-      style={ styles }
+      style={ Object.assign( {}, styles, {
+        background: props.background || styles.background
+      }) }
       onClick={ props.onClick }
     >
       { props.children }

@@ -6,13 +6,19 @@ export const ACTIONS = {
   SUBTRACT: 'actions:subtract'
 }
 
+function getCounter( id ) {
+  let counters = state.cursor([ 'app', 'counters' ])
+  let index = counters.findIndex( counter => {
+    return counter.get( 'id' ) === id
+  })
+  let counter = counters.cursor( index )
+
+  return counter
+}
+
 state.register( dispatch => {
   if ( dispatch.type === ACTIONS.ADD ) {
-    let counters = state.cursor([ 'app', 'counters' ])
-    let index = counters.findIndex( counter => {
-      return counter.get( 'id' ) === dispatch.id
-    })
-    let counter = counters.cursor( index )
+    let counter = getCounter( dispatch.id )
 
     counter.update( cursor => {
       let count = cursor.get( 'count' )
@@ -25,11 +31,7 @@ state.register( dispatch => {
   }
 
   if ( dispatch.type === ACTIONS.SUBTRACT ) {
-    let counters = state.cursor([ 'app', 'counters' ])
-    let index = counters.findIndex( counter => {
-      return counter.get( 'id' ) === dispatch.id
-    })
-    let counter = counters.cursor( index )
+    let counter = getCounter( dispatch.id )
 
     counter.update( cursor => {
       let count = cursor.get( 'count' )

@@ -13,6 +13,7 @@ import element from '../_common/element'
 import ActionButton from '../_common/actionButton'
 import state from './state'
 import { ACTIONS } from './actions'
+import { APP_ACTIONS } from './appActions'
 
 const styles = {}
 
@@ -20,15 +21,24 @@ const styles = {}
  * Counter
  */
 styles.counter = {
-  fontSize: 34,
-  lineHeight: 2,
-  margin: '3px 0'
+  background: 'rgb( 255, 255, 255 )',
+  border: '1px solid rgb( 232, 232, 232 )',
+  borderRadius: 3,
+  padding: '1em 2em',
+  marginTop: 12,
+  marginBottom: 12
 }
+styles.counterText = {
+  fontSize: 34,
+  lineHeight: 1,
+  margin: '3px 0 12px'
+}
+
 
 const Counter = props => {
   return (
-    <div>
-      <h1 style={ styles.counter }>Count <span>{ props.count }</span></h1>
+    <div style={ styles.counter }>
+      <h1 style={ styles.counterText }>Count <span>{ props.count }</span></h1>
       <ActionButton onClick={ event => {
         state.dispatch({
           type: ACTIONS.ADD,
@@ -49,6 +59,10 @@ const Counter = props => {
 /**
  * Routes state through to children explicitly
  */
+styles.appControls = {
+  marginTop: 12,
+  marginBottom: 12
+}
 const App = props => {
   let counters = props.state.get( 'counters' )
     .map( counter => {
@@ -63,6 +77,24 @@ const App = props => {
   return (
     <div>
       { counters }
+      <div style={ styles.appControls }>
+        <ActionButton
+          background={ 'rgb( 235, 137, 49 )' }
+          onClick={ event => {
+            state.dispatch({
+              type: APP_ACTIONS.ADD
+            })
+          }}
+        >Add</ActionButton>
+        <ActionButton
+          background={ 'rgb( 235, 137, 49 )' }
+          onClick={ event => {
+            state.dispatch({
+              type: APP_ACTIONS.REMOVE
+            })
+          }}
+        >Remove</ActionButton>
+      </div>
     </div>
   )
 }
