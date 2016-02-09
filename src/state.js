@@ -1,8 +1,10 @@
 
 import immstruct from 'immstruct'
 import Immutable from 'immutable'
-import CONSTANTS from './constants'
 import EventEmitter from 'eventemitter3'
+import { Dispatcher } from 'flux'
+
+import CONSTANTS from './constants'
 
 const _state = Symbol( 'state' )
 
@@ -10,7 +12,7 @@ const _state = Symbol( 'state' )
  * @class
  * Holds data representing the current state of the application
  */
-export default class State extends EventEmitter {
+export default class State extends Dispatcher {
 
   /**
    * @constructs
@@ -20,6 +22,13 @@ export default class State extends EventEmitter {
    */
   constructor( key, value = {} ) {
     super()
+
+    // Patch over an emitter
+    EventEmitter.call( this )
+    Object.assign(
+      this,
+      EventEmitter.prototype
+    )
 
     // Private state immstruct structure
     this[ _state ] = immstruct( 'app', {
@@ -34,18 +43,32 @@ export default class State extends EventEmitter {
   }
 
   /**
+   * For now just triggered an update to call the listener
+   */
+  start() {
+    this.onUpdate()
+  }
+
+  /**
+   * update function passed back the state tree
+   */
+  onUpdate() {
+    this.emit( 'update', this[ _state ] )
+  }
+
+  /**
    * Check for a change and emit an update when one occurs
    */
   onSwap = ( o, n, k ) => {
     if ( !o ) {
-      this.emit( 'update' )
+      this.onUpdate()
       return
     }
 
     if ( o && n ) {
       // Check that a change really did happen
       if ( !Immutable.is( o.getIn( k ), n.getIn( k ) ) ) {
-        this.emit( 'update' )
+        this.onUpdate()
       }
     }
   };
@@ -96,7 +119,7 @@ export default class State extends EventEmitter {
       return this[ _state ].cursor().deref()
     }
 
-    if ( typeof args === 'string' ) {
+    if ( typeof arguments === 'string' ) {
       return this[ _state ].cursor( args ).deref()
     }
 

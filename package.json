@@ -47,6 +47,7 @@
     "react": "^0.14.7"
   },
   "dependencies": {
-    "eventemitter3": "^1.1.1"
+    "eventemitter3": "^1.1.1",
+    "flux": "^2.1.1"
   }
 }

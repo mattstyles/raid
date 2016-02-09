@@ -12,7 +12,7 @@
     "no-multi-spaces": 1,
     "no-shadow": 1,
     "default-case": 2,
-    "indent": [ 2, 2 ],
+    "indent": [ 2, 2, { "SwitchCase": 1 }],
     "camelcase": 2,
     "comma-spacing": [ 2, {
       "before": false,

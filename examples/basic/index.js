@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom'
 
 import Immreact from '../../lib'
 
-import ActionButton from '../common/actionButton'
+import ActionButton from '../_common/actionButton'
 import initialState from './initialState'
 
 var el = document.createElement( 'div' )
