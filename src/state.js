@@ -48,7 +48,7 @@ export default class State extends EventEmitter {
                 this.emit( 'update' )
             }
         }
-    }
+    };
 
     /**
      * Creates a new root level immutable and returns a ref to it

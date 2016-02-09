@@ -10,11 +10,11 @@ var _id = Symbol( 'id' )
 export default class Component extends React.Component {
     static propTypes = {
         cursor: React.PropTypes.object
-    }
+    };
 
     static defaultProps = {
         cursor: null
-    }
+    };
 
     constructor( props ) {
         super( props )
