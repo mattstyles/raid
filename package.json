@@ -1,6 +1,6 @@
 {
   "name": "raid",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Use react classes with an immstruct structure",
   "main": "lib/",
   "scripts": {
@@ -28,6 +28,11 @@
     "babel"
   ],
   "author": "Matt Styles",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattstyles/raid"
+  },
+  "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.5.1",
