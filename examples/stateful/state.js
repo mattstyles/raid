@@ -1,8 +1,6 @@
 
 import Immreact from '../../lib'
 
-let state = new Immreact.State({
-  count: 0
-})
+let state = new Immreact.State()
 
 export default state

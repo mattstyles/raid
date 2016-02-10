@@ -42,6 +42,7 @@ export default class State extends Dispatcher {
 
     this.create( key, initialState )
 
+    // Use animation frame so that quick mutations to the tree are batched
     // this[ _state ].on( 'swap', this.onSwap )
     this[ _state ].on( 'next-animation-frame', this.onSwap )
   }
