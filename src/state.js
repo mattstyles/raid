@@ -17,11 +17,16 @@ export default class State extends Dispatcher {
   /**
    * @constructs
    * A default namespace can be passed in here
-   * @param key <String>
-   * @param value <Object> _optional_ defaults to {}
+   * @param key <String> if key is not a string it will be interpreted as initial state
+   * @param initialState <Object> _optional_ defaults to {}
    */
-  constructor( key, value = {} ) {
+  constructor( key, initialState = {} ) {
     super()
+
+    if ( typeof key !== 'string' ) {
+      initialState = key
+      key = CONSTANTS.ROOT
+    }
 
     // Patch over an emitter
     EventEmitter.call( this )
@@ -31,13 +36,11 @@ export default class State extends Dispatcher {
     )
 
     // Private state immstruct structure
-    this[ _state ] = immstruct( 'app', {
+    this[ _state ] = immstruct( key, {
       [ CONSTANTS.COMPONENTS ]: {}
     })
 
-    if ( key && value ) {
-      this.create( key, value )
-    }
+    this.create( key, initialState )
 
     // this[ _state ].on( 'swap', this.onSwap )
     this[ _state ].on( 'next-animation-frame', this.onSwap )
@@ -81,7 +84,7 @@ export default class State extends Dispatcher {
    */
   create( key, value = {} ) {
     if ( !key ) {
-      throw new Error( 'No key specified when creating new appState root' )
+      throw new Error( 'No key specified when creating new state root' )
     }
 
     // @TODO should check if key already exists
