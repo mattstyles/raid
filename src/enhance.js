@@ -1,4 +1,5 @@
 
+import defined from 'defined'
 import React, { Component } from 'react'
 import CONSTANTS from './constants'
 
@@ -24,7 +25,11 @@ const Enhance = function( state, initialState = {} ) {
         let root = this.props.root || state.reference( CONSTANTS.COMPONENTS )
 
         // Create a random string for this component and append to state tree
-        this.id = ( performance.now() * Math.random() ).toString( 36 ).match(/\.(.*)$/ )[1]
+        this.id = defined(
+          props.id,
+          componentState.id,
+          ( performance.now() * Math.random() ).toString( 36 ).match(/\.(.*)$/ )[1]
+        )
         root.cursor().update( cursor => {
           return cursor.merge({
             [ this.id ]: componentState

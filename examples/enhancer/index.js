@@ -12,7 +12,7 @@ import ActionButton from '../_common/actionButton'
 import ColorBlock from './colorblock'
 import state from './state'
 
-
+window.state = state
 
 const styles = {}
 
@@ -100,15 +100,15 @@ const App = props => {
     <div style={ styles.app.container }>
       <div style={ styles.app.left }>
         <p>This component attaches to the reserved components root</p>
-        <Counter />
+        <Counter id={ 'counterKey' } />
         <hr></hr>
         <p>This component has been passed a root to attach to</p>
-        <Counter root={ props.state } />
+        <Counter root={ props.state } id={ 'counterKey2' } />
       </div>
       <div style={ styles.app.right }>
         <RenderState />
       </div>
-      <ColorBlock />
+      <ColorBlock id={ 'colorblock' } />
     </div>
   )
 }
