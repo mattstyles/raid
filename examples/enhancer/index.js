@@ -5,13 +5,12 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Immutable from 'immutable'
-import { Enhance, State } from '../../lib'
+import { Enhance } from '../../lib'
 
 import element from '../_common/element'
 import ActionButton from '../_common/actionButton'
-
-const state = new State()
-window.state = state
+import ColorBlock from './colorblock'
+import state from './state'
 
 
 
@@ -109,6 +108,7 @@ const App = props => {
       <div style={ styles.app.right }>
         <RenderState />
       </div>
+      <ColorBlock />
     </div>
   )
 }
