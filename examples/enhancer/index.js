@@ -95,10 +95,15 @@ styles.app = {
     padding: '1em'
   }
 }
+
 const App = props => {
   return (
     <div style={ styles.app.container }>
       <div style={ styles.app.left }>
+        <p>This component has been passed a root to attach to</p>
+        <MyComponent root={ props.state } />
+        <hr></hr>
+        <p>This component attaches to the reserved components root</p>
         <MyComponent />
       </div>
       <div style={ styles.app.right }>

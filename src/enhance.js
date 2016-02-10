@@ -21,7 +21,7 @@ var Enhance = function( state, initialState = {} ) {
         // @TODO handle stateless case
         // @TODO check that the state container passed in is a reference cursor
 
-        let root = state.reference( CONSTANTS.COMPONENTS )
+        let root = this.props.root || state.reference( CONSTANTS.COMPONENTS )
 
         // Create a random string for this component and append to state tree
         this.id = Math.random().toString(36).substring(2)
@@ -37,7 +37,10 @@ var Enhance = function( state, initialState = {} ) {
 
       componentWillUnmount() {
         this.state.destroy()
-        state.reference[ CONSTANTS.COMPONENT ].update( cursor => {
+
+        let root = this.props.root || state.reference( CONSTANTS.COMPONENTS )
+
+        root.cursor().update( cursor => {
           return cursor.delete( this.id )
         })
       }
