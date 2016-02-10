@@ -131,6 +131,11 @@ export default class State extends Dispatcher {
     return this[ _state ].cursor([ ...args ]).deref()
   }
 
+  /**
+   * Returns a reference to a value. Can be used to access fresh cursors or as
+   * its own root.
+   * @param args <Array>|<String> specify structure keyPath to grab
+   */
   reference( args ) {
     if ( !args ) {
       return this[ _state ].reference()

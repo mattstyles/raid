@@ -98,6 +98,7 @@ class Counter extends Component {
   }
 
   componentWillUnmount() {
+    this.state.destroy()
     this.props.root.cursor().update( cursor => {
       return cursor.delete( this.id )
     })
