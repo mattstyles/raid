@@ -1,35 +1,36 @@
-# immreact
+# Raid
 
 > Centralised immutable data structure designed for use with React
 
-_Standing on the shoulders of the [immstruct](https://github.com/omniscientjs/immstruct) and  [immutable](https://github.com/facebook/immutable-js/) teams._
+_Standing on the shoulders of the [immstruct](https://github.com/omniscientjs/immstruct) and  [immutable](https://github.com/facebook/immutable-js/) projects._
 
 
 ## Getting Started
 
 ```sh
-npm i -S immreact
+npm i -S raid
 ```
 
 To use the library, include it and then create an instance of a state structure
 
 ```js
-import Immreact from 'immreact'
+import Raid from 'raid'
 
-let state = new Immreact.State()
+let state = new Raid.State()
 ```
 
-Immreact enforces top-down rendering through update events emitted by the state tree when mutations occur, but the choice of how to structure your app is still in your hands.
+Raid enforces top-down rendering through update events emitted by the state tree when mutations occur, but the choice of how to structure your app is still in your hands.
 
+Decoupling logic from stateless components is a supported pattern, but if wanted some logic to be included with your components then that way of structuring becomes possible using reference cursors to extract only those parts of the state tree that are required by a component.
 
 ## Example with stateless components
 
 Presentational and business logic can be entirely decoupled by use of the state dispatcher. The dispatcher used is the same one from [Flux](https://github.com/facebook/flux) and responses occur by registering callbacks.
 
 ```js
-import Immreact from 'immreact'
+import { State } from 'raid'
 
-let state = new Immreact.State()
+let state = new State()
 
 state.register( dispatch => {
   // Respond to dispatches and perform actions
@@ -51,17 +52,17 @@ const App = props => {
 
 This pattern scales well and allows action objects to attach callbacks to the state tree which respond to dispatches triggered from your UI.
 
-`Immreact.State` exposes two methods for accessing the state tree, `cursor` and `get`. Both methods have the same signature which accepts an array of strings describing a key path to access the tree and return either a cursor to the data or a read-only instance of an unwrapped cursor. This equates to either a cursor which can be updated or the data itself.
+`Raid.State` exposes two methods for accessing the state tree, `cursor` and `get`. Both methods have the same signature which accepts an array of strings describing a key path to access the tree and return either a cursor to the data or a read-only instance of an unwrapped cursor. This equates to either a cursor which can be updated or the data itself.
 
 Presentational components should be passed dereferenced data in order to render themselves whilst the application logic should access cursors to allow data updates to occur.
 
 ```js
-import Immreact from 'immreact'
+import { State } from 'raid'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 // Set up the initial state of the application
-let state = new Immreact.State( 'app', {
+let state = new State( 'app', {
   count: 0
 })
 
@@ -103,14 +104,14 @@ state
 
 ## Example with stateful-like components
 
-Cursors or references can be passed directly to components to simulate internal component state. Passing references means that child component must grab their own cursors but cursors from references will be fresh. They can be passed down the render tree to children or grabbed directly from the state object by using a key path.
+Cursors or references can be passed directly to components to simulate internal component state. Passing references means that child components must grab their own cursors but cursors from references will be fresh. They can be passed down the render tree to children or grabbed directly from the state object by using a key path.
 
 ```js
-import Immreact from 'immreact'
+import { State } from 'raid'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-let state = new Immreact.State( 'app', {
+let state = new State( 'app', {
   count: 0
 })
 
@@ -140,7 +141,7 @@ state
 
 ## Running the examples
 
-Once you’ve cloned and installed all the dependencies you use can use npm to spawn a server to show some example usage of immreact
+Once you’ve cloned and installed all the dependencies you use can use npm to spawn a server to show some example usage of raid
 
 ```
 npm start -- -o
@@ -184,7 +185,7 @@ npm run watch
 Using [npm](https://www.npmjs.com/),
 
 ```sh
-npm install --save immreact
+npm install --save raid
 ```
 
 ## License
