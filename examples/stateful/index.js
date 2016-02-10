@@ -6,6 +6,11 @@
  * cursors when necessary, this keeps everything synced correctly. They then
  * create their own state containers and keep a reference to it, and are able
  * to delete themselves when they unmount.
+ *
+ * The App component here simply keeps track of how many counters are currently
+ * active. In the real world an example such as this would probably just pass
+ * props to each counter, but, more complex examples might then add internal
+ * state to components.
  */
 
 import React, { Component } from 'react'
@@ -209,7 +214,6 @@ class App extends Component {
  * Main app render function
  */
 function render() {
-  console.log( 'render' )
   ReactDOM.render( <App state={ state.reference( 'root' ) } />, element )
 }
 

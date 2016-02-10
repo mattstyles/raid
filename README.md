@@ -51,9 +51,9 @@ const App = props => {
 
 This pattern scales well and allows action objects to attach callbacks to the state tree which respond to dispatches triggered from your UI.
 
-`Immreact.State` exposes two methods for accessing the state tree, `cursor` and `get`. Both methods have the same signature which accepts an array of strings describing a key path to access the tree and return either a cursor to the data or a read-only reference.
+`Immreact.State` exposes two methods for accessing the state tree, `cursor` and `get`. Both methods have the same signature which accepts an array of strings describing a key path to access the tree and return either a cursor to the data or a read-only instance of an unwrapped cursor. This equates to either a cursor which can be updated or the data itself.
 
-Presentational components should be passed references to the data in order to render themselves whilst the application logic should access cursors to allow data updates to occur.
+Presentational components should be passed dereferenced data in order to render themselves whilst the application logic should access cursors to allow data updates to occur.
 
 ```js
 import Immreact from 'immreact'
@@ -87,7 +87,7 @@ const App = props => {
   )
 }
 
-// Pass only references to the presentational components
+// Pass only dereferenced data to the presentational components
 // `State.get` will also accept a string for top-level structures
 function render( appstate ) {
   ReactDOM.render( <App state={ appstate.get( 'app' ) } />, document.body )
@@ -103,7 +103,7 @@ state
 
 ## Example with stateful-like components
 
-Cursors can be passed directly to components to simulate internal component state. They can be passed down the render tree to children or grabbed directly from the state object by using a key path.
+Cursors or references can be passed directly to components to simulate internal component state. Passing references means that child component must grab their own cursors but cursors from references will be fresh. They can be passed down the render tree to children or grabbed directly from the state object by using a key path.
 
 ```js
 import Immreact from 'immreact'
@@ -117,7 +117,7 @@ let state = new Immreact.State( 'app', {
 const App = props => {
   return (
     <div>
-      <h1>Counter <span>{ props.state.get( 'count' ) }</span></h1>
+      <h1>Counter <span>{ props.state.cursor( 'count' ).deref() }</span></h1>
       <button
         onClick={ event => {
           props.state.cursor( 'count' ).update( cursor => ++cursor )
@@ -129,7 +129,7 @@ const App = props => {
 
 // Pass a cursor in to the stateful-like components
 function render( appstate ) {
-  ReactDOM.render( <App state={ appstate.cursor( 'app' ) } />, document.body )
+  ReactDOM.render( <App state={ appstate.reference( 'app' ) } />, document.body )
 }
 
 state
@@ -157,7 +157,7 @@ npm run watch
 
 PR’s are welcome, feel free to open an issue first to discuss if necessary.
 
-In lieu of a formal styleguide please try to follow the style of the existing, create new tests for all new functionality and ensure all tests are passing.
+In lieu of a formal styleguide please try to follow the style of the existing codebase, create new tests for all new functionality and ensure all tests are passing.
 
 To build the project use
 
