@@ -3,6 +3,7 @@
 var path = require( 'path' )
 var fs = require( 'fs' )
 
+var argv = require( 'minimist' )( process.argv.slice( 2 ) )
 var inquirer = require( 'inquirer' )
 var budo = require( 'budo' )
 var babelify = require( 'babelify' )
@@ -62,7 +63,7 @@ function spawnServer( example ) {
       path.join( __dirname ),
       path.join( __dirname, '../lib' )
     ],
-    open: true,
+    open: argv.o || argv.open || false,
     verbose: true,
     stream: process.stdout
   })

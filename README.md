@@ -143,7 +143,7 @@ state
 Once you’ve cloned and installed all the dependencies you use can use npm to spawn a server to show some example usage of immreact
 
 ```
-npm start
+npm start -- -o
 ```
 
 The examples server will watch for changes to the library and reload so feel free to also fire the watch script and hack on the code too
