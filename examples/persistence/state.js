@@ -1,6 +1,6 @@
 
-import Immreact from '../../lib'
+import { State } from '../../lib'
 
-let state = new Immreact.State()
+let state = new State()
 
 export default state

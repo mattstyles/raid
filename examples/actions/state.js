@@ -1,7 +1,7 @@
 
-import Immreact from '../../lib'
+import Raid from '../../lib'
 
-const state = new Immreact.State( 'app', {
+const state = new Raid.State( 'app', {
   counters: []
 })
 

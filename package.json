@@ -1,5 +1,5 @@
 {
-  "name": "immreact",
+  "name": "raid",
   "version": "0.2.0",
   "description": "Use react classes with an immstruct structure",
   "main": "lib/",

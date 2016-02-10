@@ -20,8 +20,6 @@ import element from '../_common/element'
 import ActionButton from '../_common/actionButton'
 import state from './state'
 
-window.state = state
-
 const styles = {}
 
 var id = 0

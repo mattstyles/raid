@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react'
-import Immutable from 'immutable'
+import { Record } from 'immutable'
 import { Enhance } from '../../lib'
 
 import ActionButton from '../_common/actionButton'
@@ -12,7 +12,7 @@ import state from './state'
 import { generateName, generateImage } from './cache'
 
 
-const UserState = new Immutable.Record({
+const UserState = new Record({
   name: generateName(),
   url: generateImage()
 })

@@ -1,7 +1,7 @@
 
-import Immreact from '../../lib'
+import Raid from '../../lib'
 
-let state = new Immreact.State({
+let state = new Raid.State({
   counters: 0
 })
 

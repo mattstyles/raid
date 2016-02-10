@@ -8,16 +8,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Immreact from '../../lib'
+import Raid from '../../lib'
 
 import element from '../_common/element'
 import ActionButton from '../_common/actionButton'
-import initialState from './initialState'
-
 
 
 const styles = {}
-
 
 
 /**
@@ -72,7 +69,9 @@ const App = props => {
 /**
  * State object
  */
-const state = new Immreact.State( 'app', initialState )
+const state = new Raid.State( 'app', {
+  count: 0
+})
 
 
 /**

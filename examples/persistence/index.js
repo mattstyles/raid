@@ -4,7 +4,6 @@
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import Immutable from 'immutable'
 import { Enhance } from '../../lib'
 
 import element from '../_common/element'

@@ -2,10 +2,10 @@
 import State from './state'
 import Enhance from './enhance'
 
-const Immreact = {
+const Raid = {
   State: State,
   Enhance: Enhance
 }
 
-export default Immreact
-module.exports = Immreact
+export default Raid
+module.exports = Raid
