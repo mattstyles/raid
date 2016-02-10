@@ -37,6 +37,9 @@ const RenderState = props => {
 
 /**
  * Enhanced class
+ * ---
+ * Initial state can either be wired into the enhancer, applied as a parameter to
+ * the enhancer function or as a static field on the component class
  */
 // Create a record to describe the class initial state
 const Record = new Immutable.Record({
@@ -48,10 +51,26 @@ const Enhancer = Enhance( state, new Record() )
 
 // Now enhance the component
 const MyComponent = Enhancer( class extends Component {
+  // static State = new Record();
+
+  constructor( props ) {
+    super( props )
+  }
+
+  onAdd = event => {
+    this.props.state.cursor( 'count' ).update( cursor => ++cursor )
+  };
+
+  onSubtract = event => {
+    this.props.state.cursor( 'count' ).update( cursor => --cursor )
+  };
+
   render() {
     return (
       <div>
         <h1>Counter { this.props.state.get( 'count' ) }</h1>
+        <ActionButton onClick={ this.onAdd }>+</ActionButton>
+        <ActionButton onClick={ this.onSubtract }>-</ActionButton>
       </div>
     )
   }
@@ -80,7 +99,7 @@ const App = props => {
   return (
     <div style={ styles.app.container }>
       <div style={ styles.app.left }>
-        <MyComponent state={ props.state } />
+        <MyComponent />
       </div>
       <div style={ styles.app.right }>
         <RenderState />

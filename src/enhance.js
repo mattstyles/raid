@@ -14,6 +14,10 @@ var Enhance = function( state, initialState = {} ) {
       constructor( props ) {
         super( props )
 
+        if ( Composed.State ) {
+          componentState = Composed.State
+        }
+
         // @TODO handle stateless case
         // @TODO check that the state container passed in is a reference cursor
 
