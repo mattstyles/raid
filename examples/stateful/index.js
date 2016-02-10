@@ -200,7 +200,7 @@ class App extends Component {
           </div>
           { counters }
         </div>
-        <div style={ App.style.right } onClick={ this.addCounter }>
+        <div style={ App.style.right }>
           <pre style={ App.style.code }>
             { JSON.stringify( state.get().toJSON(), null, '  ' ) }
           </pre>

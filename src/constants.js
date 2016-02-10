@@ -1,5 +1,5 @@
 
 export default {
-  COMPONENTS: 'components',
+  COMPONENTS: '_components',
   ROOT: 'root'
 }
