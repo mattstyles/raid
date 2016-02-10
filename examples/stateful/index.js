@@ -1,8 +1,11 @@
 /**
- * Basic counter example
+ * Stateful components
  * ---
- * The initial state is populated and its contents are then manipulated directly
- * by action functions
+ * The Counter components create their own internal state when they are created.
+ * They must be passed a reference to their root from which they can grab fresh
+ * cursors when necessary, this keeps everything synced correctly. They then
+ * create their own state containers and keep a reference to it, and are able
+ * to delete themselves when they unmount.
  */
 
 import React, { Component } from 'react'
@@ -21,19 +24,14 @@ var id = 0
 /**
  * Counter
  */
-styles.counter = {
-  fontSize: 34,
-  fontWeight: 300,
-  lineHeight: 2,
-  margin: '3px 0'
-}
 
 class Counter extends Component {
   static style = {
     counter: {
       border: '1px solid rgb( 232, 232, 232)',
       borderRadius: 6,
-      overflow: 'hidden'
+      overflow: 'hidden',
+      marginBottom: 12
     },
     header: {
       background: 'rgb( 235, 137, 49 )',
@@ -81,26 +79,23 @@ class Counter extends Component {
     // ids should be unique, for brevity just increment a global to ensure uniqueness
     this.id = id++ + ''
 
-    // Create a new root for this component and reference to it
-    let next = this.props.root.update( cursor => {
+    // Create a new root for this component
+    this.props.root.cursor().update( cursor => {
       return cursor.merge({
         [ this.id ]: {
           count: 0
         }
       })
     })
-    this.state = next.cursor( this.id )
 
+    // Grab a reference to the new data
+    this.state = this.props.root.reference( this.id )
   }
 
   componentWillUnmount() {
-    this.props.root.update( cursor => {
+    this.props.root.cursor().update( cursor => {
       return cursor.delete( this.id )
     })
-  }
-
-  componentWillReceiveProps( next ) {
-    this.state = next.root.cursor( this.id )
   }
 
   onAdd = event => {
@@ -112,6 +107,9 @@ class Counter extends Component {
   };
 
   render() {
+    // Grab a fresh cursor from the reference
+    let state = this.state.cursor()
+
     return (
       <div style={ Counter.style.counter }>
         <header style={ Counter.style.header }>
@@ -120,7 +118,7 @@ class Counter extends Component {
 
         <div style={ Counter.style.container }>
           <div style={ Counter.style.left }>
-            <span style={ Counter.style.count }>{ this.state.get( 'count' ) }</span>
+            <span style={ Counter.style.count }>{ state.get( 'count' ) }</span>
             <ActionButton onClick={ this.onAdd }>+</ActionButton>
             <ActionButton onClick={ this.onSubtract }>-</ActionButton>
           </div>
@@ -128,7 +126,7 @@ class Counter extends Component {
           <div style={ Counter.style.right }>
             <p style={ Counter.style.codeHeader }><code>Counter</code> component state</p>
             <pre style={ Counter.style.code }>
-              { JSON.stringify( this.state.toJSON(), null, '  ' ) }
+              { JSON.stringify( state.toJSON(), null, '  ' ) }
             </pre>
           </div>
         </div>
@@ -137,41 +135,67 @@ class Counter extends Component {
   }
 }
 
-styles.app = {
-  container: {
-    display: 'flex'
-  },
-  left: {
-    flex: .5,
-    padding: '1em'
-  },
-  right: {
-    flex: .5,
-    minHeight: '100vh',
-    borderLeft: '1px solid rgb( 232, 232, 232)',
-    background: 'rgb( 40, 40, 40 )',
-    padding: '1em'
-  },
-  code: {
-    fontFamily: 'Source Code Pro, consolas, monospace',
-    fontSize: 15,
-    color: 'rgb( 244, 246, 252 )',
-    margin: 0
-  }
-}
 class App extends Component {
+  static style = {
+    container: {
+      display: 'flex'
+    },
+    left: {
+      flex: .5,
+      padding: '1em'
+    },
+    right: {
+      flex: .5,
+      minHeight: '100vh',
+      borderLeft: '1px solid rgb( 232, 232, 232)',
+      background: 'rgb( 40, 40, 40 )',
+      padding: '1em'
+    },
+    code: {
+      fontFamily: 'Source Code Pro, consolas, monospace',
+      fontSize: 15,
+      color: 'rgb( 244, 246, 252 )',
+      margin: 0
+    },
+    controls: {
+      marginBottom: '1em'
+    }
+  };
+
   constructor( props ) {
     super( props )
   }
 
+  addCounter = event => {
+    this.props.state.cursor( 'counters' ).update( cursor => ++cursor )
+  };
+
+  removeCounter = event => {
+    this.props.state.cursor( 'counters' ).update( cursor => --cursor )
+  };
+
+  addMultiple = event => {
+    this.props.state.cursor( 'counters' ).update( cursor => cursor += 3 )
+  };
+
   render() {
+    let counters = []
+    for ( let i = 0; i < this.props.state.cursor( 'counters' ).deref(); i++ ) {
+      counters.push( <Counter key={ 'counter' + i } root={ this.props.state } /> )
+    }
+
     return (
-      <div style={ styles.app.container }>
-        <div style={ styles.app.left }>
-          <Counter root={ this.props.state } />
+      <div style={ App.style.container }>
+        <div style={ App.style.left }>
+          <div style={ App.style.controls }>
+            <ActionButton onClick={ this.addCounter }>Add</ActionButton>
+            <ActionButton onClick={ this.addMultiple }>Add Multiple</ActionButton>
+            <ActionButton onClick={ this.removeCounter }>Remove</ActionButton>
+          </div>
+          { counters }
         </div>
-        <div style={ styles.app.right }>
-          <pre style={ styles.app.code }>
+        <div style={ App.style.right } onClick={ this.addCounter }>
+          <pre style={ App.style.code }>
             { JSON.stringify( state.get().toJSON(), null, '  ' ) }
           </pre>
         </div>
@@ -186,7 +210,7 @@ class App extends Component {
  */
 function render() {
   console.log( 'render' )
-  ReactDOM.render( <App state={ state.cursor( 'root' ) } />, element )
+  ReactDOM.render( <App state={ state.reference( 'root' ) } />, element )
 }
 
 /**

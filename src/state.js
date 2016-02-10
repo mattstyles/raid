@@ -131,6 +131,19 @@ export default class State extends Dispatcher {
     return this[ _state ].cursor([ ...args ]).deref()
   }
 
+  reference( args ) {
+    if ( !args ) {
+      return this[ _state ].reference()
+    }
+
+    if ( typeof args === 'string' ) {
+      return this[ _state ].reference( args )
+    }
+
+    return this[ _state ].reference([ ...args ])
+  }
+
+
   /**
    * Returns a JSON string to save
    */
