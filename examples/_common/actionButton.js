@@ -23,7 +23,7 @@ export default props => {
     <button
       style={ Object.assign( {}, styles, {
         background: props.background || styles.background
-      }) }
+      }, props.styles ) }
       onClick={ props.onClick }
     >
       { props.children }

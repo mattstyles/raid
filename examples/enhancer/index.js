@@ -12,8 +12,6 @@ import ActionButton from '../_common/actionButton'
 import ColorBlock from './colorblock'
 import state from './state'
 
-window.state = state
-
 const styles = {}
 
 /**
