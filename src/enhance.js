@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import CONSTANTS from './constants'
 
 
-var Enhance = function( state, initialState = {} ) {
+const Enhance = function( state, initialState = {} ) {
   if ( !state ) {
     throw new Error( 'no state object passed to the enhancer' )
   }
@@ -24,7 +24,7 @@ var Enhance = function( state, initialState = {} ) {
         let root = this.props.root || state.reference( CONSTANTS.COMPONENTS )
 
         // Create a random string for this component and append to state tree
-        this.id = Math.random().toString(36).substring(2)
+        this.id = ( performance.now() * Math.random() ).toString( 36 ).match(/\.(.*)$/ )[1]
         root.cursor().update( cursor => {
           return cursor.merge({
             [ this.id ]: componentState

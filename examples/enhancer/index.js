@@ -50,7 +50,7 @@ const Record = new Immutable.Record({
 const Enhancer = Enhance( state, new Record() )
 
 // Now enhance the component
-const MyComponent = Enhancer( class extends Component {
+const Counter = Enhancer( class extends Component {
   // static State = new Record();
 
   constructor( props ) {
@@ -100,11 +100,11 @@ const App = props => {
   return (
     <div style={ styles.app.container }>
       <div style={ styles.app.left }>
-        <p>This component has been passed a root to attach to</p>
-        <MyComponent root={ props.state } />
-        <hr></hr>
         <p>This component attaches to the reserved components root</p>
-        <MyComponent />
+        <Counter />
+        <hr></hr>
+        <p>This component has been passed a root to attach to</p>
+        <Counter root={ props.state } />
       </div>
       <div style={ styles.app.right }>
         <RenderState />
