@@ -67,7 +67,7 @@ let state = new Immreact.State( 'app', {
 
 state.register( dispatch => {
   if ( dispatch.type === 'incrementCounter' ) {
-    state.cursor( 'count' ).update( cursor => ++counter )
+    state.cursor([ 'app', 'count' ]).update( cursor => ++cursor )
     return
   }
 })

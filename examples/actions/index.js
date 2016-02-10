@@ -8,7 +8,7 @@
  * Presentational logic accesses the state tree in a read-only fashion by
  * using state.get
  * Business logic needs to be able to update cursors and so accesses the
- * data by using state.cursor 
+ * data by using state.cursor
  */
 
 import React from 'react'
