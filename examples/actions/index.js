@@ -35,6 +35,7 @@ styles.counter = {
 }
 styles.counterText = {
   fontSize: 34,
+  fontWeight: 300,
   lineHeight: 1,
   margin: '3px 0 12px'
 }
@@ -64,10 +65,32 @@ const Counter = props => {
 /**
  * Routes state through to children explicitly
  */
-styles.appControls = {
-  marginTop: 12,
-  marginBottom: 12
+styles.app = {
+  container: {
+    display: 'flex'
+  },
+  left: {
+    flex: .5,
+    padding: '1em'
+  },
+  right: {
+    flex: .5,
+    minHeight: '100vh',
+    borderLeft: '1px solid rgb( 232, 232, 232)',
+    background: 'rgb( 40, 40, 40 )',
+    padding: '1em'
+  },
+  controls: {
+    marginBottom: '1em'
+  },
+  code: {
+    fontFamily: 'Source Code Pro, consolas, monospace',
+    fontSize: 15,
+    color: 'rgb( 244, 246, 252 )',
+    margin: 0
+  }
 }
+
 const App = props => {
   let counters = props.state.get( 'counters' )
     .map( counter => {
@@ -80,25 +103,32 @@ const App = props => {
     })
 
   return (
-    <div>
-      { counters }
-      <div style={ styles.appControls }>
-        <ActionButton
-          background={ 'rgb( 235, 137, 49 )' }
-          onClick={ event => {
-            state.dispatch({
-              type: APP_ACTIONS.ADD
-            })
-          }}
-        >Add</ActionButton>
-        <ActionButton
-          background={ 'rgb( 235, 137, 49 )' }
-          onClick={ event => {
-            state.dispatch({
-              type: APP_ACTIONS.REMOVE
-            })
-          }}
-        >Remove</ActionButton>
+    <div style={ styles.app.container} >
+      <div style={ styles.app.left }>
+        <div style={ styles.app.controls }>
+          <ActionButton
+            background={ 'rgb( 235, 137, 49 )' }
+            onClick={ event => {
+              state.dispatch({
+                type: APP_ACTIONS.ADD
+              })
+            }}
+          >Add</ActionButton>
+          <ActionButton
+            background={ 'rgb( 235, 137, 49 )' }
+            onClick={ event => {
+              state.dispatch({
+                type: APP_ACTIONS.REMOVE
+              })
+            }}
+          >Remove</ActionButton>
+        </div>
+        { counters }
+      </div>
+      <div style={ styles.app.right }>
+        <pre style={ styles.app.code }>
+          { JSON.stringify( state.get().toJSON(), null, '  ' ) }
+        </pre>
       </div>
     </div>
   )

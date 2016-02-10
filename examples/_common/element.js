@@ -5,7 +5,6 @@ Object.assign( el.style, {
   webkitFontSmoothing: 'antialiased',
   color: 'rgb( 64, 64, 64 )',
   background: 'rgb( 244, 244, 244 )',
-  padding: '24px',
   margin: 0,
   minHeight: '100vh'
 })

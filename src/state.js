@@ -39,7 +39,8 @@ export default class State extends Dispatcher {
       this.create( key, value )
     }
 
-    this[ _state ].on( 'swap', this.onSwap )
+    // this[ _state ].on( 'swap', this.onSwap )
+    this[ _state ].on( 'next-animation-frame', this.onSwap )
   }
 
   /**
