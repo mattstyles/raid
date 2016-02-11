@@ -70,6 +70,11 @@ export default class State extends Dispatcher {
       return
     }
 
+    // New components will register themselves into components so make that silent
+    if ( k.length === 1 && k[ 0 ] === CONSTANTS.COMPONENTS ) {
+      return
+    }
+
     if ( o && n ) {
       // Check that a change really did happen
       if ( !Immutable.is( o.getIn( k ), n.getIn( k ) ) ) {
