@@ -59,6 +59,7 @@ function exampleSelect( examples ) {
 function spawnServer( example ) {
   budo( path.resolve( __dirname, example ), {
     live: true,
+    dir: path.join( __dirname, example ),
     watchGlob: [
       path.join( __dirname ),
       path.join( __dirname, '../lib' )

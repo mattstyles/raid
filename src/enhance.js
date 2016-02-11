@@ -40,6 +40,11 @@ const Enhance = function( state, initialState = {} ) {
         this.state = root.reference( this.id )
       }
 
+      // @TODO hasslefree perf gains for components
+      // shouldComponentUpdate() {
+      //
+      // }
+
       componentWillUnmount() {
         this.state.destroy()
 
