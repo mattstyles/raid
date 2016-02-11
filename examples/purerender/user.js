@@ -1,5 +1,8 @@
 
 import React, { Component } from 'react'
+import { Record } from 'immutable'
+import { Enhance } from '../../lib'
+import state from './state'
 
 const styles = {
   container: {
@@ -10,7 +13,8 @@ const styles = {
     borderRadius: 3,
     border: '1px solid rgb( 232, 232, 232 )',
     padding: 6,
-    margin: 3
+    margin: 3,
+    cursor: 'pointer'
   },
   image: {
     borderRadius: 200,
@@ -27,21 +31,48 @@ const styles = {
   }
 }
 
-export default class User extends Component {
+// This is internal state, only the component knows about it
+const UserModel = new Record({
+  selected: false
+})
+
+const Enhancer = Enhance( state, new UserModel() )
+
+export default Enhancer( class User extends Component {
   constructor( props ) {
     super( props )
   }
 
-  shouldComponentUpdate( next ) {
-    return !this.props.data.equals( next.data )
+  componentDidMount() {
+    console.log( 'mounted' )
   }
 
+  shouldComponentUpdate( next ) {
+    // var test = !this.props.data.equals( next.data ) || !this.props.state.equals( next.state )
+    // console.log( test )
+    // return test
+    // return !this.props.data.equals( next.data )
+    console.log( 'loc shouldUpdate' )
+    return true
+  }
+
+  onClick = event => {
+    this.props.state.cursor( 'selected' ).update( cursor => !cursor )
+  };
+
   render() {
+    const background = this.props.state.get( 'selected' )
+      ? 'rgb( 178, 220, 239 )'
+      : 'rgb( 255, 255, 255 )'
+
     return (
-      <div style={ styles.container }>
+      <div
+        style={ Object.assign( {}, styles.container, { background: background } ) }
+        onClick={ this.onClick }
+      >
         <img style={ styles.image } src={ this.props.data.get( 'image' ) } />
         <h3 style={ styles.name }>{ this.props.data.get( 'name' ) }</h3>
       </div>
     )
   }
-}
+})

@@ -38,12 +38,27 @@ const Enhance = function( state, initialState = {} ) {
 
         // Grab a reference to the new data
         this.state = root.reference( this.id )
+        this.currentState = this.state.cursor()
+      }
+
+      componentDidMount() {
+        console.log( 'enhancer mounted' )
       }
 
       // @TODO hasslefree perf gains for components
-      // shouldComponentUpdate() {
-      //
-      // }
+      shouldComponentUpdate( next ) {
+        //Composed.shouldComponentUpdate()
+        let nextState = this.state.cursor()
+        // console.log( 'state', this.currentState.toJS(), nextState.toJS() )
+        // console.log( 'next props enhancer', this.props.data.toJS(), next.data.toJS() )
+
+        console.log( 'hoc shouldUpdate' )
+
+        // @TODO needs to also query component props, but how to grab from
+        // update function from Composed?
+        // return !this.currentState.equals( nextState )
+        return true
+      }
 
       componentWillUnmount() {
         this.state.destroy()
@@ -56,8 +71,8 @@ const Enhance = function( state, initialState = {} ) {
       }
 
       render() {
-        let freshState = this.state.cursor()
-        return <Composed { ...this.props } state={ freshState } />
+        this.currentState = this.state.cursor()
+        return <Composed { ...this.props } state={ this.currentState } />
       }
     }
   }

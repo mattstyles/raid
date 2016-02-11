@@ -38,7 +38,7 @@ const onAdd = num => {
 }
 
 export default props => {
-  let users = props.state.cursor( 'users' ).map( user => {
+  let users = props.state.map( user => {
     return <User key={ user.get( 'uid' ) } data={ user } />
   })
 

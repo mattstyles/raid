@@ -8,7 +8,7 @@ const UserRecord = new Record({
   image: ''
 })
 
-const INITIAL_NUM = 20
+const INITIAL_NUM = 2
 
 class Store {
   constructor( userstate ) {

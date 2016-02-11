@@ -14,13 +14,17 @@ import state from './state'
 import store from './store'
 import App from './app'
 
+window.state = state
 
 /**
  * Main app render function
  */
 function render( appstate ) {
   perf.start()
-  ReactDOM.render( <App state={ appstate.reference( 'root' ) } />, element )
+
+  // Note that we're passing only a deref here through to components, if we needed
+  // to we could pass references but they are slower, nearly twice as slow.
+  ReactDOM.render( <App state={ appstate.get([ 'root', 'users' ]) } />, element )
   perf.stop()
 
   perf.printWasted()
