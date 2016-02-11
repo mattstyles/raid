@@ -26,7 +26,7 @@ class Store {
 
   add = ( num ) => {
     var users = []
-    for( let i = 0; i < INITIAL_NUM; i++ ) {
+    for( let i = 0; i < num; i++ ) {
       users.push( new UserRecord({
         uid: Math.random().toString( 36 ).substring( 2 ),
         name: this.data.names[ Math.random() * this.data.names.length | 0 ],

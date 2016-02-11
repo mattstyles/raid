@@ -25,11 +25,16 @@ const style = {
   },
   btn: {
     background: 'rgb( 235, 137, 49 )'
+  },
+  userContainer: {
+    marginTop: 20
   }
 }
 
-const onAdd = event => {
-  store.add( 20 )
+const onAdd = num => {
+  return event => {
+    store.add( num )
+  }
 }
 
 export default props => {
@@ -40,9 +45,15 @@ export default props => {
   return (
     <div style={ style.container }>
       <div style={ style.left }>
+        <p>Uses the Raid component pure render function to give a speed boost</p>
+        <p>Check the console for output from measuring wasted effort, with the pure render there should be 0 waste, which for large lists is a significant saving</p>
         <p>Number of users: { users.count() }</p>
-        <ActionButton onClick={ onAdd }>Add</ActionButton>
-        { users.count() ? users : <p>Loading...</p> }
+        <ActionButton onClick={ onAdd( 10 ) }>Add 10</ActionButton>
+        <ActionButton onClick={ onAdd( 100 ) }>Add 100</ActionButton>
+        <ActionButton onClick={ onAdd( 1000 ) }>Add 1000</ActionButton>
+        <div style={ style.userContainer }>
+          { users.count() ? users : <p>Loading...</p> }
+        </div>
       </div>
       <div style={ style.right }>
         <RenderState />
