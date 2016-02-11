@@ -11,7 +11,11 @@ const Enhance = function( state, initialState = {} ) {
 
   return ( Composed, componentState = initialState ) => {
 
-    return class extends Component {
+    /**
+     * This originally was a true HOC, but we need lifecycle methods so going
+     * with extension, is there a better way to gain lifecycle?
+     */
+    return class extends Composed {
       constructor( props ) {
         super( props )
 
@@ -25,6 +29,7 @@ const Enhance = function( state, initialState = {} ) {
         let root = this.props.root || state.reference( CONSTANTS.COMPONENTS )
 
         // Create a random string for this component and append to state tree
+        // unless id is explicitly passed
         this.id = defined(
           props.id,
           componentState.id,
@@ -37,31 +42,27 @@ const Enhance = function( state, initialState = {} ) {
         })
 
         // Grab a reference to the new data
-        this.state = root.reference( this.id )
-        this.currentState = this.state.cursor()
+        this._root = root.reference( this.id )
+        this.state = this._root.cursor()
       }
 
-      componentDidMount() {
-        console.log( 'enhancer mounted' )
-      }
-
-      // @TODO hasslefree perf gains for components
       shouldComponentUpdate( next ) {
-        //Composed.shouldComponentUpdate()
-        let nextState = this.state.cursor()
-        // console.log( 'state', this.currentState.toJS(), nextState.toJS() )
-        // console.log( 'next props enhancer', this.props.data.toJS(), next.data.toJS() )
+        // Assume a change if no update function is supplied
+        if ( !super.shouldComponentUpdate ) {
+          return true
+        }
 
-        console.log( 'hoc shouldUpdate' )
+        let nextState = this._root.cursor()
 
-        // @TODO needs to also query component props, but how to grab from
-        // update function from Composed?
-        // return !this.currentState.equals( nextState )
-        return true
+        // Uses the composed class's function to test prop equality and also
+        // checks its own state equality i.e. a change in either props or
+        // state will trigger and update, otherwise it can be skipped. We can
+        // not check for props explicitly here as we do not know the structure.
+        return !this.state.equals( nextState ) || super.shouldComponentUpdate( next )
       }
 
       componentWillUnmount() {
-        this.state.destroy()
+        this._root.destroy()
 
         let root = this.props.root || state.reference( CONSTANTS.COMPONENTS )
 
@@ -71,8 +72,9 @@ const Enhance = function( state, initialState = {} ) {
       }
 
       render() {
-        this.currentState = this.state.cursor()
-        return <Composed { ...this.props } state={ this.currentState } />
+        this.state = this._root.cursor()
+        //return <Composed { ...this.props } state={ this.currentState } />
+        return super.render()
       }
     }
   }

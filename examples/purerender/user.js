@@ -43,25 +43,16 @@ export default Enhancer( class User extends Component {
     super( props )
   }
 
-  componentDidMount() {
-    console.log( 'mounted' )
-  }
-
   shouldComponentUpdate( next ) {
-    // var test = !this.props.data.equals( next.data ) || !this.props.state.equals( next.state )
-    // console.log( test )
-    // return test
-    // return !this.props.data.equals( next.data )
-    console.log( 'loc shouldUpdate' )
-    return true
+    return !this.props.data.equals( next.data )
   }
 
   onClick = event => {
-    this.props.state.cursor( 'selected' ).update( cursor => !cursor )
+    this.state.cursor( 'selected' ).update( cursor => !cursor )
   };
 
   render() {
-    const background = this.props.state.get( 'selected' )
+    const background = this.state.get( 'selected' )
       ? 'rgb( 178, 220, 239 )'
       : 'rgb( 255, 255, 255 )'
 
