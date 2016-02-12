@@ -36,7 +36,7 @@ export default class State extends Dispatcher {
     )
 
     // Private state immstruct structure
-    this[ _state ] = immstruct( key, {
+    this[ _state ] = new immstruct.Immstruct().get( key, {
       [ CONSTANTS.COMPONENTS ]: {}
     })
 
