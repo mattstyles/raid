@@ -11,12 +11,20 @@ const Enhance = function( state, initialState = {} ) {
 
   return ( Composed, componentState = initialState ) => {
 
+    // It makes no sense to pass a stateless component to an enhancer designed
+    // to add state, but someone will do it at some point, probably me.
+    if ( !Composed.render && !Composed.prototype.render ) {
+      console.warn( 'Stateless component passed to Raid enhancer', 'https://goo.gl/koXJTa' )
+      return Composed
+    }
+
     /**
      * This originally was a true HOC, but we need lifecycle methods so going
      * with extension, is there a better way to gain lifecycle?
      */
     return class extends Composed {
       static displayName = Composed.displayName || Composed.name || 'RaidEnhancer';
+      static _isRaidEnhanced = true;
 
       constructor( props ) {
         super( props )
@@ -25,7 +33,6 @@ const Enhance = function( state, initialState = {} ) {
           componentState = Composed.State
         }
 
-        // @TODO handle stateless case
         // @TODO check that the state container passed in is a reference cursor
 
         let root = this.props.root || state.reference( CONSTANTS.COMPONENTS )
