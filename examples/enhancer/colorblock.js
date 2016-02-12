@@ -45,7 +45,7 @@ export default Enhancer( class ColorBlock extends Component {
   }
 
   onClick = event => {
-    this.props.state.update( cursor => {
+    this.state.update( cursor => {
       return cursor.merge( new ColorState({
         r: Math.random() * 0xff | 0,
         g: Math.random() * 0xff | 0,
@@ -59,7 +59,7 @@ export default Enhancer( class ColorBlock extends Component {
   }
 
   render() {
-    let color = this.props.state.toList()
+    let color = this.state.toList()
     let colorStyle = Object.assign( {}, styles.color, {
       background: this.colorString( color )
     })
