@@ -16,6 +16,8 @@ const Enhance = function( state, initialState = {} ) {
      * with extension, is there a better way to gain lifecycle?
      */
     return class extends Composed {
+      static displayName = Composed.displayName || Composed.name || 'RaidEnhancer';
+
       constructor( props ) {
         super( props )
 
