@@ -53,7 +53,7 @@ export default Enhancer( class User extends Component {
   }
 
   onGenerate = event => {
-    this.props.state.update( cursor => {
+    this.state.update( cursor => {
       return cursor.merge( new UserState({
         name: generateName(),
         url: generateImage()
@@ -62,14 +62,14 @@ export default Enhancer( class User extends Component {
   };
 
   render() {
-    let image = this.props.state.get( 'url' )
-      ? <img src={ this.props.state.get( 'url' ) } style={ styles.image } />
+    let image = this.state.get( 'url' )
+      ? <img src={ this.state.get( 'url' ) } style={ styles.image } />
       : ''
 
     return (
       <div style={ styles.container }>
         { image }
-        <h1 style={ styles.name }>{ this.props.state.get( 'name' ) }</h1>
+        <h1 style={ styles.name }>{ this.state.get( 'name' ) }</h1>
         <ActionButton
           styles={ styles.btn }
           onClick={ this.onGenerate }

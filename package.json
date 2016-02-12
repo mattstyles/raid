@@ -19,13 +19,16 @@
   "keywords": [
     "react",
     "react-component",
+    "component",
     "immstruct",
     "immutable",
     "state",
     "centralised",
-    "es6",
-    "es2015",
-    "babel"
+    "raid",
+    "action",
+    "dispatcher",
+    "enhancer",
+    "enhance"
   ],
   "author": "Matt Styles",
   "repository": {

@@ -40,14 +40,17 @@ styles.app = {
   },
   left: {
     flex: .5,
+    boxSizing: 'border-box',
     padding: '1em'
   },
   right: {
     flex: .5,
+    boxSizing: 'border-box',
     minHeight: '100vh',
     borderLeft: '1px solid rgb( 232, 232, 232)',
     background: 'rgb( 40, 40, 40 )',
-    padding: '1em'
+    padding: '1em',
+    overflow: 'scroll'
   },
   btn: {
     background: 'rgb( 235, 137, 49 )'
