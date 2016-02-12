@@ -1,6 +1,6 @@
 {
   "name": "raid",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Use react classes with an immstruct structure",
   "main": "lib/",
   "scripts": {
