@@ -1,7 +1,7 @@
 
 # Introduction
 
-Raid arose from the desire to create a predictable state container for the entire app. Initially created as a means of saving the entire state of an application Raid now successfully makes life easier for developers by creating application state which is predicable, replicable and reliable.
+Raid arose from the desire to create a predictable state container for the entire app. Initially created as a means of saving the entire state of an application Raid now successfully makes life easier for developers by creating immutable application state which is predicable, replicable and reliable.
 
 A major tenet of how Raid should work is that your application is still your own to structure how you like, Raid just exposes mechanisms for accessing and managing changes to that structure to enforce top-down rendering.
 
