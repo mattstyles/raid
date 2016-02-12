@@ -5,8 +5,10 @@ import CONSTANTS from './constants'
 
 
 const Enhance = function( state, initialState = {} ) {
-  if ( !state ) {
-    throw new Error( 'no state object passed to the enhancer' )
+
+  // Check that state has been passed and try to assert that it is a reference cursor
+  if ( !state || ( !state.cursor && !state.destroy ) ) {
+    throw new Error( 'Incorrect or missing state passed to Raid::Enhancer' )
   }
 
   return ( Composed, componentState = initialState ) => {
@@ -33,7 +35,6 @@ const Enhance = function( state, initialState = {} ) {
           componentState = Composed.State
         }
 
-        // @TODO check that the state container passed in is a reference cursor
 
         let root = this.props.root || state.reference( CONSTANTS.COMPONENTS )
 
