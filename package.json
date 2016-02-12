@@ -4,14 +4,18 @@
   "description": "Use react classes with an immstruct structure",
   "main": "lib/",
   "scripts": {
-    "clean": "rm -rf lib && mkdir lib",
+    "clean": "rm -rf lib _book",
     "prebuild": "npm run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
     "prestart": "npm run build",
     "start": "node examples",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "predocs": "npm run clean && gitbook install",
+    "docs": "gitbook build",
+    "docs:watch": "gitbook serve",
+    "docs:deploy": "npm run docs && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:mattstyles/raid gh-pages --force"
   },
   "browserify": {
     "transform": "babelify"
@@ -46,6 +50,7 @@
     "budo": "^8.0.4",
     "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.16.1",
+    "gh-pages": "^0.9.0",
     "inquirer": "^0.12.0",
     "minimist": "^1.2.0",
     "react-addons-perf": "^0.14.7",

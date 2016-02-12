@@ -1,0 +1,18 @@
+{
+  "gitbook": "2.4.3",
+  "title": "Raid",
+  "description": "Centralised immutable data structure",
+  "structure": {
+    "summary": "docs/README.md"
+  },
+  "plugins": ["edit-link", "prism", "-highlight", "github"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/mattstyles/raid/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/mattstyles/raid/"
+    }
+  }
+}

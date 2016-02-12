@@ -4,6 +4,8 @@
 
 _Standing on the shoulders of the [immstruct](https://github.com/omniscientjs/immstruct) and  [immutable](https://github.com/facebook/immutable-js/) projects._
 
+[![npm](https://img.shields.io/npm/v/raid.svg?style=flat)](https://www.npmjs.com/package/raid)
+[![License](https://img.shields.io/npm/l/raid.svg)](https://www.npmjs.com/package/raid)
 
 ## Getting Started
 
