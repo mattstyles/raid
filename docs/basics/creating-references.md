@@ -74,6 +74,10 @@ console.log( newCursor.get( 'foo' ) ))
 //'bar'
 ```
 
+The cursors used are from the [immutableJS repo](https://github.com/facebook/immutable-js/blob/master/contrib/cursor/index.js).
+
+If you are using React then passing cursors down the state tree from parents to children ensures that they are fresh but allows code within the components to alter the state whilst still enforcing top-down rendering.
+
 ## References
 
 References to state tree nodes provide a way to access data that is always fresh. Whenever you request a cursor from a reference it will be pointing to a fresh representation of the state tree
@@ -103,6 +107,8 @@ console.log( ref.cursor() )
 console.log( ref.cursor( 'foo' ).deref() )
 // 'bar'
 ```
+
+As references always return fresh cursors they are good candidates to use in stores; by using reference cursors you can pass only specific subtrees to stores and not have to worry about whether data is stale or not, simply grab a cursor from the reference when you need it.
 
 ## Next Steps
 
