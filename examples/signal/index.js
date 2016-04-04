@@ -3,12 +3,10 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import element from '../_common/element'
-import ActionButton from '../_common/actionButton'
 import state from './state'
 import { Counter } from './counter'
 
 const styles = {}
-
 
 /**
  * Routes state through to children explicitly

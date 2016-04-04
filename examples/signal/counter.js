@@ -1,6 +1,7 @@
 
 import React from 'react'
 import Immutable from 'immutable'
+import { Observable } from 'rx-lite'
 import state from './state'
 import signal from './signal'
 import ActionButton from '../_common/actionButton'
@@ -27,20 +28,16 @@ export const model = state
 const release = signal.register( source => {
   const add = source
     .filter( event => event.type === ACTIONS.ADD )
-    .subscribe( event => {
-      model.cursor( 'value' ).update( val => ++val )
-    })
+    .map( event => model.cursor( 'value' ) )
+    .map( cursor => () => cursor.update( val => ++val ) )
 
   const subtract = source
     .filter( event => event.type === ACTIONS.SUBTRACT )
-    .subscribe( event => {
-      model.cursor( 'value' ).update( val => --val )
-    })
+    .map( event => model.cursor( 'value' ) )
+    .map( cursor => () => cursor.update( val => --val ) )
 
-  return function dispose() {
-    add.dispose()
-    subtract.dispose()
-  }
+  return Observable.merge([ add, subtract ])
+    .subscribe( action => action() )
 })
 
 
