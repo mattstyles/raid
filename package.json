@@ -64,6 +64,7 @@
   "dependencies": {
     "defined": "^1.0.0",
     "eventemitter3": "^1.1.1",
-    "flux": "^2.1.1"
+    "flux": "^2.1.1",
+    "rx-lite": "^4.0.8"
   }
 }

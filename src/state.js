@@ -12,7 +12,7 @@ const _state = Symbol( 'state' )
  * @class
  * Holds data representing the current state of the application
  */
-export default class State extends Dispatcher {
+export default class State extends EventEmitter {
 
   /**
    * @constructs
@@ -29,11 +29,11 @@ export default class State extends Dispatcher {
     }
 
     // Patch over an emitter
-    EventEmitter.call( this )
-    Object.assign(
-      this,
-      EventEmitter.prototype
-    )
+    // EventEmitter.call( this )
+    // Object.assign(
+    //   this,
+    //   EventEmitter.prototype
+    // )
 
     // Private state immstruct structure
     this[ _state ] = new immstruct.Immstruct().get( key, {
