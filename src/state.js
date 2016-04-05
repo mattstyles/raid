@@ -85,6 +85,10 @@ export default class State extends EventEmitter {
       throw new Error( 'No key specified when creating new state root' )
     }
 
+    if ( typeof key !== 'string' ) {
+      throw new Error( 'No key specified when creating new state root' )
+    }
+
     // @TODO should check if key already exists
 
     this[ _state ].cursor().update( cursor => {

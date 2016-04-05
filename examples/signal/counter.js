@@ -2,6 +2,7 @@
 /**
  * The architecture is highly similar to the [Elm Architecture](https://github.com/evancz/elm-architecture-tutorial).
  * ---
+ * Model -> Action -> Update -> View
  * Components are defined by their model, which represents their state. This model
  * is plugged into the main state object and referenced via cursors.
  * Presentational components request actions, which are fulfilled by update
