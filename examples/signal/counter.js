@@ -1,16 +1,33 @@
 
+/**
+ * The architecture is highly similar to the [Elm Architecture](https://github.com/evancz/elm-architecture-tutorial).
+ * ---
+ * Components are defined by their model, which represents their state. This model
+ * is plugged into the main state object and referenced via cursors.
+ * Presentational components request actions, which are fulfilled by update
+ * components. Requests are handled via a Signal, which can optionally populate
+ * the response with the model is relates to. The update function acts as a sink
+ * and performs the mutations, whereby the app re-renders.
+ * Components grab their state directly from the model, but as the model becomes
+ * a part of the state tree everything is connected.
+ */
+
 import React from 'react'
 import { Signal } from '../../lib'
 import Immutable from 'immutable'
 import { Observable } from 'rx-lite'
 import state from './state'
-// import signal from './signal'
 import ActionButton from '../_common/actionButton'
 
+
+/**
+ * Actions enum
+ */
 const ACTIONS = {
   ADD: 'action:add',
   SUBTRACT: 'action:subtract'
 }
+
 
 /**
  * Model

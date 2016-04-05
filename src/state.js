@@ -2,7 +2,6 @@
 import immstruct from 'immstruct'
 import Immutable from 'immutable'
 import EventEmitter from 'eventemitter3'
-import { Dispatcher } from 'flux'
 
 import CONSTANTS from './constants'
 
@@ -27,13 +26,6 @@ export default class State extends EventEmitter {
       initialState = key
       key = CONSTANTS.ROOT
     }
-
-    // Patch over an emitter
-    // EventEmitter.call( this )
-    // Object.assign(
-    //   this,
-    //   EventEmitter.prototype
-    // )
 
     // Private state immstruct structure
     this[ _state ] = new immstruct.Immstruct().get( key, {

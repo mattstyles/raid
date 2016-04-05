@@ -1,4 +1,12 @@
 
+/**
+ * Example using signals to dispatch actions between presentational components
+ * and business logic
+ * ---
+ * The architecture of model-action-update-view is highlighted in counter.js
+ */
+
+
 import React from 'react'
 import { render } from 'react-dom'
 
