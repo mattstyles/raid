@@ -8,9 +8,6 @@ import { Counter } from './counter'
 
 const styles = {}
 
-/**
- * Routes state through to children explicitly
- */
 styles.app = {
   container: {
     display: 'flex'

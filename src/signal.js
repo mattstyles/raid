@@ -22,6 +22,9 @@ export default class Signal {
   }
 
   dispatch( event ) {
-    this[ _emitter ].emit( 'data', event )
+    let dispatch = typeof event === 'string'
+      ? { type: event }
+      : event
+    this[ _emitter ].emit( 'data', dispatch )
   }
 }

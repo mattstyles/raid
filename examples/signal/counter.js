@@ -66,14 +66,10 @@ export const Counter = props => {
     <div style={ styles.counter }>
       <h1 style={ styles.counterText }>Count <span>{ model.cursor().get( 'value' ) }</span></h1>
       <ActionButton onClick={ event => {
-        signal.dispatch({
-          type: ACTIONS.ADD
-        })
+        signal.dispatch( ACTIONS.ADD )
       }}>+</ActionButton>
       <ActionButton onClick={ event => {
-        signal.dispatch({
-          type: ACTIONS.SUBTRACT
-        })
+        signal.dispatch( ACTIONS.SUBTRACT )
       }}>-</ActionButton>
     </div>
   )
