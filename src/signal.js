@@ -6,9 +6,19 @@ const _emitter = Symbol( 'emitter' )
 const _source = Symbol( 'source' )
 
 export default class Signal {
-  constructor() {
+  constructor( opts={} ) {
+    const { model, key } = opts
+
     this[ _emitter ] = new EventEmitter()
     this[ _source ] = new Observable.fromEvent( this[ _emitter ], 'data' )
+
+    if ( model ) {
+      this.model = model
+      this[ _source ] = this[ _source ]
+        .map( event => Object.assign( event, {
+          model: model.cursor( key || null )
+        }))
+    }
   }
 
   register( cb ) {

@@ -1,9 +1,10 @@
 
 import React from 'react'
+import { Signal } from '../../lib'
 import Immutable from 'immutable'
 import { Observable } from 'rx-lite'
 import state from './state'
-import signal from './signal'
+// import signal from './signal'
 import ActionButton from '../_common/actionButton'
 
 const ACTIONS = {
@@ -23,18 +24,25 @@ export const model = state
 
 
 /**
+ * Signal
+ */
+const signal = new Signal({
+  model: model,
+  key: 'value'
+})
+
+
+/**
  * Update
  */
 const release = signal.register( source => {
   const add = source
     .filter( event => event.type === ACTIONS.ADD )
-    .map( event => model.cursor( 'value' ) )
-    .map( cursor => () => cursor.update( val => ++val ) )
+    .map( event => () => event.model.update( c => ++c ) )
 
   const subtract = source
     .filter( event => event.type === ACTIONS.SUBTRACT )
-    .map( event => model.cursor( 'value' ) )
-    .map( cursor => () => cursor.update( val => --val ) )
+    .map( event => () => event.model.update( c => --c ) )
 
   return Observable.merge([ add, subtract ])
     .subscribe( action => action() )
@@ -62,9 +70,11 @@ styles.counterText = {
 }
 
 export const Counter = props => {
+  let data = model.cursor()
+
   return (
     <div style={ styles.counter }>
-      <h1 style={ styles.counterText }>Count <span>{ model.cursor().get( 'value' ) }</span></h1>
+      <h1 style={ styles.counterText }>Count <span>{ data.get( 'value' ) }</span></h1>
       <ActionButton onClick={ event => {
         signal.dispatch( ACTIONS.ADD )
       }}>+</ActionButton>
