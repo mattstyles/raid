@@ -2,8 +2,6 @@
 
 > Centralised immutable data structure designed for use with React
 
-_Standing on the shoulders of the [immstruct](https://github.com/omniscientjs/immstruct) and  [immutable](https://github.com/facebook/immutable-js/) projects._
-
 [![npm](https://img.shields.io/npm/v/raid.svg?style=flat)](https://www.npmjs.com/package/raid)
 [![License](https://img.shields.io/npm/l/raid.svg)](https://www.npmjs.com/package/raid)
 
@@ -23,18 +21,20 @@ let state = new Raid.State()
 
 Raid enforces top-down rendering through update events emitted by the state tree when mutations occur, but the choice of how to structure your app is still in your hands.
 
-Decoupling logic from stateless components is a supported pattern, but if wanted some logic to be included with your components then that way of structuring becomes possible using reference cursors to extract only those parts of the state tree that are required by a component.
+Decoupling logic from stateless components is a supported pattern, but if there was a requirement to attach some logic to your components then that way of structuring becomes possible using reference cursors to extract only those parts of the state tree that are required by a component.
 
 ## Example with stateless components
 
-Presentational and business logic can be entirely decoupled by use of the state dispatcher. The dispatcher used is the same one from [Flux](https://github.com/facebook/flux) and responses occur by registering callbacks.
+Presentational and business logic can be entirely decoupled by use of the state dispatcher. The dispatcher used here is from [Flux](https://github.com/facebook/flux) and responses occur by registering callbacks.
 
 ```js
 import { State } from 'raid'
+import { Dispatcher } from 'flux'
 
 let state = new State()
+let dispatcher = new Dispatcher()
 
-state.register( dispatch => {
+dispatcher.register( dispatch => {
   // Respond to dispatches and perform actions
 })
 
@@ -42,7 +42,7 @@ const App = props => {
   return (
     <button
       onClick={ event => {
-        state.dispatch({
+        dispatcher.dispatch({
           type: 'dispatchedEventType',
           payload: { ... }
         })
@@ -54,7 +54,7 @@ const App = props => {
 
 This pattern scales well and allows action objects to attach callbacks to the state tree which respond to dispatches triggered from your UI.
 
-`Raid.State` exposes two methods for accessing the state tree, `cursor` and `get`. Both methods have the same signature which accepts an array of strings describing a key path to access the tree and return either a cursor to the data or a read-only instance of an unwrapped cursor. This equates to either a cursor which can be updated or the data itself.
+`Raid.State` exposes three methods for accessing the state tree, `cursor`, `get` and `reference`. All methods have the same signature which accepts an array of strings describing a key path to access the tree and return either a cursor to the data or a read-only instance of an unwrapped cursor. This equates to either a cursor which can be updated or the data itself.
 
 Presentational components should be passed dereferenced data in order to render themselves whilst the application logic should access cursors to allow data updates to occur.
 
@@ -62,13 +62,16 @@ Presentational components should be passed dereferenced data in order to render 
 import { State } from 'raid'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Dispatcher } from 'flux'
 
 // Set up the initial state of the application
 let state = new State( 'app', {
   count: 0
 })
 
-state.register( dispatch => {
+let dispatcher = new Dispatcher()
+
+dispatcher.register( dispatch => {
   if ( dispatch.type === 'incrementCounter' ) {
     state.cursor([ 'app', 'count' ]).update( cursor => ++cursor )
     return
@@ -81,7 +84,7 @@ const App = props => {
       <h1>Counter <span>{ props.state.get( 'count' ) }</span></h1>
       <button
         onClick={ event => {
-          state.dispatch({
+          dispatcher.dispatch({
             type: 'incrementCounter'
           })
         }}
@@ -139,6 +142,20 @@ state
   .on( 'update', render )
   .start()
 ```
+
+## Signals
+
+Raid also exposes the concept of signals, which act in a similar fashion to the dispatchers shown in the examples above but also abstract the model they operate on.
+
+Signals help to enforce a `Model -> Action -> Update -> Render` pattern.
+
+See [the signal example](https://github.com/mattstyles/raid/tree/master/examples/signal) for a full overview of using signals.
+
+## Enhanced State Components
+
+For use with React, Raid also exposes a component enhancer which wraps components in such a way so that the wrapped component always receives a fresh cursor to the data that it manipulates.
+
+This allows components to have the illusion of their own state when in reality their state is passed to them as props, meaning that `shouldComponentUpdate` can simply shallow compare props for changes and thus leverage the performance gains that can be apparent when using a [pure functional components](https://facebook.github.io/react/docs/pure-render-mixin.html).
 
 
 ## Running the examples
