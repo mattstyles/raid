@@ -5,7 +5,11 @@ import EventEmitter from 'eventemitter3'
 
 import CONSTANTS from './constants'
 
+/**
+ * Symbols
+ */
 const _state = Symbol( 'state' )
+
 
 /**
  * @class
