@@ -34,7 +34,9 @@ export default class Signal {
       this.model = model
       this[ _source ] = this[ _source ]
         .map( event => Object.assign( event, {
-          model: model.cursor( key || null )
+          model: key
+            ? model.cursor( key )
+            : model.cursor()
         }))
     }
   }
