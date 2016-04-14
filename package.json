@@ -20,6 +20,9 @@
   "browserify": {
     "transform": "babelify"
   },
+  "babel": {
+    "presets": [ "urban" ]
+  },
   "keywords": [
     "react",
     "react-component",
