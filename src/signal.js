@@ -29,15 +29,23 @@ export default class Signal {
     /**
      * If a model is passed then pass it back through the stream
      * If a key is also passed then pass a cursor to that value back
+     * If the model has no cursor method then assume it is a regular JS object
      */
     if ( model ) {
       this.model = model
       this[ _source ] = this[ _source ]
-        .map( event => Object.assign( event, {
-          model: key
-            ? model.cursor( key )
-            : model.cursor()
-        }))
+        .map( event => {
+          // Add a check to be able to use non-immutable cursor models
+          if ( !model.cursor ) {
+            return Object.assign( event, { model } )
+          }
+
+          return Object.assign( event, {
+            model: key
+              ? model.cursor( key )
+              : model.cursor()
+          })
+        })
     }
   }
 
