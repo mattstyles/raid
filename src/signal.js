@@ -45,7 +45,7 @@ export default class Signal {
    * Registers a callback, passing the stream source as an argument
    * @param cb <Function>
    */
-  register( cb ) {
+  register = cb => {
     let subscriber = cb( this[ _source ] )
 
     if ( subscriber && subscriber.dispose ) {
@@ -60,7 +60,7 @@ export default class Signal {
    * @param event <String||Object> an event should contain at least a type, if
    *   only a string is provided then that will be used as the event type.
    */
-  dispatch( event ) {
+  dispatch = event => {
     let dispatch = typeof event === 'string'
       ? { type: event }
       : event
