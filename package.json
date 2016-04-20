@@ -61,13 +61,12 @@
   },
   "peerDependencies": {
     "immstruct": "^2.0.0",
-    "immutable": "^3.7.6",
-    "react": "^0.14.7"
+    "immutable": "^3.8.0",
+    "react": "^15.0.0"
   },
   "dependencies": {
     "defined": "^1.0.0",
     "eventemitter3": "^1.1.1",
-    "flux": "^2.1.1",
     "rx-lite": "^4.0.8"
   }
 }
