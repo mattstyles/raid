@@ -18,11 +18,23 @@
     "docs:deploy": "npm run docs && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:mattstyles/raid gh-pages --force"
   },
   "browserify": {
-    "transform": "babelify"
+    "transform": [
+      "babelify"
+    ]
   },
   "babel": {
     "presets": [
       "urban"
+    ],
+    "plugins": [
+      [
+        "transform-react-require",
+        {
+          "identifier": "Inferno",
+          "moduleName": "inferno"
+        }
+      ],
+      "inferno"
     ]
   },
   "standard": {

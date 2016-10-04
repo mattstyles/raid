@@ -5,89 +5,94 @@
  * by action functions
  */
 
-import React from 'react'
-import ReactDOM from 'react-dom'
+import {render} from 'inferno-dom'
 
-import Raid from '../../lib'
+import {Signal} from '../../lib'
 
 import element from '../_common/element'
-import ActionButton from '../_common/actionButton'
+import Button from '../_common/actionButton'
+import {View, Main, Code} from '../_common/layout'
 
-
-const styles = {}
-
-
-/**
- * Counter
- */
-styles.counter = {
-  fontSize: 34,
-  fontWeight: 300,
-  lineHeight: 2,
-  margin: '3px 0'
-}
-const Counter = props => <h1 style={ styles.counter }>Count <span>{ props.count }</span></h1>
-
-
-/**
- * Explicitly mutate state
- */
-const add = count => {
-  return () => {
-    count.update( cursor => ++cursor )
-  }
-}
-const subtract = count => {
-  return () => {
-    count.update( cursor => --cursor )
-  }
-}
-
-const Controls = props => {
-  return (
-    <div>
-      <ActionButton onClick={ add( props.count ) }>+</ActionButton>
-      <ActionButton onClick={ subtract( props.count ) }>-</ActionButton>
-    </div>
-  )
-}
-
-
-/**
- * Routes state through to children explicitly
- */
-const App = props => {
-  return (
-    <div>
-      <Counter count={ props.state.get( 'count' ) } />
-      <Controls count={ props.state.cursor( 'count' ) } />
-    </div>
-  )
-}
-
-
-/**
- * State object
- */
-const state = new Raid.State( 'app', {
+const signal = new Signal({
   count: 0
 })
 
-
-/**
- * Main app render function
- */
-function render() {
-  ReactDOM.render( <App state={ state.cursor( 'app' ) } />, element )
+const ACTIONS = {
+  ADD: 'actions:add',
+  SUBTRACT: 'actions:subtract'
 }
 
-/**
- * Attach listener to re-render on state changes
- */
-state.on( 'update', render )
+const reducer = (state, event) => {
+  if (event.type === ACTIONS.ADD) {
+    state.count += 1
+    return state
+  }
 
+  if (event.type === ACTIONS.SUBTRACT) {
+    state.count -= 1
+    return state
+  }
 
-/**
- * Go!
- */
-render()
+  return state
+}
+
+const styles = {
+  counter: {
+    display: 'inline-block',
+    padding: '8px 0px 8px 8px',
+    background: 'rgb(255, 255, 255)',
+    border: '1px solid rgb(230,232,238)',
+    borderRadius: '3px'
+  },
+  count: {
+    display: 'inline-block',
+    fontSize: '28px',
+    margin: '0px 16px 0px 8px',
+    verticalAlign: 'middle'
+  },
+  counterControls: {
+    display: 'inline-block'
+  }
+}
+
+const Counter = ({count}) => {
+  return (
+    <div style={styles.counter}>
+      <span style={styles.count}>{count}</span>
+      <div style={styles.counterControls}>
+        <Button
+          onClick={e => {
+            signal.emit({type: ACTIONS.ADD})
+          }}
+        >+</Button>
+        <Button
+          onClick={e => {
+            signal.emit({type: ACTIONS.SUBTRACT})
+          }}
+        >-</Button>
+      </div>
+    </div>
+  )
+}
+
+const App = ({state}) => {
+  return (
+    <View>
+      <Main>
+        <Counter count={state.count} />
+      </Main>
+      <Code>
+        <code>{JSON.stringify(state, null, '  ')}</code>
+      </Code>
+    </View>
+  )
+}
+
+signal.subscribe(state => {
+  render(
+    <App state={state} />,
+    element
+  )
+})
+
+signal.register(reducer)
