@@ -1,6 +1,6 @@
 {
   "name": "raid",
-  "version": "0.5.1",
+  "version": "2.0.0-rc1",
   "description": "Centralised immutable state",
   "main": "lib/",
   "scripts": {
