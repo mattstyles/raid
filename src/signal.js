@@ -1,77 +1,49 @@
 
-import { Observable } from 'rx-lite'
+import most from 'most'
 import EventEmitter from 'eventemitter3'
 
-/**
- * Symbols for privacy
- */
-const _emitter = Symbol( 'emitter' )
-const _source = Symbol( 'source' )
+import {iteratorFold} from 'utils/functional'
+import {uid} from 'utils/number'
 
-/**
- * @class
- * Wraps RX to provide an event stream, optionally bound to a model
- */
-export default class Signal {
-  /**
-   * @constructs
-   * Creates the emitter and stream.
-   * @param opts <Object>
-   *   @param model <Object> an object representing the model associated with this stream
-   *   @param key <String> a key on the model, the model will become a cursor to this value
-   */
-  constructor( opts={} ) {
-    const { model, key } = opts
+class Signal {
+  constructor (initialState) {
+    this.emitter = new EventEmitter()
+    this.reducers = new Map()
 
-    this[ _emitter ] = new EventEmitter()
-    this[ _source ] = new Observable.fromEvent( this[ _emitter ], 'data' )
-
-    /**
-     * If a model is passed then pass it back through the stream
-     * If a key is also passed then pass a cursor to that value back
-     * If the model has no cursor method then assume it is a regular JS object
-     */
-    if ( model ) {
-      this.model = model
-      this[ _source ] = this[ _source ]
-        .map( event => {
-          // Add a check to be able to use non-immutable cursor models
-          if ( !model.cursor ) {
-            return Object.assign( event, { model } )
-          }
-
-          return Object.assign( event, {
-            model: key
-              ? model.cursor( key )
-              : model.cursor()
-          })
-        })
-    }
+    this.source = most
+      .fromEvent('action', this.emitter)
+      .scan((state, event) => {
+        return iteratorFold(this.reducers.values(), (state, reducer) => {
+          return reducer(state, event)
+        }, state)
+      }, initialState)
   }
 
-  /**
-   * Registers a callback, passing the stream source as an argument
-   * @param cb <Function>
-   */
-  register = cb => {
-    let subscriber = cb( this[ _source ] )
-
-    if ( subscriber && subscriber.dispose ) {
-      return subscriber.dispose.bind( subscriber )
-    } else {
-      return subscriber
+  emit = (payload) => {
+    window.START = window.performance.now()
+    if (typeof payload !== 'object') {
+      throw new Error('Incorrect payload type, expects object')
     }
+
+    this.emitter.emit('action', payload)
   }
 
-  /**
-   * Dispatches an event to the stream
-   * @param event <String||Object> an event should contain at least a type, if
-   *   only a string is provided then that will be used as the event type.
-   */
-  dispatch = event => {
-    let dispatch = typeof event === 'string'
-      ? { type: event }
-      : event
-    this[ _emitter ].emit( 'data', dispatch )
+  subscribe = (onAction, onError, onComplete) => {
+    this.source.observe(
+      onAction,
+      onError,
+      onComplete
+    )
+  }
+
+  register = (reducer, key) => {
+    let k = key || uid()
+    this.reducers.set(k, reducer)
+
+    return function dispose () {
+      this.reducers.delete(k)
+    }
   }
 }
+
+export default Signal
