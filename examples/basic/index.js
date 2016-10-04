@@ -82,7 +82,7 @@ const App = ({state}) => {
         <Counter count={state.count} />
       </Main>
       <Code>
-        <code>{JSON.stringify(state, null, '  ')}</code>
+        <pre>{JSON.stringify(state, null, '  ')}</pre>
       </Code>
     </View>
   )

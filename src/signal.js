@@ -1,5 +1,5 @@
 
-import * as most from 'most'
+import {fromEvent} from 'most'
 import EventEmitter from 'eventemitter3'
 
 import {iteratorFold, uid} from './utils'
@@ -9,8 +9,7 @@ class Signal {
     this.emitter = new EventEmitter()
     this.reducers = new Map()
 
-    this.source = most
-      .fromEvent('action', this.emitter)
+    this.source = fromEvent('action', this.emitter)
       .scan((state, event) => {
         return iteratorFold(this.reducers.values(), (state, reducer) => {
           return reducer(state, event)

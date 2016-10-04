@@ -26,15 +26,15 @@ fs.readdir(__dirname, (err, files) => {
   }
 
   Promise.all(files
-  .map(file => path.join(__dirname, file))
-  .map(getDirectory))
-  .then(directories => directories.filter(d => d))
-  .then(directories => directories.filter(d => !/^_/.test(path.basename(d))))
-  .then(examples => examples.map(e => path.basename(e)))
-  .then(exampleSelect)
-  .catch(e => {
-    console.error(e)
-  })
+    .map(file => path.join(__dirname, file))
+    .map(getDirectory))
+    .then(directories => directories.filter(d => d))
+    .then(directories => directories.filter(d => !/^_/.test(path.basename(d))))
+    .then(examples => examples.map(e => path.basename(e)))
+    .then(exampleSelect)
+    .catch(e => {
+      console.error(e)
+    })
 })
 
 function exampleSelect (examples) {
