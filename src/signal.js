@@ -1,12 +1,11 @@
 
-import most from 'most'
+import * as most from 'most'
 import EventEmitter from 'eventemitter3'
 
-import {iteratorFold} from 'utils/functional'
-import {uid} from 'utils/number'
+import {iteratorFold, uid} from './utils'
 
 class Signal {
-  constructor (initialState) {
+  constructor (initialState = {}) {
     this.emitter = new EventEmitter()
     this.reducers = new Map()
 
@@ -20,7 +19,6 @@ class Signal {
   }
 
   emit = (payload) => {
-    window.START = window.performance.now()
     if (typeof payload !== 'object') {
       throw new Error('Incorrect payload type, expects object')
     }

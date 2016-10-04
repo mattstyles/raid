@@ -1,12 +1,11 @@
 
-import State from './state'
+// import State from './state'
 import Signal from './signal'
-import Enhance from './enhance'
+// import Enhance from './enhance'
 
 const Raid = {
-  State: State,
-  Signal: Signal,
-  Enhance: Enhance
+  Signal
+  // Enhance: Enhance
 }
 
 export default Raid
