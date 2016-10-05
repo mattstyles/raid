@@ -5,7 +5,7 @@ const {uid, fold} = require('../lib/utils')
 tape('uid should return a unique identifier string', t => {
   t.plan(2)
 
-  t.equal('string', typeof uid(), 'Should return a string')
+  t.equal(typeof uid(), 'string', 'Should return a string')
   t.notEqual(uid(), uid(), 'The chance of two being the same is tiny, if this is failing you should buy a lottery ticket')
 })
 
@@ -19,7 +19,7 @@ tape('fold should traverse an iterator invoking functions', t => {
     return k(v)
   }, 0)
 
-  t.equal(1, output, 'Fold should pass through a function')
+  t.equal(output, 1, 'Fold should pass through a function')
 })
 
 tape('fold should handle several values', t => {
@@ -33,5 +33,5 @@ tape('fold should handle several values', t => {
     return k(v)
   }, 0)
 
-  t.equal(11, output, 'Fold should pass through several functions')
+  t.equal(output, 11, 'Fold should pass through several functions')
 })

@@ -10,12 +10,12 @@ tape('Signals can register and dispose of mutator functions', t => {
   let dispose = signal.register(() => {})
 
   t.equal('function', typeof dispose, 'Register returns a dispose function')
-  t.equal(1, signal.mutators.size,
+  t.equal(signal.mutators.size, 1,
     'Register adds a function to an internal stack')
 
   dispose()
 
-  t.equal(0, signal.mutators.size, 'Dispose removes a function from the stack')
+  t.equal(signal.mutators.size, 0, 'Dispose removes a function from the stack')
 })
 
 tape('Signals can register functions with specific keys', t => {
@@ -26,4 +26,21 @@ tape('Signals can register functions with specific keys', t => {
 
   t.equal('function', typeof signal.mutators.get('test'),
     'Mutator functions can be referenced by id')
+})
+
+tape('Signals constructor applies a default empty object as state', t => {
+  t.plan(2)
+
+  let signal = new Signal()
+  signal.register((state) => state)
+  signal.subscribe(state => {
+    t.deepEqual(state, {}, 'State defaults to an empty object')
+  })
+
+  let signal2 = new Signal({foo: 'bar'})
+  signal2.register((state) => state)
+  signal2.subscribe(state => {
+    t.deepEqual(state, {foo: 'bar'},
+      'State constructor accepts an initial state object')
+  })
 })

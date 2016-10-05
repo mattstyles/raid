@@ -1,7 +1,7 @@
 {
   "name": "raid",
   "version": "2.0.0-rc1",
-  "description": "Centralised immutable state",
+  "description": "Centralised state container",
   "main": "lib/",
   "scripts": {
     "clean": "rm -rf lib _book",
@@ -12,6 +12,7 @@
     "start": "node examples",
     "pretest": "npm run build",
     "test": "tape spec/*.js",
+    "test-only": "tape spec/*.js",
     "prepublish": "npm run build",
     "predocs": "npm run clean && gitbook install",
     "docs": "gitbook build",
