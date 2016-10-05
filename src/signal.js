@@ -11,7 +11,7 @@ class Signal {
 
     this.source = fromEvent('action', this.emitter)
       .scan((state, event) => {
-        return fold(this.mutator.values(), (state, mutator) => {
+        return fold(this.mutators.values(), (state, mutator) => {
           return mutator(state, event)
         }, state)
       }, initialState)
@@ -39,7 +39,7 @@ class Signal {
 
     return function dispose () {
       this.mutators.delete(k)
-    }
+    }.bind(this)
   }
 }
 
