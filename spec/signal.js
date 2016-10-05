@@ -44,3 +44,29 @@ tape('Signals constructor applies a default empty object as state', t => {
       'State constructor accepts an initial state object')
   })
 })
+
+tape.skip('Subscribing to a signal handles errors', t => {
+  t.plan(2)
+
+  let signal = new Signal()
+  signal.register(state => {
+    console.log('throwing error')
+    throw new Error()
+  })
+  signal.subscribe(
+    state => {
+      console.log('onupdate')
+      t.equal(1, 1)
+    },
+    error => {
+      console.log('onerror')
+      t.end()
+    },
+    complete => {
+      console.log('oncomplete')
+      t.end()
+    }
+  )
+
+  signal.emit({type: 'action'})
+})

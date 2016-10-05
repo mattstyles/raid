@@ -13,16 +13,27 @@ import element from '../_common/element'
 import Button from '../_common/actionButton'
 import {View, Main, Code} from '../_common/layout'
 
+/**
+ * The main signal can be observed for changes to application state.
+ * The signal accepts a parameter which defines the initial state.
+ */
 const signal = new Signal({
   count: 0
 })
 
+/**
+ * Action enum gives the mutators a key to perform mutations
+ */
 const ACTIONS = {
   ADD: 'actions:add',
   SUBTRACT: 'actions:subtract'
 }
 
-const reducer = (state, event) => {
+/**
+ * Mutators are responsible for mutating state and returning it.
+ * They can be composed to provide more complex state manipulation.
+ */
+const mutator = (state, event) => {
   if (event.type === ACTIONS.ADD) {
     state.count += 1
     return state
@@ -36,6 +47,9 @@ const reducer = (state, event) => {
   return state
 }
 
+/**
+ * Raid can be used with any view library
+ */
 const styles = {
   counter: {
     display: 'inline-block',
@@ -88,11 +102,18 @@ const App = ({state}) => {
   )
 }
 
-signal.subscribe(state => {
+/**
+ * The signal observer notifies when the application state changes
+ */
+signal.observe(state => {
   render(
     <App state={state} />,
     element
   )
 })
 
-signal.register(reducer)
+/**
+ * Register mutators.
+ * Returns a dispose function which can be used to destroy a mutator.
+ */
+signal.register(mutator)
