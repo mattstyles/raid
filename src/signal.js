@@ -2,17 +2,17 @@
 import {fromEvent} from 'most'
 import EventEmitter from 'eventemitter3'
 
-import {iteratorFold, uid} from './utils'
+import {fold, uid} from './utils'
 
 class Signal {
   constructor (initialState = {}) {
     this.emitter = new EventEmitter()
-    this.reducers = new Map()
+    this.mutators = new Map()
 
     this.source = fromEvent('action', this.emitter)
       .scan((state, event) => {
-        return iteratorFold(this.reducers.values(), (state, reducer) => {
-          return reducer(state, event)
+        return fold(this.mutator.values(), (state, mutator) => {
+          return mutator(state, event)
         }, state)
       }, initialState)
   }
@@ -35,10 +35,10 @@ class Signal {
 
   register = (reducer, key) => {
     let k = key || uid()
-    this.reducers.set(k, reducer)
+    this.mutators.set(k, reducer)
 
     return function dispose () {
-      this.reducers.delete(k)
+      this.mutators.delete(k)
     }
   }
 }

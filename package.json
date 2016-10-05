@@ -10,7 +10,8 @@
     "watch": "babel --watch src --out-dir lib",
     "prestart": "npm run build",
     "start": "node examples",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretest": "npm run build",
+    "test": "tape spec/*.js",
     "prepublish": "npm run build",
     "predocs": "npm run clean && gitbook install",
     "docs": "gitbook build",
@@ -72,7 +73,8 @@
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.5.4",
-    "standard": "^8.3.0"
+    "standard": "^8.3.0",
+    "tape": "^4.6.2"
   },
   "dependencies": {
     "eventemitter3": "^1.1.1",
