@@ -6,6 +6,7 @@ const styles = {
     flexDirection: 'row'
   },
   main: {
+    display: 'flex',
     flex: 1,
     padding: '12px'
   },
@@ -42,5 +43,18 @@ export const Code = ({children}) => {
     <div style={styles.code}>
       {children}
     </div>
+  )
+}
+
+export const App = ({state, children}) => {
+  return (
+    <View>
+      <Main>
+        {children}
+      </Main>
+      <Code>
+        <pre>{JSON.stringify(state, null, '  ')}</pre>
+      </Code>
+    </View>
   )
 }
