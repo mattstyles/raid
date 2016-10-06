@@ -67,6 +67,7 @@
     "browserify": "^13.1.0",
     "budo": "^9.2.1",
     "gh-pages": "^0.9.0",
+    "immutable": "^3.8.1",
     "inferno": "^0.7.27",
     "inferno-component": "^0.7.27",
     "inferno-dom": "^0.7.27",
