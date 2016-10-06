@@ -1,6 +1,6 @@
 
 const tape = require('tape')
-const {uid, fold} = require('../lib/utils')
+const {uid, fold} = require('../src/utils')
 
 tape('uid should return a unique identifier string', t => {
   t.plan(2)

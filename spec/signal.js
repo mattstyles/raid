@@ -1,7 +1,7 @@
 
 const tape = require('tape')
 
-const {Signal} = require('../lib')
+const {Signal} = require('../src')
 
 tape('Signals can register and dispose of mutator functions', t => {
   t.plan(3)
