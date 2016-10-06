@@ -35,6 +35,20 @@ const mutator = (state, event) => {
   }
 }
 
+const styles = {
+  container: {
+    position: 'absolute',
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    height: '100%',
+    width: '100%',
+    top: 0,
+    left: 0,
+    overflow: 'hidden'
+  }
+}
+
 const Main = ({state}) => {
   let shapes = state.toArray().map(shape => {
     return (
@@ -51,8 +65,8 @@ const Main = ({state}) => {
     )
   })
   return (
-    <div style={{display: 'flex', flex: 1, maxHeight: '90vh'}}>
-      <div>
+    <div style={styles.container}>
+      <div style={{padding: 12}}>
         <Button
           onClick={e => {
             signal.emit({type: ACTIONS.ADD})
