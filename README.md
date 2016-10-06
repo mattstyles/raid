@@ -4,7 +4,7 @@
 
 [![npm](https://img.shields.io/npm/v/raid.svg?style=flat)](https://www.npmjs.com/package/raid)
 [![License](https://img.shields.io/npm/l/raid.svg)](https://www.npmjs.com/package/raid)
-[![Build Status](https://travis-ci.org/mattstyles/raid.svg?branch=composer)](https://travis-ci.org/mattstyles/raid)
+[![Build Status](https://travis-ci.org/mattstyles/raid.svg?branch=master)](https://travis-ci.org/mattstyles/raid)
 [![Coverage Status](https://coveralls.io/repos/mattstyles/raid/badge.svg?branch=master&service=github)](https://coveralls.io/github/mattstyles/raid?branch=master)
 [![Dependency Status](https://david-dm.org/mattstyles/raid.svg)](https://david-dm.org/mattstyles/raid)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
