@@ -17,7 +17,7 @@ class Signal {
    */
   constructor (initialState = {}) {
     this.emitter = new EventEmitter()
-    this.mutators = new Map()
+    this.updates = new Map()
 
     /**
      * Creates a source stream that holds application state
@@ -26,17 +26,17 @@ class Signal {
       .scan((state, event) => {
         /**
          * Actions that request state changes are passed in to the stream with
-         * side effects happening within the execution of mutator functions
+         * side effects happening within the execution of update functions
          */
-        return fold(this.mutators.values(), (state, mutator) => {
-          return mutator(state, event)
+        return fold(this.updates.values(), (state, update) => {
+          return update(state, event)
         }, state)
       }, initialState)
   }
 
   /**
    * Emit a new action from this signal, this triggers a pass through the
-   * mutator functions
+   * update functions
    * @param payload <Object>
    * @returns <null>
    */
@@ -68,16 +68,16 @@ class Signal {
   subscribe = this.observe
 
   /**
-   * Registers a mutator with this signal
-   * @param mutator <Function(state, event)> mutators are called with the
+   * Registers an update function with this signal
+   * @param update <Function(state, event)> updates are called with the
    *   previous application state and the triggering event and are expected to
    *   return a representation of the new state
-   * @param key <String<optional>> uid for the mutator
-   * @returns <Function> dispose function to remove the mutator
+   * @param key <String<optional>> uid for the update function
+   * @returns <Function> dispose function to remove the update function
    */
-  register = (mutator, key = uid()) => {
+  register = (update, key = uid()) => {
     // let k = key || uid()
-    this.mutators.set(key, mutator)
+    this.updates.set(key, update)
 
     return function dispose () {
       return this.dispose(key)
@@ -85,12 +85,12 @@ class Signal {
   }
 
   /**
-   * Removes a mutator function from the fold
+   * Removes a update function from the fold
    * @param key <String> identifier
    * @returns <Boolean>
    */
   dispose = key => {
-    return this.mutators.delete(key)
+    return this.updates.delete(key)
   }
 }
 

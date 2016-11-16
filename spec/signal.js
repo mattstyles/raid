@@ -10,25 +10,25 @@ tape('Signals can register and dispose of mutator functions', t => {
   let dispose = signal.register(() => {})
 
   t.equal('function', typeof dispose, 'Register returns a dispose function')
-  t.equal(signal.mutators.size, 1,
+  t.equal(signal.updates.size, 1,
     'Register adds a function to an internal stack')
 
   dispose()
 
-  t.equal(signal.mutators.size, 0, 'Dispose removes a function from the stack')
+  t.equal(signal.updates.size, 0, 'Dispose removes a function from the stack')
 })
 
-tape('Signal mutators can be disposed by key', t => {
+tape('Signal updates can be disposed by key', t => {
   t.plan(2)
 
   let signal = new Signal()
   signal.register(() => {}, 'mut')
 
-  t.equal(signal.mutators.size, 1, 'Initial mutator map size is ok')
+  t.equal(signal.updates.size, 1, 'Initial mutator map size is ok')
 
   signal.dispose('mut')
 
-  t.equal(signal.mutators.size, 0, 'Dispose removes a specific mutator')
+  t.equal(signal.updates.size, 0, 'Dispose removes a specific mutator')
 })
 
 tape('Signals can register functions with specific keys', t => {
@@ -37,7 +37,7 @@ tape('Signals can register functions with specific keys', t => {
   let signal = new Signal()
   signal.register(() => {}, 'test')
 
-  t.equal(typeof signal.mutators.get('test'), 'function',
+  t.equal(typeof signal.updates.get('test'), 'function',
     'Mutator functions can be referenced by id')
 })
 
@@ -68,7 +68,7 @@ tape('Signal observation triggers so the consumer can use initial state', t => {
   })
 })
 
-tape('Emitting actions triggers mutators to fire', t => {
+tape('Emitting actions triggers updates to fire', t => {
   t.plan(1)
 
   let count = 0

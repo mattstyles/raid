@@ -12,7 +12,7 @@
     "start": "node examples",
     "pretest": "npm run build",
     "test": "nyc tape -r babel-register spec/*.js",
-    "test-only": "tape spec/*.js",
+    "test-only": "tape -r babel-register spec/*.js",
     "cover": "nyc report --reporter=text-lcov | coveralls",
     "prepublish": "npm run build",
     "predocs": "npm run clean && gitbook install",
