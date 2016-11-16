@@ -22,7 +22,7 @@ const signal = new Signal({
 })
 
 /**
- * Action enum gives the mutators a key to perform mutations
+ * Action enum gives the updates a key to perform mutations
  */
 const ACTIONS = {
   ADD: 'actions:add',
@@ -30,10 +30,10 @@ const ACTIONS = {
 }
 
 /**
- * Mutators are responsible for mutating state and returning it.
+ * updates are responsible for mutating state and returning it.
  * They can be composed to provide more complex state manipulation.
  */
-const mutator = (state, event) => {
+const update = (state, event) => {
   if (event.type === ACTIONS.ADD) {
     state.count += 1
     return state
@@ -113,7 +113,7 @@ signal.observe(state => {
 })
 
 /**
- * Register mutators.
- * Returns a dispose function which can be used to destroy a mutator.
+ * Register updates.
+ * Returns a dispose function which can be used to destroy an update function.
  */
-signal.register(mutator)
+signal.register(update)

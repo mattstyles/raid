@@ -29,7 +29,7 @@ const ACTIONS = {
   ADD: 'action:add'
 }
 
-const mutator = (state, event) => {
+const update = (state, event) => {
   if (event.type === ACTIONS.ADD) {
     return state.push(generateShape())
   }
@@ -89,4 +89,4 @@ signal.observe(state => {
   )
 })
 
-signal.register(mutator)
+signal.register(update)
