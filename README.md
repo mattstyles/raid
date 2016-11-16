@@ -31,7 +31,7 @@ signal.observe(state => {
 })
 ```
 
-State is held within the signal, changes can be triggered by emitting action objects and using mutator functions to mutate the state.
+State is held within the signal, changes can be triggered by emitting action objects and using update functions to mutate the state.
 
 ```js
 import {Signal} from 'raid'
@@ -40,7 +40,7 @@ const signal = new Signal({
   count: 0
 })
 
-// Mutator
+// Update function
 signal.register(state => {
   // Mutations occur here
   state.count++
@@ -59,7 +59,7 @@ signal.emit({
 })
 ```
 
-Raid works great with immutable state objects to ensure that all mutations occur within the mutators, although this is not enforced, it’ll work great with regular javascript structures too.
+Raid works great with immutable state objects to ensure that all mutations occur within the update functions, although this is not enforced, it’ll work great with regular javascript structures too.
 
 ## Examples
 
