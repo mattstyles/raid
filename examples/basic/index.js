@@ -69,20 +69,25 @@ const styles = {
   }
 }
 
+/**
+ * Action handlers are a simple bit of sugar to add
+ */
+const dispatch = type => {
+  return event => {
+    signal.emit({type})
+  }
+}
+
 const Counter = ({count}) => {
   return (
     <div style={styles.counter}>
       <span style={styles.count}>{count}</span>
       <div style={styles.counterControls}>
         <Button
-          onClick={e => {
-            signal.emit({type: ACTIONS.ADD})
-          }}
+          onClick={dispatch(ACTIONS.ADD)}
         >+</Button>
         <Button
-          onClick={e => {
-            signal.emit({type: ACTIONS.SUBTRACT})
-          }}
+          onClick={dispatch(ACTIONS.SUBTRACT)}
         >-</Button>
       </div>
     </div>
