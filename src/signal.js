@@ -45,7 +45,9 @@ class Signal {
       throw new Error('Incorrect payload type, expects object')
     }
 
-    this.emitter.emit('action', payload)
+    setTimeout(() => {
+      this.emitter.emit('action', payload)
+    }, 0)
   }
 
   /**
