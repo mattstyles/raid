@@ -41,13 +41,30 @@ tape('Signals can register functions with specific keys', t => {
     'Mutator functions can be referenced by id')
 })
 
+tape('Observers must be supplied to observe/subscribe', t => {
+  t.plan(2)
+
+  let signal = new Signal()
+  t.throws(() => {
+    signal.observe()
+  }, 'Supplying no argument to observe/subscribe throws an error')
+  t.throws(() => {
+    signal.observe({})
+  }, 'Supplying no observer to the object form of subscription throws an error')
+})
+
 tape('Signals emit an initial event when an observer is connected', t => {
-  t.plan(1)
+  t.plan(2)
 
   let initialState = {foo: 'bar'}
   let signal = new Signal(initialState)
   signal.observe(state => {
     t.deepEqual(state, initialState, 'Initial observer is triggered')
+  })
+  signal.observe({
+    next: state => {
+      t.deepEqual(state, initialState, 'Initial object-form observable is triggered')
+    }
   })
 })
 

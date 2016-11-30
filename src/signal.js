@@ -66,12 +66,30 @@ class Signal {
    *   current signal state
    * @param onError <Function> triggered for each stream error, passing
    *   back the current error
+   * @param onNext <Object> observe can accept an object containing next
+   *   and error handlers
    * @returns <null>
    */
-  observe = (onNext, onError) => {
+  observe = (next, error) => {
+    if (!next) {
+      throw new Error('Observer required to subscribe/observe')
+    }
+
+    if (typeof next === 'function') {
+      this.observers.push({
+        next,
+        error
+      })
+      return
+    }
+
+    if (!next.next) {
+      throw new Error('Observer required to subscribe/observe')
+    }
+
     this.observers.push({
-      onNext,
-      onError
+      next: next.next,
+      error: next.error
     })
   }
 
@@ -84,14 +102,14 @@ class Signal {
    * Observes the source stream and emits next events to all signal observers
    */
   onNext = (event) => {
-    this.observers.forEach(o => o.onNext(event))
+    this.observers.forEach(o => o.next(event))
   }
 
   /**
    * Observes the source stream and emits error events to all signal observers
    */
   onError = (err) => {
-    this.observers.forEach(o => o.onError(err))
+    this.observers.forEach(o => o.error(err))
   }
 
   /**
