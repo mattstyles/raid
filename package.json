@@ -63,7 +63,7 @@
     "babel-eslint": "^7.0.0",
     "babel-plugin-inferno": "^0.7.7",
     "babel-plugin-transform-react-require": "^1.0.1",
-    "babel-preset-urban": "^0.5.0",
+    "babel-preset-urban": "^1.0.0",
     "babel-register": "^6.16.3",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",

@@ -41,6 +41,16 @@ tape('Signals can register functions with specific keys', t => {
     'Mutator functions can be referenced by id')
 })
 
+tape('Signals emit an initial event when an observer is connected', t => {
+  t.plan(1)
+
+  let initialState = {foo: 'bar'}
+  let signal = new Signal(initialState)
+  signal.observe(state => {
+    t.deepEqual(state, initialState, 'Initial observer is triggered')
+  })
+})
+
 tape('Signals constructor applies a default empty object as state', t => {
   t.plan(2)
 
@@ -169,8 +179,6 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
       })
       return state
     }
-
-    return state
   })
   signal.observe(state => {})
 
@@ -192,4 +200,32 @@ tape('Mutators can trigger actions', t => {
   })
   signal.observe(() => {})
   signal.emit({type: 'one'})
+})
+
+tape('Signals with multiple observers still fire update functions once per event', t => {
+  t.plan(1)
+
+  let signal = new Signal({foo: 'bar'})
+  signal.register((state, event) => {
+    t.pass('Triggered once')
+    return state
+  })
+  signal.observe(() => {})
+  signal.observe(() => {})
+  signal.emit({type: 'update'})
+})
+
+tape('Signals should emit errors', t => {
+  t.plan(1)
+
+  const ERR = 'update error'
+  let signal = new Signal({foo: 'bar'})
+  signal.register((state, event) => {
+    throw new Error(ERR)
+  })
+  signal.observe(
+    () => {},
+    err => t.equal(err.message, ERR, 'Error is propagated to handler')
+  )
+  signal.emit({})
 })

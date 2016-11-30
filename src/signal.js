@@ -18,6 +18,7 @@ class Signal {
   constructor (initialState = {}) {
     this.emitter = new EventEmitter()
     this.updates = new Map()
+    this.observers = []
 
     /**
      * Creates a source stream that holds application state
@@ -32,6 +33,15 @@ class Signal {
           return update(state, event)
         }, state)
       }, initialState)
+
+    /**
+     * Pass source observer events to all signal observers.
+     * This ensures update functions run only once per event.
+     */
+    this.source.subscribe({
+      next: this.onNext,
+      error: this.onError
+    })
   }
 
   /**
@@ -52,22 +62,37 @@ class Signal {
 
   /**
    * Applies an observer to the signal source
-   * @param onAction <Function> triggered for each action, passing back the
+   * @param onNext <Function> triggered for each action, passing back the
    *   current signal state
+   * @param onError <Function> triggered for each stream error, passing
+   *   back the current error
    * @returns <null>
    */
-  observe = (onAction, onError, onComplete) => {
-    this.source.observe(
-      onAction,
-      onError,
-      onComplete
-    )
+  observe = (onNext, onError) => {
+    this.observers.push({
+      onNext,
+      onError
+    })
   }
 
   /**
    * @alias observe
    */
   subscribe = this.observe
+
+  /**
+   * Observes the source stream and emits next events to all signal observers
+   */
+  onNext = (event) => {
+    this.observers.forEach(o => o.onNext(event))
+  }
+
+  /**
+   * Observes the source stream and emits error events to all signal observers
+   */
+  onError = (err) => {
+    this.observers.forEach(o => o.onError(err))
+  }
 
   /**
    * Registers an update function with this signal
