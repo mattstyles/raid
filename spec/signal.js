@@ -202,7 +202,7 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   signal.emit({type: 'one'})
   signal.emit({type: 'two'})
 })
-tape('Mutators can trigger actions', t => {
+tape('Updates can trigger actions', t => {
   t.plan(1)
 
   let signal = new Signal({foo: 'bar'})
@@ -216,6 +216,42 @@ tape('Mutators can trigger actions', t => {
     return state
   })
   signal.observe(() => {})
+  signal.emit({type: 'one'})
+})
+tape('Actions triggered by update functions mutate state correctly', t => {
+  t.plan(2)
+
+  let count = 0
+  let signal = new Signal()
+  signal.register((state, event) => {
+    if (event.type === 'one') {
+      state.one = 'one'
+      signal.emit({type: 'two'})
+      return state
+    }
+    if (event.type === 'two') {
+      state.two = 'two'
+      return state
+    }
+  })
+  signal.observe(state => {
+    ++count
+    if (count < 2) {
+      return
+    }
+
+    if (count === 2) {
+      t.deepEqual(state, {
+        one: 'one'
+      }, 'First update mutates state and triggers observable')
+      return
+    }
+
+    t.deepEqual(state, {
+      one: 'one',
+      two: 'two'
+    }, 'Second update mutates state and triggers observable')
+  })
   signal.emit({type: 'one'})
 })
 
