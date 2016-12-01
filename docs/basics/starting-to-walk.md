@@ -5,9 +5,9 @@
 >
 >-- <cite>Lewis Carroll</cite>
 
-Now that we have the discussion of immutability out of the way we can start ditching the long words and get creating things.
+The code examples expect knowledge of [ES2015](https://babeljs.io/docs/learn-es2015/) and uses [React](https://facebook.github.io/react/) as the rendering engine.
 
-The code examples expect knowledge of [ES2015](https://babeljs.io/docs/learn-es2015/) and use [React](https://facebook.github.io/react/) as the rendering engine. 
+If you’re comfortable with using these technologies to create a build ready for the browser then jump to the [getting started](getting-started.html) section, alternatively the [installation](installation.html) section has a bit more info about getting set up.
 
 * [Installation](installation.html)
 * [Getting Started](getting-started.html)

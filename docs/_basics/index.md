@@ -25,4 +25,5 @@ The pattern Raid builds upon has a few advantages:
 
 Jump to the [getting started](getting-started.html) section if you’re comfortable with the principles behind Raid.
 
+* [Concerning Immutability](immutability.html)
 * [Starting to Walk](starting-to-walk.html)
