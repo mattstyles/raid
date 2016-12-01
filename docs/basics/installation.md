@@ -26,7 +26,7 @@ The rest of the code examples will use ES2015 modules and so (currently) require
 
 ## Example Babel setup
 
-> None of this is strictly necessary, outside of the module bundler, use whatever you prefer, Raid doesn’t care.
+> None of this is strictly necessary, once you have a version of Raid (whether that be via a module system or as a browser global) use whatever you prefer to write your own code, Raid doesn’t care.
 
 A good starting point would be to use the [ES2015](https://babeljs.io/docs/plugins/preset-es2015/) preset; the [object-rest-spread](https://babeljs.io/docs/plugins/transform-object-rest-spread/) plugin also fits quite well.
 
@@ -54,7 +54,7 @@ Adding the following to your `package.json` would set up babel and browserify to
 }
 ```
 
-Install the following and you should be ready to start firing any code examples here into a browser:
+Install the following and you should be ready to start firing any code examples into a browser:
 
 ```sh
 npm i -S raid react react-dom
@@ -62,3 +62,7 @@ npm i -D browserify babelify babel-preset-es2015 babel-preset-react babel-plugin
 
 npm run build
 ```
+
+---
+
+* [Getting Started](getting-started.html)
