@@ -109,7 +109,7 @@ class Signal {
    * Observes the source stream and emits error events to all signal observers
    */
   onError = (err) => {
-    this.observers.forEach(o => o.error(err))
+    this.observers.forEach(o => o.error && o.error(err))
   }
 
   /**
