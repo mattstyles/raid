@@ -1,47 +1,11 @@
 {
-  "name": "raid",
-  "version": "2.1.1",
-  "description": "Centralised state container",
-  "main": "lib/",
+  "private": "true",
   "scripts": {
-    "clean": "rm -rf lib _book",
-    "prebuild": "npm run clean",
-    "build": "babel src --out-dir lib",
-    "watch": "babel --watch src --out-dir lib",
-    "prestart": "npm run build",
-    "start": "node examples",
-    "pretest": "npm run build",
-    "test": "nyc tape -r babel-register spec/*.js",
-    "test-only": "tape -r babel-register spec/*.js",
-    "cover": "nyc report --reporter=text-lcov | coveralls",
-    "prepublish": "npm run build",
-    "predocs": "npm run clean && gitbook install",
+    "test": "echo \"Error: no test specified\" && exit 1","predocs": "npm run clean && gitbook install",
+    "clean": "rm -rf _book",
     "docs": "gitbook build",
     "docs:watch": "gitbook serve",
     "docs:deploy": "npm run docs && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:mattstyles/raid gh-pages --force"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "urban"
-    ],
-    "plugins": [
-      [
-        "transform-react-require",
-        {
-          "identifier": "Inferno",
-          "moduleName": "inferno"
-        }
-      ],
-      "inferno"
-    ]
-  },
-  "standard": {
-    "parser": "babel-eslint"
   },
   "keywords": [
     "raid",
@@ -54,36 +18,15 @@
   "author": "Matt Styles",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattstyles/raid"
+    "url": "git+https://github.com/mattstyles/raid.git"
   },
-  "bugs": "https://github.com/mattstyles/raid/issues",
-  "license": "ISC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattstyles/raid/issues"
+  },
+  "homepage": "https://github.com/mattstyles/raid#readme",
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-eslint": "^7.0.0",
-    "babel-plugin-inferno": "^0.7.7",
-    "babel-plugin-transform-react-require": "^1.0.1",
-    "babel-preset-urban": "^1.0.0",
-    "babel-register": "^6.16.3",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.0",
-    "budo": "^9.2.1",
-    "coveralls": "^2.11.14",
-    "gh-pages": "^0.9.0",
-    "immutable": "^3.8.1",
-    "inferno": "^0.7.27",
-    "inferno-component": "^0.7.27",
-    "inferno-dom": "^0.7.27",
-    "inquirer": "^1.2.1",
-    "minimist": "^1.2.0",
-    "mkdirp": "^0.5.1",
-    "nyc": "^8.3.0",
-    "rimraf": "^2.5.4",
-    "standard": "^8.3.0",
-    "tape": "^4.6.2"
-  },
-  "dependencies": {
-    "eventemitter3": "^2.0.2",
-    "most": "^1.0.3"
+    "lerna": "2.0.0-beta.38",
+    "gh-pages": "^0.9.0"
   }
 }
