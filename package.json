@@ -1,11 +1,36 @@
 {
   "private": "true",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1","predocs": "npm run clean && gitbook install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predocs": "npm run clean && gitbook install",
     "clean": "rm -rf _book",
     "docs": "gitbook build",
     "docs:watch": "gitbook serve",
-    "docs:deploy": "npm run docs && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:mattstyles/raid gh-pages --force"
+    "docs:deploy": "npm run docs && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:mattstyles/raid gh-pages --force",
+    "start": "node examples"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "urban"
+    ],
+    "plugins": [
+      [
+        "transform-react-require",
+        {
+          "identifier": "Inferno",
+          "moduleName": "inferno"
+        }
+      ],
+      "inferno"
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint"
   },
   "keywords": [
     "raid",
@@ -27,6 +52,23 @@
   "homepage": "https://github.com/mattstyles/raid#readme",
   "devDependencies": {
     "lerna": "2.0.0-beta.38",
-    "gh-pages": "^0.9.0"
+    "gh-pages": "^0.9.0",
+    "babel-cli": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-plugin-inferno": "^0.7.7",
+    "babel-plugin-transform-react-require": "^1.0.1",
+    "babel-preset-urban": "^1.0.0",
+    "babel-register": "^6.16.3",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "budo": "^9.2.1",
+    "immutable": "^3.8.1",
+    "inferno": "^0.7.27",
+    "inferno-component": "^0.7.27",
+    "inferno-dom": "^0.7.27",
+    "inquirer": "^1.2.1",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "standard": "^8.3.0"
   }
 }
