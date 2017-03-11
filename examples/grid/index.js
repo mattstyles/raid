@@ -7,7 +7,7 @@
 
 import {render} from 'inferno-dom'
 
-import {Signal} from '../../lib'
+import {Signal} from 'raid/src'
 
 import element from '../_common/element'
 import Button from '../_common/actionButton'

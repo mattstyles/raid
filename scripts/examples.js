@@ -60,13 +60,17 @@ function exampleSelect (examples) {
 
 function spawnServer (example) {
   let dir = path.resolve(expath, example)
+  let paths = [
+    dir,
+    packages
+  ]
   budo(dir, {
     live: true,
     dir,
-    watchGlob: [
-      dir,
-      path.join(packages)
-    ],
+    watchGlob: paths,
+    browserify: {
+      paths
+    },
     open: argv.o || argv.open || false,
     verbose: true,
     stream: process.stdout
