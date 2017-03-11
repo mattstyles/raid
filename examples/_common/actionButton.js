@@ -1,6 +1,3 @@
-/**
- * Standard button
- */
 
 const styles = {
   padding: '.85em 1.33em',

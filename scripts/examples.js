@@ -7,6 +7,10 @@ var argv = require('minimist')(process.argv.slice(2))
 var inquirer = require('inquirer')
 var budo = require('budo')
 
+const basepath = path.resolve(__dirname, '../')
+const expath = path.join(basepath, 'examples')
+const packages = path.join(basepath, 'packages')
+
 function getDirectory (file) {
   return new Promise((resolve, reject) => {
     fs.stat(file, (err, stats) => {
@@ -20,13 +24,13 @@ function getDirectory (file) {
   })
 }
 
-fs.readdir(__dirname, (err, files) => {
+fs.readdir(expath, (err, files) => {
   if (err) {
     return console.error(err)
   }
 
   Promise.all(files
-    .map(file => path.join(__dirname, file))
+    .map(file => path.join(expath, file))
     .map(getDirectory))
     .then(directories => directories.filter(d => d))
     .then(directories => directories.filter(d => !/^_/.test(path.basename(d))))
@@ -55,12 +59,13 @@ function exampleSelect (examples) {
 }
 
 function spawnServer (example) {
-  budo(path.resolve(__dirname, example), {
+  let dir = path.resolve(expath, example)
+  budo(dir, {
     live: true,
-    dir: path.join(__dirname, example),
+    dir,
     watchGlob: [
-      path.join(__dirname),
-      path.join(__dirname, '../lib')
+      dir,
+      path.join(packages)
     ],
     open: argv.o || argv.open || false,
     verbose: true,
