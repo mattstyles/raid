@@ -14,7 +14,8 @@
   },
   "browserify": {
     "transform": [
-      "babelify"
+      "babelify",
+      "envify"
     ]
   },
   "babel": {
@@ -69,6 +70,7 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "budo": "^9.2.1",
+    "envify": "^4.0.0",
     "force-array": "^3.1.0",
     "gh-pages": "^0.9.0",
     "immutable": "^3.8.1",

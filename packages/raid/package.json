@@ -5,21 +5,16 @@
   "main": "lib/",
   "scripts": {
     "clean": "rimraf lib",
-    "prebuild": "npm run clean",
+    "prebuild": "yarn run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
-    "prestart": "npm run build",
-    "start": "npm run watch",
-    "pretest": "npm run build",
+    "prestart": "yarn run build",
+    "start": "yarn run watch",
+    "pretest": "yarn run build",
     "test": "nyc tape -r babel-register spec/*.js",
     "test-only": "tape -r babel-register spec/*.js",
     "cover": "nyc report --reporter=text-lcov | coveralls",
-    "prepublish": "npm run build"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
+    "prepublish": "yarn run build"
   },
   "babel": {
     "presets": [
@@ -43,14 +38,12 @@
     "url": "https://github.com/mattstyles/raid"
   },
   "bugs": "https://github.com/mattstyles/raid/issues",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
     "babel-preset-urban": "^1.0.0",
     "babel-register": "^6.16.3",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.0",
     "coveralls": "^2.11.14",
     "nyc": "^8.3.0",
     "rimraf": "^2.5.4",

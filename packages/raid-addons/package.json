@@ -5,32 +5,16 @@
   "main": "lib/",
   "scripts": {
     "clean": "rimraf lib",
-    "prebuild": "npm run clean",
-    "start": "node examples",
+    "prebuild": "yarn run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm run build"
-  },
-  "browserify": {
-    "transform": [
-      "babelify",
-      "envify"
-    ]
+    "prepublish": "yarn run build",
+    "start": "yarn run build"
   },
   "babel": {
     "presets": [
       "urban"
-    ],
-    "plugins": [
-      [
-        "transform-react-require",
-        {
-          "identifier": "Inferno",
-          "moduleName": "inferno"
-        }
-      ],
-      "inferno"
     ]
   },
   "standard": {
@@ -50,30 +34,14 @@
   "bugs": "https://github.com/mattstyles/raid-addons/issues",
   "license": "MIT",
   "devDependencies": {
-    "axios": "^0.15.3",
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
-    "babel-plugin-inferno": "^0.7.7",
-    "babel-plugin-transform-react-require": "^1.0.1",
-    "babel-polyfill": "^6.16.0",
     "babel-preset-urban": "^1.0.0",
     "babel-register": "^6.16.3",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.0",
-    "budo": "^9.2.1",
-    "envify": "^4.0.0",
-    "inferno": "^0.7.27",
-    "inferno-component": "^0.7.27",
-    "inferno-dom": "^0.7.27",
-    "inquirer": "^1.2.1",
-    "minimist": "^1.2.0",
-    "mkdirp": "^0.5.1",
     "rimraf": "^2.5.2",
     "standard": "^8.3.0"
   },
   "dependencies": {
-    "force-array": "^3.1.0",
-    "raid": "^2.0.0",
-    "reselect": "^2.5.4"
+    "force-array": "^3.1.0"
   }
 }
