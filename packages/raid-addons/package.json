@@ -39,7 +39,7 @@
     "babel-preset-urban": "^1.0.0",
     "babel-register": "^6.16.3",
     "rimraf": "^2.5.2",
-    "standard": "^8.3.0"
+    "standard": "^9.0.1"
   },
   "dependencies": {
     "force-array": "^3.1.0"
