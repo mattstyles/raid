@@ -14,8 +14,5 @@ document.body.appendChild(el)
 Object.assign(document.body.style, {
   margin: 0
 })
-Object.assign(document.documentElement.style, {
-  fontSize: '10px'
-})
 
 export default el

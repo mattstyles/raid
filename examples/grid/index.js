@@ -11,7 +11,7 @@ import {Signal} from 'raid/src'
 
 import element from '../_common/element'
 import Button from '../_common/actionButton'
-import {View, Main, Code} from '../_common/layout'
+import {View, Main} from '../_common/layout'
 
 var LINE = '........................................'
 
@@ -82,30 +82,27 @@ const update = (state, event) => {
 }
 
 /**
- * Raid can be used with any view library
+ * Raid can be used with any view library, here we use InfernoJS partnered
+ * with styled-jsx for styling.
  */
 const styles = {
-  grid: {
-    fontFamily: 'DejaVu Sans Mono',
-    fontSize: 15,
-    whiteSpace: 'pre',
-    color: 'rgb(232, 232, 232)',
-    background: 'rgb(24, 24, 24)'
-  }
+  grid: `.grid {
+    font-family: 'DejaVu Sans Mono';
+    font-size: 1.5rem;
+    white-space: pre;
+    color: rgb(232, 232, 232);
+    background: rgb(24, 24, 24);
+  }`
 }
 
 /**
  * Action handlers are a simple bit of sugar to add
  */
-const dispatch = type => {
-  return event => {
-    signal.emit({type})
-  }
+const dispatch = type => event => {
+  signal.emit({type})
 }
 
-const Line = ({str}) => {
-  return <div>{str}</div>
-}
+const Line = ({str}) => <div>{str}</div>
 
 const Map = ({map}) => {
   let content = []
@@ -114,36 +111,33 @@ const Map = ({map}) => {
   }
   return (
     <div>
-      <div style={styles.grid}>
+      <div className='grid'>
         {content.map(str => <Line str={str} />)}
       </div>
       <Button
         styles={{marginTop: 8}}
         onClick={dispatch(ACTIONS.GENERATE)}
       >Generate</Button>
+      <style jsx>{styles.grid}</style>
     </div>
   )
 }
 
-const App = ({state}) => {
-  return (
-    <View>
-      <Main>
-        <Map map={state.map} />
-      </Main>
-    </View>
-  )
-}
+const App = ({state}) => (
+  <View>
+    <Main>
+      <Map map={state.map} />
+    </Main>
+  </View>
+)
 
 /**
  * The signal observer notifies when the application state changes
  */
-signal.observe(state => {
-  render(
-    <App state={state} />,
-    element
-  )
-})
+signal.observe(state => render(
+  <App state={state} />,
+  element
+))
 
 /**
  * Register updates.
