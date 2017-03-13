@@ -64,6 +64,10 @@ function spawnServer (example) {
     dir,
     packages
   ]
+  // Set babel env to switch jsx compilation
+  if (/adaptor/.test(example)) {
+    process.env.BABEL_ENV = 'react'
+  }
   budo(dir, {
     live: true,
     dir,

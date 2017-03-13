@@ -16,6 +16,11 @@
     "cover": "nyc report --reporter=text-lcov | coveralls",
     "prepublish": "yarn run build"
   },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "babel": {
     "presets": [
       "urban"

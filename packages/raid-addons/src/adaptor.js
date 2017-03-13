@@ -1,4 +1,6 @@
 
+import React from 'react'
+
 const adaptor = signal => {
   let internalState = {}
   signal.observe(state => {

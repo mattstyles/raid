@@ -12,6 +12,11 @@
     "prepublish": "yarn run build",
     "start": "yarn run build"
   },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "babel": {
     "presets": [
       "urban"

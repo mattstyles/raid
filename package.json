@@ -19,20 +19,33 @@
     ]
   },
   "babel": {
-    "presets": [
-      "urban"
-    ],
-    "plugins": [
-      [
-        "transform-react-require",
-        {
-          "identifier": "Inferno",
-          "moduleName": "inferno"
-        }
-      ],
-      "inferno",
-      "styled-jsx/babel"
-    ]
+    "env": {
+      "react": {
+        "presets": [
+          "urban"
+        ],
+        "plugins": [
+          "transform-react-require",
+          "styled-jsx/babel"
+        ]
+      },
+      "development": {
+        "presets": [
+          "urban"
+        ],
+        "plugins": [
+          [
+            "transform-react-require",
+            {
+              "identifier": "Inferno",
+              "moduleName": "inferno"
+            }
+          ],
+          "inferno",
+          "styled-jsx/babel"
+        ]
+      }
+    }
   },
   "standard": {
     "parser": "babel-eslint",
@@ -68,7 +81,7 @@
     "babel-preset-urban": "^1.0.0",
     "babel-register": "^6.16.3",
     "babelify": "^7.3.0",
-    "browserify": "^13.1.0",
+    "browserify": "^14.1.0",
     "budo": "^9.2.1",
     "envify": "^4.0.0",
     "force-array": "^3.1.0",
@@ -77,14 +90,16 @@
     "inferno": "^0.7.27",
     "inferno-component": "^0.7.27",
     "inferno-dom": "^0.7.27",
-    "inquirer": "^1.2.1",
+    "inquirer": "^3.0.6",
     "lerna": "2.0.0-beta.38",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "raid": "^2.1.0",
     "raid-addons": "^2.0.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "reselect": "^2.5.4",
-    "standard": "^8.3.0",
+    "standard": "^9.0.1",
     "styled-jsx": "^0.5.7"
   }
 }
