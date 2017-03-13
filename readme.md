@@ -21,54 +21,28 @@ yarn add raid
 npm i -S raid
 ```
 
-Raid manages the state layer by providing an observable that supplies the current state of the application.
+* [Getting started with raid](https://github.com/mattstyles/raid/blob/master/packages/raid/readme.md)
+* [Documentation](http://mattstyles.github.io/raid/)
 
-```js
-import {Signal} from 'raid'
+## Examples
 
-const signal = new Signal({
-  count: 0
-})
+The Raid codebase has been written to encourage collaboration and uses [lerna](https://lernajs.io/) to implement a monorepo.
 
-signal.observe(state => {
-  // Current signal state
-})
+To get going you can let lerna do the heavy lifting so you simply need to clone the repository, install the root dependencies and then let lerna hook things together.
+
+To fire in to the examples run `yarn start` after letting lerna hook things up. This is also a live development environment and will automatically reload the browser when there are changes to any of the packages.
+
+```sh
+$ yarn
+$ yarn run setup
+$ yarn start -- -o
 ```
-
-State is held within the signal, changes can be triggered by emitting action objects and using update functions to mutate the state.
-
-```js
-import {Signal} from 'raid'
-
-const signal = new Signal({
-  count: 0
-})
-
-// Update function
-signal.register(state => {
-  // Mutations occur here
-  state.count++
-  return state
-})
-
-// Observable
-signal.observe(state => {
-  // Current signal state
-  console.log(state)
-})
-
-// Emit action
-signal.emit({
-  type: 'ADD'
-})
-```
-
-Raid works great with immutable state objects to ensure that all mutations occur within the update functions, although this is not enforced, it’ll work great with regular javascript structures too.
 
 ## Running tests
 
 ```sh
 $ yarn
+$ yarn run setup
 $ yarn test
 ```
 
@@ -76,9 +50,7 @@ $ yarn test
 
 Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
 
-For bugs and feature requests, [please create an issue](https://github.com/mattstyles/raid/issues).
-
-See the root [readme](https://github.com/mattstyles/raid) for more information about how the repository is structured.
+For bugs and feature requests, [please create an issue]().
 
 ## License
 

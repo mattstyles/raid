@@ -8,7 +8,7 @@
     "prebuild": "yarn run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "prepublish": "yarn run build",
     "start": "yarn run build"
   },
