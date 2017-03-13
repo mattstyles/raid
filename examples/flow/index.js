@@ -1,9 +1,11 @@
 
 import {render} from 'inferno-dom'
 
-import {Signal} from 'raid'
-import compress from '../../src/compress'
-import flow from '../../src/flow'
+import {Signal} from 'raid/src'
+import {
+  compress,
+  flow
+} from 'raid-addons/src'
 
 import element from '../_common/element'
 import Button from '../_common/actionButton'

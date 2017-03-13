@@ -1,9 +1,9 @@
 
 import 'babel-polyfill'
 import {render} from 'inferno-dom'
-import {Signal} from 'raid'
+import {Signal} from 'raid/src'
 
-import {sin} from '../../src'
+import {sin} from 'raid-addons/src'
 
 import element from '../_common/element'
 import Button from '../_common/actionButton'

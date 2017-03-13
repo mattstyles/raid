@@ -1,27 +1,32 @@
 
-const styles = {
-  padding: '.85em 1.33em',
-  borderRadius: 3,
-  border: 'none',
-  background: 'rgb(49, 162, 242)',
-  color: 'rgb(249, 249, 249)',
-  fontSize: 16,
-  lineHeight: 1,
-  fontWeight: 400,
-  textShadow: '0px 1px 1px rgba( 0, 0, 0, .25 )',
-  marginRight: '8px',
-  cursor: 'pointer'
-}
+const styles = `
+  .Btn {
+    padding: .85em 1.33em;
+    border-radius: 3px;
+    border: none;
+    background: rgb(49, 162, 242);
+    color: rgb(249, 249, 249);
+    font-size: 1.6rem;
+    line-height: 1;
+    font-weight: 400;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, .25);
+    margin-right: 8px;
+    cursor: pointer;
+  }
+`
 
 export default props => {
   return (
     <button
-      style={Object.assign({}, styles, {
-        background: props.background || styles.background
-      }, props.styles)}
+      style={{
+        background: props.background,
+        ...props.styles
+      }}
+      className={`Btn ${props.classes || ''}`}
       onClick={props.onClick}
     >
       {props.children}
+      <style jsx>{styles}</style>
     </button>
   )
 }

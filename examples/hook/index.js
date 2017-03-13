@@ -1,8 +1,10 @@
 
 import {render} from 'inferno-dom'
 
-import compress from '../../src/compress'
-import hook from '../../src/hook'
+import {
+  compress,
+  hook
+} from 'raid-addons/src'
 
 import element from '../_common/element'
 
