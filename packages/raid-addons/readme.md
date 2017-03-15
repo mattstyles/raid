@@ -273,6 +273,10 @@ signal.register(arc(signal)(wait))
 signal.emit({type: 'WAIT'})
 ```
 
+### Sin
+
+Sin is another way to use async-await but its far less safe as it allows asynchronous functions to try to return state and become regular update functions. It is included as an example of using asynchronous update functions but `arc` should be preferred.
+
 ## Running tests
 
 ```sh
