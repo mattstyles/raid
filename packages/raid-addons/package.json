@@ -8,7 +8,8 @@
     "prebuild": "yarn run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "nyc tape -r babel-register spec/*.js",
+    "test-only": "tape -r babel-register spec/*.js",
     "prepublish": "yarn run build",
     "start": "yarn run build"
   },
@@ -43,8 +44,12 @@
     "babel-eslint": "^7.0.0",
     "babel-preset-urban": "^1.0.0",
     "babel-register": "^6.16.3",
+    "coveralls": "^2.11.14",
+    "nyc": "^10.1.2",
+    "raid": "*",
     "rimraf": "^2.5.2",
-    "standard": "^9.0.1"
+    "standard": "^9.0.1",
+    "tape": "^4.6.2"
   },
   "dependencies": {
     "force-array": "^3.1.0"
