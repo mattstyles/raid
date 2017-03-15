@@ -119,7 +119,7 @@ signal.emit({
 
 `<String> => <Array<Function>> => <Function <state, event>>`
 
-Squash adds several update functions to the same events and runs them sequentially meaning that order can be important.
+Squash adds several update functions to the same event and runs them sequentially meaning that order can be important.
 
 ```js
 const signal = new Signal({
@@ -227,16 +227,20 @@ signal.emit({
 
 `<Function> => <Function <state, event>>`
 
-Safe just wraps an update function to ensure state is always spat out of it.
+Safe just wraps an update function to ensure state is always spat out of it. It will default to using the output of an update function, throwing out the state in the event something falsy is returned.
 
 ```js
-const add = (state, event) => state.count++
+const add = (state, event) => {
+  state.count++
+}
 signal.register(safe(add))
 ```
 
 ### Arc
 
-Arcs can be used to create functions which can handle side effects away from regular update functions by ensuring that async-await can be handled correctly. Arcs are connected to the signal state and can request copies of it meaning that state inside an arc effectively becomes detached _but_ representation of the system state so it can be inspected but it can directly be manipulated from within an arc, instead, arcs should fire dispatches to infer state changes.
+Arcs can be used to create functions which can handle side effects away from regular update functions by ensuring that async-await can be handled correctly.
+
+Arcs are connected to the signal state and can request copies of it meaning that state inside an arc effectively becomes detached _but_ representative of the system state so it can be inspected but not directly manipulated from within an arc, instead, arcs should fire dispatches to infer state changes.
 
 Once an arc is created by attaching it to a signal the actual function works great combined with something like [compress](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md#compress) to attach it to a specific event.
 

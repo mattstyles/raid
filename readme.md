@@ -22,6 +22,7 @@ npm i -S raid
 ```
 
 * [Getting started with raid](https://github.com/mattstyles/raid/blob/master/packages/raid/readme.md)
+* [Utilities and complementary functions](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md)
 * [Documentation](https://mattstyles.github.io/raid/)
 
 ## Examples
