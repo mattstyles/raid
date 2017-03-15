@@ -7,6 +7,7 @@ import {
   compress
 } from 'raid-addons/src'
 
+import {signal} from './store'
 import {dispatch, actions} from './actions'
 
 const onPending = dispatch(actions.requestPending)
@@ -21,7 +22,7 @@ const delay = ms => ({
   then: cb => setTimeout(cb, ms)
 })
 
-const update = async (state, payload) => {
+const update = async (getState, payload) => {
   onPending()
 
   try {
@@ -30,11 +31,9 @@ const update = async (state, payload) => {
   } catch (err) {
     onFailure(err.message)
   }
-
-  return state
 }
 
-const mock = async (state, payload) => {
+const mock = async (getState, payload) => {
   onPending()
 
   try {
@@ -52,6 +51,6 @@ const mock = async (state, payload) => {
 // Arc is necessary to ensure state is propagated correctly
 // when first firing the updater
 export const request = flow(
-  arc,
+  arc(signal),
   compress(actions.request)
 )(process.env.DEBUG ? mock : update)

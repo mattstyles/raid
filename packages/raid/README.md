@@ -9,6 +9,8 @@
 [![Dependency Status](https://david-dm.org/mattstyles/raid.svg)](https://david-dm.org/mattstyles/raid)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
+[Documentation](https://mattstyles.github.io/raid/)
+
 ## Getting Started
 
 Install with [yarn](https://yarnpkg.com) or [npm](https://npmjs.com)

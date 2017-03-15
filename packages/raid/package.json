@@ -57,6 +57,6 @@
   },
   "dependencies": {
     "eventemitter3": "^2.0.2",
-    "most": "^1.0.3"
+    "most": "^1.2.2"
   }
 }
