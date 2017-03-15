@@ -1,6 +1,6 @@
 {
   "name": "raid-addons",
-  "version": "2.0.0",
+  "version": "2.2.0-rc",
   "description": "Add-ons functions for use with Raid",
   "main": "lib/",
   "scripts": {
