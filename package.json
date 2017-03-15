@@ -8,6 +8,7 @@
     "clean": "rm -rf _book",
     "build": "lerna run build --ignore @raid/monorepo",
     "setup": "lerna bootstrap",
+    "cover": "lerna run cover --ignore '@(raid/monorepo|raid-addons)'",
     "docs": "gitbook build",
     "docs:watch": "gitbook serve",
     "docs:deploy": "npm run docs && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:mattstyles/raid gh-pages --force",
