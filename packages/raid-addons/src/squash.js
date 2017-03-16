@@ -6,7 +6,7 @@ const squash = key => updates => (state, event) => {
     return state
   }
   return forceArray(updates)
-    .reduce((fn, state) => fn(state, event.payload), state)
+    .reduce((state, fn) => fn(state, event.payload), state)
 }
 
 export default squash
