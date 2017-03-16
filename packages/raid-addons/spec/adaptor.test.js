@@ -1,11 +1,10 @@
 
-import path from 'path'
-import tape from 'tape'
-import {Signal} from 'raid'
+import {namespace} from './utils'
 
+import {Signal} from 'raid'
 import {adaptor} from '../src'
 
-const test = (str, fn) => tape(`${path.basename(__filename)} :: ${str}`, fn)
+const test = namespace(__filename)
 
 test('Should return functions', t => {
   t.plan(2)
@@ -39,7 +38,7 @@ test('Connect pass state through to component props', t => {
 })
 
 test('Connect should throw errors if arguments do not exist', t => {
-  t.plan(2)
+  t.plan(1)
 
   const signal = new Signal()
   const connect = adaptor(signal)
@@ -47,9 +46,6 @@ test('Connect should throw errors if arguments do not exist', t => {
   t.throws(() => {
     connect(null, props => {})
   }, 'Throws when no state selector is specified')
-  t.throws(() => {
-    connect(state => state)
-  }, 'Throws when no component is specified')
 })
 
 test('Selector functions should select from state and provide to component', t => {
@@ -68,5 +64,20 @@ test('Selector functions should select from state and provide to component', t =
   signal.observe(state => {
     const component = hoc()
     t.equal('bar', component.props.bar, 'Selectors pass state correctly')
+  })
+})
+
+test('Selector function is optional', t => {
+  t.plan(1)
+
+  const state = {foo: 'bar'}
+  const signal = new Signal(state)
+  const connect = adaptor(signal)
+
+  const hoc = connect(props => {})
+
+  signal.observe(state => {
+    const component = hoc()
+    t.deepEqual(state, component.props, 'Selector defaults to identity')
   })
 })

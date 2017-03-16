@@ -33,7 +33,7 @@ See the [examples](https://github.com/mattstyles/raid/blob/master/examples) for 
 
 ### Adaptor
 
-`(<Signal>) => <Function <Function, Component>>`
+`(<Signal>) => <Function <Function[optional], Component>>`
 
 An adaptor can be attached to a signal and returns a function that can be used to create a higher-order component that has data from the state provided to it, that data will be passed as `props`.
 
@@ -49,7 +49,9 @@ const Title = connect(state => state.title, El)
 
 The returned `connect` function should be supplied with a selector function (which is responsible for grabbing parts of the state) and a component function.
 
-* Libraries like [reselect](https://npmjs.com/package/reselect), which help to create that function for you, work great with this pattern.
+The state selector function can is optional and the component function will become the first argument if omitted.
+
+* Libraries like [reselect](https://npmjs.com/package/reselect), which help to create the selector function for you, work great with this pattern.
 
 > The source uses JSX to pass through the `Component` and is currently building only for use with [React](https://github.com/facebook/react).
 

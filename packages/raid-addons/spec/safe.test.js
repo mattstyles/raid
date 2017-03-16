@@ -1,11 +1,9 @@
 
-import path from 'path'
-import tape from 'tape'
-import {Signal} from 'raid'
+import {namespace} from './utils'
 
 import {safe} from '../src'
 
-const test = (str, fn) => tape(`${path.basename(__filename)} :: ${str}`, fn)
+const test = namespace(__filename)
 
 test('Should default to return state even when not explicitly returned from update', t => {
   t.plan(2)

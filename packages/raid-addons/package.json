@@ -8,8 +8,8 @@
     "prebuild": "yarn run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
-    "test": "nyc tape -r babel-register spec/*.js",
-    "test-only": "tape -r babel-register spec/*.js",
+    "test": "nyc tape -r babel-register spec/*.test.js",
+    "test-only": "tape -r babel-register spec/*.test.js",
     "prepublish": "yarn run build",
     "start": "yarn run build"
   },

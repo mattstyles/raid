@@ -1,6 +1,8 @@
 
 import React from 'react'
 
+const identity = a => a
+
 const adaptor = signal => {
   let internalState = {}
   signal.observe(state => {
@@ -10,12 +12,15 @@ const adaptor = signal => {
     if (!selector) {
       throw new Error('No state selector for connected component')
     }
-    if (!Component) {
-      throw new Error('No component specified to connect')
-    }
+
+    // selector is optional, if it is omitted then assume the first
+    // argument is the component function
+    const select = Component ? selector : identity
+    const Comp = Component || selector
+
     return props => {
-      let state = selector(internalState)
-      return <Component {...state} {...props} />
+      let state = select(internalState)
+      return <Comp {...state} {...props} />
     }
   }
 }
