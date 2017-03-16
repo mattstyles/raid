@@ -10,7 +10,6 @@
     "watch": "babel --watch src --out-dir lib",
     "prestart": "yarn run build",
     "start": "yarn run watch",
-    "pretest": "yarn run build",
     "test": "nyc tape -r babel-register spec/*.test.js",
     "test-only": "tape -r babel-register spec/*.test.js",
     "cover": "nyc report --reporter=text-lcov | coveralls",
