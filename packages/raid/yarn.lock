@@ -1998,7 +1998,7 @@ minimist@1.2.0, minimist@^1.1.0, minimist@^1.2.0, minimist@~1.2.0:
   dependencies:
     minimist "0.0.8"
 
-most@^1.0.3:
+most@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/most/-/most-1.2.2.tgz#8f12e434ad6195ed2e1efb3ec217e0cbcf3e1de8"
   dependencies:

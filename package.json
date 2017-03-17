@@ -7,7 +7,7 @@
     "predocs": "npm run clean && gitbook install",
     "clean": "rm -rf _book",
     "build": "lerna run build --ignore @raid/monorepo",
-    "setup": "lerna bootstrap",
+    "setup": "lerna bootstrap --concurrency=1",
     "cover": "lerna run cover --ignore '@(raid/monorepo|raid-addons)'",
     "docs": "gitbook build",
     "docs:watch": "gitbook serve",
