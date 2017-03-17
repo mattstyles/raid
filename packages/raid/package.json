@@ -1,6 +1,6 @@
 {
   "name": "raid",
-  "version": "2.2.0-rc",
+  "version": "2.2.0",
   "description": "Centralised state container",
   "main": "lib/",
   "scripts": {
