@@ -49,7 +49,7 @@ const Title = connect(state => state.title, El)
 
 The returned `connect` function should be supplied with a selector function (which is responsible for grabbing parts of the state) and a component function.
 
-The state selector function can is optional and the component function will become the first argument if omitted.
+The state selector function is optional and the component function will become the first argument if omitted.
 
 * Libraries like [reselect](https://npmjs.com/package/reselect), which help to create the selector function for you, work great with this pattern.
 

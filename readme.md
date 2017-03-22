@@ -21,8 +21,8 @@ yarn add raid
 npm i -S raid
 ```
 
-* [Getting started with raid](https://github.com/mattstyles/raid/blob/master/packages/raid/readme.md)
-* [Utilities and complementary functions](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md)
+* [Getting started with raid](https://github.com/mattstyles/raid/tree/master/packages/raid)
+* [Utilities and complementary functions](https://github.com/mattstyles/raid/tree/master/packages/raid-addons)
 * [Documentation](https://mattstyles.github.io/raid/)
 
 ## Examples
@@ -51,7 +51,7 @@ $ yarn test
 
 Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
 
-For bugs and feature requests, [please create an issue]().
+For bugs and feature requests, [please create an issue](https://github.com/mattstyles/raid/issues).
 
 ## License
 
