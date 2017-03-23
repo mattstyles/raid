@@ -225,6 +225,37 @@ signal.emit({
 
 > This is a terse example to highlight how to use `hook`, no-one ever needs multiple actions that do the _exact_ same thing, always aim to restrict to the minimal.
 
+### Patch
+
+`<String, Function> => <Function <state, event>>`
+
+Patch allows an update function to have a view on to a specific root-level state key by specifying that key by a string.
+
+```js
+const signal = new Signal({
+  foo: {
+    bar: 'baz'
+  },
+  count: {
+    value: 0
+  }
+})
+
+const counter = (count, event) =>({
+  ...count,
+  value: count.value + 1
+})
+
+signal.register(patch('count', counter))
+
+// or
+signal.register(patch('count')(counter))
+
+signal.emit({type: 'XXX'})
+```
+
+In this example `state.foo` will remain unchanged, patch has ensured that the update function only knows about its own key, in this case `count`.
+
 ### Safe
 
 `<Function> => <Function <state, event>>`
