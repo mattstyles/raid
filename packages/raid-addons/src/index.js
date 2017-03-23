@@ -7,6 +7,7 @@ export {default as hook} from './hook'
 export {default as safe} from './safe'
 export {default as squash} from './squash'
 export {default as sin} from './sin'
+export {default as patch} from './patch'
 
 // var addons = {
 //   adaptor,
