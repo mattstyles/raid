@@ -45,6 +45,17 @@ class Signal {
   }
 
   /**
+   * Connects a new stream to the emitter, this requires the stream to emit
+   * objects for the emitter to pass as events through the scanned source
+   * stream.
+   * @param stream <Stream> any object with an `observe` method
+   * @returns <Promise>
+   */
+  mount = stream => {
+    return stream.observe(this.emit)
+  }
+
+  /**
    * Emit a new action from this signal, this triggers a pass through the
    * update functions
    * @param payload <Object>
@@ -121,7 +132,6 @@ class Signal {
    * @returns <Function> dispose function to remove the update function
    */
   register = (update, key = uid()) => {
-    // let k = key || uid()
     this.updates.set(key, update)
 
     return function dispose () {
