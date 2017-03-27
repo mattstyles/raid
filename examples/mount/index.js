@@ -10,13 +10,16 @@ import {View, Main, Code} from '../_common/layout'
 import {fromEvent} from 'most'
 import EventEmitter from 'eventemitter3'
 
-const emitter = new EventEmitter()
-const source = fromEvent('action', emitter)
-
+// Create main app signal
 const signal = new Signal({
   count: 0
 })
 
+// Create mountable stream
+const emitter = new EventEmitter()
+const source = fromEvent('action', emitter)
+
+// Apply stream as an input source for the main signal
 signal.mount(source)
 
 const dispatch = type => payload => signal.emit({type, payload})
@@ -28,7 +31,6 @@ const actions = {
 }
 
 const update = (state, event) => {
-  console.log('update')
   if (event.type === actions.add) {
     state.count += 1
     return state
