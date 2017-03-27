@@ -1,6 +1,6 @@
 {
   "name": "raid-addons",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Add-ons functions for use with Raid",
   "main": "lib/",
   "scripts": {
@@ -46,7 +46,7 @@
     "babel-register": "^6.16.3",
     "coveralls": "^2.11.14",
     "nyc": "^10.1.2",
-    "raid": "*",
+    "raid": "^2.3.0",
     "rimraf": "^2.5.2",
     "standard": "^9.0.1",
     "tape": "^4.6.2"
