@@ -8,16 +8,6 @@ import {signal} from './store'
 import {resize, actions} from './resize'
 import Flex from './flex'
 
-// signal.register((state, event) => {
-//   if (event.type === 'resize') {
-//     return {
-//       ...state,
-//       ...event.payload
-//     }
-//   }
-//   return state
-// })
-
 signal.register(compress({
   [actions.resize]: (state, payload) => ({
     ...state,

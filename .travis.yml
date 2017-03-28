@@ -11,5 +11,6 @@ before_script:
   - yarn run setup
 after_script:
   - yarn run cover
+  - yarn run cover:upload
 matrix:
   fast_finish: true
