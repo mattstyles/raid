@@ -9,8 +9,8 @@
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
     "test": "tape -r babel-register spec/*.test.js",
-    "test-only": "tape -r babel-register spec/*.test.js",
-    "coverage": "nyc report --reporter=lcov yarn run test",
+    "cover": "nyc tape -r babel-register spec/*.test.js",
+    "coverage-report": "nyc --reporter=lcov yarn run test",
     "prepublish": "yarn run build",
     "prestart": "yarn run build",
     "start": "yarn run watch"

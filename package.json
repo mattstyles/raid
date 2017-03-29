@@ -8,7 +8,7 @@
     "clean": "rm -rf _book",
     "build": "lerna run build --ignore @raid/monorepo",
     "setup": "lerna bootstrap --concurrency=1",
-    "cover": "lerna run coverage --ignore raid/monorepo",
+    "cover": "lerna run coverage-report --ignore raid/monorepo",
     "postcover": "istanbul-combine -d coverage -p summary -r lcov packages/**/coverage/*.json",
     "cover:upload": "cat ./coverage/lcov.info | coveralls",
     "docs": "gitbook build",
