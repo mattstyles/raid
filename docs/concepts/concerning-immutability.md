@@ -23,7 +23,7 @@ ImmutableJS has done a lot of work to make this process as efficient as possible
 
 I promise the long words are going to stop soon.
 
-Referential transparency, or, pure functions, are simply functions which produce no side effects, their output remains consistent when called with a given set of inputs and they touch only their own inputs. Use of referentially transparent functions liberally throughout of application, but in particular use in our update and render functions, can help create a predictable application by helping us to strictly manage where and how changes occur.
+Referential transparency, or, pure functions, are simply functions which produce no side effects, their output remains consistent when called with a given set of inputs and they touch only their own inputs. Use of referentially transparent functions liberally throughout an application, but in particular use in our update and render functions, can help create a predictable application by helping us to strictly manage where and how changes occur.
 
 Having a predictable state tree is great for developers, the advantages of being able to say *"Something has changed, now render everything"* are great as we don’t have to concern ourselves with working out what changed, or even why, or how it relates to the previous state, we simply render whatever our data is currently saying. We stay firmly in the present.
 

@@ -1,10 +1,14 @@
 
 # Installation
 
-Use npm to install Raid
+Use npm or yarn to install Raid
 
 ```sh
 npm i -S raid
+```
+
+```sh
+yarn add raid
 ```
 
 To use raid you’ll need something that can use commonJS modules, the following code imports the Raid module and creates a new state instance.
@@ -28,7 +32,7 @@ The rest of the code examples will use ES2015 modules and so (currently) require
 
 > None of this is strictly necessary, once you have a version of Raid (whether that be via a module system or as a browser global) use whatever you prefer to write your own code, Raid doesn’t care.
 
-A good starting point would be to use the [ES2015](https://babeljs.io/docs/plugins/preset-es2015/) preset; the [object-rest-spread](https://babeljs.io/docs/plugins/transform-object-rest-spread/) plugin also fits quite well.
+A good starting point would be to use the [ES2015](https://babeljs.io/docs/plugins/preset-es2015/) preset and the [object-rest-spread](https://babeljs.io/docs/plugins/transform-object-rest-spread/) plugin also fits quite well.
 
 Make sure to add a preset for your rendering engine syntax, if it differs from JS, the examples here expect React so the [React](https://babeljs.io/docs/plugins/preset-react/) preset is required which can handle our JSX. The view layer used with Raid is agnostic, the examples in the repository use [InfernoJS](https://github.com/trueadm/inferno) as a rendering layer.
 
