@@ -9,7 +9,7 @@ const adaptor = signal => {
     internalState = state
   })
   return function connect (selector, Component) {
-    if (!selector) {
+    if (Component && !selector) {
       throw new Error('No state selector for connected component')
     }
 
