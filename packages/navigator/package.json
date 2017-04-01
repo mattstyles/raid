@@ -1,19 +1,19 @@
 {
-  "name": "raid-addons",
-  "version": "2.3.0",
-  "description": "Add-ons functions for use with Raid",
-  "main": "lib/",
+  "name": "raid-navigator",
+  "version": "0.0.0",
+  "description": "Navigation stack hooked in to raid signal",
+  "main": "lib",
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "yarn run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
+    "prestart": "yarn run build",
+    "start": "yarn run watch",
     "test": "tape -r babel-register spec/*.test.js",
     "cover": "nyc tape -r babel-register spec/*.test.js",
-    "coverage-report": "nyc --reporter=lcov yarn run test",
-    "prepublish": "yarn run build",
-    "prestart": "yarn run build",
-    "start": "yarn run watch"
+    "coverage-report": "nyc report --reporter=lcov",
+    "prepublish": "yarn run build"
   },
   "browserify": {
     "transform": [
@@ -30,9 +30,10 @@
   },
   "keywords": [
     "raid",
-    "addons",
-    "helpers",
-    "utility"
+    "navigator",
+    "router",
+    "history",
+    "stack"
   ],
   "author": "Matt Styles",
   "repository": {
@@ -40,7 +41,6 @@
     "url": "https://github.com/mattstyles/raid"
   },
   "bugs": "https://github.com/mattstyles/raid/issues",
-  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
@@ -53,7 +53,5 @@
     "standard": "^9.0.1",
     "tape": "^4.6.2"
   },
-  "dependencies": {
-    "force-array": "^3.1.0"
-  }
+  "license": "MIT"
 }
