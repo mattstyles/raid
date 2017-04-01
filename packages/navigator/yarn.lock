@@ -1320,6 +1320,12 @@ for-own@^0.1.4:
   dependencies:
     for-in "^1.0.1"
 
+force-array@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/force-array/-/force-array-3.1.0.tgz#a060f6d4188dc7daa6fe562df39aeaabca404784"
+  dependencies:
+    is-array "^1.0.1"
+
 foreach@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/foreach/-/foreach-2.0.5.tgz#0bee005018aeb260d0a3af3ae658dd0136ec1b99"
@@ -1599,6 +1605,10 @@ invariant@^2.2.0:
 invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
+
+is-array@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/is-array/-/is-array-1.0.1.tgz#e9850cc2cc860c3bc0977e84ccf0dd464584279a"
 
 is-arrayish@^0.2.1:
   version "0.2.1"
@@ -2334,7 +2344,13 @@ qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
-raid@^2.3.0:
+raid-addons@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/raid-addons/-/raid-addons-2.3.0.tgz#be1df54624735fb4df46f99e6b750c0cfadda7c0"
+  dependencies:
+    force-array "^3.1.0"
+
+raid@*:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/raid/-/raid-2.3.0.tgz#473c09979e96273f1f41dc0ec13e933de2f104b8"
   dependencies:

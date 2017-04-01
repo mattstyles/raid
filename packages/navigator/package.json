@@ -23,6 +23,10 @@
   "babel": {
     "presets": [
       "urban"
+    ],
+    "plugins": [
+      "transform-react-require",
+      "styled-jsx/babel"
     ]
   },
   "standard": {
@@ -44,14 +48,19 @@
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
+    "babel-plugin-transform-react-require": "^1.0.1",
     "babel-preset-urban": "^1.0.0",
     "babel-register": "^6.16.3",
     "coveralls": "^2.11.14",
     "nyc": "^10.1.2",
-    "raid": "^2.3.0",
+    "raid": "*",
     "rimraf": "^2.5.2",
     "standard": "^9.0.1",
+    "styled-jsx": "^0.5.7",
     "tape": "^4.6.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "raid-addons": "^2.3.0"
+  }
 }
