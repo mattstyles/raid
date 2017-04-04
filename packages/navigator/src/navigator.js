@@ -15,9 +15,9 @@ const filter = route => {
 }
 
 class Navigator extends Component {
-  // static defaultProps = {
-  //   history: null
-  // }
+  static defaultProps = {
+    history: undefined
+  }
 
   componentWillMount () {
     this.history = history(this.props.history)

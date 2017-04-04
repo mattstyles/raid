@@ -2,11 +2,27 @@
 import {render} from 'react-dom'
 
 import {Signal} from 'raid/src'
-import {Navigator, actions} from 'raid-navigator/src'
+import {adaptor} from 'raid-addons/src'
+import {
+  Navigator,
+  update,
+  initial
+} from 'raid-navigator/src'
 
 import element from '../_common/element'
 
-const signal = new Signal({})
+const signal = new Signal({
+  ...initial
+})
+const connect = adaptor(signal)
+
+const Nav = connect(
+  state => ({
+    navigation: state.navigation,
+    signal
+  }),
+  Navigator
+)
 
 const View = ({children, params, route}) => {
   console.log('params:', params)
@@ -14,19 +30,11 @@ const View = ({children, params, route}) => {
   return children
 }
 
-signal.register((state, event) => {
-  if (event.type === actions.navigate) {
-    console.log('navigating', event)
-    state.route = event.payload.route
-    return state
-  }
-
-  return state
-})
+signal.register(update)
 
 signal.observe(state => {
   render(
-    <Navigator signal={signal} route={state.route}>
+    <Nav>
       <View route='/'>
         <div>Index</div>
       </View>
@@ -36,7 +44,7 @@ signal.observe(state => {
       <View route='/settings'>
         <div>Settings</div>
       </View>
-    </Navigator>,
+    </Nav>,
     element
   )
 }, err => console.error(err))
