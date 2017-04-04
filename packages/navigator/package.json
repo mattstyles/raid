@@ -21,13 +21,56 @@
     ]
   },
   "babel": {
-    "presets": [
-      "urban"
-    ],
-    "plugins": [
-      "transform-react-require",
-      "styled-jsx/babel"
-    ]
+    "env": {
+      "react": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "browsers": [
+                  "last 2 versions"
+                ]
+              },
+              "loose": true
+            }
+          ],
+          "stage-3",
+          "react"
+        ],
+        "plugins": [
+          "transform-react-require",
+          "styled-jsx/babel"
+        ]
+      },
+      "inferno": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "browsers": [
+                  "last 2 versions"
+                ]
+              },
+              "loose": true
+            }
+          ],
+          "stage-3"
+        ],
+        "plugins": [
+          [
+            "transform-react-require",
+            {
+              "identifier": "Inferno",
+              "moduleName": "inferno"
+            }
+          ],
+          "inferno",
+          "styled-jsx/babel"
+        ]
+      }
+    }
   },
   "standard": {
     "parser": "babel-eslint"
@@ -48,8 +91,11 @@
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
+    "babel-plugin-inferno": "^0.7.7",
     "babel-plugin-transform-react-require": "^1.0.1",
-    "babel-preset-urban": "^1.0.0",
+    "babel-preset-env": "^1.3.2",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-3": "^6.22.0",
     "babel-register": "^6.16.3",
     "coveralls": "^2.11.14",
     "nyc": "^10.1.2",
@@ -59,8 +105,16 @@
     "styled-jsx": "^0.5.7",
     "tape": "^4.6.2"
   },
-  "license": "MIT",
   "dependencies": {
+    "history": "^4.6.1",
     "raid-addons": "^2.3.0"
-  }
+  },
+  "peerDependencies": {
+    "inferno": "^0.7.27",
+    "inferno-component": "^0.7.27",
+    "inferno-dom": "^0.7.27",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "license": "MIT"
 }

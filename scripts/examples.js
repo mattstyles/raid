@@ -3,7 +3,11 @@
 var path = require('path')
 var fs = require('fs')
 
-var argv = require('minimist')(process.argv.slice(2))
+var argv = require('minimist')(process.argv.slice(2), {
+  alias: {
+    o: 'open'
+  }
+})
 var inquirer = require('inquirer')
 var budo = require('budo')
 
@@ -68,15 +72,20 @@ function spawnServer (example) {
   if (/adaptor|resize|navigator/.test(example)) {
     process.env.BABEL_ENV = 'react'
   }
-  budo(dir, {
+  // if (/navigator/.test(example)) {
+  //   process.env.BABEL_ENV = 'inferno'
+  // }
+  budo(dir + '/index.js', {
     live: true,
     dir,
     watchGlob: paths,
     browserify: {
       paths
     },
-    open: argv.o || argv.open || false,
+    open: argv.open,
     verbose: true,
-    stream: process.stdout
+    stream: process.stdout,
+    host: '0.0.0.0',
+    pushstate: true
   })
 }
