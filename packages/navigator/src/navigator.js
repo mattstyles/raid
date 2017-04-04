@@ -1,18 +1,8 @@
 
-import React, {Component} from 'react'
-
 import {history, listener} from './history'
 
-const createRoutes = child => {
-  return React.cloneElement(child, {
-    params: 'foo'
-  })
-}
-
-const filter = route => {
-  const re = new RegExp(route)
-  return child => re.test(child.props.route)
-}
+const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
+const {createRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
 
 class Navigator extends Component {
   static defaultProps = {
@@ -32,13 +22,10 @@ class Navigator extends Component {
   }
 
   render () {
-    const {children} = this.props
-    const routes = React.Children
-      .toArray(children)
-      .filter(filter(this.props.route))
-      .map(createRoutes)
+    const {children, route} = this.props
+    const match = createRoute(children, route)
     return (
-      <div>{routes}</div>
+      <div>{match}</div>
     )
   }
 }

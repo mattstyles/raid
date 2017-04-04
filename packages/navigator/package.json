@@ -25,8 +25,7 @@
       "react": {
         "presets": [
           [
-            "env",
-            {
+            "env", {
               "targets": {
                 "browsers": [
                   "last 2 versions"
@@ -41,7 +40,10 @@
         "plugins": [
           "transform-react-require",
           "transform-class-properties",
-          "styled-jsx/babel"
+          "styled-jsx/babel",
+          ["transform-define", {
+            "process.env.BABEL_ENV": "./env/react"
+          }]
         ]
       },
       "inferno": {
@@ -60,15 +62,16 @@
           "stage-3"
         ],
         "plugins": [
-          [
-            "transform-react-require",
-            {
-              "identifier": "Inferno",
-              "moduleName": "inferno"
-            }
-          ],
+          ["transform-react-require", {
+            "identifier": "Inferno",
+            "moduleName": "inferno"
+          }],
           "inferno",
-          "styled-jsx/babel"
+          "transform-class-properties",
+          "styled-jsx/babel",
+          ["transform-define", {
+            "process.env.BABEL_ENV": "./env/react"
+          }]
         ]
       }
     }
@@ -94,12 +97,14 @@
     "babel-eslint": "^7.0.0",
     "babel-plugin-inferno": "^0.7.7",
     "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-define": "^1.2.0",
     "babel-plugin-transform-react-require": "^1.0.1",
     "babel-preset-env": "^1.3.2",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-3": "^6.22.0",
     "babel-register": "^6.16.3",
     "coveralls": "^2.11.14",
+    "envify": "^4.0.0",
     "nyc": "^10.1.2",
     "raid": "*",
     "rimraf": "^2.5.2",

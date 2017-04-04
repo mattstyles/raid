@@ -1,0 +1,2 @@
+
+export {Component} from 'react'
