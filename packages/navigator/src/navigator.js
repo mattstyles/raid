@@ -1,5 +1,5 @@
 
-import {history, listener} from './history'
+import {getHistory, createListener} from './history'
 
 const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
 const {createRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
@@ -10,9 +10,9 @@ class Navigator extends Component {
   }
 
   componentWillMount () {
-    this.history = history(this.props.history)
+    this.history = getHistory(this.props.history)
     this.disposeHistory = this.history
-      .listen(listener(this.props.signal))
+      .listen(createListener(this.props.signal))
   }
 
   componentWillUnmount () {
@@ -22,8 +22,9 @@ class Navigator extends Component {
   }
 
   render () {
-    const {children, route} = this.props
-    const match = createRoute(children, route)
+    const {children, navigation} = this.props
+    const {stack, index} = navigation
+    const match = createRoute(children, stack[index])
     return (
       <div>{match}</div>
     )

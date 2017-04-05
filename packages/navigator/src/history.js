@@ -13,18 +13,18 @@ const create = (fn = createHistory, key) => {
   return history
 }
 
-export const history = (fn, key = 'browser') => {
+export const getHistory = (fn, key = 'browser') => {
   return histories[key] || create(fn, key)
 }
 
-export const listener = (signal, hist = history()) => {
+export const createListener = (signal, history = getHistory()) => {
   const dispatch = dispatcher(signal, actions.navigate)
   return (location, action) => {
     if (action === 'POP') {
       console.log('I can hear you...')
       dispatch({
         route: location.pathname,
-        state: hist.state
+        state: history.state
       })
     }
   }

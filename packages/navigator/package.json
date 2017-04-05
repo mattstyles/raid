@@ -25,7 +25,8 @@
       "react": {
         "presets": [
           [
-            "env", {
+            "env",
+            {
               "targets": {
                 "browsers": [
                   "last 2 versions"
@@ -41,9 +42,12 @@
           "transform-react-require",
           "transform-class-properties",
           "styled-jsx/babel",
-          ["transform-define", {
-            "process.env.BABEL_ENV": "./env/react"
-          }]
+          [
+            "transform-define",
+            {
+              "process.env.BABEL_ENV": "./env/react"
+            }
+          ]
         ]
       },
       "inferno": {
@@ -62,16 +66,22 @@
           "stage-3"
         ],
         "plugins": [
-          ["transform-react-require", {
-            "identifier": "Inferno",
-            "moduleName": "inferno"
-          }],
+          [
+            "transform-react-require",
+            {
+              "identifier": "Inferno",
+              "moduleName": "inferno"
+            }
+          ],
           "inferno",
           "transform-class-properties",
           "styled-jsx/babel",
-          ["transform-define", {
-            "process.env.BABEL_ENV": "./env/react"
-          }]
+          [
+            "transform-define",
+            {
+              "process.env.BABEL_ENV": "./env/react"
+            }
+          ]
         ]
       }
     }
@@ -114,6 +124,7 @@
   },
   "dependencies": {
     "history": "^4.6.1",
+    "lodash": "^4.17.4",
     "raid-addons": "^2.3.0"
   },
   "peerDependencies": {

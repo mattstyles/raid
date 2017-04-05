@@ -16,7 +16,7 @@ const signal = new Signal({
 })
 const connect = adaptor(signal)
 
-const Nav = connect(
+const Navigation = connect(
   state => ({
     navigation: state.navigation,
     signal
@@ -31,10 +31,14 @@ const View = ({children, params, route}) => {
 }
 
 signal.register(update)
+signal.register(state => {
+  console.log('>>', state)
+  return state
+})
 
 signal.observe(state => {
   render(
-    <Nav>
+    <Navigation>
       <View route='/'>
         <div>Index</div>
       </View>
@@ -44,7 +48,7 @@ signal.observe(state => {
       <View route='/settings'>
         <div>Settings</div>
       </View>
-    </Nav>,
+    </Navigation>,
     element
   )
 }, err => console.error(err))

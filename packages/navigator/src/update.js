@@ -6,12 +6,16 @@ const KEY = 'navigation'
 
 export const initial = {
   [KEY]: {
-    route: null
+    stack: [window.location.pathname],
+    index: 0
   }
 }
 
+const getNav = state => state[KEY]
+
 const updateNavigate = safe((state, payload) => {
-  state[KEY].route = payload.route
+  const {index, stack} = getNav(state)
+  stack[index] = payload.route
 })
 
 export const update = compress({
