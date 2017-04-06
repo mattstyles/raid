@@ -1,31 +1,35 @@
 
 import {render} from 'react-dom'
-// import createHistory from 'history/createMemoryHistory'
-import createHistory from 'history/createBrowserHistory'
+import {createSelector} from 'reselect'
 
 import {Signal} from 'raid/src'
 import {adaptor} from 'raid-addons/src'
 import {
   Navigator,
   createUpdate,
-  initial
+  setInitial,
+  selector
 } from 'raid-navigator/src'
 
 import element from '../_common/element'
 
-const history = createHistory()
-window.appHistory = history
-
 const signal = new Signal({
-  ...initial
+  ...setInitial('_navigation')
 })
 const connect = adaptor(signal)
 
+/**
+ * Selector can be used to customise the state root
+ */
 const Navigation = connect(
-  state => ({
-    navigation: state.navigation,
-    signal
-  }),
+  createSelector(
+    selector('_navigation'),
+    () => signal,
+    (nav, signal) => ({
+      _navigation: nav,
+      signal
+    })
+  ),
   Navigator
 )
 
@@ -35,10 +39,8 @@ const View = ({children, params, route}) => {
   return children
 }
 
-// Pass history to update function
-signal.register(createUpdate(null, history))
-
-// Base debug function
+// signal.register(update)
+signal.register(createUpdate('_navigation'))
 signal.register(state => {
   console.log('>>', state)
   return state
@@ -46,7 +48,7 @@ signal.register(state => {
 
 signal.observe(state => {
   render(
-    <Navigation history={history}>
+    <Navigation root='_navigation'>
       <View route='/'>
         <div>Index</div>
       </View>

@@ -3,28 +3,25 @@ import createHistory from 'history/createBrowserHistory'
 
 import {actions, dispatcher} from './actions'
 
-var histories = {}
+var defaultHistory = null
 
-const create = (fn = createHistory, key) => {
-  console.log('creating history')
-  const history = fn()
-  histories[key] = history
-  window.hist = history
-  return history
+const create = () => {
+  defaultHistory = createHistory()
+  return defaultHistory
 }
 
-export const getHistory = (fn, key = 'browser') => {
-  return histories[key] || create(fn, key)
+export const getHistory = (history) => {
+  return history || defaultHistory || create()
 }
 
-export const createListener = (signal, history = getHistory()) => {
+export const createListener = (signal, history) => {
   const dispatch = dispatcher(signal, actions.navigate)
   return (location, action) => {
     if (action === 'POP') {
-      console.log('I can hear you...')
+      console.log('I can hear you...', location)
       dispatch({
-        route: location.pathname,
-        state: history.state
+        route: location.pathname
+        // state: history.state
       })
     }
   }

@@ -18,14 +18,15 @@ const getProps = createSelector(
 
 class Navigator extends Component {
   static defaultProps = {
-    history: undefined,
+    signal: null,
+    history: null,
     root: DEFAULT_KEY
   }
 
   componentWillMount () {
     this.history = getHistory(this.props.history)
     this.disposeHistory = this.history
-      .listen(createListener(this.props.signal))
+      .listen(createListener(this.props.signal, this.props.history))
   }
 
   componentWillUnmount () {

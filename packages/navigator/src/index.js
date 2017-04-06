@@ -1,6 +1,10 @@
 
 export {default as Navigator} from './navigator'
-export {actions} from './actions'
+export {
+  actions,
+  back,
+  forward
+} from './actions'
 export {
   initial,
   setInitial,
