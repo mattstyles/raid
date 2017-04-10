@@ -15,13 +15,16 @@ export const getHistory = (history) => {
 }
 
 export const createListener = (signal, history) => {
-  const dispatch = dispatcher(signal, actions.navigate)
+  const navigate = dispatcher(signal, actions.pop)
+  const push = dispatcher(signal, actions.push)
+
   return (location, action) => {
     if (action === 'POP') {
-      console.log('I can hear you...', location)
-      dispatch({
-        location
-      })
+      navigate({location})
+    }
+
+    if (action === 'PUSH') {
+      push({location})
     }
   }
 }

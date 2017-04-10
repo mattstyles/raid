@@ -3,7 +3,7 @@ import {history} from './history'
 
 export const actions = {
   push: 'navigator:push',
-  navigate: 'navigator:navigate',
+  pop: 'navigator:pop',
 
   // @TODO
   replace: 'navigator:replace'
