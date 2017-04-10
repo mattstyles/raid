@@ -20,8 +20,7 @@ export const createListener = (signal, history) => {
     if (action === 'POP') {
       console.log('I can hear you...', location)
       dispatch({
-        route: location.pathname
-        // state: history.state
+        location
       })
     }
   }

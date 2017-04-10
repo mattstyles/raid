@@ -10,7 +10,11 @@ export const DEFAULT_KEY = 'navigation'
  * Initial state root
  */
 const initialState = {
-  stack: [window.location.pathname],
+  stack: [{
+    pathname: window.location.pathname,
+    key: window.history.state.key,
+    state: window.history.state.state
+  }],
   index: 0
 }
 
@@ -32,7 +36,7 @@ const createUpdateNavigate = (key, history) => {
   const get = selector(key)
   return safe((state, payload) => {
     const {index, stack} = get(state)
-    stack[index] = payload.route
+    stack[index] = payload.location
   })
 }
 

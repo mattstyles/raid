@@ -8,7 +8,7 @@ const clone = child => {
 }
 
 const findRoute = route => {
-  const re = new RegExp(route)
+  const re = new RegExp(route.pathname)
   return child => re.test(child.props.route)
 }
 
