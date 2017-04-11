@@ -101,14 +101,14 @@
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "nyc": "^10.1.2",
-    "raid": "^2.3.0",
-    "raid-addons": "^2.3.0",
-    "raid-navigator": "*",
+    "raid": "^2.4.0",
+    "raid-addons": "^2.4.0",
+    "raid-navigator": "^2.4.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "reselect": "^2.5.4",
     "standard": "^9.0.1",
     "styled-jsx": "^0.5.7"
   },
-  "version": "2.3.0"
+  "version": "2.4.0"
 }
