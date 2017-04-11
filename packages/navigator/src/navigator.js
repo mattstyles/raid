@@ -20,7 +20,8 @@ class Navigator extends Component {
   static defaultProps = {
     signal: null,
     history: null,
-    root: DEFAULT_KEY
+    root: DEFAULT_KEY,
+    navigation: {}
   }
 
   componentWillMount () {

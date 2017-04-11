@@ -10,7 +10,7 @@
     "watch": "babel --watch src --out-dir lib",
     "prestart": "yarn run build",
     "start": "yarn run watch",
-    "test": "tape -r babel-register spec/*.test.js",
+    "test": "BABEL_ENV=react tape -r babel-register spec/*.test.js",
     "cover": "nyc tape -r babel-register spec/*.test.js",
     "coverage-report": "nyc report --reporter=lcov",
     "prepublish": "yarn run build"

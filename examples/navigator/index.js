@@ -4,10 +4,8 @@ import {render} from 'react-dom'
 import createHistory from 'history/createBrowserHistory'
 
 import {Signal} from 'raid/src'
-import {adaptor} from 'raid-addons/src'
 import {
-  Navigator,
-  createUpdate,
+  init,
   initial
 } from 'raid-navigator/src'
 
@@ -19,15 +17,9 @@ window.appHistory = history
 const signal = new Signal({
   ...initial
 })
-const connect = adaptor(signal)
 
-const Navigation = connect(
-  state => ({
-    navigation: state.navigation,
-    signal
-  }),
-  Navigator
-)
+const {Navigator, update, actions} = init({signal, history})
+window.actions = actions
 
 const View = ({children, params, route}) => {
   console.log('params:', params)
@@ -36,7 +28,8 @@ const View = ({children, params, route}) => {
 }
 
 // Pass history to update function
-signal.register(createUpdate(null, history))
+// signal.register(createUpdate(null, history))
+signal.register(update)
 
 // Base debug function
 signal.register(state => {
@@ -46,7 +39,7 @@ signal.register(state => {
 
 signal.observe(state => {
   render(
-    <Navigation history={history}>
+    <Navigator navigation={state.navigation}>
       <View route='/'>
         <h1>Index</h1>
       </View>
@@ -56,7 +49,7 @@ signal.observe(state => {
       <View route='/settings'>
         <h1>Settings</h1>
       </View>
-    </Navigation>,
+    </Navigator>,
     element
   )
 }, err => console.error(err))

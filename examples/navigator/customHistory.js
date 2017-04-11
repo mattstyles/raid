@@ -48,13 +48,13 @@ signal.observe(state => {
   render(
     <Navigation history={history}>
       <View route='/'>
-        <div>Index</div>
+        <h1>Index</h1>
       </View>
       <View route='/home'>
-        <div>Home</div>
+        <h1>Home</h1>
       </View>
       <View route='/settings'>
-        <div>Settings</div>
+        <h1>Settings</h1>
       </View>
     </Navigation>,
     element

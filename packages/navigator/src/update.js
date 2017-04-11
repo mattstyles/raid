@@ -10,16 +10,43 @@ export const DEFAULT_KEY = 'navigation'
 /**
  * Initial state root
  */
-const initialState = {
-  stack: [getCurrentRoute()],
-  index: 0
+const getInitialState = storage => {
+  let initial = {
+    stack: [getCurrentRoute()],
+    index: 0
+  }
+
+  if (!storage) {
+    return initial
+  }
+
+  try {
+    let stored = storage.getItem(DEFAULT_KEY)
+    if (stored) {
+      return JSON.parse(stored)
+    }
+  } catch (err) {
+    return initial
+  }
+
+  console.log('initial', initial)
+  return initial
 }
 
-export const setInitial = key => ({
-  [key]: initialState
-})
+const initialState = storage => getInitialState(storage)
 
-export const initial = setInitial(DEFAULT_KEY)
+export const setInitial = ({key, storage}) => {
+  storage = storage || (window && window.sessionStorage)
+  key = key || DEFAULT_KEY
+
+  return {
+    [key]: initialState(storage)
+  }
+}
+
+export const initial = setInitial({
+  key: DEFAULT_KEY
+})
 
 /**
  * Get state root selector function
@@ -29,7 +56,7 @@ export const selector = (key = DEFAULT_KEY) => state => state[key]
 /**
  * Popper
  */
-const pop = (key, get, state, location) => {
+const pop = ({key, get, state, location}) => {
   const {index, stack} = get(state)
   let routeIndex = getRouteIndex(stack, location)
 
@@ -52,7 +79,7 @@ const pop = (key, get, state, location) => {
 /**
  * pusher
  */
-const push = (key, get, state, location) => {
+const push = ({key, get, state, location}) => {
   const {index, stack} = get(state)
 
   // If we're pushing in to the middle next nuke end of stack
@@ -65,22 +92,35 @@ const push = (key, get, state, location) => {
 }
 
 /**
+ * Storage
+ */
+const save = ({storage, key, state, get}) => {
+  if (!storage) {
+    return
+  }
+
+  storage.setItem(key, JSON.stringify(get(state)))
+}
+
+/**
  * Updates the state based on a navigation pop event
  */
-const createUpdatePop = (key, history) => {
+const createUpdatePop = ({key, history, storage}) => {
   const get = selector(key)
   return safe((state, payload) => {
-    return pop(key, get, state, payload.location)
+    pop({key, get, state, location: payload.location})
+    save({storage, key, get, state})
   })
 }
 
 /**
  * Updates the state based on a navigation push event
  */
-const createUpdatePush = (key, history) => {
+const createUpdatePush = ({key, history, storage}) => {
   const get = selector(key)
   return safe((state, payload) => {
-    return push(key, get, state, payload.location)
+    push({key, get, state, location: payload.location})
+    save({storage, key, get, state})
   })
 }
 
@@ -88,12 +128,13 @@ const createUpdatePush = (key, history) => {
  * Can be used to create an update function that refs a defined root and
  * can be supplied with a specific history instance
  */
-export const createUpdate = (key, history) => {
+export const createUpdate = (key, history, storage) => {
   key = key || DEFAULT_KEY
   history = getHistory(history)
+  storage = storage || (window && window.sessionStorage)
   return compress({
-    [actions.pop]: createUpdatePop(key, history),
-    [actions.push]: createUpdatePush(key, history)
+    [actions.pop]: createUpdatePop({key, history, storage}),
+    [actions.push]: createUpdatePush({key, history, storage})
   })
 }
 
