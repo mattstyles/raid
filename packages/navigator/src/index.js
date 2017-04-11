@@ -18,11 +18,18 @@ export {
 } from './update'
 
 export const init = ({signal, history, key, storage}) => {
+  if (!signal) {
+    throw new Error('Navigator requires a signal to operate with')
+  }
+
   history = history || getHistory()
   storage = storage || window.sessionStorage
   return {
     history,
-    update: createUpdate(null, history),
+    update: createUpdate({
+      history,
+      storage
+    }),
     // initial: setInitial({key, storage}),
     actions: {
       back: history.goBack,

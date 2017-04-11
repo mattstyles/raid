@@ -7,6 +7,9 @@ import {getRouteIndex, getCurrentRoute} from './utils'
 
 export const DEFAULT_KEY = 'navigation'
 
+const getStorage = storage =>
+  storage || (window && window.sessionStorage)
+
 /**
  * Initial state root
  */
@@ -29,14 +32,13 @@ const getInitialState = storage => {
     return initial
   }
 
-  console.log('initial', initial)
   return initial
 }
 
 const initialState = storage => getInitialState(storage)
 
 export const setInitial = ({key, storage}) => {
-  storage = storage || (window && window.sessionStorage)
+  storage = getStorage(storage)
   key = key || DEFAULT_KEY
 
   return {
@@ -128,10 +130,10 @@ const createUpdatePush = ({key, history, storage}) => {
  * Can be used to create an update function that refs a defined root and
  * can be supplied with a specific history instance
  */
-export const createUpdate = (key, history, storage) => {
+export const createUpdate = ({key, history, storage}) => {
   key = key || DEFAULT_KEY
   history = getHistory(history)
-  storage = storage || (window && window.sessionStorage)
+  storage = getStorage(storage)
   return compress({
     [actions.pop]: createUpdatePop({key, history, storage}),
     [actions.push]: createUpdatePush({key, history, storage})
@@ -141,4 +143,6 @@ export const createUpdate = (key, history, storage) => {
 /**
  * Update function to register with raid
  */
-export const update = createUpdate(DEFAULT_KEY)
+export const update = createUpdate({
+  key: DEFAULT_KEY
+})
