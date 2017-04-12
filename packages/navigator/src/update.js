@@ -60,7 +60,7 @@ export const selector = (key = DEFAULT_KEY) => state => state[key]
  */
 const pop = ({key, get, state, location}) => {
   const {index, stack} = get(state)
-  let routeIndex = getRouteIndex(stack, location)
+  let routeIndex = getRouteIndex(location, stack)
 
   // If the route was found then use it
   if (routeIndex >= 0) {

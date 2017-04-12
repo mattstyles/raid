@@ -14,13 +14,13 @@ export const getHistory = (history) => {
   return history || defaultHistory || create()
 }
 
-export const createListener = (signal, history) => {
-  const navigate = dispatcher(signal, actions.pop)
+export const createListener = signal => {
+  const pop = dispatcher(signal, actions.pop)
   const push = dispatcher(signal, actions.push)
 
   return (location, action) => {
     if (action === 'POP') {
-      navigate({location})
+      pop({location})
     }
 
     if (action === 'PUSH') {

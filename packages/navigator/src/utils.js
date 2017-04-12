@@ -1,9 +1,9 @@
 
 import {findIndex} from 'lodash/fp'
 
-const findKey = key => findIndex(route => route.key === key)
+export const findKey = key => findIndex(route => route.key === key)
 
-export const getRouteIndex = (stack, route) => {
+export const getRouteIndex = (route, stack) => {
   const find = findKey(route.key)
   return find(stack)
 }

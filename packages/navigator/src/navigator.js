@@ -27,7 +27,7 @@ class Navigator extends Component {
   componentWillMount () {
     this.history = getHistory(this.props.history)
     this.disposeHistory = this.history
-      .listen(createListener(this.props.signal, this.props.history))
+      .listen(createListener(this.props.signal))
   }
 
   componentWillUnmount () {
