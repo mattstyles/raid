@@ -14,3 +14,9 @@ export const dispatcher = (signal, type) =>
 
 export const back = () => getHistory().goBack()
 export const forward = () => getHistory().goForward()
+export const push = function () {
+  return getHistory().push(...arguments)
+}
+export const go = function () {
+  return getHistory().go(...arguments)
+}

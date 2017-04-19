@@ -7,8 +7,10 @@ const clone = child => {
   })
 }
 
+// @TODO match with or without /
+// @TODO match route params
 const findRoute = route => {
-  const re = new RegExp(route.pathname)
+  const re = new RegExp(`^${route.pathname}$`)
   return child => re.test(child.props.route)
 }
 

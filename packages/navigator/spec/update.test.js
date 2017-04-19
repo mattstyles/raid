@@ -2,11 +2,15 @@
 import './setup'
 
 import tape from 'tape'
+import {Signal} from 'raid'
 
+import {actions} from '../src/actions'
 import {
+  DEFAULT_KEY,
   selector,
   initial,
-  setInitial
+  setInitial,
+  update
 } from '../src/update'
 
 const hasKeys = keys => obj => {
@@ -17,6 +21,12 @@ const hasKeys = keys => obj => {
       : hostKeys.includes(key)
   }, true)
 }
+
+tape('Should export a default key', t => {
+  t.plan(1)
+
+  t.ok(DEFAULT_KEY, 'default key is exposed')
+})
 
 tape('Selector should pluck the key from state', t => {
   t.plan(2)
@@ -80,4 +90,71 @@ tape('setInitial can accept a different storage method', t => {
 
   t.ok(nav2, 'State has specified key')
   t.deepEqual(nav2, {foo: 'bar'})
+})
+
+tape('Pop event should add a new route to the state if unfound', t => {
+  t.plan(2)
+
+  const signal = new Signal(initial)
+
+  signal.register(update)
+  signal.register((state, event) => {
+    const {stack, index} = state.navigation
+    t.equal(stack.length, 2, 'New route added')
+    t.equal(index, 0, 'Pop assumes moving backwards')
+  })
+
+  signal.emit({
+    type: actions.pop,
+    payload: {
+      location: '/',
+      pathname: 'test'
+    }
+  })
+})
+
+tape('Push event should add a new route to the tail of the list', t => {
+  t.plan(2)
+
+  const signal = new Signal(initial)
+
+  signal.register(update)
+  signal.register((state, event) => {
+    const {stack, index} = state.navigation
+    t.equal(stack.length, 2, 'New route added')
+    t.equal(index, 1, 'Push moves to the end of the list')
+  })
+
+  signal.emit({
+    type: actions.push,
+    payload: {
+      location: '/'
+    }
+  })
+})
+
+tape('Push event should add a new route to the middle of a navigation stack', t => {
+  t.plan(3)
+
+  let state = setInitial({key: 'navigation'})
+  state.navigation.stack.push({})
+  state.navigation.stack.push({})
+
+  t.equal(state.navigation.stack.length, 3, 'Initial stack contains 3 routes')
+
+  const signal = new Signal(state)
+
+  signal.register(update)
+  signal.register((state, event) => {
+    const {stack, index} = state.navigation
+    t.equal(stack.length, 2, 'New route added')
+    t.equal(index, 1, 'Push mutates the navigation stack')
+  })
+
+  signal.emit({
+    type: actions.push,
+    payload: {
+      location: '/'
+    }
+  })
 })

@@ -21,7 +21,7 @@ const getHistoryState = history => {
 
   return {
     state: null,
-    key: null
+    key: history.state.key
   }
 }
 

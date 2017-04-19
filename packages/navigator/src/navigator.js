@@ -40,6 +40,7 @@ class Navigator extends Component {
     const {children, navigation} = getProps(this.props)
     const {stack, index} = navigation
     const match = createRoute(children, stack[index])
+    console.log('match', match)
     return (
       <div>{match}</div>
     )

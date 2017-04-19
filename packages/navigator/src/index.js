@@ -7,7 +7,9 @@ export {default as Navigator} from './navigator'
 export {
   actions,
   back,
-  forward
+  forward,
+  push,
+  go
 } from './actions'
 export {
   initial,
