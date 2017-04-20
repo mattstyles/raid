@@ -69,7 +69,7 @@ const pop = ({key, get, state, location}) => {
   }
 
   if (index === 0) {
-    state[key].stack.unshift(getCurrentRoute())
+    state[key].stack.unshift(getCurrentRoute(location))
     return
   }
 
@@ -90,7 +90,7 @@ const push = ({key, get, state, location}) => {
   }
 
   state[key].index = index + 1
-  state[key].stack.push(getCurrentRoute())
+  state[key].stack.push(getCurrentRoute(location))
 }
 
 /**

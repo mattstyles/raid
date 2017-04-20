@@ -8,7 +8,22 @@ export const getRouteIndex = (route, stack) => {
   return find(stack)
 }
 
+const getWindowPathname = () => {
+  return window && window.location
+    ? window.location.pathname
+    : '/'
+}
+
 const getHistoryState = history => {
+  const key = (Math.random() * 1e5 | 0).toString(16)
+
+  if (!history) {
+    return {
+      state: null,
+      key
+    }
+  }
+
   if (history.state) {
     const {state, key} = history.state
     return {state, key}
@@ -16,8 +31,8 @@ const getHistoryState = history => {
 
   history.replaceState(Object.assign({},
     history.state,
-    {key: (Math.random() * 1e5 | 0).toString(16)}
-  ), window.location.pathname)
+    {key}
+  ), getWindowPathname())
 
   return {
     state: null,
@@ -29,9 +44,9 @@ const getHistoryState = history => {
  * Uses window.history and window.location to try to calculate
  * the current route
  */
-export const getCurrentRoute = () => {
-  return {
-    pathname: window.location.pathname,
-    ...getHistoryState(window.history)
+export const getCurrentRoute = (location) => {
+  return location || {
+    pathname: getWindowPathname(),
+    ...getHistoryState(window.history || null)
   }
 }
