@@ -5,7 +5,7 @@ import {getHistory, createListener} from './history'
 import {DEFAULT_KEY} from './update'
 
 const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
-const {createRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
+const {matchRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
 
 const getProps = createSelector(
   props => props,
@@ -39,7 +39,7 @@ class Navigator extends Component {
   render () {
     const {children, navigation} = getProps(this.props)
     const {stack, index} = navigation
-    return createRoute(children, stack[index])
+    return matchRoute(children, stack[index])
   }
 }
 
