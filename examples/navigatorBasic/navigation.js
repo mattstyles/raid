@@ -59,7 +59,6 @@ export const Back = connect(
 export const Forward = connect(
   ({navigation}) => ({navigation}),
   ({children, navigation}) => {
-    console.log('forward', navigation)
     const {stack, index} = navigation
     const disabled = index === stack.length - 1
     return (

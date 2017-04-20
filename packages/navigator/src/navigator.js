@@ -39,10 +39,7 @@ class Navigator extends Component {
   render () {
     const {children, navigation} = getProps(this.props)
     const {stack, index} = navigation
-    const match = createRoute(children, stack[index])
-    return (
-      <div>{match}</div>
-    )
+    return createRoute(children, stack[index])
   }
 }
 

@@ -1,5 +1,8 @@
 
 import React from 'react'
+import {compose, filter, map} from 'lodash/fp'
+
+const unpack = arr => arr[0]
 
 const clone = child => {
   return React.cloneElement(child, {
@@ -14,7 +17,8 @@ const findRoute = route => {
   return child => re.test(child.props.route)
 }
 
-export const createRoute = (children, route) => React.Children
-  .toArray(children)
-  .filter(findRoute(route))
-  .map(clone)
+export const createRoute = (children, route) => compose(
+  unpack,
+  map(clone),
+  filter(findRoute(route))
+)(React.Children.toArray(children))
