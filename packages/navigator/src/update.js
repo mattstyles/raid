@@ -13,9 +13,9 @@ const getStorage = storage =>
 /**
  * Initial state root
  */
-const getInitialState = storage => {
+const getInitialState = (storage, history) => {
   let initial = {
-    stack: [getCurrentRoute()],
+    stack: [getCurrentRoute(null, history)],
     index: 0
   }
 
@@ -35,14 +35,14 @@ const getInitialState = storage => {
   return initial
 }
 
-const initialState = storage => getInitialState(storage)
+// const initialState = (storage, history) =>
 
-export const setInitial = ({key, storage}) => {
+export const setInitial = ({key, storage, history}) => {
   storage = getStorage(storage)
   key = key || DEFAULT_KEY
 
   return {
-    [key]: initialState(storage)
+    [key]: getInitialState(storage, history)
   }
 }
 
@@ -58,7 +58,7 @@ export const selector = (key = DEFAULT_KEY) => state => state[key]
 /**
  * Popper
  */
-const pop = ({key, get, state, location}) => {
+const pop = ({key, get, state, location, history}) => {
   const {index, stack} = get(state)
   let routeIndex = getRouteIndex(location, stack)
 
@@ -81,7 +81,7 @@ const pop = ({key, get, state, location}) => {
 /**
  * pusher
  */
-const push = ({key, get, state, location}) => {
+const push = ({key, get, state, location, history}) => {
   const {index, stack} = get(state)
 
   // If we're pushing in to the middle next nuke end of stack
@@ -110,7 +110,7 @@ const save = ({storage, key, state, get}) => {
 const createUpdatePop = ({key, history, storage}) => {
   const get = selector(key)
   return safe((state, payload) => {
-    pop({key, get, state, location: payload.location})
+    pop({key, get, state, location: payload.location, history})
     save({storage, key, get, state})
   })
 }
@@ -121,7 +121,7 @@ const createUpdatePop = ({key, history, storage}) => {
 const createUpdatePush = ({key, history, storage}) => {
   const get = selector(key)
   return safe((state, payload) => {
-    push({key, get, state, location: payload.location})
+    push({key, get, state, location: payload.location, history})
     save({storage, key, get, state})
   })
 }

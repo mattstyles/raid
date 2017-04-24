@@ -1,7 +1,7 @@
 
 import {getHistory} from './history'
 import Navigator from './navigator'
-import {createUpdate} from './update'
+import {createUpdate, setInitial} from './update'
 
 export {default as Navigator} from './navigator'
 export {
@@ -32,7 +32,7 @@ export const init = ({signal, history, key, storage}) => {
       history,
       storage
     }),
-    // initial: setInitial({key, storage}),
+    initial: setInitial({key, storage, history}),
     actions: {
       back: history.goBack,
       forward: history.goForward,

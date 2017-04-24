@@ -1,10 +1,21 @@
 
-import {createMemoryHistory} from 'history'
+// import {createMemoryHistory} from 'history'
 import {createSelector} from 'reselect'
 import {init} from 'raid-navigator/src'
 
+import {history} from './history'
+
 import {Button} from '../_common'
 import {signal, connect} from './store'
+
+// const history = createMemoryHistory()
+// window.appHistory = history
+
+// export const initial = setInitial({
+//   history
+// })
+//
+// console.log(initial)
 
 const {
   Navigator,
@@ -16,13 +27,10 @@ const {
   }
 } = init({
   signal,
-  history: createMemoryHistory()
+  history
 })
 
-// console.log('~', update)
-
 export const memoryUpdate = update
-// signal.register(update)
 
 export const Navigation = connect(
   createSelector(

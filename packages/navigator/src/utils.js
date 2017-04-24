@@ -24,6 +24,10 @@ const getHistoryState = history => {
     }
   }
 
+  if (history.location) {
+    return history.location
+  }
+
   if (history.state) {
     const {state, key} = history.state
     return {state, key}
@@ -44,9 +48,10 @@ const getHistoryState = history => {
  * Uses window.history and window.location to try to calculate
  * the current route
  */
-export const getCurrentRoute = (location) => {
+export const getCurrentRoute = (location, history) => {
+  console.log(location, history)
   return location || {
     pathname: getWindowPathname(),
-    ...getHistoryState(window.history || null)
+    ...getHistoryState(history || window.history || null)
   }
 }
