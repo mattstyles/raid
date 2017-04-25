@@ -26,14 +26,14 @@ class Navigator extends Component {
   }
 
   componentWillMount () {
-    const {signal, history, key} = this.props
+    const {signal, history, root} = this.props
 
     this.disposeHistory = getHistory(history).listen(
       createListener(signal)
     )
 
     this.disposeUpdate = signal.register(createUpdate({
-      key,
+      key: root,
       history,
       signal
     }))
@@ -61,6 +61,11 @@ class Navigator extends Component {
     }
 
     const {stack, index} = navigation
+
+    if (!stack || !stack.length) {
+      return null
+    }
+
     return matchRoute(children, stack[index])
   }
 }
