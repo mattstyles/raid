@@ -1,5 +1,6 @@
 
 import {safe, compress} from 'raid-addons'
+import {isNull} from 'lodash/fp'
 
 import {actions} from './actions'
 import {getHistory} from './history'
@@ -7,8 +8,11 @@ import {getRouteIndex, getCurrentRoute} from './utils'
 
 export const DEFAULT_KEY = 'navigation'
 
-const getStorage = storage =>
-  storage || (window && window.sessionStorage)
+const getStorage = storage => {
+  return isNull(storage)
+    ? null
+    : storage || (window && window.sessionStorage)
+}
 
 /**
  * Initial state root

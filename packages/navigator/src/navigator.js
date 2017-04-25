@@ -26,7 +26,7 @@ class Navigator extends Component {
   }
 
   componentWillMount () {
-    const {signal, history, root} = this.props
+    const {signal, history, root, storage} = this.props
 
     this.disposeHistory = getHistory(history).listen(
       createListener(signal)
@@ -35,7 +35,8 @@ class Navigator extends Component {
     this.disposeUpdate = signal.register(createUpdate({
       key: root,
       history,
-      signal
+      signal,
+      storage
     }))
 
     signal.emit({

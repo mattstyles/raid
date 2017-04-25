@@ -1,11 +1,12 @@
 
 import {createSelector} from 'reselect'
+import createHistory from 'history/createMemoryHistory'
 import {Navigator, createActions} from 'raid-navigator/src'
-
-import {history} from './history'
 
 import {Button} from '../_common'
 import {signal, connect} from './store'
+
+const history = createHistory()
 
 const {
   push,
@@ -15,13 +16,12 @@ const {
 
 export const Navigation = connect(
   createSelector(
-    () => history,
     state => state.navigation,
-    () => signal,
-    (history, navigation, signal) => ({
+    (navigation) => ({
       history,
       navigation,
-      signal
+      signal,
+      storage: null
     })
   ),
   Navigator
