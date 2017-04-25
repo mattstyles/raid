@@ -2,12 +2,11 @@
 import {getHistory} from './history'
 
 export const actions = {
-  push: '@navigator:push',
-  pop: '@navigator:pop',
-  init: '@navigator:init',
+  push: 'navigator:push',
+  pop: 'navigator:pop',
 
   // @TODO
-  replace: '@navigator:replace'
+  replace: 'navigator:replace'
 }
 
 export const dispatcher = (signal, type) =>

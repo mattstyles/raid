@@ -105,16 +105,6 @@ const save = ({storage, key, state, get}) => {
 }
 
 /**
- * Setup
- */
-const init = ({state, storage, history, key, get}) => {
-  return {
-    ...state,
-    ...setInitial({key, storage, history})
-  }
-}
-
-/**
  * Updates the state based on a navigation pop event
  */
 const createUpdatePop = ({key, history, storage}) => {
@@ -136,13 +126,6 @@ const createUpdatePush = ({key, history, storage}) => {
   })
 }
 
-const createInit = ({key, storage, history}) => {
-  const get = selector(key)
-  return safe((state, payload) => {
-    return init({key, storage, history, state, get})
-  })
-}
-
 /**
  * Can be used to create an update function that refs a defined root and
  * can be supplied with a specific history instance
@@ -153,8 +136,7 @@ export const createUpdate = ({key, history, storage}) => {
   storage = getStorage(storage)
   return compress({
     [actions.pop]: createUpdatePop({key, history, storage}),
-    [actions.push]: createUpdatePush({key, history, storage}),
-    [actions.init]: createInit({key, history, storage})
+    [actions.push]: createUpdatePush({key, history, storage})
   })
 }
 

@@ -2,8 +2,7 @@
 import {createSelector} from 'reselect'
 
 import {getHistory, createListener} from './history'
-import {DEFAULT_KEY, createUpdate} from './update'
-import {actions} from './actions'
+import {DEFAULT_KEY} from './update'
 
 const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
 const {matchRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
@@ -22,48 +21,23 @@ class Navigator extends Component {
     signal: null,
     history: null,
     root: DEFAULT_KEY,
-    navigation: null
+    navigation: {}
   }
 
   componentWillMount () {
-    const {signal, history, key} = this.props
-
-    this.disposeHistory = getHistory(history).listen(
-      createListener(signal)
-    )
-
-    this.disposeUpdate = signal.register(createUpdate({
-      key,
-      history,
-      signal
-    }))
-
-    signal.emit({
-      type: actions.init
-    })
+    this.history = getHistory(this.props.history)
+    this.disposeHistory = this.history
+      .listen(createListener(this.props.signal))
   }
 
   componentWillUnmount () {
     if (this.disposeHistory) {
       this.disposeHistory()
     }
-
-    if (this.disposeUpdate) {
-      this.disposeUpdate()
-    }
   }
 
   render () {
-    console.log('navigator::render')
     const {children, navigation} = getProps(this.props)
-    console.log(this.props)
-
-    if (!navigation) {
-      return null
-    }
-
-    console.log(navigation)
-
     const {stack, index} = navigation
     return matchRoute(children, stack[index])
   }

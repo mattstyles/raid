@@ -7,7 +7,10 @@ import {signal, connect} from './store'
 
 export const Navigation = connect(
   createSelector(
-    state => state.navigation,
+    state => {
+      console.log(':::', state)
+      return state.navigation
+    },
     () => signal,
     (navigation, signal) => ({
       navigation,
