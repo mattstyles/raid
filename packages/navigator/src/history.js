@@ -19,7 +19,6 @@ export const createListener = signal => {
   const push = dispatcher(signal, actions.push)
 
   return (location, action) => {
-    console.log('history action', action, location)
     if (action === 'POP') {
       pop({location})
     }

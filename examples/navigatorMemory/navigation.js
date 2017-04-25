@@ -1,42 +1,25 @@
 
-// import {createMemoryHistory} from 'history'
 import {createSelector} from 'reselect'
-import {init} from 'raid-navigator/src'
+import {Navigator, createActions} from 'raid-navigator/src'
 
 import {history} from './history'
 
 import {Button} from '../_common'
 import {signal, connect} from './store'
 
-// const history = createMemoryHistory()
-// window.appHistory = history
-
-// export const initial = setInitial({
-//   history
-// })
-//
-// console.log(initial)
-
 const {
-  Navigator,
-  update,
-  actions: {
-    push,
-    back,
-    forward
-  }
-} = init({
-  signal,
-  history
-})
-
-export const memoryUpdate = update
+  push,
+  back,
+  forward
+} = createActions(history)
 
 export const Navigation = connect(
   createSelector(
+    () => history,
     state => state.navigation,
     () => signal,
-    (navigation, signal) => ({
+    (history, navigation, signal) => ({
+      history,
       navigation,
       signal
     })

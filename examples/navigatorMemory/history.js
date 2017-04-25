@@ -1,5 +1,5 @@
 
-import {createBrowserHistory} from 'history'
+import createHistory from 'history/createMemoryHistory'
 
-export const history = createBrowserHistory()
+export const history = createHistory()
 window.appHistory = history

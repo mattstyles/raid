@@ -1,7 +1,5 @@
 
 import {render} from 'react-dom'
-// import {update} from 'raid-navigator/src'
-// import {Navigator} from 'raid-navigator/src'
 
 import {Navigation, Push, Back, Forward} from './navigation'
 import {signal} from './store'
@@ -14,23 +12,13 @@ const View = ({children, params, route}) => {
   return children.length ? <div>{children}</div> : children
 }
 
-// Pass history to update function
-// signal.register(update)
-
 // Base debug function
 signal.register((state, event) => {
-  console.log('>>', event)
-  console.log('  ', state)
-  console.log('<<')
+  console.log(event, ':::', state)
   return state
 })
 
-// const Forward = () => <span />
-// const Back = () => <span />
-// const Push = () => <span />
-
 signal.observe(state => {
-  console.log('state', state)
   render(
     <App state={state}>
       <Back />

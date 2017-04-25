@@ -21,3 +21,14 @@ export const push = function () {
 export const go = function () {
   return getHistory().go(...arguments)
 }
+
+export const createActions = history => ({
+  back: () => getHistory(history).goBack(),
+  forward: () => getHistory(history).goForward(),
+  push: function () {
+    return getHistory(history).push(...arguments)
+  },
+  go: function () {
+    return getHistory(history).go(...arguments)
+  }
+})

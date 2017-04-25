@@ -49,7 +49,6 @@ const getHistoryState = history => {
  * the current route
  */
 export const getCurrentRoute = (location, history) => {
-  console.log(location, history)
   return location || {
     pathname: getWindowPathname(),
     ...getHistoryState(history || window.history || null)

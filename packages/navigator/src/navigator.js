@@ -54,15 +54,11 @@ class Navigator extends Component {
   }
 
   render () {
-    console.log('navigator::render')
     const {children, navigation} = getProps(this.props)
-    console.log(this.props)
 
     if (!navigation) {
       return null
     }
-
-    console.log(navigation)
 
     const {stack, index} = navigation
     return matchRoute(children, stack[index])
