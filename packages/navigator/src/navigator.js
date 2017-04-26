@@ -1,9 +1,11 @@
 
 import {createSelector} from 'reselect'
+import {compose} from 'lodash/fp'
 
 import {getHistory, createListener} from './history'
 import {DEFAULT_KEY, createUpdate} from './update'
 import {actions} from './actions'
+import {wrapChildren} from './utils'
 
 const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
 const {matchRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
@@ -67,7 +69,12 @@ class Navigator extends Component {
       return null
     }
 
-    return matchRoute(children, stack[index])
+    // return wrapChildren(matchRoute(children, stack[index]))
+    console.log('returning', matchRoute(stack[index])(children))
+    return compose(
+      wrapChildren,
+      matchRoute(stack[index])
+    )(children)
   }
 }
 

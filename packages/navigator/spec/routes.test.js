@@ -35,12 +35,13 @@ tape('Match finds a child from a list', t => {
   const route = {
     pathname: 'foo'
   }
+  const matchFooRoute = matchRoute(route)
 
   const search = [
     createChild('foo'),
     createChild('bar')
   ]
-  const match = matchRoute(search, route)
+  const match = matchFooRoute(search)[0]
   t.ok(match, 'Finds a child')
   t.equal(match.props.id, 'foo', 'Finds the correct child at the head of a list')
 
@@ -48,7 +49,7 @@ tape('Match finds a child from a list', t => {
     createChild('bar'),
     createChild('foo')
   ]
-  const match2 = matchRoute(search2, route)
+  const match2 = matchFooRoute(search2)[0]
   t.ok(match2, 'Finds a child')
   t.equal(match2.props.id, 'foo', 'Finds the correct child at the tail of a list')
 
@@ -58,9 +59,30 @@ tape('Match finds a child from a list', t => {
     createChild('quux'),
     createChild('baz')
   ]
-  const match3 = matchRoute(search3, route)
+  const match3 = matchFooRoute(search3)[0]
   t.ok(match3, 'Finds a child')
   t.equal(match3.props.id, 'foo', 'Finds the correct child from the middle of a list')
+})
+
+tape('Match is able to match multiple children', t => {
+  t.plan(2)
+
+  const createChild = route => <div route={route} id={route} />
+
+  const route = {
+    pathname: 'foo'
+  }
+  const matchFooRoute = matchRoute(route)
+
+  const search = [
+    createChild('foo'),
+    createChild('bar'),
+    createChild('foo')
+  ]
+
+  const match = matchFooRoute(search)
+  t.ok(match, 'Finds children')
+  t.equal(match.length, 2, 'Finds multiple children')
 })
 
 tape('Match fails to find a child', t => {
@@ -76,6 +98,6 @@ tape('Match fails to find a child', t => {
     createChild('foo'),
     createChild('bar')
   ]
-  const match = matchRoute(search, route)
-  t.equal(match, null, 'Match returns null if not found')
+  const match = matchRoute(route)(search)
+  t.deepEqual(match, [], 'Match returns an empty array if not found')
 })

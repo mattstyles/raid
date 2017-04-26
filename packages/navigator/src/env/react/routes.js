@@ -1,6 +1,6 @@
 
 import React from 'react'
-import {compose, filter, map, head, defaultTo} from 'lodash/fp'
+import {compose, filter, map, defaultTo} from 'lodash/fp'
 
 const clone = child => {
   return React.cloneElement(child, {
@@ -12,12 +12,12 @@ const clone = child => {
 // @TODO match route params
 export const findRoute = route => {
   const re = new RegExp(`^${route.pathname}$`)
+  console.log('finding route', re)
   return child => re.test(child.props.route)
 }
 
-export const matchRoute = (children, route) => compose(
+export const matchRoute = route => children => compose(
   defaultTo(null),
-  head,
   map(clone),
   filter(findRoute(route))
 )(React.Children.toArray(children))

@@ -1,5 +1,5 @@
 
-import {findIndex} from 'lodash/fp'
+import {findIndex, isArray, head} from 'lodash/fp'
 
 export const findKey = key => findIndex(route => route.key === key)
 
@@ -53,4 +53,14 @@ export const getCurrentRoute = (location, history) => {
     pathname: getWindowPathname(),
     ...getHistoryState(history || window.history || null)
   }
+}
+
+export const wrapChildren = children => {
+  if (!isArray(children) || !children.length) {
+    return null
+  }
+
+  return children.length > 1
+    ? <span>{children}</span>
+    : head(children)
 }
