@@ -1,7 +1,7 @@
 {
   "name": "raid-navigator",
   "version": "2.4.0",
-  "description": "Navigation stack hooked in to raid signal",
+  "description": "Navigation stack hooked in to a raid signal",
   "main": "lib",
   "scripts": {
     "clean": "rimraf lib",
