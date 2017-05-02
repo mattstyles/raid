@@ -206,6 +206,22 @@ const Link = ({children, route, state}) => (
 
 And thats it, just a few quick changes to use memory history instead of browser history.
 
+## Route parameters
+
+The match algorithm will also collect up route parameters and pass those to children as props under the `params` key. Route parameters are delimited by starting with `/:`.
+
+```js
+const View = ({params: {title}}) => <h1>{title}</h1>
+
+render(
+  <Navigation>
+    <View route='/foo/:title' />
+    <View route='/bar/:title' />
+  </Navigation>
+  document.querySelector('root')
+)
+```
+
 ## Running tests
 
 ```sh
