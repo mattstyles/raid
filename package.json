@@ -103,12 +103,12 @@
     "nyc": "^10.1.2",
     "raid": "^2.5.0",
     "raid-addons": "^2.5.0",
-    "raid-navigator": "^2.5.0",
+    "raid-navigator": "^2.6.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "reselect": "^2.5.4",
     "standard": "^9.0.1",
     "styled-jsx": "^0.5.7"
   },
-  "version": "2.5.0"
+  "version": "2.6.0"
 }
