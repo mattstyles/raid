@@ -23,8 +23,8 @@ tape('Match a child from a route', t => {
   }
 
   const find = findRoute(route)
-  t.ok(find(match), 'Finds a child via route props')
-  t.notOk(find(noMatch), 'Returns false when child does not match')
+  t.ok(find(match).result, 'Finds a child via route props')
+  t.notOk(find(noMatch).result, 'Returns false when child does not match')
 })
 
 tape('Match finds a child from a list', t => {
@@ -103,14 +103,14 @@ tape('Match fails to find a child', t => {
 })
 
 tape('Children get params appended as properties', t => {
-  t.plan(1)
+  t.plan(2)
 
   const child = <div route='/foo/:id' />
   const route = {pathname: '/foo/123'}
 
   const match = matchRoute(route)([child])
+  const params = match[0].props.params
 
-  console.log(match)
-
-  t.ok()
+  t.ok(params, 'Params are appended')
+  t.equal(params.id, '123', 'Correct param is appended')
 })
