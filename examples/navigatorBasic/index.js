@@ -23,6 +23,7 @@ signal.observe(state => {
     <App state={state}>
       <Back />
       <Forward />
+      <Push route='/foo'>Unmatched</Push>
       <Navigation>
         <View route='/'>
           <h1>Index</h1>
