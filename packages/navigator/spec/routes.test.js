@@ -101,3 +101,16 @@ tape('Match fails to find a child', t => {
   const match = matchRoute(route)(search)
   t.deepEqual(match, [], 'Match returns an empty array if not found')
 })
+
+tape('Children get params appended as properties', t => {
+  t.plan(1)
+
+  const child = <div route='/foo/:id' />
+  const route = {pathname: '/foo/123'}
+
+  const match = matchRoute(route)([child])
+
+  console.log(match)
+
+  t.ok()
+})

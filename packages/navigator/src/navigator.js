@@ -69,8 +69,6 @@ class Navigator extends Component {
       return null
     }
 
-    // return wrapChildren(matchRoute(children, stack[index]))
-    console.log('returning', matchRoute(stack[index])(children))
     return compose(
       wrapChildren,
       matchRoute(stack[index])

@@ -26,10 +26,10 @@ signal.observe(state => {
       <Navigation>
         <View route='/'>
           <h1>Index</h1>
-          <Push route='/home'>Home</Push>
+          <Push route='/home/string'>Home</Push>
           <Push route='/settings'>Settings</Push>
         </View>
-        <View route='/home'>
+        <View route='/home/:id'>
           <h1>Home</h1>
           <Push route='/'>Index</Push>
           <Push route='/settings'>Settings</Push>
@@ -37,7 +37,7 @@ signal.observe(state => {
         <View route='/settings'>
           <h1>Settings</h1>
           <Push route='/'>Index</Push>
-          <Push route='/home'>Home</Push>
+          <Push route='/home/23'>Home</Push>
         </View>
       </Navigation>
     </App>,
