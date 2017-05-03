@@ -36,9 +36,6 @@ export const findRoute = route => {
         }
       }
 
-      console.log('match:', match)
-      console.log('search:', search)
-
       // Match on url segment match
       return {
         ...props,
