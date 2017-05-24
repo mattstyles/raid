@@ -34,3 +34,13 @@ test('Should return whatever the update function returns', t => {
 
   t.deepEqual(update(state), expected, 'Returns update return')
 })
+
+test('Should accept falsy values as valid returns', t => {
+  t.plan(1)
+
+  const state = {foo: 1}
+  const expected = {foo: null}
+  const update = safe(state => expected)
+
+  t.deepEqual(update(state), expected, 'Returns null as valid')
+})
