@@ -24,7 +24,7 @@ yarn add raid
 npm i -S raid
 ```
 
-Raid does one job, it helps to manage the state of your application. It does this job simply enough but sometimes you want to add some sugar or some extra _stuff_ to tasks you typically do often.
+Raid does one job, it helps to manage the state of your application. It does this job simply enough but sometimes you want to add some sugar or some extra _stuff_ for tasks you typically do often.
 
 This is a disparate list of add-ons and whilst they were created with Raid in mind they could equally be used with other libraries. They are typically small utility functions and often best used composed together.
 
@@ -261,7 +261,7 @@ In this example `state.foo` will remain unchanged, patch has ensured that the up
 
 `<Function> => <Function <state, event>>`
 
-Safe just wraps an update function to ensure state is always spat out of it. It will default to using the output of an update function, throwing out the state in the event something falsy is returned.
+Safe just wraps an update function to ensure state is always spat out of it. It will default to using the output of an update function, throwing out the state in the event undefined is returned.
 
 ```js
 const add = (state, event) => {
