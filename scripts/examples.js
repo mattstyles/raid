@@ -69,7 +69,7 @@ function spawnServer (example) {
     packages
   ]
   // Set babel env to switch jsx compilation
-  if (/adaptor|resize|navigator/.test(example)) {
+  if (/adaptor|resize|navigator|screen/.test(example)) {
     process.env.BABEL_ENV = 'react'
   }
   // if (/navigator/.test(example)) {

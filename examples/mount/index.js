@@ -1,5 +1,5 @@
 
-import {render} from 'inferno-dom'
+import {render} from 'react-dom'
 
 import {Signal} from 'raid/src'
 
@@ -19,15 +19,24 @@ const signal = new Signal({
 const emitter = new EventEmitter()
 const source = fromEvent('action', emitter)
 
+const keys = fromEvent('keydown', window.document.body)
+  .map(event => ({
+    type: actions.keydown,
+    key: event.key,
+    keyCode: event.keyCode
+  }))
+
 // Apply stream as an input source for the main signal
 signal.mount(source)
+signal.mount(keys)
 
 const dispatch = type => payload => signal.emit({type, payload})
 const sourceDispatch = type => payload => emitter.emit('action', {type, payload})
 
 const actions = {
   add: 'actions:add',
-  subtract: 'actions:subtract'
+  subtract: 'actions:subtract',
+  keydown: 'input:keydown'
 }
 
 const update = (state, event) => {
@@ -38,6 +47,11 @@ const update = (state, event) => {
 
   if (event.type === actions.subtract) {
     state.count -= 1
+    return state
+  }
+
+  if (event.type === actions.keydown) {
+    state.key = event.key
     return state
   }
 

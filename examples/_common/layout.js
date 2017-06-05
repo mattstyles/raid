@@ -1,5 +1,5 @@
 
-const styles = {
+const stylesheet = {
   view: {
     display: 'flex',
     flex: 1,
@@ -30,15 +30,15 @@ const styles = {
 
 export const View = ({children}) => {
   return (
-    <div style={styles.view}>
+    <div style={stylesheet.view}>
       {children}
     </div>
   )
 }
 
-export const Main = ({children}) => {
+export const Main = ({styles, children}) => {
   return (
-    <div style={styles.main}>
+    <div style={{...stylesheet.main, ...styles}}>
       {children}
     </div>
   )
@@ -46,7 +46,7 @@ export const Main = ({children}) => {
 
 export const Code = ({children}) => {
   return (
-    <div style={styles.code}>
+    <div style={stylesheet.code}>
       {children}
     </div>
   )

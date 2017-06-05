@@ -1,0 +1,64 @@
+{
+  "name": "raid-streams",
+  "version": "2.5.0",
+  "description": "Collection of event streams ready to mount to raid",
+  "main": "lib/",
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "yarn run clean",
+    "build": "babel src --out-dir lib",
+    "watch": "babel --watch src --out-dir lib",
+    "test": "tape -r babel-register spec/*.test.js",
+    "cover": "nyc tape -r babel-register spec/*.test.js",
+    "coverage-report": "nyc --reporter=lcov yarn run test",
+    "prepublish": "yarn run build",
+    "prestart": "yarn run build",
+    "start": "yarn run watch"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "urban"
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "keywords": [
+    "raid",
+    "addons",
+    "helpers",
+    "utility",
+    "streams",
+    "events",
+    "mount"
+  ],
+  "author": "Matt Styles",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattstyles/raid"
+  },
+  "bugs": "https://github.com/mattstyles/raid/issues",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-preset-urban": "^1.0.0",
+    "babel-register": "^6.16.3",
+    "coveralls": "^2.11.14",
+    "nyc": "^10.1.2",
+    "raid": "^2.5.0",
+    "rimraf": "^2.5.2",
+    "standard": "^9.0.1",
+    "tape": "^4.6.2"
+  },
+  "dependencies": {
+    "@mattstyles/tick": "^0.1.0",
+    "eventemitter3": "^2.0.2",
+    "most": "^1.2.2"
+  }
+}
