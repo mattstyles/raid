@@ -3,15 +3,17 @@ import {render} from 'react-dom'
 
 import {Signal} from 'raid/src'
 import {
-  default as screenEvents,
+  default as screenStream,
   actions as screenActions
 } from 'raid-streams/src/screen'
 import {
-  default as keyEvents,
-  actions as keyActions,
-  keystream,
-  tickstream
+  default as keyStream,
+  actions as keyActions
 } from 'raid-streams/src/keys'
+import {
+  default as tickStream,
+  actions as tickActions
+} from 'raid-streams/src/tick'
 
 import element from '../_common/element'
 import {View, Main, Code} from '../_common/layout'
@@ -22,17 +24,30 @@ const signal = new Signal({
   height: window.innerHeight,
   orientation: window.screen.orientation.type,
   left: window.scrollX,
-  top: window.scrollY
+  top: window.scrollY,
+  frames: 0,
+  toggle: false
 })
 
 // Apply stream as an input source for the main signal
-signal.mount(screenEvents())
-// signal.mount(keyEvents())
-signal.mount(keystream())
-// signal.mount(tickstream())
+signal.mount(screenStream())
+signal.mount(keyStream())
+signal.mount(tickStream())
 
 const update = (state, event) => {
-  console.log(event)
+  if (event.type === keyActions.keydown) {
+    state.key = event.key
+    return state
+  }
+
+  if (event.type === tickActions.tick) {
+    state.frames = state.frames + 1
+    if (state.frames > 60) {
+      state.frames = 0
+      state.toggle = !state.toggle
+    }
+    return state
+  }
 
   if (event.type === screenActions.resize) {
     state.width = event.width
@@ -63,6 +78,17 @@ const App = ({state}) => {
         <p>Try resizing the screen</p>
         <p>Try changing the orientation</p>
         <p>Try scrolling the screen</p>
+        <div style={{
+          width: 48,
+          height: 48,
+          lineHeight: '48px',
+          textAlign: 'center',
+          color: 'white',
+          background: state.toggle ? 'rgb(109, 170, 44)' : 'rgb(208, 70, 72)'
+        }}>{state.frames}</div>
+        <p style={{
+          color: state.keypress ? 'rgb(117, 113, 97)' : 'rgb(20, 12, 28)'
+        }}>{state.key}</p>
       </Main>
       <Code styles={{width: '120vw'}}>
         <pre>{JSON.stringify(state, null, '  ')}</pre>

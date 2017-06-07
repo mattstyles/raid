@@ -9,13 +9,13 @@ export const actions = {
   keypress: '@@keys:keypress'
 }
 
-export const keystream = () => {
-  const pressed = new Map()
+const keymap = type => ({keyCode}) => ({
+  key: vkey[keyCode],
+  type
+})
 
-  const keymap = type => ({keyCode}) => ({
-    key: vkey[keyCode],
-    type
-  })
+const keystream = () => {
+  const pressed = new Map()
 
   const keydown = fromEvent('keydown', window)
     .map(keymap(actions.keydown))
@@ -40,10 +40,4 @@ export const keystream = () => {
   ])
 }
 
-export const tickstream = () => {
-  return fromEvent('data', raf(window))
-    .map(event => ({
-      type: 'tick',
-      raw: event
-    }))
-}
+export default keystream
