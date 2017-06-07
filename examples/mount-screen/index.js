@@ -26,7 +26,8 @@ const signal = new Signal({
   left: window.scrollX,
   top: window.scrollY,
   frames: 0,
-  toggle: false
+  toggle: false,
+  enterDownFor: 0
 })
 
 // Apply stream as an input source for the main signal
@@ -37,6 +38,20 @@ signal.mount(tickStream())
 const update = (state, event) => {
   if (event.type === keyActions.keydown) {
     state.key = event.key
+    return state
+  }
+
+  if (event.type === keyActions.keyup) {
+    if (event.key === '<enter>') {
+      state.enterDownFor = 0
+    }
+    return state
+  }
+
+  if (event.type === keyActions.keypress) {
+    if (event.pressed.has('<enter>')) {
+      state.enterDownFor = event.pressed.get('<enter>')
+    }
     return state
   }
 
@@ -78,6 +93,7 @@ const App = ({state}) => {
         <p>Try resizing the screen</p>
         <p>Try changing the orientation</p>
         <p>Try scrolling the screen</p>
+        <p>Try holding the enter key</p>
         <div style={{
           width: 48,
           height: 48,
