@@ -28,9 +28,9 @@ const stylesheet = {
   }
 }
 
-export const View = ({children}) => {
+export const View = ({styles, children}) => {
   return (
-    <div style={stylesheet.view}>
+    <div style={{...stylesheet.view, ...styles}}>
       {children}
     </div>
   )
@@ -44,9 +44,9 @@ export const Main = ({styles, children}) => {
   )
 }
 
-export const Code = ({children}) => {
+export const Code = ({styles, children}) => {
   return (
-    <div style={stylesheet.code}>
+    <div style={{...stylesheet.code, ...styles}}>
       {children}
     </div>
   )

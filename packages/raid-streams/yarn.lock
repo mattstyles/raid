@@ -868,7 +868,7 @@ core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
-core-js@^2.4.0:
+core-js@^2.2.2, core-js@^2.4.0:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.4.1.tgz#4de911e667b0eae9124e34254b53aea6fc618d3e"
 
@@ -2339,6 +2339,15 @@ qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
+quay@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/quay/-/quay-0.6.0.tgz#1f407b6aaa0758025ad9f858848a3ce51be44953"
+  dependencies:
+    core-js "^2.2.2"
+    eventemitter3 "^1.1.1"
+    raf-stream "^3.0.0"
+    vkey "^1.0.0"
+
 raf-stream@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/raf-stream/-/raf-stream-3.0.0.tgz#db080955665a3434ce5a7aadb917125ff2495b3d"
@@ -2967,6 +2976,10 @@ verror@1.3.6:
   resolved "https://registry.yarnpkg.com/verror/-/verror-1.3.6.tgz#cff5df12946d297d2baaefaa2689e25be01c005c"
   dependencies:
     extsprintf "1.0.2"
+
+vkey@^1.0.0, vkey@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vkey/-/vkey-1.0.1.tgz#71c56acb759e80321c95d616c2b7fc55059181c0"
 
 which-module@^1.0.0:
   version "1.0.0"
