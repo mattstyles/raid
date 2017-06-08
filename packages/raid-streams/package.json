@@ -1,6 +1,6 @@
 {
   "name": "raid-streams",
-  "version": "2.5.0",
+  "version": "2.7.0",
   "description": "Collection of event streams ready to mount to raid",
   "main": "lib/",
   "scripts": {
@@ -51,7 +51,7 @@
     "babel-register": "^6.16.3",
     "coveralls": "^2.11.14",
     "nyc": "^10.1.2",
-    "raid": "^2.5.0",
+    "raid": "^2.7.0",
     "rimraf": "^2.5.2",
     "standard": "^9.0.1",
     "tape": "^4.6.2"
