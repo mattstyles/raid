@@ -10,27 +10,33 @@ export const actions = {
   sequence: '@@keys:sequence'
 }
 
-const keymap = type => ({keyCode}) => ({
-  key: vkey[keyCode],
-  type
+const keymap = (type, keys) => event => ({
+  key: vkey[event.keyCode],
+  type,
+  keys,
+  event
 })
 
 const exclude = keys => ({key}) => !keys.includes(key)
 
+const prevent = ({event}) => event.preventDefault()
+
 export const keydown = keys => fromEvent('keydown', window)
-  .map(keymap(actions.keydown))
+  .map(keymap(actions.keydown, keys))
   .filter(exclude([
     '<tab>'
   ]))
   .filter(({key}) => !keys.has(key))
   .tap(({key}) => keys.set(key, 0))
+  .tap(prevent)
 
 export const keyup = keys => fromEvent('keyup', window)
-  .map(keymap(actions.keyup))
+  .map(keymap(actions.keyup, keys))
   .filter(exclude([
     '<tab>'
   ]))
   .tap(({key}) => keys.delete(key))
+  .tap(prevent)
 
 export const keySequence = (opts = {
   length: 10
@@ -42,7 +48,7 @@ export const keySequence = (opts = {
     keyup(pressed)
   )
     .filter(({type}) => type === actions.keydown)
-    .scan((keys, {key, type}) => {
+    .scan((keys, {key}) => {
       return keys
         .concat(key)
         .slice(0 - opts.length)
@@ -65,7 +71,7 @@ const keystream = () => {
     })
     .map(dt => ({
       type: actions.keypress,
-      pressed
+      keys: pressed
     }))
 
   return mergeArray([

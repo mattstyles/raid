@@ -57,8 +57,8 @@ const update = (state, event) => {
   }
 
   if (event.type === keyActions.keypress) {
-    if (event.pressed.has('<enter>')) {
-      state.enterDownFor = event.pressed.get('<enter>')
+    if (event.keys.has('<enter>')) {
+      state.enterDownFor = event.keys.get('<enter>')
     }
     return state
   }
