@@ -8,7 +8,8 @@ import {
 } from 'raid-streams/src/screen'
 import {
   default as keyStream,
-  actions as keyActions
+  actions as keyActions,
+  keySequence
 } from 'raid-streams/src/keys'
 import {
   default as tickStream,
@@ -27,15 +28,22 @@ const signal = new Signal({
   top: window.scrollY,
   frames: 0,
   toggle: false,
-  enterDownFor: 0
+  enterDownFor: 0,
+  sequence: []
 })
 
 // Apply stream as an input source for the main signal
 signal.mount(screenStream())
-signal.mount(keyStream())
 signal.mount(tickStream())
+signal.mount(keyStream())
+signal.mount(keySequence())
 
 const update = (state, event) => {
+  if (event.type === keyActions.sequence) {
+    state.sequence = event.keys
+    return state
+  }
+
   if (event.type === keyActions.keydown) {
     state.key = event.key
     return state
