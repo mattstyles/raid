@@ -9,7 +9,8 @@ import {
 import {
   default as keyStream,
   actions as keyActions,
-  keySequence
+  keySequence,
+  timedKeySequence
 } from 'raid-streams/src/keys'
 import {
   default as tickStream,
@@ -29,7 +30,9 @@ const signal = new Signal({
   frames: 0,
   toggle: false,
   enterDownFor: 0,
-  sequence: []
+  sequence: [],
+  timedSequence: [],
+  hadoken: false
 })
 
 // Apply stream as an input source for the main signal
@@ -37,8 +40,15 @@ signal.mount(screenStream())
 signal.mount(tickStream())
 signal.mount(keyStream())
 signal.mount(keySequence())
+signal.mount(timedKeySequence({timeout: 500}))
 
 const update = (state, event) => {
+  if (event.type === keyActions.timedSequence) {
+    state.timedSequence = event.keys
+    state.hadoken = state.timedSequence.join('') === 'ASD<enter>'
+    return state
+  }
+
   if (event.type === keyActions.sequence) {
     state.sequence = event.keys
     return state
@@ -113,6 +123,9 @@ const App = ({state}) => {
         <p style={{
           color: state.keypress ? 'rgb(117, 113, 97)' : 'rgb(20, 12, 28)'
         }}>{state.key}</p>
+        <h1 style={{
+          display: state.hadoken ? 'block' : 'none'
+        }}>Hadoken</h1>
       </Main>
       <Code styles={{width: '120vw'}}>
         <pre>{JSON.stringify(state, null, '  ')}</pre>

@@ -7,7 +7,8 @@ export const actions = {
   keydown: '@@keys:keydown',
   keyup: '@@keys:keyup',
   keypress: '@@keys:keypress',
-  sequence: '@@keys:sequence'
+  sequence: '@@keys:sequence',
+  timedSequence: '@@keys:timedSequence'
 }
 
 const keymap = (type, keys) => event => ({
@@ -39,13 +40,14 @@ export const keyup = keys => fromEvent('keyup', window)
   .tap(prevent)
 
 export const keySequence = (opts = {
-  length: 10
+  length: 10,
+  keys: null
 }) => {
-  const pressed = new Map()
+  const keys = opts.keys || new Map()
 
   return merge(
-    keydown(pressed),
-    keyup(pressed)
+    keydown(keys),
+    keyup(keys)
   )
     .filter(({type}) => type === actions.keydown)
     .scan((keys, {key}) => {
@@ -56,6 +58,33 @@ export const keySequence = (opts = {
     .map(keys => ({
       type: actions.sequence,
       keys
+    }))
+}
+
+// @TODO add timing to the scan function to remove presses more than 200ms or
+// so old (make it configurable), also map that timed output to a plain array
+// of key values.
+export const timedKeySequence = (opts = {
+  length: 10,
+  keys: null,
+  timeout: 200
+}) => {
+  const keys = opts.keys || new Map()
+
+  return merge(
+    keydown(keys),
+    keyup(keys)
+  )
+    .filter(({type}) => type === actions.keydown)
+    .scan((keys, {key, event: {timeStamp}}) => {
+      return keys
+        .concat([[key, timeStamp]])
+        .filter(([key, time]) => timeStamp - time < opts.timeout)
+        .slice(0 - opts.length)
+    }, [])
+    .map(keys => ({
+      type: actions.timedSequence,
+      keys: keys.map(([key]) => key)
     }))
 }
 
