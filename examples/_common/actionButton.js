@@ -1,30 +1,40 @@
 
-export default props => {
+import theme from './theme'
+
+const Button = ({
+  children,
+  background,
+  styles,
+  classes = '',
+  onClick
+}) => {
   return (
     <button
       style={{
-        background: props.background,
-        ...props.styles
+        background,
+        ...styles
       }}
-      className={`Btn ${props.classes || ''}`}
-      onClick={props.onClick}
+      className={`Btn ${classes}`}
+      onClick={onClick}
     >
-      {props.children}
+      {children}
       <style jsx>{`
         .Btn {
-          padding: .85em 1.33em;
-          border-radius: 3px;
+          padding: 0 1.75rem;
+          border-radius: ${theme.borderRadius}px;
           border: none;
-          background: rgb(49, 162, 242);
-          color: rgb(249, 249, 249);
-          font-size: 1.6rem;
-          line-height: 1;
+          background: ${theme.color.primary};
+          color: ${theme.color.white};
+          font-size: 1.5rem;
+          line-height: 3;
           font-weight: 400;
           text-shadow: 0px 1px 1px rgba(0, 0, 0, .25);
-          margin-right: 8px;
+          margin-right: 1rem;
           cursor: pointer;
         }
       `}</style>
     </button>
   )
 }
+
+export default Button
