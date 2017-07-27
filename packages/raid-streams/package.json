@@ -6,8 +6,8 @@
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "yarn run clean",
-    "build": "babel src --out-dir lib",
-    "watch": "babel --watch src --out-dir lib",
+    "build": "babel src --out-dir ./",
+    "watch": "babel --watch src --out-dir ./",
     "test": "tape -r babel-register spec/*.test.js",
     "cover": "nyc tape -r babel-register spec/*.test.js",
     "coverage-report": "nyc --reporter=lcov yarn run test",

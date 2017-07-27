@@ -3,3 +3,6 @@ node_modules
 *.log
 coverage
 .nyc_output
+keys.js
+screen.js
+tick.js

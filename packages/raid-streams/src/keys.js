@@ -61,9 +61,6 @@ export const keySequence = (opts = {
     }))
 }
 
-// @TODO add timing to the scan function to remove presses more than 200ms or
-// so old (make it configurable), also map that timed output to a plain array
-// of key values.
 export const timedKeySequence = (opts = {
   length: 10,
   keys: null,
