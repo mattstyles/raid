@@ -306,6 +306,8 @@ const update = (state, event) => ({
 signal.register(isMain(update))
 ```
 
+> Using scope to match against certain actions is fine, but consider if [compress](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md#compress) would be a better solution.
+
 ### Arc
 
 Arcs can be used to create functions which can handle side effects away from regular update functions by ensuring that async-await can be handled correctly.
