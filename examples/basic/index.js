@@ -5,13 +5,13 @@
  * by action functions
  */
 
-import {render} from 'inferno-dom'
+import {render} from 'react-dom'
 
 import {Signal} from 'raid/src'
 
 import element from '../_common/element'
 import Button from '../_common/actionButton'
-import {View, Main, Code} from '../_common/layout'
+import {App} from '../_common/layout'
 
 /**
  * The main signal can be observed for changes to application state.
@@ -94,25 +94,14 @@ const Counter = ({count}) => {
   )
 }
 
-const App = ({state}) => {
-  return (
-    <View>
-      <Main>
-        <Counter count={state.count} />
-      </Main>
-      <Code>
-        <pre>{JSON.stringify(state, null, '  ')}</pre>
-      </Code>
-    </View>
-  )
-}
-
 /**
  * The signal observer notifies when the application state changes
  */
 signal.observe(state => {
   render(
-    <App state={state} />,
+    <App state={state}>
+      <Counter count={state.count} />
+    </App>,
     element
   )
 })

@@ -9,7 +9,7 @@ import {render} from 'react-dom'
 import {Signal} from 'raid/src'
 import {union} from 'folktale/adt/union'
 
-import {App, Button, element} from '../_common'
+import {App, Button, element, theme} from '../_common'
 
 /**
  * The main signal can be observed for changes to application state.
@@ -66,7 +66,7 @@ const Counter = ({count}) => {
         >-</Button>
         <Button
           onClick={dispatch(actions.reset())}
-          background='rgb(242, 162, 49)'
+          background={`${theme.color.secondary}`}
         >Reset</Button>
       </div>
       <style jsx>{`

@@ -4,7 +4,7 @@
  * Raid <3's immutable data structures
  */
 
-import {render} from 'inferno-dom'
+import {render} from 'react-dom'
 import Immutable from 'immutable'
 
 import {Signal} from 'raid/src'

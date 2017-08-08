@@ -1,12 +1,12 @@
 
-import {render} from 'inferno-dom'
+import {render} from 'react-dom'
 
 import {Signal} from 'raid/src'
 import patch from 'raid-addons/src/patch'
 
 import element from '../_common/element'
 import Button from '../_common/actionButton'
-import {View, Main, Code} from '../_common/layout'
+import {App} from '../_common/layout'
 
 const signal = new Signal({
   patched: {
@@ -19,26 +19,15 @@ const actions = {
 }
 
 const dispatch = type => payload => signal.emit({type, payload})
+const toggle = (a, b) => cond => cond === a ? b : a
+const toggleFoo = toggle('quux', 'bar')
 
 const update = (state, event) => {
   const {foo} = state
   return {
     ...state,
-    foo: foo === 'bar' ? 'quux' : 'bar'
+    foo: toggleFoo(foo)
   }
-}
-
-const App = ({state}) => {
-  return (
-    <View>
-      <Main>
-        <Button onClick={dispatch(actions.foo)}>Click me</Button>
-      </Main>
-      <Code>
-        <pre>{JSON.stringify(state, null, '  ')}</pre>
-      </Code>
-    </View>
-  )
 }
 
 // signal.register(patch('patched', update))
@@ -46,7 +35,9 @@ signal.register(patch('patched')(update))
 
 signal.observe(state => {
   render(
-    <App state={state} />,
+    <App state={state}>
+      <Button onClick={dispatch(actions.foo)}>Click me</Button>
+    </App>,
     element
   )
 })

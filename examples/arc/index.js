@@ -1,12 +1,12 @@
 
 import 'babel-polyfill'
-import {render} from 'inferno-dom'
+import {render} from 'react-dom'
 
 import {
   compress,
   safe
 } from 'raid-addons/src'
-import element from '../_common/element'
+import {element, App} from '../_common'
 
 import {signal} from './store'
 import {Main} from './user'
@@ -56,7 +56,9 @@ signal.register(request)
 
 signal.observe(state => {
   render(
-    <Main {...state} />,
+    <App state={state}>
+      <Main {...state} />
+    </App>,
     element
   )
 }, e => console.error(e))

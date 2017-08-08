@@ -5,7 +5,7 @@
  * by action functions
  */
 
-import {render} from 'inferno-dom'
+import {render} from 'react-dom'
 
 import {Signal} from 'raid/src'
 
