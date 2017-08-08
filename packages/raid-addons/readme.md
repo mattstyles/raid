@@ -270,6 +270,42 @@ const add = (state, event) => {
 signal.register(safe(add))
 ```
 
+### Scope
+
+`<Function|String|Regex, Function> => <Function <state, event>>`
+
+Scope provides a short-circuit so that the update function only executes when a certain condition is met, that condition can be specified as a string or regex that will match against the event type (or just the event if it is a string) or as a function which will accept both state and event as parameters so that the scoping can be defined by either current application state, event parameters or a combination of both.
+
+Scoped updates have two primary use-cases:
+
+* Remove application logic from components and move it into update functions.
+* Handle global action emitters without the need to start/stop streams i.e. http requests, keyboard input streams or some sort of external feed updates.
+
+```js
+const predicate = (state, event) =>
+  state.isModalVisible && event.type === 'foo'
+
+const update = (state, event) => ({
+  ...state,
+  foo: event.payload
+})
+
+signal.register(scope(predicate, update))
+```
+
+Scope can also be called with just the predicate function, allowing an update to be attached later.
+
+```js
+const isMain = scope(state => state.appState === 'main')
+
+const update = (state, event) => ({
+  ...state,
+  foo: event.payload
+})
+
+signal.register(isMain(update))
+```
+
 ### Arc
 
 Arcs can be used to create functions which can handle side effects away from regular update functions by ensuring that async-await can be handled correctly.

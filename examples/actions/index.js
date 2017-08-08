@@ -30,7 +30,7 @@ const actions = union('actions', {
 /**
  * This assumes that a folktale tagged union will output something if it
  * does not match, which is currently not the case so whilst this works, it
- * not currently scalable.
+ * is not currently scalable.
  */
 const update = (state, event) => {
   return event.matchWith({
@@ -66,7 +66,7 @@ const Counter = ({count}) => {
         >-</Button>
         <Button
           onClick={dispatch(actions.reset())}
-          background={`${theme.color.secondary}`}
+          background={theme.color.secondary}
         >Reset</Button>
       </div>
       <style jsx>{`
