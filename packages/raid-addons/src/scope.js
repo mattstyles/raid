@@ -17,17 +17,15 @@ const scopedUpdate = (predicate, update) => {
       : match(type)
 
     return checked
-      ? state
-      : update(state, event)
+      ? update(state, event)
+      : state
   }
 }
 
 const createScope = predicate => update => scopedUpdate(predicate, update)
 
-const scope = (predicate, update) => {
-  return isDefined(update)
-    ? scopedUpdate(predicate, update)
-    : createScope(predicate)
-}
+const scope = (predicate, update) => isDefined(update)
+  ? scopedUpdate(predicate, update)
+  : createScope(predicate)
 
 export default scope

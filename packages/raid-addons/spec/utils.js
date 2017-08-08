@@ -7,5 +7,8 @@ const prepTestName = name =>
     .replace(/\.test\.js$/, '')
     .replace(/^./, ch => ch.toUpperCase())
 
-export const namespace = ns => (str, fn) =>
-  tape(`${prepTestName(ns)} :: ${str}`, fn)
+export const namespace = ns => (str, fn, only = false) => only
+  ? tape.only(`${prepTestName(ns)} :: ${str}`, fn)
+  : tape(`${prepTestName(ns)} :: ${str}`, fn)
+
+export const noop = () => {}
