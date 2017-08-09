@@ -28,6 +28,7 @@ export const scroll = (opts = {
   return fromEvent('scroll', opts.el)
     .map(event => ({
       type: actions.scroll,
+      raw: event,
       left: opts.el === window ? opts.el.scrollX : opts.el.scrollLeft,
       top: opts.el === window ? opts.el.scrollY : opts.el.scrollTop,
       timeStamp: event.timeStamp
@@ -38,6 +39,7 @@ export const orientation = () => {
   return fromEvent('orientationchange', window)
     .map(event => ({
       type: actions.orientation,
+      raw: event,
       angle: window.screen.orientation.angle,
       orientation: window.screen.orientation.type,
       timeStamp: event.timeStamp

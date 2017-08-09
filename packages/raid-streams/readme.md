@@ -37,6 +37,8 @@ See the [examples](https://github.com/mattstyles/raid/blob/master/examples) for 
 Each collection of input streams typically exports a stream that can be consumed and an enum of actions that may be emitted.
 
 * [Keys](#keys)
+* [Tick](#tick)
+* [Screen](#screen)
 
 ## Keys
 
@@ -122,7 +124,7 @@ Keyup accepts only a reference to a keys pressed map, this is a required option:
 
 ```js
 {
-  <Map> keys [required]
+  <Map> keys
 }
 ```
 
@@ -200,8 +202,8 @@ KeySequence options object looks like:
 
 ```js
 {
-  <Number> length [optional]: 10,
-  <Map> keys [optional]: null
+  <?Number> length: 10,
+  <?Map> keys: null
 }
 
 signal.mount(keySequence({
@@ -240,9 +242,9 @@ The options object looks like:
 
 ```js
 {
-  <Number> length [optional]: 10,
-  <Map> keys [optional]: null,
-  <Number> timeout [optional]: 200
+  <?Number> length: 10,
+  <?Map> keys: null,
+  <?Number> timeout: 200
 }
 
 signal.mount(timedKeySequence({
@@ -288,7 +290,7 @@ By default it attaches to the `window` but this can be configured:
 
 ```js
 {
-  <HTMLDomElement> el [optional]: window
+  <?HTMLDomElement> el: window
 }
 
 signal.mount(tick({
@@ -315,6 +317,143 @@ signal.register((state, event) => {
     state.lastElapsed = event.dt
   }
 
+  return state
+})
+```
+
+## Screen
+
+Screen streams manage common screen events that the browser might emit, screen emits separate streams for each event or a merged stream.
+
+```js
+import screen, {actions} from 'raid-streams/screen'
+
+signal.mount(screen())
+
+signal.register((state, event) => {
+  if (event.type === actions.orientation) {
+    state.orientation = event.orientation
+  }
+  return state
+})
+```
+
+### Actions
+
+* `resize` Debounced resize event with new dimensions.
+* `scroll` Scroll event with new position.
+* `orientation` Emitted on the `orientationchange` event.
+
+### resize
+
+resize triggers whenever the element changes its size and emits the new dimensions.
+
+Options object looks like:
+
+```js
+{
+  <?Number> debounce: 100,
+  <?HTMLDomElement> el: window
+}
+
+signal.mount(resize({
+  debounce: 50
+}))
+```
+
+Event signature looks like:
+
+```js
+{
+  <String> type,
+  <HTMLDomEvent> raw,
+  <Number> width,
+  <Number> height,
+  <Number> timeStamp
+}
+```
+
+```js
+import {resize, actions} from 'raid-streams/screen'
+
+signal.mount(resize())
+
+signal.register((state, event) => {
+  if (event.type === actions.resize) {
+    state.dimensions = [event.width, event.height]
+  }
+  return state
+})
+```
+
+### scroll
+
+scroll triggers whenever the element is scrolled its size and emits the new scroll position.
+
+Options object looks like:
+
+```js
+{
+  <?HTMLDomElement> el: window
+}
+
+signal.mount(scroll({
+  el: document.querySelector('js-list')
+}))
+```
+
+Event signature looks like:
+
+```js
+{
+  <String> type,
+  <HTMLDomEvent> raw,
+  <Number> left,
+  <Number> top,
+  <Number> timeStamp
+}
+```
+
+```js
+import {scroll, actions} from 'raid-streams/screen'
+
+signal.mount(scroll())
+
+signal.register((state, event) => {
+  if (event.type === actions.scroll) {
+    state.scrollPosition = [event.left, event.top]
+  }
+  return state
+})
+```
+
+### orientation
+
+orientation triggers whenever the window `orientationchange` event is triggered.
+
+There are no configuration options for orientation.
+
+Event signature looks like:
+
+```js
+{
+  <String> type,
+  <HTMLDomEvent> raw,
+  <Number> angle,
+  <Number> orientation,
+  <Number> timeStamp
+}
+```
+
+```js
+import {orientation, actions} from 'raid-streams/screen'
+
+signal.mount(orientation())
+
+signal.register((state, event) => {
+  if (event.type === actions.orientation) {
+    state.orientation = event.orientation
+  }
   return state
 })
 ```
