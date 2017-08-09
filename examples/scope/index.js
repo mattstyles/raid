@@ -6,7 +6,7 @@ import {
   scope,
   compress,
   adaptor
-} from '../../packages/raid-addons/src'
+} from 'raid-addons/src'
 
 import {
   App,
