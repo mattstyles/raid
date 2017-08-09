@@ -3,6 +3,8 @@ node_modules
 *.log
 coverage
 .nyc_output
-./keys.js
-./screen.js
-./tick.js
+
+# Transpiled output
+keys.js
+screen.js
+tick.js
