@@ -36,6 +36,8 @@ See the [examples](https://github.com/mattstyles/raid/blob/master/examples) for 
 
 Each collection of input streams typically exports a stream that can be consumed and an enum of actions that may be emitted.
 
+* [Keys](#keys)
+
 ## Keys
 
 The key streams convert regular key events into reliably emitted events. The natural key repeat behaviour is often inappropriate for applications and registering multi-key combos can get tricky, these input streams simplify listening to such events.
@@ -272,17 +274,67 @@ signal.register((state, event) => {
 })
 ```
 
+## Tick
+
+### Actions
+
+* `tick` Emitted each frame.
+
+### Tick
+
+Tick stream maps `requestAnimationFrame` into a stream that emits a frame delta each frame increment.
+
+By default it attaches to the `window` but this can be configured:
+
+```js
+{
+  <HTMLDomElement> el [optional]: window
+}
+
+signal.mount(tick({
+  el: document.querySelector('.js-gl')
+}))
+```
+
+The event signature looks like and just passes the duration of the last frame:
+
+```js
+{
+  <String> type,
+  <Number> dt
+}
+```
+
+```js
+import tick, {actions} from 'raid-streams/tick'
+
+signal.mount(tick())
+
+signal.register((state, event) => {
+  if (event.type === actions.tick) {
+    state.lastElapsed = event.dt
+  }
+
+  return state
+})
+```
+
 ## Stand-alone streams
 
-All these action streams are just regular [most.js](https://npmjs.com/packages/most) streams and can be consumed as normal, there is no restriction to use them with Raid. The only tie they have to Raid is that they emit `{type, payload}` objects.
+All these action streams are just regular [most.js](https://npmjs.com/packages/most) streams and can be consumed as normal, there is no restriction to use them with Raid. The only tie they have to Raid is that they emit `{type, payload}` objects. As they are regular streams all the regular stream functions work.
 
 ```js
 import keystream, {actions} from 'raid-streams/keys'
 
-keystream.observe(({type, payload}) => {
-  if (type === actions.keydown) {
-    console.log(`Pressing ${payload.key}`)
-  }
+keystream
+  .map(event => ({
+    ...event,
+    meta: '@@foo'
+  }))
+  .observe(({type, payload}) => {
+    if (type === actions.keydown) {
+      console.log(`Pressing ${payload.key}`)
+    }
 })
 ```
 
