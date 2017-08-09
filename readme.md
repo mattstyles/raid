@@ -23,6 +23,7 @@ npm i -S raid
 
 * [Getting started with raid](https://github.com/mattstyles/raid/tree/master/packages/raid)
 * [Utilities and complementary functions](https://github.com/mattstyles/raid/tree/master/packages/raid-addons)
+* [Input streams](https://github.com/mattstyles/raid/tree/master/packages/raid-streams)
 * [Documentation](https://mattstyles.github.io/raid/)
 
 ## Examples
