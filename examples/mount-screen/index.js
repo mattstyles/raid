@@ -18,7 +18,8 @@ import {
 } from 'raid-streams/src/tick'
 
 import element from '../_common/element'
-import {View, Main, Code} from '../_common/layout'
+// import {View, Main, Code} from '../_common/layout'
+import {App} from '../_common'
 
 // Create main app signal
 const signal = new Signal({
@@ -104,39 +105,28 @@ const update = (state, event) => {
 
 signal.register(update)
 
-const App = ({state}) => {
-  return (
-    <View>
-      <Main styles={{fontSize: 15, height: '200vh'}}>
-        <p>Try resizing the screen</p>
-        <p>Try changing the orientation</p>
-        <p>Try scrolling the screen</p>
-        <p>Try holding the enter key</p>
-        <div style={{
-          width: 48,
-          height: 48,
-          lineHeight: '48px',
-          textAlign: 'center',
-          color: 'white',
-          background: state.toggle ? 'rgb(109, 170, 44)' : 'rgb(208, 70, 72)'
-        }}>{state.frames}</div>
-        <p style={{
-          color: state.keypress ? 'rgb(117, 113, 97)' : 'rgb(20, 12, 28)'
-        }}>{state.key}</p>
-        <h1 style={{
-          display: state.hadoken ? 'block' : 'none'
-        }}>Hadoken</h1>
-      </Main>
-      <Code styles={{width: '120vw'}}>
-        <pre>{JSON.stringify(state, null, '  ')}</pre>
-      </Code>
-    </View>
-  )
-}
-
 signal.observe(state => {
   render(
-    <App state={state} />,
+    <App state={state}>
+      <p>Try resizing the screen</p>
+      <p>Try changing the orientation</p>
+      <p>Try scrolling the screen</p>
+      <p>Try holding the enter key</p>
+      <div style={{
+        width: 48,
+        height: 48,
+        lineHeight: '48px',
+        textAlign: 'center',
+        color: 'white',
+        background: state.toggle ? 'rgb(109, 170, 44)' : 'rgb(208, 70, 72)'
+      }}>{state.frames}</div>
+      <p style={{
+        color: state.keypress ? 'rgb(117, 113, 97)' : 'rgb(20, 12, 28)'
+      }}>{state.key}</p>
+      <h1 style={{
+        display: state.hadoken ? 'block' : 'none'
+      }}>Hadoken</h1>
+    </App>,
     element
   )
 })
