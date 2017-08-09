@@ -17,11 +17,11 @@
 Install with [yarn](https://yarnpkg.com) or [npm](https://npmjs.com)
 
 ```sh
-yarn add raid
+yarn add raid raid-addons
 ```
 
 ```sh
-npm i -S raid
+npm i -S raid raid-addons
 ```
 
 Raid does one job, it helps to manage the state of your application. It does this job simply enough but sometimes you want to add some sugar or some extra _stuff_ for tasks you typically do often.

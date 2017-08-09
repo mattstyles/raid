@@ -17,11 +17,11 @@
 Install with [yarn](https://yarnpkg.com) or [npm](https://npmjs.com)
 
 ```sh
-yarn add raid
+yarn add raid raid-streams
 ```
 
 ```sh
-npm i -S raid
+npm i -S raid raid-streams
 ```
 
 Raid does one job, it helps to manage the state of your application. It does this job by piping action events through streams to observers who then decide what to do with that action.
@@ -38,7 +38,9 @@ Each collection of input streams typically exports a stream that can be consumed
 
 ## Keys
 
-The key streams convert regular key events into reliably emitted events. The natural key repeat behaviour if often inappropriate for applications and registering multi-key combos can get tricky, these input streams simplify listening to such events.
+The key streams convert regular key events into reliably emitted events. The natural key repeat behaviour is often inappropriate for applications and registering multi-key combos can get tricky, these input streams simplify listening to such events.
+
+Keys are referenced using their [vkey](https://www.npmjs.com/package/vkey) definitions, i.e. keydown for the enter key emits an event containing `key: '<enter>'`.
 
 ### Actions
 
@@ -52,21 +54,223 @@ The key streams convert regular key events into reliably emitted events. The nat
 
 ```js
 import keystream, {actions} from 'raid-streams/keys'
+import {Signal} from 'raid'
 
+const signal = new Signal({key: ''})
 
+// Mount the keystream to the signal
+signal.mount(keystream())
+
+// Respond to key events
+signal.register((state, event) => {
+  if (event.type === actions.keydown) {
+    state.key = event.key
+  } else {
+    state.key = ''
+  }
+  return state
+})
 ```
 
 ### keydown
 
+`<Function <Object>> => <Object>`
+
+Keydown accepts only a reference to a keys pressed map, this is a required option:
+
+```js
+{
+  <Map> keys [required]
+}
+
+signal.mount(keydown({
+  keys: new Map()
+}))
+```
+
+Keydown fires on initial keydown event when pressing a key and emits an event of the type:
+
+```js
+{
+  <String> key,
+  <String> type,
+  <Map> keys,
+  <HTMLDomEvent> event
+}
+```
+
+```js
+import keydown, {actions} from 'raid-streams/keys'
+
+signal.mount(keydown())
+
+signal.register((state, event) => {
+  if (event.type === actions.keydown) {
+    state.key = event.key
+  }
+  return state
+})
+```
+
 ### keyup
+
+`<Function <Object>> => <Object>`
+
+Keyup accepts only a reference to a keys pressed map, this is a required option:
+
+```js
+{
+  <Map> keys [required]
+}
+```
+
+Keyup fires when a key is released and emits an event of the type:
+
+```js
+{
+  <String> key,
+  <String> type,
+  <Map> keys,
+  <HTMLDomEvent> event
+}
+```
+
+```js
+import keydown, {actions} from 'raid-streams/keys'
+
+signal.mount(keydown())
+
+signal.register((state, event) => {
+  if (event.type === actions.keyup) {
+    state.key = event.key
+  }
+  return state
+})
+```
 
 ### keystream
 
+Keystream emits keydown, keyup and keypress events. The keypress event fires when a key is pressed at an interval equalling `requestAnimationFrame`.
+
+Keystream has no initialisation properties that can be set and will create its own keypress map.
+
+The event signature for keyup and keydown matches the underlying key streams they come from, the keypress event signature is slightly simpler as its only concern is that _something_ has been pressed:
+
+```js
+{
+  <String> type,
+  <Map> keys
+}
+```
+
+The keystream map holds how long a key has been pressed for mapped against its [vkey](https://www.npmjs.com/package/vkey) definition.
+
+```js
+import keydown, {actions} from 'raid-streams/keys'
+
+signal.mount(keystream())
+
+signal.register((state, event) => {
+  if (event.type === actions.keydown) {
+    state.key = event.key
+  }
+
+  if (event.type === actions.keyup) {
+    state.key = ''
+  }
+
+  if (event.type === actions.keypress) {
+    if (event.keys.has('<enter>')) {
+      // Grab the delta of the keypress from the key map
+      state.heldDownFor = event.keys.get('<enter>')
+    }
+  }
+
+  return state
+})
+```
+
 ### keySequence
+
+KeySequence keeps track of the last `x` keydown events and emits an array of keys.
+
+KeySequence options object looks like:
+
+```js
+{
+  <Number> length [optional]: 10,
+  <Map> keys [optional]: null
+}
+
+signal.mount(keySequence({
+  length: 10
+}))
+```
+
+The event signature looks like:
+
+```js
+{
+  <String> type,
+  <Array <String>> keys
+}
+```
+
+```js
+import keySequence, {actions} from 'raid-streams/keys'
+
+signal.mount(keySequence())
+
+signal.register((state, event) => {
+  if (event.type === actions.sequence) {
+    state.sequence = event.keys
+  }
+
+  return state
+})
+```
 
 ### timedKeySequence
 
+timedKeySequence keeps track of the last `x` keydown events from the last `y` ms.
 
+The options object looks like:
+
+```js
+{
+  <Number> length [optional]: 10,
+  <Map> keys [optional]: null,
+  <Number> timeout [optional]: 200
+}
+
+signal.mount(timedKeySequence({
+  length: Number.MAX_SAFE_INTEGER,
+  timeout: 300
+}))
+```
+
+The event signature looks like:
+
+```js
+{
+  <String> type,
+  <Array <String>> keys
+}
+```
+
+```js
+import keySequence, {actions} from 'raid-streams/keys'
+
+signal.mount(timedKeySequence())
+
+signal.register((state, event) => {
+  if (event.type === actions.timedSequence) {
+    state.sequence = event.keys
+  }
+
+  return state
+})
+```
 
 ## Stand-alone streams
 
@@ -81,289 +285,6 @@ keystream.observe(({type, payload}) => {
   }
 })
 ```
-
-
-
-`(<Signal>) => <Function <Function[optional], Component>>`
-
-An adaptor can be attached to a signal and returns a function that can be used to create a higher-order component that has data from the state provided to it, that data will be passed as `props`.
-
-```js
-const signal = new Signal({
-  title: 'Foo'
-})
-const connect = adaptor(Signal)
-
-const El = ({title}) => <h1>{title}</h1>
-const Title = connect(state => state.title, El)
-```
-
-The returned `connect` function should be supplied with a selector function (which is responsible for grabbing parts of the state) and a component function.
-
-The state selector function is optional and the component function will become the first argument if omitted.
-
-* Libraries like [reselect](https://npmjs.com/package/reselect), which help to create the selector function for you, work great with this pattern.
-
-> The source uses JSX to pass through the `Component` and is currently building only for use with [React](https://github.com/facebook/react).
-
-### Compress (Object notation)
-
-`(<Object>) => <Function <state, event>>`
-
-Compress is used to add functions to a particular event type and will assume events are objects of the type `{type, payload}`. This removes the restriction to switch on events within the update function.
-
-This pattern can be applied to simplify attaching update functions to specific events.
-
-```js
-const signal = new Signal({
-  count: 0
-})
-
-const add = (state, payload = {}) => {
-  state.count += payload.amount || 1
-  return state
-}
-
-signal.register(compress({
-  'ADD': add
-}))
-
-signal.emit({
-  type: 'ADD',
-  payload: {
-    amount: 5
-  }
-})
-```
-
-> The signature of the update function changes semantics slightly as it will now be passed the `payload`, rather than the entire `event` object.
-
-### Compress (String notation)
-
-`(<String>) => <Function <state, event>>`
-
-Compress can also be supplied a string referencing the event type, in this case it will return a function which can be used to attach a function to that event type.
-
-This pattern can be really effective when composing various utilities together to generate update functions.
-
-```js
-const signal = new Signal({
-  count: 0
-})
-
-const add = (state, payload = {}) => {
-  state.count += payload.amount || 1
-  return state
-}
-
-signal.register(compress('ADD')(add))
-
-signal.emit({
-  type: 'ADD',
-  payload: {
-    amount: 5
-  }
-})
-```
-
-> This is a one-to-one mapping between event type and update function, to add more functions to a single event use  [squash](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md#squash).
-
-### Squash
-
-`<String> => <Array<Function>> => <Function <state, event>>`
-
-Squash adds several update functions to the same event and runs them sequentially meaning that order can be important.
-
-```js
-const signal = new Signal({
-  count: 0
-})
-
-const add = (state, payload) => {
-  state.count += payload
-  return state
-}
-
-const log = state => {
-  console.log('Adding')
-  return state
-}
-
-signal.register(squash('ADD', [
-  add,
-  log
-]))
-
-signal.emit({
-  type: 'ADD',
-  payload: 5
-})
-```
-
-### Flow
-
-`(<arguments<Function>>) => <Function <state, event>>`
-
-Flow is a utility function that creates an update function ready to register with a signal by composing together all functions passed to it as arguments. Updates are invoked serially.
-
-It combines well with [compress](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md#compress) to attach several functions to the same event, although [squash](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md#squash) can achieve the same functionality.
-
-```js
-const signal = new Signal({
-  count: 0
-})
-
-const add = (state, event) => {
-  state.count++
-  return state
-}
-
-const restrict = mod => (state, event) => {
-  if (state.count % 2 !== mod) {
-    state.count++
-  }
-  return state
-}
-
-signal.register(flow(
-  add,
-  restrict(0)
-))
-```
-
-> It is conceptually identical to [lodash/fp/compose](https://lodash.com) (or compose from any FP library) but returns a function ready to be used as an updater and expects to be supplied with update functions. For general case use of composing functions together, use the implementation provided by your favourite FP library.
-
-### Hook
-
-`(<Function, Object>) => <Function <state, event>>`
-
-Hooks can be used to add update functions to a range of events using a predicate supplied in the `options` parameter. The predicate for whether a hook should invoke or not can be supplied as a `string`, `regex` or `function`.
-
-```js
-const signal = new Signal({
-  count: 0
-})
-
-const ACTIONS = {
-  'ADD': 'action:apply',
-  'PLUS': 'action:apply'
-}
-
-const add = (state, event) => {
-  state.count++
-  return state
-}
-
-signal.register(hook(add, {
-  predicate: ACTIONS.ADD
-}))
-
-// or
-signal.register(hook(add, {
-  predicate: /apply$/
-}))
-
-// or
-signal.register(hook(add, {
-  predicate: event => /^action/.test(event.type)
-}))
-
-// All 3 predicates would fire for the following event
-signal.emit({
-  type: ACTIONS.ADD
-})
-```
-
-> This is a terse example to highlight how to use `hook`, no-one ever needs multiple actions that do the _exact_ same thing, always aim to restrict to the minimal.
-
-### Patch
-
-`<String, Function> => <Function <state, event>>`
-
-Patch allows an update function to have a view on to a specific root-level state key by specifying that key by a string.
-
-```js
-const signal = new Signal({
-  foo: {
-    bar: 'baz'
-  },
-  count: {
-    value: 0
-  }
-})
-
-const counter = (count, event) =>({
-  ...count,
-  value: count.value + 1
-})
-
-signal.register(patch('count', counter))
-
-// or
-signal.register(patch('count')(counter))
-
-signal.emit({type: 'XXX'})
-```
-
-In this example `state.foo` will remain unchanged, patch has ensured that the update function only knows about its own key, in this case `count`.
-
-### Safe
-
-`<Function> => <Function <state, event>>`
-
-Safe just wraps an update function to ensure state is always spat out of it. It will default to using the output of an update function, throwing out the state in the event undefined is returned.
-
-```js
-const add = (state, event) => {
-  state.count++
-}
-signal.register(safe(add))
-```
-
-### Arc
-
-Arcs can be used to create functions which can handle side effects away from regular update functions by ensuring that async-await can be handled correctly.
-
-Arcs are connected to the signal state and can request copies of it meaning that state inside an arc effectively becomes detached _but_ representative of the system state so it can be inspected but not directly manipulated from within an arc, instead, arcs should fire dispatches to infer state changes.
-
-Once an arc is created by attaching it to a signal the actual function works great combined with something like [compress](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md#compress) to attach it to a specific event.
-
-```js
-const signal = new Signal({
-  count: 0
-})
-
-const add = compress({
-  ADD: safe((state, payload) => {
-    state.count += payload
-  })
-})
-
-const delay = ms => ({
-  then: cb => setTimeout(cb, ms)
-})
-
-const wait = compress({
-  WAIT: (getState, payload) => {
-    console.log(getState())
-    signal.emit({
-      type: 'ADD',
-      payload: 5
-    })
-    await delay(1000)
-    console.log(getState())
-  }
-})
-
-signal.register(add)
-signal.register(arc(signal)(wait))
-
-signal.emit({type: 'WAIT'})
-```
-
-### Sin
-
-Sin is another way to use async-await but its far less safe as it allows asynchronous functions to try to return state and become regular update functions. It is included as an example of using asynchronous update functions but `arc` should be preferred.
 
 ## Running tests
 
