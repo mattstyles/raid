@@ -12,7 +12,9 @@ const tick = (opts = {
   return fromEvent('data', raf(opts.el))
     .map(event => ({
       type: actions.tick,
-      dt: event
+      payload: {
+        dt: event
+      }
     }))
 }
 

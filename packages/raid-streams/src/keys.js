@@ -12,23 +12,25 @@ export const actions = {
 }
 
 const keymap = (type, keys) => event => ({
-  key: vkey[event.keyCode],
   type,
-  keys,
-  event
+  payload: {
+    key: vkey[event.keyCode],
+    keys,
+    event
+  }
 })
 
-const exclude = keys => ({key}) => !keys.includes(key)
+const exclude = keys => ({payload: {key}}) => !keys.includes(key)
 
-const prevent = ({event}) => event.preventDefault()
+const prevent = ({payload: {event}}) => event.preventDefault()
 
 export const keydown = keys => fromEvent('keydown', window)
   .map(keymap(actions.keydown, keys))
   .filter(exclude([
     '<tab>'
   ]))
-  .filter(({key}) => !keys.has(key))
-  .tap(({key}) => keys.set(key, 0))
+  .filter(({payload: {key}}) => !keys.has(key))
+  .tap(({payload: {key}}) => keys.set(key, 0))
   .tap(prevent)
 
 export const keyup = keys => fromEvent('keyup', window)
@@ -36,7 +38,7 @@ export const keyup = keys => fromEvent('keyup', window)
   .filter(exclude([
     '<tab>'
   ]))
-  .tap(({key}) => keys.delete(key))
+  .tap(({payload: {key}}) => keys.delete(key))
   .tap(prevent)
 
 export const keySequence = (opts = {
@@ -50,14 +52,16 @@ export const keySequence = (opts = {
     keyup(keys)
   )
     .filter(({type}) => type === actions.keydown)
-    .scan((keys, {key}) => {
+    .scan((keys, {payload: {key}}) => {
       return keys
         .concat(key)
         .slice(0 - opts.length)
     }, [])
     .map(keys => ({
       type: actions.sequence,
-      keys
+      payload: {
+        keys
+      }
     }))
 }
 
@@ -73,7 +77,7 @@ export const timedKeySequence = (opts = {
     keyup(keys)
   )
     .filter(({type}) => type === actions.keydown)
-    .scan((keys, {key, event: {timeStamp}}) => {
+    .scan((keys, {payload: {key, event: {timeStamp}}}) => {
       return keys
         .concat([[key, timeStamp]])
         .filter(([key, time]) => timeStamp - time < opts.timeout)
@@ -81,7 +85,9 @@ export const timedKeySequence = (opts = {
     }, [])
     .map(keys => ({
       type: actions.timedSequence,
-      keys: keys.map(([key]) => key)
+      payload: {
+        keys: keys.map(([key]) => key)
+      }
     }))
 }
 
@@ -97,7 +103,9 @@ const keystream = () => {
     })
     .map(dt => ({
       type: actions.keypress,
-      keys: pressed
+      payload: {
+        keys: pressed
+      }
     }))
 
   return mergeArray([

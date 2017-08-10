@@ -66,9 +66,9 @@ const signal = new Signal({key: ''})
 signal.mount(keystream())
 
 // Respond to key events
-signal.register((state, event) => {
-  if (event.type === actions.keydown) {
-    state.key = event.key
+signal.register((state, {type, payload}) => {
+  if (type === actions.keydown) {
+    state.key = payload.key
   } else {
     state.key = ''
   }
@@ -97,20 +97,19 @@ Keydown fires on initial keydown event when pressing a key and emits an event of
 ```js
 {
   <String> key,
-  <String> type,
   <Map> keys,
   <HTMLDomEvent> event
 }
 ```
 
 ```js
-import keydown, {actions} from 'raid-streams/keys'
+import {keydown, actions} from 'raid-streams/keys'
 
 signal.mount(keydown())
 
 signal.register((state, event) => {
   if (event.type === actions.keydown) {
-    state.key = event.key
+    state.key = event.payload.key
   }
   return state
 })
@@ -133,20 +132,19 @@ Keyup fires when a key is released and emits an event of the type:
 ```js
 {
   <String> key,
-  <String> type,
   <Map> keys,
   <HTMLDomEvent> event
 }
 ```
 
 ```js
-import keydown, {actions} from 'raid-streams/keys'
+import {keyup, actions} from 'raid-streams/keys'
 
-signal.mount(keydown())
+signal.mount(keyup())
 
-signal.register((state, event) => {
-  if (event.type === actions.keyup) {
-    state.key = event.key
+signal.register((state, {type, payload}) => {
+  if (type === actions.keyup) {
+    state.key = payload.key
   }
   return state
 })
@@ -154,7 +152,7 @@ signal.register((state, event) => {
 
 ### keystream
 
-Keystream emits keydown, keyup and keypress events. The keypress event fires when a key is pressed at an interval equalling `requestAnimationFrame`.
+Keystream emits keydown, keyup and keypress events. The keypress event fires when a key is pressed at an interval equalling `requestAnimationFrame`. Keystream is the default export from `raid-streams/keys`.
 
 Keystream has no initialisation properties that can be set and will create its own keypress map.
 
@@ -162,7 +160,6 @@ The event signature for keyup and keydown matches the underlying key streams the
 
 ```js
 {
-  <String> type,
   <Map> keys
 }
 ```
@@ -170,23 +167,23 @@ The event signature for keyup and keydown matches the underlying key streams the
 The keystream map holds how long a key has been pressed for mapped against its [vkey](https://www.npmjs.com/package/vkey) definition.
 
 ```js
-import keydown, {actions} from 'raid-streams/keys'
+import keystream, {actions} from 'raid-streams/keys'
 
 signal.mount(keystream())
 
-signal.register((state, event) => {
-  if (event.type === actions.keydown) {
-    state.key = event.key
+signal.register((state, {type, payload}) => {
+  if (type === actions.keydown) {
+    state.key = payload.key
   }
 
-  if (event.type === actions.keyup) {
+  if (type === actions.keyup) {
     state.key = ''
   }
 
-  if (event.type === actions.keypress) {
-    if (event.keys.has('<enter>')) {
+  if (type === actions.keypress) {
+    if (payload.keys.has('<enter>')) {
       // Grab the delta of the keypress from the key map
-      state.heldDownFor = event.keys.get('<enter>')
+      state.heldDownFor = payload.keys.get('<enter>')
     }
   }
 
@@ -215,19 +212,18 @@ The event signature looks like:
 
 ```js
 {
-  <String> type,
   <Array <String>> keys
 }
 ```
 
 ```js
-import keySequence, {actions} from 'raid-streams/keys'
+import {keySequence, actions} from 'raid-streams/keys'
 
 signal.mount(keySequence())
 
-signal.register((state, event) => {
-  if (event.type === actions.sequence) {
-    state.sequence = event.keys
+signal.register((state, {type, payload}) => {
+  if (type === actions.sequence) {
+    state.sequence = payload.keys
   }
 
   return state
@@ -257,19 +253,18 @@ The event signature looks like:
 
 ```js
 {
-  <String> type,
   <Array <String>> keys
 }
 ```
 
 ```js
-import keySequence, {actions} from 'raid-streams/keys'
+import {timedKeySequence, actions} from 'raid-streams/keys'
 
 signal.mount(timedKeySequence())
 
-signal.register((state, event) => {
-  if (event.type === actions.timedSequence) {
-    state.sequence = event.keys
+signal.register((state, {type, payload}) => {
+  if (type === actions.timedSequence) {
+    state.sequence = payload.keys
   }
 
   return state
@@ -302,7 +297,6 @@ The event signature looks like and just passes the duration of the last frame:
 
 ```js
 {
-  <String> type,
   <Number> dt
 }
 ```
@@ -312,9 +306,9 @@ import tick, {actions} from 'raid-streams/tick'
 
 signal.mount(tick())
 
-signal.register((state, event) => {
-  if (event.type === actions.tick) {
-    state.lastElapsed = event.dt
+signal.register((state, {type, payload}) => {
+  if (type === actions.tick) {
+    state.lastElapsed = payload.dt
   }
 
   return state
@@ -330,9 +324,9 @@ import screen, {actions} from 'raid-streams/screen'
 
 signal.mount(screen())
 
-signal.register((state, event) => {
-  if (event.type === actions.orientation) {
-    state.orientation = event.orientation
+signal.register((state, {type, payload}) => {
+  if (type === actions.orientation) {
+    state.orientation = payload.orientation
   }
   return state
 })
@@ -365,7 +359,6 @@ Event signature looks like:
 
 ```js
 {
-  <String> type,
   <HTMLDomEvent> raw,
   <Number> width,
   <Number> height,
@@ -378,9 +371,9 @@ import {resize, actions} from 'raid-streams/screen'
 
 signal.mount(resize())
 
-signal.register((state, event) => {
-  if (event.type === actions.resize) {
-    state.dimensions = [event.width, event.height]
+signal.register((state, {type, payload: {width, height}}) => {
+  if (type === actions.resize) {
+    state.dimensions = [width, height]
   }
   return state
 })
@@ -406,7 +399,6 @@ Event signature looks like:
 
 ```js
 {
-  <String> type,
   <HTMLDomEvent> raw,
   <Number> left,
   <Number> top,
@@ -419,9 +411,9 @@ import {scroll, actions} from 'raid-streams/screen'
 
 signal.mount(scroll())
 
-signal.register((state, event) => {
-  if (event.type === actions.scroll) {
-    state.scrollPosition = [event.left, event.top]
+signal.register((state, {type, payload: {left, top}}) => {
+  if (type === actions.scroll) {
+    state.scrollPosition = [left, top]
   }
   return state
 })
@@ -437,7 +429,6 @@ Event signature looks like:
 
 ```js
 {
-  <String> type,
   <HTMLDomEvent> raw,
   <Number> angle,
   <Number> orientation,
@@ -450,9 +441,9 @@ import {orientation, actions} from 'raid-streams/screen'
 
 signal.mount(orientation())
 
-signal.register((state, event) => {
-  if (event.type === actions.orientation) {
-    state.orientation = event.orientation
+signal.register((state, {type, payload}) => {
+  if (type === actions.orientation) {
+    state.orientation = payload.orientation
   }
   return state
 })
@@ -460,7 +451,7 @@ signal.register((state, event) => {
 
 ## Stand-alone streams
 
-All these action streams are just regular [most.js](https://npmjs.com/packages/most) streams and can be consumed as normal, there is no restriction to use them with Raid. The only tie they have to Raid is that they emit `{type, payload}` objects. As they are regular streams all the regular stream functions work.
+All these action streams are just regular [most.js](https://npmjs.com/packages/most) streams and can be consumed as normal, there is no restriction to use them with Raid. The only tie they have to Raid is that they emit `{type, ...payload}` objects. As they are regular streams all the regular stream functions work.
 
 ```js
 import keystream, {actions} from 'raid-streams/keys'

@@ -43,38 +43,38 @@ signal.mount(keyStream())
 signal.mount(keySequence())
 signal.mount(timedKeySequence({timeout: 500}))
 
-const update = (state, event) => {
-  if (event.type === keyActions.timedSequence) {
-    state.timedSequence = event.keys
+const update = (state, {type, payload}) => {
+  if (type === keyActions.timedSequence) {
+    state.timedSequence = payload.keys
     state.hadoken = state.timedSequence.join('') === 'ASD<enter>'
     return state
   }
 
-  if (event.type === keyActions.sequence) {
-    state.sequence = event.keys
+  if (type === keyActions.sequence) {
+    state.sequence = payload.keys
     return state
   }
 
-  if (event.type === keyActions.keydown) {
-    state.key = event.key
+  if (type === keyActions.keydown) {
+    state.key = payload.key
     return state
   }
 
-  if (event.type === keyActions.keyup) {
-    if (event.key === '<enter>') {
+  if (type === keyActions.keyup) {
+    if (payload.key === '<enter>') {
       state.enterDownFor = 0
     }
     return state
   }
 
-  if (event.type === keyActions.keypress) {
-    if (event.keys.has('<enter>')) {
-      state.enterDownFor = event.keys.get('<enter>')
+  if (type === keyActions.keypress) {
+    if (payload.keys.has('<enter>')) {
+      state.enterDownFor = payload.keys.get('<enter>')
     }
     return state
   }
 
-  if (event.type === tickActions.tick) {
+  if (type === tickActions.tick) {
     state.frames = state.frames + 1
     if (state.frames > 60) {
       state.frames = 0
@@ -83,20 +83,20 @@ const update = (state, event) => {
     return state
   }
 
-  if (event.type === screenActions.resize) {
-    state.width = event.width
-    state.height = event.height
+  if (type === screenActions.resize) {
+    state.width = payload.width
+    state.height = payload.height
     return state
   }
 
-  if (event.type === screenActions.orientation) {
-    state.orientation = event.orientation
+  if (type === screenActions.orientation) {
+    state.orientation = payload.orientation
     return state
   }
 
-  if (event.type === screenActions.scroll) {
-    state.left = event.left
-    state.top = event.top
+  if (type === screenActions.scroll) {
+    state.left = payload.left
+    state.top = payload.top
     return state
   }
 
