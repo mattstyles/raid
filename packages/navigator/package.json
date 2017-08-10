@@ -1,6 +1,6 @@
 {
   "name": "raid-navigator",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Navigation stack hooked in to a raid signal",
   "main": "lib",
   "scripts": {
@@ -126,7 +126,7 @@
   "dependencies": {
     "history": "^4.6.1",
     "lodash": "^4.17.4",
-    "raid-addons": "^2.7.0",
+    "raid-addons": "^2.8.0",
     "reselect": "^3.0.0"
   },
   "peerDependencies": {
