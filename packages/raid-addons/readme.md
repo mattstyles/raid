@@ -321,6 +321,8 @@ const signal = new Signal({
   count: 0
 })
 
+const signalArc = arc(signal)
+
 const add = compress({
   ADD: safe((state, payload) => {
     state.count += payload
@@ -332,7 +334,7 @@ const delay = ms => ({
 })
 
 const wait = compress({
-  WAIT: (getState, payload) => {
+  WAIT: (getState, payload, signal) => {
     console.log(getState())
     signal.emit({
       type: 'ADD',
@@ -344,7 +346,7 @@ const wait = compress({
 })
 
 signal.register(add)
-signal.register(arc(signal)(wait))
+signal.register(signalArc(wait))
 
 signal.emit({type: 'WAIT'})
 ```

@@ -15,7 +15,7 @@ const onSuccess = dispatch(actions.requestSuccess)
 const onFailure = dispatch(actions.requestFailure)
 
 const URL = 'https://api.github.com/users/octocat'
-const makeRequest = () => axios.get(URL)
+const makeRequest = (url) => axios.get(url)
   .then(res => res.data)
 
 const delay = ms => ({
@@ -26,7 +26,7 @@ const update = async (getState, payload) => {
   onPending()
 
   try {
-    let user = await makeRequest()
+    let user = await makeRequest(URL)
     onSuccess(user)
   } catch (err) {
     onFailure(err.message)

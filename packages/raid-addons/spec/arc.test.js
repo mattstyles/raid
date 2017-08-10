@@ -16,3 +16,15 @@ test('Should provide a function for update function to grab current state', t =>
   const fn = arc(new Signal())(update)
   fn(null)
 })
+
+test('Should provide the signal to the update function', t => {
+  t.plan(1)
+
+  const signal = new Signal()
+  const update = (getState, event, s) => {
+    t.deepEqual(s, signal, 'signal should be the correct signal')
+  }
+
+  const fn = arc(signal)(update)
+  fn(null)
+})

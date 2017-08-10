@@ -6,7 +6,7 @@ const arc = signal => {
   })
   const getState = selector => selector ? selector(internal) : internal
   return fn => (state, event) => {
-    fn(getState, event)
+    fn(getState, event, signal)
     return state
   }
 }
