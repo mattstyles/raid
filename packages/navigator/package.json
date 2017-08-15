@@ -130,11 +130,9 @@
     "reselect": "^3.0.0"
   },
   "peerDependencies": {
-    "inferno": "^0.7.27",
-    "inferno-component": "^0.7.27",
-    "inferno-dom": "^0.7.27",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "raid": "^2.7.0"
   },
   "license": "MIT"
 }
