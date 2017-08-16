@@ -264,8 +264,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="installation">Installation</h1>
-<p>Use npm to install Raid</p>
-<pre class="language-"><code class="lang-sh">npm i -S raid
+<p>Use npm or yarn to install Raid</p>
+<pre class="language-"><code class="lang-sh"><span class="token function">npm</span> i -S raid
+</code></pre>
+<pre class="language-"><code class="lang-sh">yarn add raid
 </code></pre>
 <p>To use raid you&#x2019;ll need something that can use commonJS modules, the following code imports the Raid module and creates a new state instance.</p>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// index.js</span>
@@ -274,14 +276,14 @@
 <span class="token keyword">var</span> signal <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Raid<span class="token punctuation">.</span>Signal</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <p>The following steps compile this for the browser using <a href="http://browserify.org/" target="_blank">browserify</a>, although there are other packagers</p>
-<pre class="language-"><code class="lang-sh">browserify index.js &gt; bundle.js
+<pre class="language-"><code class="lang-sh">browserify index.js <span class="token operator">&gt;</span> bundle.js
 </code></pre>
 <p>The rest of the code examples will use ES2015 modules and so (currently) require transpilation using something like <a href="https://babeljs.io/" target="_blank">babel</a>.</p>
 <h2 id="example-babel-setup">Example Babel setup</h2>
 <blockquote>
 <p>None of this is strictly necessary, once you have a version of Raid (whether that be via a module system or as a browser global) use whatever you prefer to write your own code, Raid doesn&#x2019;t care.</p>
 </blockquote>
-<p>A good starting point would be to use the <a href="https://babeljs.io/docs/plugins/preset-es2015/" target="_blank">ES2015</a> preset; the <a href="https://babeljs.io/docs/plugins/transform-object-rest-spread/" target="_blank">object-rest-spread</a> plugin also fits quite well.</p>
+<p>A good starting point would be to use the <a href="https://babeljs.io/docs/plugins/preset-es2015/" target="_blank">ES2015</a> preset and the <a href="https://babeljs.io/docs/plugins/transform-object-rest-spread/" target="_blank">object-rest-spread</a> plugin also fits quite well.</p>
 <p>Make sure to add a preset for your rendering engine syntax, if it differs from JS, the examples here expect React so the <a href="https://babeljs.io/docs/plugins/preset-react/" target="_blank">React</a> preset is required which can handle our JSX. The view layer used with Raid is agnostic, the examples in the repository use <a href="https://github.com/trueadm/inferno" target="_blank">InfernoJS</a> as a rendering layer.</p>
 <p>Adding the following to your <code>package.json</code> would set up babel and browserify to do their thing, but there are a number of different transformers and bundlers that would equally do a good job:</p>
 <pre class="language-"><code class="lang-json"><span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -303,10 +305,10 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Install the following and you should be ready to start firing any code examples into a browser:</p>
-<pre class="language-"><code class="lang-sh">npm i -S raid react react-dom
-npm i -D browserify babelify babel-preset-es2015 babel-preset-react babel-plugin-transform-object-rest-spread
+<pre class="language-"><code class="lang-sh"><span class="token function">npm</span> i -S raid react react-dom
+<span class="token function">npm</span> i -D browserify babelify babel-preset-es2015 babel-preset-react babel-plugin-transform-object-rest-spread
 
-npm run build
+<span class="token function">npm</span> run build
 </code></pre>
 <hr>
 <ul>
@@ -355,7 +357,7 @@ npm run build
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Installation","level":"1.4.2","depth":2,"next":{"title":"Getting Started","level":"1.4.3","depth":2,"path":"basics/getting-started.md","ref":"basics/getting-started.md","articles":[]},"previous":{"title":"Starting to Walk","level":"1.4.1","depth":2,"path":"basics/starting-to-walk.md","ref":"basics/starting-to-walk.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/mattstyles/raid/tree/master"},"github":{"url":"https://github.com/mattstyles/raid/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Raid","gitbook":">=3.2.1"},"file":{"path":"basics/installation.md","mtime":"2016-12-01T17:51:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-12-01T18:37:23.924Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Installation","level":"1.4.2","depth":2,"next":{"title":"Getting Started","level":"1.4.3","depth":2,"path":"basics/getting-started.md","ref":"basics/getting-started.md","articles":[]},"previous":{"title":"Starting to Walk","level":"1.4.1","depth":2,"path":"basics/starting-to-walk.md","ref":"basics/starting-to-walk.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/mattstyles/raid/tree/master"},"github":{"url":"https://github.com/mattstyles/raid/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Raid","gitbook":">=3.2.1"},"file":{"path":"basics/installation.md","mtime":"2017-03-28T05:59:09.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-08-16T07:53:28.728Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
