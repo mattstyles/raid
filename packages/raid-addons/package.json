@@ -10,7 +10,7 @@
     "watch": "babel --watch src --out-dir lib",
     "test": "tape -r babel-register spec/*.test.js",
     "cover": "nyc tape -r babel-register spec/*.test.js",
-    "coverage-report": "nyc --reporter=lcov yarn run test",
+    "coverage-report": "nyc --reporter=lcov npm run test",
     "prepublish": "npm run build",
     "prestart": "npm run build",
     "start": "npm run watch"
