@@ -2,15 +2,15 @@ sudo: false
 language: node_js
 node_js:
   - '6'
+  - '8'
 cache:
-  yarn: true
   directories:
     - node_modules
     - packages/*/node_modules
 before_script:
-  - yarn run setup
+  - npm run setup
 after_script:
-  - yarn run cover
-  - yarn run cover:upload
+  - npm run cover
+  - npm run cover:upload
 matrix:
   fast_finish: true
