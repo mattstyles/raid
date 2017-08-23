@@ -1,0 +1,48 @@
+{
+  "name": "create-raid-app",
+  "version": "0.0.0",
+  "description": "Zero config scaffold of a basic raid-powered application setup",
+  "main": "index.js",
+  "bin": {
+    "cra": "bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattstyles/raid.git"
+  },
+  "keywords": [
+    "raid",
+    "create",
+    "scaffold",
+    "template",
+    "base",
+    "react"
+  ],
+  "author": "Matt Styles",
+  "license": "MIT",
+  "engines": {
+    "node": ">8.0.0"
+  },
+  "engineStrict": true,
+  "bugs": {
+    "url": "https://github.com/mattstyles/raid/issues"
+  },
+  "homepage": "https://github.com/mattstyles/raid#readme",
+  "@std/esm": {
+    "esm": "all"
+  },
+  "dependencies": {
+    "@std/esm": "^0.5.1",
+    "bluebird": "^3.5.0",
+    "cwd": "^0.10.0",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "pkg-dir": "^2.0.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
+  }
+}
