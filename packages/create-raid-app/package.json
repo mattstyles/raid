@@ -34,15 +34,24 @@
   "@std/esm": {
     "esm": "all"
   },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/node_modules/**",
+      "**/lib/"
+    ]
+  },
   "dependencies": {
     "@std/esm": "^0.5.1",
     "bluebird": "^3.5.0",
+    "cross-spawn": "^5.1.0",
     "cwd": "^0.10.0",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "pkg-dir": "^2.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "standard": "^10.0.3"
   }
 }
