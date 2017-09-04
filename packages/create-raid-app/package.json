@@ -4,7 +4,7 @@
   "description": "Zero config scaffold of a basic raid-powered application setup",
   "main": "index.js",
   "bin": {
-    "cra": "bin/index.js"
+    "create-raid-app": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -44,6 +44,7 @@
   "dependencies": {
     "@std/esm": "^0.5.1",
     "bluebird": "^3.5.0",
+    "chalk": "^2.1.0",
     "cross-spawn": "^5.1.0",
     "cwd": "^0.10.0",
     "minimist": "^1.2.0",

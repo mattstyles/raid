@@ -1,20 +1,18 @@
 
 import path from 'path'
-import child from 'child_process'
+import spawnAsync from 'cross-spawn'
 
+import {help, version} from './man'
 import {exists, getPkgDir} from '../lib/utils'
 
-console.log('Create Raid App')
-
 async function scaffoldCra (cwd, version) {
-  console.log('Scaffolding into', cwd)
-
   if (process.env.DEBUG) {
     process.exit(0)
   }
 
   const cra = 'create-raid-app' + (version ? `@${version}` : '')
-  await child.spawnAsync('npm', ['install', cra], {
+  console.log(`Scaffolding ${cra} in to`, cwd)
+  await spawnAsync('npm', ['install', cra], {
     cwd,
     stdio: 'inherit'
   })
@@ -24,6 +22,16 @@ async function start (argv) {
   const dirpath = await getPkgDir()
 
   if (!dirpath) {
+    if (argv.help) {
+      help()
+      return
+    }
+
+    if (argv.version) {
+      version()
+      return
+    }
+
     await scaffoldCra(process.cwd(), argv.version || '')
     return start(argv)
   }
@@ -36,8 +44,12 @@ async function start (argv) {
     return start(argv)
   }
 
-  await child.spawnAsync('node', [localPath, '--run'].concat(process.argv.slice(2)), {
-    cwd: process.env.PWD,
+  await spawnAsync('node', [
+    localPath,
+    ...process.argv.slice(2),
+    '--run'
+  ], {
+    cwd: process.cwd(),
     stdio: 'inherit'
   })
 }
