@@ -1,10 +1,15 @@
 
 import pkg from '../package.json'
+import {commands} from '../lib/constants'
 
-export default `
+export default () => `
   Usage
 
     $ ${pkg.name} [command] [options]
+
+  Commands
+
+    ${commands.install}   Scaffolds new raid application
 
   Arguments
 
