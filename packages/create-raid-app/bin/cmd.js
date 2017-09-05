@@ -1,10 +1,22 @@
 
-export default function start (argv) {
-  console.log('running local cra', argv)
-  console.log(`
-    Create Raid App
+import help from '../cmd/help'
+import version from '../cmd/version'
+import cra from '../lib/index'
 
-    --help    Displays help details
-    --version Displays create-raid-app version information
-  `)
+export default function start (argv) {
+  if (process.env.DEBUG) {
+    console.log('DBEUG: local program arguments', argv)
+  }
+
+  if (argv.help) {
+    help(argv._)
+    return
+  }
+
+  if (argv.version) {
+    version()
+    return
+  }
+
+  cra(argv._, argv)
 }

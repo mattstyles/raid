@@ -47,8 +47,10 @@
     "chalk": "^2.1.0",
     "cross-spawn": "^5.1.0",
     "cwd": "^0.10.0",
+    "inquirer": "^3.2.3",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
+    "osenv": "^0.1.4",
     "pkg-dir": "^2.0.0"
   },
   "devDependencies": {
