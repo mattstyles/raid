@@ -4,7 +4,8 @@ require('../')
 var argv = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',
-    v: 'version'
+    v: 'version',
+    i: 'install-version'
   }
 })
 var start = argv.run

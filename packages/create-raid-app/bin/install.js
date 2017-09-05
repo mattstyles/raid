@@ -32,7 +32,7 @@ async function start (argv) {
       return
     }
 
-    await scaffoldCra(process.cwd(), argv.version || '')
+    await scaffoldCra(process.cwd(), argv['install-version'] || '')
     return start(argv)
   }
 

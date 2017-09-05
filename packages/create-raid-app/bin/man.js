@@ -14,7 +14,7 @@ export const help = () => console.log(`
 
     -h --help             Display help instructions for installing ${pkg.name}
     -v --version          Display current globally installed version
-       --install-version  Install specific local version
+    -i --install-version  Install specific local version
 `)
 
 export const version = () => console.log(`
