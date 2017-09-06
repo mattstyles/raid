@@ -7,6 +7,7 @@ import {exists, getPkgDir} from '../lib/utils'
 
 async function scaffoldCra (cwd, version) {
   if (process.env.DEBUG) {
+    console.log('[DEBUG] Aborting scaffold')
     process.exit(0)
   }
 
@@ -19,9 +20,13 @@ async function scaffoldCra (cwd, version) {
 }
 
 async function start (argv) {
-  const dirpath = await getPkgDir()
+  const pkgpath = await getPkgDir()
+  const dirpath = pkgpath || ''
 
-  if (!dirpath) {
+  const localPath = path.join(dirpath, 'node_modules/.bin/cra')
+  const cra = await exists(localPath)
+
+  if (!cra) {
     if (argv.help) {
       help()
       return
@@ -33,14 +38,6 @@ async function start (argv) {
     }
 
     await scaffoldCra(process.cwd(), argv['install-version'] || '')
-    return start(argv)
-  }
-
-  const localPath = path.join(dirpath, 'node_modules/.bin/cra')
-  const cra = await exists(localPath)
-
-  if (!cra) {
-    await scaffoldCra(process.cwd(), argv.version || '')
     return start(argv)
   }
 

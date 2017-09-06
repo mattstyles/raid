@@ -32,7 +32,8 @@
   },
   "homepage": "https://github.com/mattstyles/raid#readme",
   "@std/esm": {
-    "esm": "all"
+    "esm": "js",
+    "cjs": true
   },
   "standard": {
     "parser": "babel-eslint",
@@ -48,6 +49,7 @@
     "cross-spawn": "^5.1.0",
     "cwd": "^0.10.0",
     "inquirer": "^3.2.3",
+    "lodash": "^4.17.4",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "osenv": "^0.1.4",
