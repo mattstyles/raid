@@ -1,44 +1,48 @@
 
-import {join} from 'path'
+import {join, relative} from 'path'
 import {statAsync, readdirAsync} from 'fs'
 
 import mkdirpAsync from 'mkdirp'
 
 import {exists, getUserConfirm, installWithMustache} from './utils'
 
-async function installFolder (pathname) {
+async function installFolder (pathname, opts) {
   if (await exists(pathname)) {
-    if (!await getUserConfirm(`${pathname} already exists, replace?`)) {
+    if (!await getUserConfirm(`${opts.shortname} already exists, replace?`)) {
       return false
     }
   }
 
-  console.log(`Creating ${pathname}`)
+  console.log(`Creating ${opts.shortname}`)
   await mkdirpAsync(pathname)
   return true
 }
 
-async function installFile (from, to, data) {
+async function installFile (from, to, data, opts) {
   if (await exists(to)) {
-    if (!await getUserConfirm(`${to} already exists, replace?`)) {
+    if (!await getUserConfirm(`${opts.shortname} already exists, replace?`)) {
       return Promise.reject(new Error('User cancel'))
     }
   }
 
-  console.log(`Creating ${to}`)
+  console.log(`Creating ${opts.shortname}`)
   await installWithMustache(from, to, data)
 }
 
-export async function installFromFolder (from, to, data = {}) {
+export async function installFromFolder (from, to, data = {}, opts = {}) {
   const fileprops = await statAsync(from)
+  const fileOpts = {
+    shortname: relative(opts.root, to)
+  }
   if (fileprops.isDirectory()) {
-    if (await installFolder(to)) {
+    if (to === opts.root || await installFolder(to, fileOpts)) {
       let files = await readdirAsync(from)
       for (let file of files) {
         await installFromFolder(
           join(from, file),
           join(to, file),
-          data
+          data,
+          opts
         )
       }
     }
@@ -46,5 +50,5 @@ export async function installFromFolder (from, to, data = {}) {
     return
   }
 
-  await installFile(from, to, data)
+  await installFile(from, to, data, fileOpts)
 }

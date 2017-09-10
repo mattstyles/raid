@@ -43,6 +43,9 @@ export default async function install (opts) {
     // @TODO use gathered user input
     {
       projectName: 'cra-test-install'
+    },
+    {
+      root: installpath
     }
   )
 }
