@@ -1,6 +1,8 @@
 
 import fs from 'fs'
 
+import es from 'event-stream'
+import mustache from 'mustache'
 import {prompt} from 'inquirer'
 import pkgDir from 'pkg-dir'
 
@@ -40,6 +42,10 @@ export async function getUserConfirm (question) {
   return answers[key]
 }
 
+const mustacheStream = data => es.through(function write (chunk) {
+  this.emit('data', mustache.render(chunk.toString(), data))
+})
+
 export async function installWithMustache (from, to, data = {}) {
   return new Promise((resolve, reject) => {
     const writer = fs.createWriteStream(to)
@@ -49,6 +55,8 @@ export async function installWithMustache (from, to, data = {}) {
     const reader = fs.createReadStream(from)
     reader.on('error', reject)
 
-    reader.pipe(writer)
+    reader
+      .pipe(mustacheStream(data))
+      .pipe(writer)
   })
 }

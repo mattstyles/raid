@@ -1,5 +1,5 @@
 
-# {{packageName}}
+# {{projectName}}
 
 Basic description
 

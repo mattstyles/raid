@@ -42,7 +42,7 @@ export default async function install (opts) {
     path.resolve(installpath),
     // @TODO use gathered user input
     {
-      packageName: 'cra-test-install'
+      projectName: 'cra-test-install'
     }
   )
 }

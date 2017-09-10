@@ -1,3 +1,3 @@
 
-const msg = {{projectName}}
+const msg = '{{projectName}}'
 console.log(`Hello ${msg}`)
