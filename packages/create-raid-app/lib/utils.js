@@ -39,3 +39,16 @@ export async function getUserConfirm (question) {
 
   return answers[key]
 }
+
+export async function installWithMustache (from, to, data = {}) {
+  return new Promise((resolve, reject) => {
+    const writer = fs.createWriteStream(to)
+    writer.on('close', resolve)
+    writer.on('error', reject)
+
+    const reader = fs.createReadStream(from)
+    reader.on('error', reject)
+
+    reader.pipe(writer)
+  })
+}
