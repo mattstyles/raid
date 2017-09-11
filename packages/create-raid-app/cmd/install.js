@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 import {remove} from 'lodash/fp'
+import spawn from 'cross-spawn'
 
 import {viableInstallItems} from '../lib/constants'
 import {isListItem, getUserConfirm, getPkgDir} from '../lib/utils'
@@ -42,5 +43,8 @@ export default async function install (opts) {
     }
   )
 
-  // @TODO spawn npm install for new project
+  spawn.sync('npm', ['install'], {
+    cwd: installpath,
+    stdio: 'inherit'
+  })
 }
