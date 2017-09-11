@@ -1,6 +1,6 @@
 {
   "name": "create-raid-app",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Zero config scaffold of a basic raid-powered application setup",
   "main": "index.js",
   "bin": {

@@ -34,7 +34,7 @@ export default async function install (opts) {
   const pkgpath = await getPkgDir()
   const installpath = pkgpath || process.cwd()
 
-  installFromFolder(
+  await installFromFolder(
     path.resolve(__dirname, '../tmpl/root'),
     path.resolve(installpath),
     data,
