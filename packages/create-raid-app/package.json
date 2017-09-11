@@ -52,6 +52,7 @@
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mustache": "^2.3.0",
+    "osenv": "^0.1.4",
     "pkg-dir": "^2.0.0"
   },
   "devDependencies": {

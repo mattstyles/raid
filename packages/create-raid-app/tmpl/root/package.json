@@ -1,0 +1,79 @@
+
+{
+  "name": "{{projectName}}",
+  "private": true,
+  "version": "0.0.0",
+  "description": "@TODO description",
+  "main": "dist/index.html",
+  "scripts": {
+    "clean": "rimraf dist && mkdirp dist",
+    "prebuild": "npm run clean",
+    "build": "NODE_PATH=src NODE_ENV=production browserify --extension jsx src/index.js | uglifyjs -cm > dist/index.js && ncp src/index.html dist/index.html",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "start": "budo src/index.js --dir=src --live -- --extension jsx"
+  },
+  "browserify": {
+    "transform": [
+      "babelify",
+      "envify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "urban"
+    ],
+    "plugins": [
+      "transform-react-require",
+      "lodash",
+      "styled-jsx/babel"
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/node_modules/**",
+      "**/lib/"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/{{username}}/{{projectName}}.git"
+  },
+  "keywords": [
+    "raid",
+    "react"
+  ],
+  "author": "{{username}}",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/{{username}}/{{projectName}}/issues"
+  },
+  "homepage": "https://{{username}}.github.io/{{projectName}}",
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-transform-react-require": "^1.0.1",
+    "babel-preset-urban": "^1.0.0",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "budo": "^9.4.7",
+    "envify": "^4.1.0",
+    "gh-pages": "^1.0.0",
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0",
+    "prop-types": "^15.5.10",
+    "rimraf": "^2.6.1",
+    "standard": "^10.0.3",
+    "styled-jsx": "^1.0.10"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "raid": "^2.7.0",
+    "raid-addons": "^2.8.0",
+    "raid-navigator": "^2.8.0",
+    "raid-streams": "^2.8.0",
+    "react": "^16.0.0-rc.2",
+    "react-dom": "^16.0.0-rc.2"
+  }
+}

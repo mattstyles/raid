@@ -41,4 +41,6 @@ export default async function install (opts) {
       root: installpath
     }
   )
+
+  // @TODO spawn npm install for new project
 }

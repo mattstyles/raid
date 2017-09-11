@@ -1,4 +1,5 @@
 
+import {user} from 'osenv'
 import {prompt} from 'inquirer'
 
 async function gatherData () {
@@ -8,7 +9,9 @@ async function gatherData () {
     message: 'What is the name of this awesome project?'
   }])
 
-  return answers
+  return Object.assign(answers, {
+    username: user()
+  })
 }
 
 export default gatherData
