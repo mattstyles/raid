@@ -6,3 +6,5 @@ export const commands = {
 export const viableInstallItems = [
   'node_modules'
 ]
+
+export const userCancel = 'user cancel'

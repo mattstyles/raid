@@ -5,6 +5,7 @@ import {statAsync, readdirAsync} from 'fs'
 import mkdirpAsync from 'mkdirp'
 
 import {exists, getUserConfirm, installWithMustache} from './utils'
+import {userCancel} from './constants'
 
 async function installFolder (pathname, opts) {
   if (await exists(pathname)) {
@@ -21,7 +22,7 @@ async function installFolder (pathname, opts) {
 async function installFile (from, to, data, opts) {
   if (await exists(to)) {
     if (!await getUserConfirm(`${opts.shortname} already exists, replace?`)) {
-      return Promise.reject(new Error('User cancel'))
+      return Promise.reject(new Error(userCancel))
     }
   }
 
@@ -50,5 +51,13 @@ export async function installFromFolder (from, to, data = {}, opts = {}) {
     return
   }
 
-  await installFile(from, to, data, fileOpts)
+  try {
+    await installFile(from, to, data, fileOpts)
+  } catch (err) {
+    if (err.message === userCancel) {
+      return
+    }
+
+    throw err
+  }
 }
