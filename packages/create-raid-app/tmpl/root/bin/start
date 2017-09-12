@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const path = require('path')
+const budo = require('budo')
+const argv = require('minimist')(process.argv.slice(2), {
+  alias: {
+    o: 'open'
+  }
+})
+
+const entry = {
+  js: 'src/main.js',
+  html: 'src/index.html',
+  dir: 'src'
+}
+
+budo(entry.js, {
+  live: true,
+  watchGlob: path.join(entry.dir, '**/*.{html,json,js,jsx}'),
+  dir: [entry.dir, path.join(__dirname, '../node_modules')],
+  stream: process.stdout,
+  browserify: {
+    extensions: ['.js', '.jsx']
+  },
+  defaultIndex: opt => fs.createReadStream(path.join(__dirname, '../', entry.html)),
+  open: argv.open,
+  host: '0.0.0.0',
+  pushstate: true
+})
+  .on('error', err => console.error(err))

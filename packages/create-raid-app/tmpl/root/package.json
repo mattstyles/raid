@@ -8,10 +8,10 @@
   "scripts": {
     "clean": "rimraf dist && mkdirp dist",
     "prebuild": "npm run clean",
-    "build": "NODE_PATH=src NODE_ENV=production browserify --extension jsx src/index.js | uglifyjs -cm > dist/index.js && ncp src/index.html dist/index.html",
+    "build": "NODE_PATH=src NODE_ENV=production browserify --extension jsx src/main.js | uglifyjs -cm > dist/index.js && ncp src/index.html dist/index.html && ncp src/assets dist/assets",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "start": "budo src/index.js --dir=src --live -- --extension jsx"
+    "start": "NODE_PATH=src DEBUG=true bin/start"
   },
   "browserify": {
     "transform": [
@@ -60,6 +60,7 @@
     "budo": "^9.4.7",
     "envify": "^4.1.0",
     "gh-pages": "^1.0.0",
+    "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "prop-types": "^15.5.10",
@@ -68,12 +69,14 @@
     "styled-jsx": "^1.0.10"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "lodash": "^4.17.4",
     "raid": "^2.7.0",
     "raid-addons": "^2.8.0",
     "raid-navigator": "^2.8.0",
     "raid-streams": "^2.8.0",
     "react": "^16.0.0-rc.2",
-    "react-dom": "^16.0.0-rc.2"
+    "react-dom": "^16.0.0-rc.2",
+    "reselect": "^2.5.4"
   }
 }
