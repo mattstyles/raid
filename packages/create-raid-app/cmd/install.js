@@ -43,6 +43,10 @@ export default async function install (opts) {
     }
   )
 
+  if (opts['skip-install']) {
+    return
+  }
+
   spawn.sync('npm', ['install'], {
     cwd: installpath,
     stdio: 'inherit'
