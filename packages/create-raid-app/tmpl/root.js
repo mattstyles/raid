@@ -1,8 +1,9 @@
 
 import {user} from 'osenv'
 import {prompt} from 'inquirer'
+import spawn from 'cross-spawn'
 
-async function gatherData () {
+export async function getData () {
   const answers = await prompt([{
     name: 'projectName',
     type: 'input',
@@ -14,4 +15,9 @@ async function gatherData () {
   })
 }
 
-export default gatherData
+export async function onInstallComplete ({cwd}) {
+  spawn.sync('npm', ['start', '--', '-o'], {
+    cwd,
+    stdio: 'inherit'
+  })
+}

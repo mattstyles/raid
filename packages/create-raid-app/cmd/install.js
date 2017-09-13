@@ -8,7 +8,7 @@ import spawn from 'cross-spawn'
 import {viableInstallItems} from '../lib/constants'
 import {isListItem, getUserConfirm, getPkgDir} from '../lib/utils'
 import {installFromFolder} from '../lib/install'
-import getRootData from '../tmpl/root'
+import {getData, onInstallComplete} from '../tmpl/root'
 
 const checkAgainstViableList = isListItem(viableInstallItems)
 const checkItemViability = remove(checkAgainstViableList)
@@ -28,7 +28,7 @@ export default async function install (opts) {
   }
 
   // Gather info
-  const data = await getRootData()
+  const data = await getData()
 
   // Install
   const pkgpath = await getPkgDir()
@@ -43,12 +43,14 @@ export default async function install (opts) {
     }
   )
 
-  if (opts['skip-install']) {
-    return
+  if (!opts['skip-install']) {
+    spawn.sync('npm', ['install'], {
+      cwd: installpath,
+      stdio: 'inherit'
+    })
   }
 
-  spawn.sync('npm', ['install'], {
-    cwd: installpath,
-    stdio: 'inherit'
+  await onInstallComplete({
+    cwd: installpath
   })
 }
