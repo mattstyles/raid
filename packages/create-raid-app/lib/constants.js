@@ -4,7 +4,8 @@ export const commands = {
 }
 
 export const viableInstallItems = [
-  'node_modules'
+  'node_modules',
+  'package-lock.json'
 ]
 
 export const userCancel = 'user cancel'
