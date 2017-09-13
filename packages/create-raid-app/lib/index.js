@@ -3,9 +3,11 @@ import {commands} from './constants'
 
 import install from '../cmd/install'
 import help from '../cmd/help'
+import create from '../cmd/create'
 
 const router = {
-  [commands.install]: install
+  [commands.install]: install,
+  [commands.create]: create
 }
 
 export default (cmds, opts) => {

@@ -10,9 +10,10 @@ export async function getData () {
     message: 'What is the name of this awesome project?'
   }])
 
-  return Object.assign(answers, {
-    username: user()
-  })
+  return Object.assign({
+    username: user(),
+    projectName: '@TODO Project Name'
+  }, answers)
 }
 
 export async function onInstallComplete ({cwd}) {

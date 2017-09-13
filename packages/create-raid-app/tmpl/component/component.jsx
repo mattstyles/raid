@@ -1,0 +1,21 @@
+
+import PropTypes from 'prop-types'
+
+const {{componentName}} = ({text, children}) => (
+  <h1 className='h1'>
+    {children || text}
+    <style jsx>{`
+      font-size: 1.2rem;
+    `}</style>
+  </h1>
+)
+
+{{componentName}}.propTypes = {
+  text: PropTypes.string
+}
+
+{{componentName}}.defaultProps = {
+  text: null
+}
+
+export default {{componentName}}

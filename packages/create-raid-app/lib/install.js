@@ -19,7 +19,7 @@ async function installFolder (pathname, opts) {
   return true
 }
 
-async function installFile (from, to, data, opts) {
+export async function installFile (from, to, data, opts) {
   if (await exists(to)) {
     if (!await getUserConfirm(`${opts.shortname} already exists, replace?`)) {
       return Promise.reject(new Error(userCancel))

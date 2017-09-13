@@ -1,6 +1,9 @@
 
 export const commands = {
-  install: 'install'
+  install: 'install',
+  create: 'create',
+  component: 'component',
+  signal: 'signal'
 }
 
 export const viableInstallItems = [

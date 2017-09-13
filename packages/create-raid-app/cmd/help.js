@@ -4,9 +4,11 @@ import {commands} from '../lib/constants'
 
 import root from '../man/root'
 import install from '../man/install'
+import create from '../man/create'
 
 const router = {
-  [commands.install]: install
+  [commands.install]: install,
+  [commands.create]: create
 }
 
 export default cmds => {

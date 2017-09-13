@@ -8,4 +8,8 @@ export default () => `
     $ ${pkg.name} ${commands.install}
 
   Scaffolds raid application in to the current folder.
+
+  Arguments
+
+    --skip-install        Skips the dependency install step
 `
