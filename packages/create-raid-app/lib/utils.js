@@ -47,13 +47,17 @@ const mustacheStream = data => es.through(function write (chunk) {
 })
 
 export async function installWithMustache (from, to, data = {}) {
+  const {mode} = await fs.statAsync(from)
   return new Promise((resolve, reject) => {
-    const writer = fs.createWriteStream(to)
-    writer.on('close', resolve)
-    writer.on('error', reject)
-
     const reader = fs.createReadStream(from)
     reader.on('error', reject)
+
+    const writer = fs.createWriteStream(to)
+    writer.on('close', async function onClose () {
+      await fs.chmodAsync(to, mode)
+      resolve()
+    })
+    writer.on('error', reject)
 
     reader
       .pipe(mustacheStream(data))
