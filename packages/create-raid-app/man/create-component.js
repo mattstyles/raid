@@ -8,4 +8,8 @@ export default () => `
     $ ${pkg.name} ${commands.create} ${commands.component}
 
   Creates a new component.
+
+  Arguments
+
+    --complex         Create a complex component
 `

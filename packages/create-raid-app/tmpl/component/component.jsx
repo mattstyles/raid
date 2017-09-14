@@ -5,7 +5,9 @@ const {{componentName}} = ({text, children}) => (
   <h1 className='h1'>
     {children || text}
     <style jsx>{`
-      font-size: 1.2rem;
+      .h1 {
+        font-size: 1.2rem;
+      }
     `}</style>
   </h1>
 )

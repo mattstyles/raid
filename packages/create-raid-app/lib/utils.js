@@ -19,6 +19,15 @@ export async function exists (pathname) {
   }
 }
 
+export async function rename (from, to) {
+  try {
+    await fs.renameAsync(from, to)
+  } catch (err) {
+    console.log(err)
+    throw err
+  }
+}
+
 export async function getPkgDir (pathname = '') {
   try {
     return await pkgDir(pathname)

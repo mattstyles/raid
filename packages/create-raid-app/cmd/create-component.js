@@ -1,8 +1,8 @@
 
 import path from 'path'
 
-import {installFile} from '../lib/install'
-import {getPkgDir} from '../lib/utils'
+import {installFile, installFromFolder} from '../lib/install'
+import {getPkgDir, rename} from '../lib/utils'
 
 import {
   getData,
@@ -21,19 +21,42 @@ export default async function createComponent (cmds, opts) {
     return
   }
 
-  await installFile(
-    path.resolve(__dirname, '../tmpl/component/component.jsx'),
-    path.resolve(
-      installpath,
-      'src/components/',
-      data.componentName.toLowerCase() + '.jsx'
-    ),
-    data,
-    {
-      root: installpath,
-      shortname: data.componentName
-    }
-  )
+  if (opts.complex) {
+    const componentFileName = data.componentName.toLowerCase()
+    await installFromFolder(
+      path.resolve(__dirname, '../tmpl/component/complex'),
+      path.resolve(
+        installpath,
+        `src/components/${componentFileName}`
+      ),
+      Object.assign({
+        componentFileName
+      }, data),
+      {
+        root: installpath,
+        shortname: data.componentName
+      }
+    )
+
+    await rename(
+      path.resolve(installpath, `src/components/${componentFileName}/component.jsx`),
+      path.resolve(installpath, `src/components/${componentFileName}/${componentFileName}.jsx`)
+    )
+  } else {
+    await installFile(
+      path.resolve(__dirname, '../tmpl/component/component.jsx'),
+      path.resolve(
+        installpath,
+        'src/components/',
+        data.componentName.toLowerCase() + '.jsx'
+      ),
+      data,
+      {
+        root: installpath,
+        shortname: data.componentName
+      }
+    )
+  }
 
   await onInstallComplete({cwd: installpath})
 }

@@ -5,7 +5,9 @@ const Title = ({text, children}) => (
   <h1 className='h1'>
     {children || text}
     <style jsx>{`
-      font-size: 2.8rem;
+      .h1 {
+        font-size: 2.8rem;
+      }
     `}</style>
   </h1>
 )
