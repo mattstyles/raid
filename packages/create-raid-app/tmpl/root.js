@@ -16,7 +16,11 @@ export async function getData () {
   }, answers)
 }
 
-export async function onInstallComplete ({cwd}) {
+export async function onInstallComplete ({cwd, skip}) {
+  if (skip) {
+    return
+  }
+
   spawn.sync('npm', ['start', '--', '-o'], {
     cwd,
     stdio: 'inherit'
