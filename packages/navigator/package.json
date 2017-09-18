@@ -105,7 +105,6 @@
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
-    "babel-plugin-inferno": "^0.7.7",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-define": "^1.2.0",
     "babel-plugin-transform-react-require": "^1.0.1",
