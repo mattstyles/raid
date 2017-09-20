@@ -45,21 +45,21 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.16.0",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^7.0.0",
-    "babel-preset-urban": "^1.0.0",
-    "babel-register": "^6.16.3",
+    "babel-preset-urban": "^1.0.1",
+    "babel-register": "^6.26.0",
     "coveralls": "^2.11.14",
     "nyc": "^10.1.2",
     "raid": "^2.7.0",
-    "rimraf": "^2.5.2",
+    "rimraf": "^2.6.2",
     "standard": "^9.0.1",
-    "tape": "^4.6.2"
+    "tape": "^4.8.0"
   },
   "dependencies": {
     "@mattstyles/tick": "^0.1.0",
     "eventemitter3": "^2.0.2",
-    "most": "^1.2.2",
+    "most": "^1.7.1",
     "quay": "^0.6.0",
     "raf-stream": "^3.0.0",
     "vkey": "^1.0.1"
