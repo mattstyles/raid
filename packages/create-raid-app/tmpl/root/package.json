@@ -58,6 +58,7 @@
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
     "budo": "^9.4.7",
+    "create-raid-app": "2.9.0",
     "envify": "^4.1.0",
     "gh-pages": "^1.0.0",
     "minimist": "^1.2.0",
