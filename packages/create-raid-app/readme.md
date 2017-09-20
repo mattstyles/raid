@@ -12,6 +12,8 @@
 
 ## Getting Started
 
+> `create-raid-app` requires node version > 8 for async support.
+
 First time use involves globally installing `create-raid-app` which will also place `create-raid-app` into your path, after that any calls will defer to a locally installed version which means that each project can use a different version easily (or even a fork).
 
 Install globally with [npm](https://npmjs.com) and invoke to scaffold a new project.
