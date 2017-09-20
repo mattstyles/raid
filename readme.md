@@ -26,6 +26,17 @@ npm i -S raid
 * [Input streams](https://github.com/mattstyles/raid/tree/master/packages/raid-streams)
 * [Documentation](https://mattstyles.github.io/raid/)
 
+## Quick Start
+
+Raid has a complementary `create-raid-app` package that will scaffold out a project ready to start raiding.
+
+```sh
+mkdir my-awesome-project
+npm i -g create-raid-app
+create-raid-app
+npm start -- -o
+```
+
 ## Examples
 
 The Raid codebase has been written to encourage collaboration and uses [lerna](https://lernajs.io/) to implement a monorepo.
