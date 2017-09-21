@@ -14,6 +14,7 @@ var budo = require('budo')
 const basepath = path.resolve(__dirname, '../')
 const expath = path.join(basepath, 'examples')
 const packages = path.join(basepath, 'packages')
+const index = path.join(expath, '_common/index.html')
 
 function getDirectory (file) {
   return new Promise((resolve, reject) => {
@@ -83,6 +84,7 @@ function spawnServer (example) {
       paths
     },
     open: argv.open,
+    defaultIndex: opt => fs.createReadStream(index),
     verbose: true,
     stream: process.stdout,
     host: '0.0.0.0',

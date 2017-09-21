@@ -93,6 +93,7 @@
     "folktale": "^2.0.0",
     "force-array": "^3.1.0",
     "gh-pages": "^1.0.0",
+    "history": "^4.7.2",
     "immutable": "^3.8.1",
     "inferno": "^0.7.27",
     "inferno-component": "^0.7.27",
