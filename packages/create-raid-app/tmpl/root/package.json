@@ -64,7 +64,6 @@
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
-    "prop-types": "^15.5.10",
     "rimraf": "^2.6.1",
     "standard": "^10.0.3",
     "styled-jsx": "^1.0.10"
@@ -72,12 +71,13 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "lodash": "^4.17.4",
-    "raid": "^2.7.0",
-    "raid-addons": "^2.8.0",
-    "raid-navigator": "^2.8.0",
-    "raid-streams": "^2.8.0",
-    "react": "^16.0.0-rc.2",
-    "react-dom": "^16.0.0-rc.2",
+    "prop-types": "^15.5.10",
+    "raid": "^2.9.0",
+    "raid-addons": "^2.9.0",
+    "raid-navigator": "^2.9.0",
+    "raid-streams": "^2.9.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "reselect": "^2.5.4"
   }
 }
