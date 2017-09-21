@@ -44,6 +44,7 @@ export default async function install (opts) {
   )
 
   if (!opts['skip-install']) {
+    console.log('\nInstalling dependencies...')
     spawn.sync('npm', ['install'], {
       cwd: installpath,
       stdio: 'inherit'
