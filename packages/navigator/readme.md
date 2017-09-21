@@ -5,8 +5,7 @@
 
 [![npm](https://img.shields.io/npm/v/raid-navigator.svg?style=flat)](https://www.npmjs.com/package/raid-navigator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/mattstyles/raid-navigator.svg?branch=composer)](https://travis-ci.org/mattstyles/raid-navigator)
-[![Dependency Status](https://david-dm.org/mattstyles/raid-navigator.svg)](https://david-dm.org/mattstyles/raid-navigator)
+[![Build Status](https://travis-ci.org/mattstyles/raid-navigator.svg?branch=composer)](https://travis-ci.org/mattstyles/raid)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 [Documentation](https://mattstyles.github.io/raid/)
