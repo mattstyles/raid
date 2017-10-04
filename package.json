@@ -78,6 +78,7 @@
   },
   "homepage": "https://github.com/mattstyles/raid#readme",
   "devDependencies": {
+    "@mattstyles/match": "^1.0.1",
     "axios": "^0.15.3",
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
