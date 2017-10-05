@@ -8,7 +8,7 @@
 import {render} from 'react-dom'
 import {Signal} from 'raid/src'
 import match from '@mattstyles/match'
-import {createAction} from './actions'
+import {createAction} from 'raid-addons/src'
 
 import {App, Button, element, theme} from '../_common'
 

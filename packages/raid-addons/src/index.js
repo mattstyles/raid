@@ -1,4 +1,5 @@
 
+export * from './actions'
 export {default as adaptor} from './adaptor'
 export {default as compress} from './compress'
 export {default as flow} from './flow'
