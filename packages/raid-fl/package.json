@@ -1,0 +1,60 @@
+{
+  "name": "raid-fl",
+  "version": "2.9.0",
+  "description": "Raid with fantasy-land compliant structures",
+  "main": "lib/",
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir lib",
+    "watch": "babel --watch src --out-dir lib",
+    "test": "tape -r babel-register spec/*.test.js",
+    "cover": "nyc tape -r babel-register spec/*.test.js",
+    "coverage-report": "nyc --reporter=lcov npm run test",
+    "prepublish": "npm run build",
+    "prestart": "npm run build",
+    "start": "npm run watch"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "urban"
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "keywords": [
+    "raid",
+    "addons",
+    "helpers",
+    "utility"
+  ],
+  "author": "Matt Styles",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattstyles/raid"
+  },
+  "bugs": "https://github.com/mattstyles/raid/issues",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.0.0",
+    "babel-preset-urban": "^1.0.1",
+    "babel-register": "^6.26.0",
+    "coveralls": "^2.11.14",
+    "nyc": "^10.1.2",
+    "raid": "^2.9.0",
+    "rimraf": "^2.6.2",
+    "standard": "^9.0.1",
+    "tape": "^4.8.0"
+  },
+  "dependencies": {
+    "fantasy-land": "^3.3.0",
+    "force-array": "^3.1.0"
+  }
+}
