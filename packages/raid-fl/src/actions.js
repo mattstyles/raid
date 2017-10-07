@@ -28,14 +28,17 @@ export const createAction = name => {
     static [fl.of] (value) {
       return new a[name](value)
     }
+    static of (value) {
+      return new a[name](value)
+    }
     static is (type) {
       return type instanceof a[name]
     }
-    [fl.ap] (a) {
-      return a.map(this.__value)
-    }
     [fl.map] (fn) {
       return a[name].of(fn(this.__value))
+    }
+    [fl.ap] (a) {
+      return a.map(this.__value)
     }
     [fl.chain] (fn) {
       return this.map(fn).join()

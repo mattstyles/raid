@@ -61,6 +61,25 @@ test('actions are a functor', t => {
   )
 })
 
+test.only('actions implement apply', t => {
+  t.plan(1)
+
+  const Action = createAction('action')
+
+  const add = a => b => a + b
+  const v = Action.of(add)
+  const u = Action.of(2)
+  const a = Action.of(3)
+
+  const res = v.ap(u).ap(a)
+  console.log(a.map(f => g => x => f(g(x))))
+  console.log(u.ap(a.map(f => g => x => f(g(x)))))
+  const res2 = v.ap(u.ap(a.map(f => g => x => f(g(x)))))
+
+  console.log(res, res2)
+  // console.log(res)
+})
+
 // test('actions are a fantasy-land monad', t => {
 //   t.plan(2)
 //

@@ -4,9 +4,11 @@
   "description": "Raid with fantasy-land compliant structures",
   "main": "lib/",
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf lib && rimraf compat",
     "prebuild": "npm run clean",
-    "build": "babel src --out-dir lib",
+    "build:latest": "BABEL_ENV=latest babel src --out-dir lib",
+    "build:compat": "BABEL_ENV=compat babel src --out-dir compat",
+    "build": "npm run build:compat && npm run build:latest",
     "watch": "babel --watch src --out-dir lib",
     "test": "tape -r babel-register spec/*.test.js",
     "cover": "nyc tape -r babel-register spec/*.test.js",
@@ -21,16 +23,34 @@
     ]
   },
   "babel": {
-    "presets": [
-      "urban"
-    ]
+    "env": {
+      "latest": {
+        "presets": [
+          ["env", {
+            "targets": {
+              "browsers": [
+                "last 2 Chrome versions",
+                "last 2 Edge versions",
+                "last 2 iOS versions",
+                "last 2 Firefox versions"
+              ]
+            }
+          }]
+        ]
+      },
+      "compat": {
+        "presets": [
+          "env"
+        ]
+      }
+    }
   },
   "standard": {
     "parser": "babel-eslint"
   },
   "keywords": [
     "raid",
-    "addons",
+    "fantasy-land",
     "helpers",
     "utility"
   ],
@@ -44,7 +64,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.0.0",
-    "babel-preset-urban": "^1.0.1",
+    "babel-preset-env": "^1.6.0",
     "babel-register": "^6.26.0",
     "coveralls": "^2.11.14",
     "nyc": "^10.1.2",
