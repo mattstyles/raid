@@ -7,8 +7,9 @@
 
 import {render} from 'react-dom'
 import {Signal} from 'raid/src'
-import match from '@mattstyles/match'
+// import match from '@mattstyles/match'
 import {createAction} from 'raid-fl/src'
+import {match} from 'raid-addons/src'
 
 import {App, Button, element, theme} from '../_common'
 
@@ -29,21 +30,25 @@ var reset = createAction('reset')
 /**
  * Update functions
  */
-const onAlter = state => event => ({
+const onAlter = (state, event) => ({
   ...state,
   count: state.count + event.join()
 })
 
-const onReset = state => event => ({
+const onReset = (state, event) => ({
   ...state,
   count: 0
 })
 
-const update = (state, event) => match([
-  [alter.is, onAlter(state)],
-  [reset.is, onReset(state)],
-  [_ => state]
-])(event)
+// const update = (state, event) => match([
+//   [alter.is, onAlter(state)],
+//   [reset.is, onReset(state)],
+//   [_ => state]
+// ])(event)
+const update = match([
+  [alter.is, onAlter],
+  [reset.is, onReset]
+])
 
 /**
  * Action handlers are a simple bit of sugar to add
