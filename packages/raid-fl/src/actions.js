@@ -35,22 +35,25 @@ export const createAction = name => {
       return type instanceof a[name]
     }
     [fl.map] (fn) {
-      return a[name].of(fn(this.__value))
+      return a[name].of(fn(this.join()))
     }
-    [fl.ap] (a) {
-      return a.map(this.__value)
+    [fl.ap] (m) {
+      // return m.map(this.__value)
+      return m.chain(fn => this.map(fn))
     }
     [fl.chain] (fn) {
-      return this.map(fn).join()
+      return fn(this.join())
     }
     [fl.equals] (a) {
-      return a.join() === this.__value
+      return a.join() === this.join()
     }
     join () {
       return this.__value
     }
     unwrapOrElse (_default) {
-      return this.value || _default
+      return typeof this.join() === 'undefined'
+        ? _default
+        : this.join()
     }
   }}
   return aliasType(a[name])

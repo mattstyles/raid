@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf lib && rimraf compat",
     "prebuild": "npm run clean",
-    "build:latest": "BABEL_ENV=latest babel src --out-dir lib",
+    "build:latest": "babel src --out-dir lib",
     "build:compat": "BABEL_ENV=compat babel src --out-dir compat",
     "build": "npm run build:compat && npm run build:latest",
     "watch": "babel --watch src --out-dir lib",
@@ -23,21 +23,22 @@
     ]
   },
   "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "browsers": [
+              "last 2 Chrome versions",
+              "last 2 Edge versions",
+              "last 2 iOS versions",
+              "last 2 Firefox versions"
+            ]
+          }
+        }
+      ]
+    ],
     "env": {
-      "latest": {
-        "presets": [
-          ["env", {
-            "targets": {
-              "browsers": [
-                "last 2 Chrome versions",
-                "last 2 Edge versions",
-                "last 2 iOS versions",
-                "last 2 Firefox versions"
-              ]
-            }
-          }]
-        ]
-      },
       "compat": {
         "presets": [
           "env"
@@ -69,6 +70,7 @@
     "coveralls": "^2.11.14",
     "nyc": "^10.1.2",
     "raid": "^2.9.0",
+    "ramda": "^0.24.1",
     "rimraf": "^2.6.2",
     "standard": "^9.0.1",
     "tape": "^4.8.0"
