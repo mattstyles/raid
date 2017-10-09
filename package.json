@@ -108,6 +108,7 @@
     "raid": "^2.9.0",
     "raid-addons": "^2.9.0",
     "raid-navigator": "^2.9.0",
+    "raid-fl": "2.9.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "reselect": "^2.5.4",
