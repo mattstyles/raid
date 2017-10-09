@@ -38,7 +38,6 @@ export const createAction = name => {
       return a[name].of(fn(this.join()))
     }
     [fl.ap] (m) {
-      // return m.map(this.__value)
       return m.chain(fn => this.map(fn))
     }
     [fl.chain] (fn) {
@@ -46,6 +45,9 @@ export const createAction = name => {
     }
     [fl.equals] (a) {
       return a.join() === this.join()
+    }
+    lift (m) {
+      return m.map(this.__value)
     }
     join () {
       return this.__value

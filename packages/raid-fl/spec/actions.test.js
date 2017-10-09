@@ -1,7 +1,7 @@
 
 import test from 'tape'
 
-import {inc} from './utils'
+import {inc, add} from './utils'
 import {createAction, createActions} from '../src'
 
 test('should create a new wrapped action class', t => {
@@ -71,4 +71,15 @@ test('action methods should preserve wrapping', t => {
   t.equal(a.chain(inc), 2, 'Chain should unwrap an operation')
   t.equal(a.map(inc).join(), 2, 'Map maintains wrapping')
   t.equal(a.ap(Action.of(inc)).join(), 2, 'Ap maintains wrapping')
+})
+
+test('actions implement a lift function to apply a value to them', t => {
+  t.plan(1)
+
+  const Action = createAction('action')
+
+  const a = Action.of(add)
+  const v = Action.of(1)
+  const w = Action.of(2)
+  t.equal(a.lift(v).lift(w).join(), 3, 'values can be applied to a function holding action')
 })
