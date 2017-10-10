@@ -74,6 +74,7 @@
     "prop-types": "^15.5.10",
     "raid": "^2.9.0",
     "raid-addons": "^2.9.0",
+    "raid-fl": "^2.9.0",
     "raid-navigator": "^2.9.0",
     "raid-streams": "^2.9.0",
     "react": "^15.6.1",
