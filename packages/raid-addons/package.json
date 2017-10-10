@@ -42,7 +42,6 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
-    "@mattstyles/match": "^1.0.1",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.0.0",
     "babel-preset-urban": "^1.0.1",
@@ -55,6 +54,7 @@
     "tape": "^4.8.0"
   },
   "dependencies": {
+    "@mattstyles/match": "^1.0.1",
     "force-array": "^3.1.0"
   }
 }

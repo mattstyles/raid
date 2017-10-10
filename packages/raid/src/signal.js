@@ -149,7 +149,7 @@ class Signal {
   }
 
   /**
-   * Removes a update function from the fold
+   * Removes an update function from the fold
    * @param key <String> identifier
    * @returns <Boolean>
    */
