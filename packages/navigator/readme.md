@@ -48,7 +48,7 @@ signal.observe(state => {
 
 ## Usage
 
-Raid-navigator controls and selects a set of routes based on the current history state, usually this means selecting a single routes but multiple will
+Raid-navigator controls and selects a set of routes based on the current history state, usually this means selecting a single route but multiple will
 be rendered if they match. In addition navigator passes the current route state to any matched children.
 
 ### signal `<Signal>`
