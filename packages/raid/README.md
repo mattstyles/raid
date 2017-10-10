@@ -31,6 +31,8 @@ import {Signal} from 'raid'
 const signal = new Signal({
   count: 0
 })
+// or
+const signal = Signal.of({count: 0})
 
 signal.observe(state => {
   // Current signal state
