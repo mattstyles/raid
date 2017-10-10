@@ -385,13 +385,13 @@ Sin is another way to use async-await but its far less safe as it allows asynchr
 ## Running tests
 
 ```sh
-$ yarn
-$ yarn test
+$ npm
+$ npm test
 ```
 
 ## Contributing
 
-Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
+Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `npm test` to ensure all tests are passing and add tests for any new features or updates.
 
 For bugs and feature requests, [please create an issue](https://github.com/mattstyles/raid/issues).
 

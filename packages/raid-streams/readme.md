@@ -450,7 +450,7 @@ signal.register((state, {type, payload}) => {
 
 ## Stand-alone streams
 
-All these action streams are just regular [most.js](https://npmjs.com/packages/most) streams and can be consumed as normal, there is no restriction to use them with Raid. The only tie they have to Raid is that they emit `{type, ...payload}` objects. As they are regular streams all the regular stream functions work.
+All these action streams are just regular [most.js](https://npmjs.com/packages/most) streams and can be consumed as normal, there is no restriction to use them with Raid. The only tie they have to Raid is that they emit `{type, payload}` objects. As they are regular streams all the regular stream functions work.
 
 ```js
 import keystream, {actions} from 'raid-streams/keys'
@@ -460,23 +460,23 @@ keystream
     ...event,
     meta: '@@foo'
   }))
-  .observe(({type, payload}) => {
+  .observe(({type, payload, meta}) => {
     if (type === actions.keydown) {
-      console.log(`Pressing ${payload.key}`)
+      console.log(`Pressing ${payload.key}, meta: ${meta}`)
     }
-})
+  })
 ```
 
 ## Running tests
 
 ```sh
-$ yarn
-$ yarn test
+$ npm
+$ npm test
 ```
 
 ## Contributing
 
-Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
+Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `npm test` to ensure all tests are passing and add tests for any new features or updates.
 
 For bugs and feature requests, [please create an issue](https://github.com/mattstyles/raid/issues).
 

@@ -38,13 +38,14 @@ create-raid-app create component --help
 * [Getting started with raid](https://github.com/mattstyles/raid/tree/master/packages/raid)
 * [Utilities and complementary functions](https://github.com/mattstyles/raid/tree/master/packages/raid-addons)
 * [Input streams](https://github.com/mattstyles/raid/tree/master/packages/raid-streams)
+* [Typed actions](https://github.com/mattstyles/raid/tree/master/packages/raid-fl)
 * [Documentation](https://mattstyles.github.io/raid/)
 
 ## Example project structure
 
 `create-raid-app` is necessarily opinionated about how you structure your application and the additional code generation tools will expect you to adhere to this structure.
 
-Unlike [create-react-app](https://www.npmjs.com/package/create-react-app) (which was clearly an inspiration) the build process that is scaffolded with the initial application is inlined in to your project, whilst this provides some additional bloat to your project it realises that many projects differ and small changes to the build processes becomes trivial.
+Unlike [create-react-app](https://www.npmjs.com/package/create-react-app) (which was clearly an inspiration) the build process that is scaffolded with the initial application is inlined in to your project, whilst this provides some additional bloat to your project it realises that many projects differ and small changes to the build processes becomes trivial by making them live with your project. If you never need to touch the build then there is no requirement to do so, everything will work out-of-the-box.
 
 ```
 .
@@ -81,7 +82,7 @@ Best way to get started is to run `create-raid-app` and have it scaffold a proje
 
 There is no formal configuration for `create-raid-app` and it wants to remain as easy to use as possible, this leaves forking as the simplest solution to creating a different base scaffold process or adding additional commands that may be unique to your application, structure and preferences.
 
-As the `create-raid-app` global defers to any local version you install a specific fork in to your `node_modules` and `create-raid-app` will continue to work as you need.
+As the `create-raid-app` global defers to any local version if you install a specific fork in to your `node_modules` then `create-raid-app` will continue to work as you need.
 
 See the existing `create-raid-app` structure for examples of how to create your own commands and templates.
 
