@@ -63,7 +63,7 @@ const signal = Signal.of({
 signal.emit(ChangeTitle.of('foo'))
 
 // Subscribing
-const update = (state, event) => {
+signal.register((state, event) => {
   if (ChangeTitle.is(event)) {
     return {
       ...state,
@@ -72,7 +72,7 @@ const update = (state, event) => {
   }
 
   return state
-}
+})
 ```
 
 Actions expose a static `is` method which performs an `instanceof` check on the event passed through. This allows typed actions to be introduced slowly in to a code base as regular Raid actions won’t satisfy `Action.is` and will be picked up by other update functions.
