@@ -115,7 +115,7 @@
     "standard": "^9.0.1",
     "styled-jsx": "^2.0.1"
   },
-  "version": "2.10.1",
+  "version": "2.10.2",
   "dependencies": {
     "gitbook-plugin-edit-link": "^2.0.2"
   }
