@@ -7,8 +7,7 @@
 
 import {render} from 'react-dom'
 import {Signal} from 'raid/src'
-// import match from '@mattstyles/match'
-import {createAction} from 'raid-fl/src'
+import {createAction, connect} from 'raid-fl/src'
 import {match} from 'raid-addons/src'
 
 import {App, Button, element, theme} from '../_common'
@@ -21,11 +20,17 @@ const signal = new Signal({
   count: 0
 })
 
+const createActions = connect(signal)
+
 /**
  * Create actions
  */
-var alter = createAction('alter')
-var reset = createAction('reset')
+// var alter = createAction('alter')
+// var reset = createAction('reset')
+var [alter, reset] = createActions([
+  'alter',
+  'reset'
+])
 
 /**
  * Update functions
@@ -40,11 +45,6 @@ const onReset = (state, event) => ({
   count: 0
 })
 
-// const update = (state, event) => match([
-//   [alter.is, onAlter(state)],
-//   [reset.is, onReset(state)],
-//   [_ => state]
-// ])(event)
 const update = match([
   [alter.is, onAlter],
   [reset.is, onReset]
@@ -53,7 +53,7 @@ const update = match([
 /**
  * Action handlers are a simple bit of sugar to add
  */
-const dispatch = type => event => signal.emit(type)
+// const dispatch = type => event => signal.emit(type)
 
 const Counter = ({count}) => {
   return (
@@ -61,13 +61,13 @@ const Counter = ({count}) => {
       <span className='Count'>{count}</span>
       <div className='Controls'>
         <Button
-          onClick={dispatch(alter.of(1))}
+          onClick={event => alter.of(1)}
         >+</Button>
         <Button
-          onClick={dispatch(alter.of(-1))}
+          onClick={event => alter.of(-1)}
         >-</Button>
         <Button
-          onClick={dispatch(reset.of())}
+          onClick={event => reset.of()}
           background={theme.color.secondary}
         >Reset</Button>
       </div>

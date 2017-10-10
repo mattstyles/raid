@@ -64,3 +64,15 @@ export const createAction = name => {
 export const createActions = actions => forceArray(actions)
   .filter(isString)
   .map(createAction)
+
+export const connect = signal => actions =>
+  createActions(actions)
+    .map(Action => {
+      Action.of = value => {
+        const action = new Action(value)
+        signal.emit(action)
+        return action
+      }
+      Action[fl.of] = Action.of
+      return Action
+    })
