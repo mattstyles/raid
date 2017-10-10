@@ -225,6 +225,34 @@ signal.emit({
 
 > This is a terse example to highlight how to use `hook`, no-one ever needs multiple actions that do the _exact_ same thing, always aim to restrict to the minimal.
 
+### Match
+
+`<Array <Array <Function, Function>>> => <Function <state, event>>`
+
+Match provides a form of pattern matching for events by allowing consumers to supply a predicate function to do the matching and an arm function that returns a new representation of the state to pass back to the signal. This is tied to how the [match library](https://www.npmjs.com/package/@mattstyles/match) implements pattern matching.
+
+Match automatically adds a default case on to the pattern matching so consumers should not supply one.
+
+Predicate functions match only on the event. If you need to also match on the current state then consider wrapping in [scope](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md#scope) with a state predicate function.
+
+Arm functions are expected to be regular update functions with a signature of `<state, event>`.
+
+```js
+const is = type => event => event.type === type
+const cap = str => str.replace(/^./, m => m.toUpperCase())
+
+signal.register(match([
+  [is('change_title'), (state, {payload}) => {
+    ...state,
+    title: payload
+  }],
+  [is('capitalise_title'), state => {
+    ...state,
+    title: cap(state.title)
+  }]
+]))
+```
+
 ### Patch
 
 `<String, Function> => <Function <state, event>>`
