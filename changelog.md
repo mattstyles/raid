@@ -4,6 +4,7 @@
 * _add_ raid-addons:match
 * _add_ raid-fl for typed actions
 * _update_ create-raid-app dependencies
+* _add_ Signal.of
 
 # 2.9.0
 
