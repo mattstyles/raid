@@ -45,6 +45,15 @@ class Signal {
   }
 
   /**
+   * Instance methods for creating a new Signal
+   * @constructs
+   * @param initialState <any> an object is expected but any structure can be used
+   */
+  static of (initialState = {}) {
+    return new Signal(initialState)
+  }
+
+  /**
    * Connects a new stream to the emitter, this requires the stream to emit
    * objects for the emitter to pass as events through the scanned source
    * stream.
