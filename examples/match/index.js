@@ -1,5 +1,5 @@
 /**
- * Basic counter example
+ * Basic counter example using match to select an update to run
  * ---
  * The initial state is populated and its contents are then manipulated directly
  * by action types
@@ -7,7 +7,6 @@
 
 import {render} from 'react-dom'
 import {Signal} from 'raid/src'
-import {createAction, connect} from 'raid-fl/src'
 import {match} from 'raid-addons/src'
 
 import {App, Button, element, theme} from '../_common'
@@ -20,40 +19,37 @@ const signal = new Signal({
   count: 0
 })
 
-const createActions = connect(signal)
-
 /**
- * Create actions
+ * Actions
  */
-// var alter = createAction('alter')
-// var reset = createAction('reset')
-var [alter, reset] = createActions([
-  'alter',
-  'reset'
-])
+const actions = {
+  'alter': 'actions:alter',
+  'reset': 'actions:reset'
+}
 
 /**
  * Update functions
  */
-const onAlter = (state, event) => ({
+const onAlter = (state, {payload}) => ({
   ...state,
-  count: state.count + event.join()
+  count: state.count + payload
 })
 
-const onReset = (state, event) => ({
+const onReset = (state) => ({
   ...state,
   count: 0
 })
 
+const isType = type => event => type === event.type
 const update = match([
-  [alter.is, onAlter],
-  [reset.is, onReset]
+  [isType(actions.alter), onAlter],
+  [isType(actions.reset), onReset]
 ])
 
 /**
  * Action handlers are a simple bit of sugar to add
  */
-// const dispatch = type => event => signal.emit(type)
+const dispatch = (type, payload) => domEvent => signal.emit({type, payload})
 
 const Counter = ({count}) => {
   return (
@@ -61,13 +57,13 @@ const Counter = ({count}) => {
       <span className='Count'>{count}</span>
       <div className='Controls'>
         <Button
-          onClick={event => alter.of(1)}
+          onClick={dispatch(actions.alter, 1)}
         >+</Button>
         <Button
-          onClick={event => alter.of(-1)}
+          onClick={dispatch(actions.alter, -1)}
         >-</Button>
         <Button
-          onClick={event => reset.of()}
+          onClick={dispatch(actions.reset)}
           background={theme.color.secondary}
         >Reset</Button>
       </div>

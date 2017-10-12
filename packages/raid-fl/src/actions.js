@@ -21,21 +21,21 @@ const aliasType = c => {
 }
 
 export const createAction = name => {
-  var a = {[name]: class {
+  var action = {[name]: class {
     constructor (value) {
       this.__value = value
     }
     static [fl.of] (value) {
-      return new a[name](value)
+      return new action[name](value)
     }
     static of (value) {
-      return new a[name](value)
+      return new action[name](value)
     }
     static is (type) {
-      return type instanceof a[name]
+      return type instanceof action[name]
     }
     [fl.map] (fn) {
-      return a[name].of(fn(this.join()))
+      return action[name].of(fn(this.join()))
     }
     [fl.ap] (m) {
       return m.chain(fn => this.map(fn))
@@ -58,7 +58,7 @@ export const createAction = name => {
         : this.join()
     }
   }}
-  return aliasType(a[name])
+  return aliasType(action[name])
 }
 
 export const createActions = actions => forceArray(actions)
