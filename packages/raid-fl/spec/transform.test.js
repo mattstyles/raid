@@ -1,7 +1,7 @@
 
 import test from 'tape'
 
-import {typeEvent} from '../src'
+import {typeEvent, untypeEvent, createAction} from '../src'
 
 const passUpdate = (state, event) => state
 
@@ -89,4 +89,42 @@ test('typeEvent:: a custom action creator function can be passed', t => {
   }
 
   typeEvent(update, store, create)({}, event)
+})
+
+test('untypeEvent:: should return an update function', t => {
+  t.plan(2)
+
+  const event = {type: 'hello'}
+  const update = (state, event) => {
+    t.ok(state, 'state exists')
+    t.ok(event, 'event exists')
+  }
+
+  untypeEvent(update)({}, event)
+})
+
+test('untypeEvent:: should disregard non-typed actions', t => {
+  t.plan(1)
+
+  const event = {type: 'foo'}
+  const update = (s, e) => {
+    t.equal(e, event, 'event is passed through')
+  }
+
+  untypeEvent(update)({}, event)
+})
+
+test('untypeEvent:: should convert typed actions', t => {
+  t.plan(2)
+
+  const type = 'foo'
+  const action = createAction(type)
+  const payload = 'bar'
+  const event = action.of(payload)
+  const update = (s, e) => {
+    t.equal(e.type, type, 'Type is assigned correctly')
+    t.equal(e.payload, payload, 'Payload is assigned correctly')
+  }
+
+  untypeEvent(update)({}, event)
 })

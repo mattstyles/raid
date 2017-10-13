@@ -1,6 +1,7 @@
 
 import {createAction} from './actions'
 
+const typeId = '@@type'
 const globalStore = {}
 
 /**
@@ -30,8 +31,16 @@ export const typeEvent = (update, store = globalStore, create = createAction) =>
  * Converts typed events in to regular events
  * Can be used with update functions that expect regular events
  */
-export const untypeEvent = (update, store = globalStore, create = createAction) => {
-  // @TODO
-  const map = () => {}
+export const untypeEvent = update => {
+  const map = event => {
+    if (!event.join || !event[typeId]) {
+      return event
+    }
+
+    return {
+      type: event[typeId],
+      payload: event.join()
+    }
+  }
   return (state, event) => update(state, map(event))
 }
