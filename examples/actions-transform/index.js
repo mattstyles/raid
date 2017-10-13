@@ -7,7 +7,7 @@
 
 import {render} from 'react-dom'
 import {Signal} from 'raid/src'
-import {createAction, connect} from 'raid-fl/src'
+import {connect, typeEvent, untypeEvent} from 'raid-fl/src'
 import {match} from 'raid-addons/src'
 
 import {App, Button, element, theme} from '../_common'
@@ -25,12 +25,11 @@ const createActions = connect(signal)
 /**
  * Create actions
  */
-// var alter = createAction('alter')
-// var reset = createAction('reset')
-var [alter, reset] = createActions([
+const [alter, reset] = createActions([
   'alter',
   'reset'
 ])
+const regularAction = 'action::stringForm'
 
 /**
  * Update functions
@@ -45,15 +44,25 @@ const onReset = (state, event) => ({
   count: 0
 })
 
+const onRegularAction = (state, event) => {
+  console.log('regular action')
+  return state
+}
+
+const isType = type => event => event['@@type']
+  ? type === event['@@type']
+  : false
+
 const update = match([
   [alter.is, onAlter],
-  [reset.is, onReset]
+  [reset.is, onReset],
+  [isType(regularAction), onRegularAction]
 ])
 
 /**
  * Action handlers are a simple bit of sugar to add
  */
-// const dispatch = type => event => signal.emit(type)
+const dispatch = type => event => signal.emit({type})
 
 const Counter = ({count}) => {
   return (
@@ -71,9 +80,7 @@ const Counter = ({count}) => {
           background={theme.color.secondary}
         >Reset</Button>
         <Button
-          onClick={event => signal.emit({
-            type: 'string event'
-          })}
+          onClick={dispatch(regularAction)}
           background={theme.color.secondary}
         >String Event</Button>
       </div>
@@ -115,29 +122,14 @@ signal.observe(state => {
  * Register updates.
  * Returns a dispose function which can be used to destroy an update function.
  */
-
 const eventStore = {}
-const mapper = event => {
-  if (event.type) {
-    console.log('event has a type')
-    if (!eventStore[event.type]) {
-      eventStore[event.type] = createAction(event.type)
-    }
-
-    return eventStore[event.type].of(event.payload)
-  }
-
-  return event
-}
-const mapEvent = mapper => update => (state, event) => update(state, mapper(event))
-
-console.log(mapEvent)
-console.log(mapEvent(mapper)(update))
-
-signal.register(mapEvent(mapper)(update))
-// signal.register(update)
-
-signal.register((state, event) => {
-  console.log(state, '::', event)
+signal.register(typeEvent(update, eventStore))
+signal.register(untypeEvent((state, event) => {
+  console.log('untyped::', event)
   return state
-})
+}))
+
+// signal.register((state, event) => {
+//   console.log(state, '::', event)
+//   return state
+// })
