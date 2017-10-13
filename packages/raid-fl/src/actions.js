@@ -24,6 +24,7 @@ export const createAction = name => {
   var action = {[name]: class {
     constructor (value) {
       this.__value = value
+      this['@@type'] = name
     }
     static [fl.of] (value) {
       return new action[name](value)

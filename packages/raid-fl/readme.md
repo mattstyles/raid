@@ -50,7 +50,7 @@ import {createAction} from 'raid-fl'
 var ChangeTitle = createAction('change-title')
 ```
 
-This sets up a `ChangeTitle` class which can be used to create actions and later identify those actions via their type, for example:
+This sets up a `ChangeTitle` object which can be used to create actions and later identify those actions via their type, for example:
 
 ```js
 import Signal from 'raid'
@@ -78,6 +78,12 @@ signal.register((state, event) => {
 Actions expose a static `is` method which performs an `instanceof` check on the event passed through. This allows typed actions to be introduced slowly in to a code base as regular Raid actions won’t satisfy `Action.is` and will be picked up by other update functions.
 
 Actions are boxed to implement Monad, Functor, Applicative and Setoid so they have a number of methods to comply with the fantasy-land specification for these types, it also means that your updates will typically need to unwrap the box at some point, `join` performs this unboxing although you could choose to map over the value of the action to provide a mutation to the state.
+
+## Interoperability
+
+
+## API
+
 
 ## Running tests
 
