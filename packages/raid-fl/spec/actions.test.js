@@ -2,7 +2,7 @@
 import test from 'tape'
 
 import {inc, add} from './utils'
-import {createAction, createActions} from '../src'
+import {createAction, createActions, connect} from '../src'
 
 test('should create a new wrapped action class', t => {
   t.plan(2)
@@ -82,4 +82,34 @@ test('actions implement a lift function to apply a value to them', t => {
   const v = Action.of(1)
   const w = Action.of(2)
   t.equal(a.lift(v).lift(w).join(), 3, 'values can be applied to a function holding action')
+})
+
+test('connect emits a function for creating actions', t => {
+  t.plan(3)
+
+  const signal = {emit: event => {
+    t.ok(event, 'Event is emitted upon instantiation')
+  }}
+  const createActions = connect(signal)
+  t.equal(typeof createActions, 'function', 'connect(signal) returns a function')
+  const [action] = createActions('hello')
+  const greeting = 'yo'
+  const hello = action.of(greeting)
+
+  t.equal(hello.join(), greeting, 'connected actions emit on instantiation')
+})
+
+test('actions can be unwrapped to get at their contents', t => {
+  t.plan(4)
+
+  const payload = 'foo'
+  const alt = 'bar'
+  const action = createAction('pony')
+  const act = action.of(payload)
+  t.equal(act.join(), payload, 'payload can be unwrapped using join')
+  t.equal(act.unwrapOrElse(alt), payload, 'unwrapping returns the payload')
+
+  const empty = action.of()
+  t.equal(typeof empty.join(), 'undefined', 'empty actions can be joined')
+  t.equal(empty.unwrapOrElse(alt), alt, 'unwrapping can provide defaults')
 })
