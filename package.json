@@ -106,16 +106,16 @@
     "mkdirp": "^0.5.1",
     "nyc": "^10.1.2",
     "raid": "^2.10.1",
-    "raid-addons": "^2.10.1",
-    "raid-fl": "^2.10.1",
-    "raid-navigator": "^2.10.1",
+    "raid-addons": "^2.11.0",
+    "raid-fl": "^2.11.0",
+    "raid-navigator": "^2.11.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "reselect": "^2.5.4",
     "standard": "^9.0.1",
     "styled-jsx": "^2.0.1"
   },
-  "version": "2.10.2",
+  "version": "2.11.0",
   "dependencies": {
     "gitbook-plugin-edit-link": "^2.0.2"
   }
