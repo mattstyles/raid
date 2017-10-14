@@ -7,6 +7,7 @@
 
 import {render} from 'react-dom'
 import {Signal} from 'raid/src'
+import {debug} from 'raid-addons/src'
 import {union} from 'folktale/adt/union'
 
 import {App, Button, element, theme} from '../_common'
@@ -107,4 +108,6 @@ signal.observe(state => {
  * Register updates.
  * Returns a dispose function which can be used to destroy an update function.
  */
+signal.register(debug('>>'))
 signal.register(update)
+signal.register(debug('<<'))

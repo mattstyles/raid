@@ -8,7 +8,7 @@
 import {render} from 'react-dom'
 import {Signal} from 'raid/src'
 import {connect, typeEvent, untypeEvent} from 'raid-fl/src'
-import {match} from 'raid-addons/src'
+import {match, debug} from 'raid-addons/src'
 
 import {App, Button, element, theme} from '../_common'
 
@@ -128,6 +128,8 @@ signal.register(untypeEvent((state, event) => {
   console.log('untyped::', event)
   return state
 }))
+
+signal.register(debug('>>'))
 
 // signal.register((state, event) => {
 //   console.log(state, '::', event)

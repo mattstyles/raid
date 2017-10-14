@@ -1,10 +1,15 @@
 
 #
 
+* _add_ raid-fl type and untype events transform helpers
+* _add_ raid-addons:debug
+
+# 2.10.0
+
 * _add_ raid-addons:match
 * _add_ raid-fl for typed actions
 * _update_ create-raid-app dependencies
-* _update_ create-raid-app react 16 and styled-jsx 2
+* _update_ create-raid-app react@16 and styled-jsx@2
 * _add_ raid-fl to create-raid-app
 * _add_ Signal.of
 

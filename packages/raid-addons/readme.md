@@ -117,6 +117,50 @@ signal.emit({
 
 > This is a one-to-one mapping between event type and update function, to add more functions to a single event use  [squash](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md#squash).
 
+### Debug
+
+`<String> => <Function<state, event>>`
+
+> _Warning_ Creates side effects
+
+Debug creates an update function that logs the current state and the event being passed through the fold. Be aware of when you register the debug update with a signal i.e. if it is registered first then it will get the current state _before_ any mutation has occurred from another update function, if it is registered last then you’ll get the state after an update mutation has occurred.
+
+Debug accepts a single argument when instantiating the update function and this is a string that will be prepended to the event type.
+
+```js
+signal.register(debug('::'))
+```
+
+Adding debug twice to the top and bottom of your registered updates can give you the previous and next states but be aware that any updates that are registered later in your program will appear _after_ the final debug, which is often less than ideal.
+
+```js
+signal.register(debug('>>'))
+signal.register(update)
+signal.register(debug('<<'))
+```
+
+Debug is either on or off and it is up to the consumer to remove it from production builds if required, if your build process does dead-code removal then something like the following could be used:
+
+```js
+if (process.env.DEBUG) {
+  signal.register(debug())
+}
+```
+
+Or you may wish to implement a more complicated method that checks for the existence of a variable in local storage (for example) and choose whether to register the debug update or not. You could even take this one step further and make it dynamic, something like the following:
+
+```js
+const passthrough = (state, event) => state
+const checkStorage = key => update => {
+  return window.localStorage.getItem(key)
+    ? update
+    : passthrough
+}
+const checkDebug = checkStorage('DEBUG')
+
+signal.register(checkDebug(debug('::')))
+```
+
 ### Squash
 
 `<String> => <Array<Function>> => <Function <state, event>>`

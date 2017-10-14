@@ -1,6 +1,7 @@
 
 export {default as adaptor} from './adaptor'
 export {default as compress} from './compress'
+export {default as debug} from './debug'
 export {default as flow} from './flow'
 export {default as arc} from './arc'
 export {default as hook} from './hook'
