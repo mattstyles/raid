@@ -27,6 +27,8 @@ Raid does one job, it helps to manage the state of your application. Raid-fl add
 
 See the [examples](https://github.com/mattstyles/raid/blob/master/examples) for more detailed usage.
 
+> By default `raid-fl` outputs a build for modern environments, however, this creates a problem for some build tools as they don’t always understand some `esnext` syntax. Either use minification/build tooling that does or consider using `raid-fl/compat`, see the [interoperabilty section](https://github.com/mattstyles/raid/tree/master/packages/raid-fl#interoperability) for more details.
+
 ## Action Types
 
 Raid, by default, has a deliberately simplistic action (or event) model that looks like:
@@ -109,7 +111,7 @@ Raid-fl outputs a build for modern browsers which gives named actions output for
 import {createAction} from 'raid-fl/compat'
 ```
 
-Mostly typed and untyped events will work in the same codebase as whatever code you use inside your updates should work fine with both, however, for situations where you want to convert the structure of an argument `Raid-fl` implements two transform helpers which can provide interoperability with modules whose actions are strings/types or whose updates expect strings/types.
+Mostly typed and untyped events will work in the same codebase as whatever code you use inside your updates should work fine with both, however, for situations where you want to convert the structure of an argument `raid-fl` implements two transform helpers which can provide interoperability with modules whose actions are strings/types or whose updates expect strings/types.
 
 ```js
 import {typeEvent, untypeEvent} from 'raid-fl'
