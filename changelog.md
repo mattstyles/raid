@@ -1,4 +1,10 @@
 
+# 2.12.0
+
+* _add_ navigator can now match on starred routes
+* _add_ navigator:RouteMatcher
+* _update_ raid-fl interop with build tooling documentation
+
 # 2.11.0
 
 * _add_ raid-fl type and untype events transform helpers
