@@ -1,23 +1,10 @@
 
-import {createSelector} from 'reselect'
-import {compose} from 'lodash/fp'
-
 import {getHistory, createListener} from './history'
 import {DEFAULT_KEY, createUpdate} from './update'
 import {actions} from './actions'
-import {wrapChildren} from './utils'
+import {RouteMatcher} from './routeMatcher'
 
 const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
-const {matchRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
-
-const getProps = createSelector(
-  props => props,
-  props => props[props.root],
-  ({children}, navigation) => ({
-    children,
-    navigation
-  })
-)
 
 class Navigator extends Component {
   static defaultProps = {
@@ -57,22 +44,7 @@ class Navigator extends Component {
   }
 
   render () {
-    const {children, navigation} = getProps(this.props)
-
-    if (!navigation) {
-      return null
-    }
-
-    const {stack, index} = navigation
-
-    if (!stack || !stack.length) {
-      return null
-    }
-
-    return compose(
-      wrapChildren,
-      matchRoute(stack[index])
-    )(children)
+    return RouteMatcher(this.props)
   }
 }
 
