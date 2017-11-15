@@ -5,6 +5,8 @@ import tape from 'tape'
 
 import {findRoute, matchRoute} from '../src/env/react/routes'
 
+const createChild = (route, id) => <div route={route} id={route || id} />
+
 tape('Match a child from a route', t => {
   t.plan(2)
 
@@ -29,8 +31,6 @@ tape('Match a child from a route', t => {
 
 tape('Match finds a child from a list', t => {
   t.plan(6)
-
-  const createChild = route => <div route={route} id={route} />
 
   const route = {
     pathname: 'foo'
@@ -67,8 +67,6 @@ tape('Match finds a child from a list', t => {
 tape('Match is able to match multiple children', t => {
   t.plan(2)
 
-  const createChild = route => <div route={route} id={route} />
-
   const route = {
     pathname: 'foo'
   }
@@ -87,8 +85,6 @@ tape('Match is able to match multiple children', t => {
 
 tape('Match fails to find a child', t => {
   t.plan(1)
-
-  const createChild = route => <div route={route} id={route} />
 
   const route = {
     pathname: 'baz'
@@ -113,4 +109,24 @@ tape('Children get params appended as properties', t => {
 
   t.ok(params, 'Params are appended')
   t.equal(params.id, '123', 'Correct param is appended')
+})
+
+tape('Matches on starred routes', t => {
+  t.plan(1)
+
+  const child = createChild('foo/*', 'foo')
+  const route = {pathname: 'foo/bar'}
+
+  const match = matchRoute(route)([child])
+  t.ok(match.length > 0, 'Matches on starred routes')
+})
+
+tape.only('Matches on deep starred routes', t => {
+  t.plan(1)
+
+  const child = createChild('foo/bar/*', 'foo')
+  const route = {pathname: 'foo/bar/baz/quux'}
+
+  const match = matchRoute(route)([child])
+  t.ok(match.length > 0, 'Matches on deep starred routes')
 })

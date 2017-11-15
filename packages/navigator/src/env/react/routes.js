@@ -14,8 +14,8 @@ export const findRoute = route => {
   return child => {
     const match = child.props.route.split('/')
 
-    // Quick length fail
-    if (match.length !== search.length) {
+    // Quick length fail (allow starred routes to proceed)
+    if (match.length !== search.length && !match.includes('*')) {
       return false
     }
 
@@ -24,6 +24,11 @@ export const findRoute = route => {
       const routeParam = search[index]
 
       if (result === false) {
+        return props
+      }
+
+      // Match on a starred route
+      if (/\*/.test(param)) {
         return props
       }
 
