@@ -221,6 +221,42 @@ render(
 )
 ```
 
+## Match on all routes or subroutes
+
+The match algorithm also honours `*` routes as a wildcard to match against all routes or subroutes.
+
+```js
+const View = ({params: {title}}) => <h1>{title}</h1>
+
+render(
+  <Navigation>
+    <View route='/foo/*' />
+    <View route='/bar/*' />
+  </Navigation>
+  document.querySelector('root')
+)
+```
+
+## Route Matching Component
+
+`Navigator` is a connected component that attaches to the signal, however, sometimes you might want a supplementary component on your view that can react to url changes but is not connected to a history store.
+
+`RouteMatcher` just implements the route matching algorithm to choose a child without the connectivity that `Navigator` supplies.
+
+```js
+import {render} from 'react-dom'
+
+signal.observe(state => {
+  render(
+    <RouteMatcher navigation={state.navigation}>
+      <div route='/home/*'>Matched on home</div>
+      <div route='/settings/*'>Matched on settings</div>
+    </RouteMatcher>
+    document.querySelector('root')
+  )
+})
+```
+
 ## Running tests
 
 ```sh

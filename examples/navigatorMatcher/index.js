@@ -1,7 +1,8 @@
 
 import {render} from 'react-dom'
 
-import {Navigation, Push, Back, Forward, RouteMatcher} from './navigation'
+import {RouteMatcher} from 'raid-navigator/src'
+import {Navigation, Push, Back, Forward} from './navigation'
 import {signal} from './store'
 
 import {element, App} from '../_common'
@@ -49,7 +50,7 @@ signal.observe(state => {
         </View>
       </Navigation>
       <div className='root'>
-        <RouteMatcher>
+        <RouteMatcher navigation={state.navigation}>
           <div route='/home/*'>Matched on home</div>
           <div route='/settings/*'>Matched on settings</div>
         </RouteMatcher>
