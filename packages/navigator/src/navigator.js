@@ -2,7 +2,7 @@
 import {getHistory, createListener} from './history'
 import {DEFAULT_KEY, createUpdate} from './update'
 import {actions} from './actions'
-import {RouteMatcher} from './routeMatcher'
+import RouteMatcher from './routeMatcher'
 
 const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
 

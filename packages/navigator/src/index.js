@@ -9,3 +9,4 @@ export {
   back,
   forward
 } from './actions'
+export {default as RouteMatcher} from './routeMatcher'
