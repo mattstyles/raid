@@ -11,7 +11,9 @@ class Navigator extends Component {
     signal: null,
     history: null,
     root: DEFAULT_KEY,
-    navigation: null
+    navigation: null,
+    Component: null,
+    ComponentProps: {}
   }
 
   componentWillMount () {
@@ -44,7 +46,12 @@ class Navigator extends Component {
   }
 
   render () {
-    return RouteMatcher(this.props)
+    const Route = RouteMatcher(this.props)
+    const {Component, ComponentProps} = this.props
+
+    return Component
+      ? <Component {...ComponentProps}>{Route}</Component>
+      : Route
   }
 }
 
