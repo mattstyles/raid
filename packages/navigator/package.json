@@ -7,7 +7,7 @@
     "clean": "rimraf lib",
     "prebuild": "npm run clean",
     "build": "BABEL_ENV=react babel src --out-dir lib",
-    "watch": "babel --watch src --out-dir lib",
+    "watch": "BABEL_ENV=react babel --watch src --out-dir lib",
     "prestart": "npm run build",
     "start": "npm run watch",
     "test": "BABEL_ENV=react tape -r babel-register spec/*.test.js",

@@ -121,7 +121,7 @@ tape('Matches on starred routes', t => {
   t.ok(match.length > 0, 'Matches on starred routes')
 })
 
-tape.only('Matches on deep starred routes', t => {
+tape('Matches on deep starred routes', t => {
   t.plan(1)
 
   const child = createChild('foo/bar/*', 'foo')
