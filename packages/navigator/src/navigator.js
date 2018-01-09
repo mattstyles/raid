@@ -13,7 +13,8 @@ class Navigator extends Component {
     root: DEFAULT_KEY,
     navigation: null,
     Component: null,
-    ComponentProps: {}
+    ComponentProps: {},
+    mapChildren: null
   }
 
   componentWillMount () {

@@ -5,9 +5,10 @@ import {getProps, wrapChildren} from './utils'
 import {DEFAULT_KEY} from './update'
 
 const {matchRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
+const {mapChildren: mapChilds} = require(`${process.env.BABEL_ENV}/component.js`)
 
 const RouteMatcher = props => {
-  const {children, navigation} = getProps({
+  const {children, navigation, mapChildren} = getProps({
     ...props,
     root: DEFAULT_KEY
   })
@@ -22,10 +23,15 @@ const RouteMatcher = props => {
     return null
   }
 
+  // Invoke the mapper if available
+  const childs = mapChildren
+    ? mapChilds(children, mapChildren)
+    : children
+
   return compose(
     wrapChildren,
     matchRoute(stack[index])
-  )(children)
+  )(childs)
 }
 
 export default RouteMatcher
