@@ -8,10 +8,12 @@ const {matchRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
 const {mapChildren: mapChilds} = require(`${process.env.BABEL_ENV}/component.js`)
 
 const RouteMatcher = props => {
-  const {children, navigation, mapChildren} = getProps({
+  const {children, navigation} = getProps({
     ...props,
     root: DEFAULT_KEY
   })
+
+  const {mapChildren} = props
 
   if (!navigation) {
     return null
