@@ -282,3 +282,31 @@ tape('Signals should emit errors', t => {
   )
   signal.emit({})
 })
+
+tape('Signals can dispose of functions', t => {
+  t.plan(2)
+
+  let signal = new Signal({})
+  let update = (state, event) => {}
+  signal.register(update)
+
+  t.equal(signal.updates.size, 1, 'An update is registered')
+
+  signal.disposeAll()
+  t.equal(signal.updates.size, 0, 'Disposes of a single function')
+})
+
+tape('Signals can dispose of all of their functions', t => {
+  t.plan(2)
+
+  let signal = new Signal({})
+  let update = (state, event) => {}
+  let update2 = (state, event) => {}
+  signal.register(update)
+  signal.register(update2)
+
+  t.equal(signal.updates.size, 2, 'Updates are registered')
+
+  signal.disposeAll()
+  t.equal(signal.updates.size, 0, 'Disposes of all functions')
+})

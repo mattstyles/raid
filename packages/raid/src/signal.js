@@ -156,6 +156,21 @@ class Signal {
   dispose = key => {
     return this.updates.delete(key)
   }
+
+  /**
+   * Removes all updates from a signal
+   * @returns <Boolean||Array> true if successful, an array of failed keys if not
+   */
+  disposeAll = () => {
+    let results = []
+    for (let update of this.updates.keys()) {
+      let res = this.updates.delete(update)
+      if (!res) {
+        results.push(update)
+      }
+    }
+    return results.length ? results : true
+  }
 }
 
 export default Signal
