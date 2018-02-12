@@ -1,4 +1,10 @@
 
+# 2.13.0
+
+* _add_ raid:Signal:disposeAll
+* _add_ navigator can wrap a navigation stack in a component
+* _add_ navigator allows passing a function to map over children
+
 # 2.12.0
 
 * _add_ navigator can now match on starred routes
