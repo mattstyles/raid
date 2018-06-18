@@ -67,6 +67,8 @@ A history implementation to use, this defaults to `history/createBrowserHistory`
 
 Navigator will try to be smart and store the navigation stack into persistent memory, in order to match its own navigation stack with that of the browser as closely as it can it will attempt to use `sessionStorage` by default.
 
+Detailed `Navigator` component [api](#api—navigator) documentation.
+
 ## Browser history navigator
 
 By default navigator will attempt to use browser memory to manage its stack, this includes storing the navigation state to `sessionStorage`.
@@ -256,6 +258,52 @@ signal.observe(state => {
   )
 })
 ```
+
+## API—Navigator
+
+```js
+  signal: RaidSignal<Required>,
+  history: HistoryImpl,
+  root: String,
+  navigation: Object<Required>,
+  Component: Function || Element || Node,
+  ComponentProps: Object,
+  mapChildren: Function
+```
+
+Most properties are optional, only a `navigation` object and the `Raid Signal` to operate against are required.
+
+### navigation
+
+The `navigation` object is the navigation state that `Navigator` persists with the Raid Signal, it does this automatically for you but if you already have a history implementation under a separate key in your Raid Signal then you can supply the state here—this would be extremely rare though and altering the key is discouraged.
+
+### signal
+
+Passing in a `Raid Signal` is required to hook up the `Navigator` to the various events that can trigger a navigation event and includes pre-filling the navigation state when the `Navigator` is instantiated.
+
+### history
+
+Defaults to `history/createBrowserHistory`.
+
+Browser history is the primary target for `Navigator` but any implementation (such as `history/createMemoryHistory`) that matches the specification set out by [history](https://www.npmjs.com/package/history) should work fine.
+
+Note that the default actions exposed by `Navigator` expect to hook in to browser history, if you supply a different history implementation then you’ll also want to create actions based on that history to hook everything up. See the `navigatorMemory` example for clarity.
+
+### root
+
+This simply tells `Navigator` where it can find the navigation state. It’s not advised to change this, but, if absolutely necessary then you can. It’s just a string that is expected to match the key used in the signal to hold the navigation state.
+
+### Component
+
+Want to wrap your returned route/s in a component? Supply it using `Component`. Useful for implementing animation on route changes.
+
+### ComponentProps
+
+This object is spread as props to the `Component` specified, if you do not supply a `Component` then this is ignored.
+
+### mapChildren
+
+This function is used to transform all children supplied to the `Navigator` component and will occur before attempting to match on a child or children. This can be very useful for wrapping children in a component to help manage animating route changes.
 
 ## Running tests
 
