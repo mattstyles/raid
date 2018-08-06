@@ -7,7 +7,7 @@
         <title>Readme · Raid</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -281,23 +281,31 @@
 <li><a href="https://github.com/mattstyles/raid/tree/master/packages/raid" target="_blank">Getting started with raid</a></li>
 <li><a href="https://github.com/mattstyles/raid/tree/master/packages/raid-addons" target="_blank">Utilities and complementary functions</a></li>
 <li><a href="https://github.com/mattstyles/raid/tree/master/packages/raid-streams" target="_blank">Input streams</a></li>
+<li><a href="https://github.com/mattstyles/raid/tree/master/packages/raid-fl" target="_blank">Typed actions</a></li>
 <li><a href="https://mattstyles.github.io/raid/" target="_blank">Documentation</a></li>
 </ul>
+<h2 id="quick-start">Quick Start</h2>
+<p>Raid has a complementary <code>create-raid-app</code> package that will scaffold out a project ready to start raiding.</p>
+<pre class="language-"><code class="lang-sh"><span class="token function">mkdir</span> my-awesome-project
+<span class="token function">npm</span> i -g create-raid-app
+create-raid-app
+<span class="token function">npm</span> start -- -o
+</code></pre>
 <h2 id="examples">Examples</h2>
 <p>The Raid codebase has been written to encourage collaboration and uses <a href="https://lernajs.io/" target="_blank">lerna</a> to implement a monorepo.</p>
 <p>To get going you can let lerna do the heavy lifting so you simply need to clone the repository, install the root dependencies and then let lerna hook things together.</p>
-<p>To fire in to the examples run <code>yarn start</code> after letting lerna hook things up. This is also a live development environment and will automatically reload the browser when there are changes to any of the packages.</p>
-<pre class="language-"><code class="lang-sh">$ yarn
-$ yarn run setup
-$ yarn start -- -o
+<p>To fire in to the examples run <code>npm start</code> after letting lerna hook things up. This is also a live development environment and will automatically reload the browser when there are changes to any of the packages.</p>
+<pre class="language-"><code class="lang-sh">$ <span class="token function">npm</span> i
+$ <span class="token function">npm</span> run setup
+$ <span class="token function">npm</span> start -- -o
 </code></pre>
 <h2 id="running-tests">Running tests</h2>
-<pre class="language-"><code class="lang-sh">$ yarn
-$ yarn run setup
-$ yarn <span class="token function">test</span>
+<pre class="language-"><code class="lang-sh">$ <span class="token function">npm</span> i
+$ <span class="token function">npm</span> run setup
+$ <span class="token function">npm</span> <span class="token function">test</span>
 </code></pre>
 <h2 id="contributing">Contributing</h2>
-<p>Pull requests are always welcome, the project uses the <a href="http://standardjs.com" target="_blank">standard</a> code style. Please run <code>yarn test</code> to ensure all tests are passing and add tests for any new features or updates.</p>
+<p>Pull requests are always welcome, the project uses the <a href="http://standardjs.com" target="_blank">standard</a> code style. Please run <code>npm test</code> to ensure all tests are passing and add tests for any new features or updates.</p>
 <p>For bugs and feature requests, <a href="https://github.com/mattstyles/raid/issues" target="_blank">please create an issue</a>.</p>
 <h2 id="license">License</h2>
 <p>MIT</p>
@@ -340,7 +348,7 @@ $ yarn <span class="token function">test</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Readme","level":"1.1","depth":1,"next":{"title":"Introduction","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/mattstyles/raid/tree/master"},"github":{"url":"https://github.com/mattstyles/raid/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Raid","gitbook":">=3.2.1"},"file":{"path":"readme.md","mtime":"2017-08-09T07:50:59.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-08-16T07:53:28.728Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Readme","level":"1.1","depth":1,"next":{"title":"Introduction","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/mattstyles/raid/tree/master"},"github":{"url":"https://github.com/mattstyles/raid/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Raid","gitbook":">=3.2.1"},"file":{"path":"readme.md","mtime":"2018-04-10T06:52:48.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-06T15:11:29.224Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
