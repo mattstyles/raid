@@ -69,13 +69,7 @@ function spawnServer (example) {
     dir,
     packages
   ]
-  // Set babel env to switch jsx compilation
-  // if (/adaptor|resize|navigator|screen/.test(example)) {
-  //   process.env.BABEL_ENV = 'react'
-  // }
-  // if (/navigator/.test(example)) {
-  //   process.env.BABEL_ENV = 'inferno'
-  // }
+
   budo(dir + '/index.js', {
     live: true,
     dir,

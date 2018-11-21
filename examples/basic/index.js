@@ -7,11 +7,9 @@
 
 import {render} from 'react-dom'
 
-import {Signal} from 'raid/src'
+import {Signal} from 'raid'
 
-import element from '../_common/element'
-import Button from '../_common/actionButton'
-import {App} from '../_common/layout'
+import {App, Button, element} from '../_common'
 
 /**
  * The main signal can be observed for changes to application state.

@@ -15,7 +15,7 @@
     "docs:watch": "gitbook serve",
     "predocs:deploy": "npm run docs",
     "docs:deploy": "gh-pages -d _book",
-    "start": "BABEL_ENV=react node scripts/examples"
+    "start": "node scripts/examples"
   },
   "browserify": {
     "transform": [
@@ -24,33 +24,19 @@
     ]
   },
   "babel": {
-    "env": {
-      "react": {
-        "presets": [
-          "urban"
-        ],
-        "plugins": [
-          "transform-react-require",
-          "styled-jsx/babel"
-        ]
-      },
-      "inferno": {
-        "presets": [
-          "urban"
-        ],
-        "plugins": [
-          [
-            "transform-react-require",
-            {
-              "identifier": "Inferno",
-              "moduleName": "inferno"
-            }
-          ],
-          "inferno",
-          "styled-jsx/babel"
-        ]
-      }
-    }
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "transform-react-require",
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": false
+        }
+      ]
+    ]
   },
   "standard": {
     "parser": "babel-eslint",
@@ -78,16 +64,18 @@
   },
   "homepage": "https://github.com/mattstyles/raid#readme",
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "@mattstyles/match": "^1.0.1",
     "axios": "^0.15.3",
-    "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
-    "babel-plugin-inferno": "^0.7.7",
     "babel-plugin-transform-react-require": "^1.0.1",
-    "babel-preset-urban": "^1.0.0",
-    "babel-register": "^6.16.3",
-    "babelify": "^7.3.0",
-    "browserify": "^14.1.0",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
     "budo": "^9.2.1",
     "coveralls": "^2.11.14",
     "envify": "^4.0.0",
@@ -96,12 +84,9 @@
     "gh-pages": "^1.0.0",
     "history": "^4.7.2",
     "immutable": "^3.8.1",
-    "inferno": "^0.7.27",
-    "inferno-component": "^0.7.27",
-    "inferno-dom": "^0.7.27",
     "inquirer": "^3.0.6",
     "istanbul-combine": "^0.3.0",
-    "lerna": "^2.11.0",
+    "lerna": "^3.4.3",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "nyc": "^10.1.2",
@@ -110,12 +95,12 @@
     "raid-fl": "^2.13.0",
     "raid-navigator": "^2.12.0",
     "raid-streams": "^2.13.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-transition-group": "^2.2.1",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-transition-group": "^2.4.0",
     "reselect": "^2.5.4",
     "standard": "^10.0.0",
-    "styled-jsx": "^2.0.1"
+    "styled-jsx": "^3.1.2"
   },
   "version": "2.13.0",
   "dependencies": {
