@@ -60,7 +60,7 @@
   "dependencies": {
     "@mattstyles/tick": "^0.1.0",
     "eventemitter3": "^2.0.2",
-    "most": "^1.7.1",
+    "most": "^1.7.3",
     "quay": "^0.6.0",
     "raf-stream": "^3.0.0",
     "vkey": "^1.0.1"

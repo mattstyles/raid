@@ -1,4 +1,9 @@
 
+# - Breaking Change
+
+* _update_ babel 7
+* _update_ examples
+
 # 2.13.0
 
 * _add_ raid:Signal:disposeAll
