@@ -6,8 +6,8 @@
  */
 
 import {render} from 'react-dom'
-import {Signal} from 'raid/src'
-import {debug} from 'raid-addons/src'
+import {Signal} from 'raid'
+import {debug} from 'raid-addons'
 import {union} from 'folktale/adt/union'
 
 import {App, Button, element, theme} from '../_common'

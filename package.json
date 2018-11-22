@@ -29,6 +29,7 @@
       "@babel/preset-react"
     ],
     "plugins": [
+      "styled-components",
       "transform-react-require",
       [
         "@babel/plugin-proposal-class-properties",
@@ -71,12 +72,13 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@mattstyles/match": "^1.0.1",
-    "axios": "^0.15.3",
-    "babel-eslint": "^7.0.0",
+    "axios": "^0.18.0",
+    "babel-eslint": "^10.0.0",
+    "babel-plugin-styled-components": "^1.8.0",
     "babel-plugin-transform-react-require": "^1.0.1",
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
-    "budo": "^9.2.1",
+    "budo": "^11.5.0",
     "coveralls": "^2.11.14",
     "envify": "^4.0.0",
     "folktale": "^2.0.0",
@@ -99,8 +101,8 @@
     "react-dom": "^16.6.0",
     "react-transition-group": "^2.4.0",
     "reselect": "^2.5.4",
-    "standard": "^10.0.0",
-    "styled-jsx": "^3.1.2"
+    "standard": "^12.0.0",
+    "styled-components": "^4.1.1"
   },
   "version": "2.13.0",
   "dependencies": {
