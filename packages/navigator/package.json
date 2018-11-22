@@ -6,12 +6,12 @@
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "npm run clean",
-    "build": "BABEL_ENV=react babel src --out-dir lib",
-    "watch": "BABEL_ENV=react babel --watch src --out-dir lib",
+    "build": "babel src --out-dir lib",
+    "watch": "babel --watch src --out-dir lib",
     "prestart": "npm run build",
     "start": "npm run watch",
-    "test": "BABEL_ENV=react tape -r babel-register spec/*.test.js",
-    "cover": "BABEL_ENV=react nyc tape -r babel-register spec/*.test.js",
+    "test": "tape -r babel-register spec/*.test.js",
+    "cover": "nyc tape -r babel-register spec/*.test.js",
     "coverage-report": "nyc report --reporter=lcov",
     "prepublish": "npm run build"
   },
@@ -21,70 +21,19 @@
     ]
   },
   "babel": {
-    "env": {
-      "react": {
-        "presets": [
-          [
-            "env",
-            {
-              "targets": {
-                "browsers": [
-                  "last 2 versions"
-                ]
-              },
-              "loose": true
-            }
-          ],
-          "stage-3",
-          "react"
-        ],
-        "plugins": [
-          "transform-react-require",
-          "transform-class-properties",
-          "styled-jsx/babel",
-          [
-            "transform-define",
-            {
-              "process.env.BABEL_ENV": "./env/react"
-            }
-          ]
-        ]
-      },
-      "inferno": {
-        "presets": [
-          [
-            "env",
-            {
-              "targets": {
-                "browsers": [
-                  "last 2 versions"
-                ]
-              },
-              "loose": true
-            }
-          ],
-          "stage-3"
-        ],
-        "plugins": [
-          [
-            "transform-react-require",
-            {
-              "identifier": "Inferno",
-              "moduleName": "inferno"
-            }
-          ],
-          "inferno",
-          "transform-class-properties",
-          "styled-jsx/babel",
-          [
-            "transform-define",
-            {
-              "process.env.BABEL_ENV": "./env/react"
-            }
-          ]
-        ]
-      }
-    }
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "transform-react-require",
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": false
+        }
+      ]
+    ]
   },
   "standard": {
     "parser": "babel-eslint"
@@ -103,23 +52,19 @@
   },
   "bugs": "https://github.com/mattstyles/raid/issues",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "babel-eslint": "^7.0.0",
-    "babel-plugin-transform-class-properties": "^6.23.0",
-    "babel-plugin-transform-define": "^1.2.0",
-    "babel-plugin-transform-react-require": "^1.0.1",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.23.0",
-    "babel-preset-stage-3": "^6.22.0",
-    "babel-register": "^6.26.0",
     "coveralls": "^2.11.14",
-    "envify": "^4.1.0",
     "jsdom": "^9.12.0",
     "nyc": "^10.1.2",
     "raid": "^2.13.0",
     "rimraf": "^2.6.2",
     "standard": "^9.0.1",
-    "styled-jsx": "^0.5.7",
     "tape": "^4.8.0"
   },
   "dependencies": {
@@ -129,9 +74,9 @@
     "reselect": "^3.0.0"
   },
   "peerDependencies": {
-    "raid": "^2.10.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "raid": "^2.13.0",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0"
   },
   "license": "MIT"
 }

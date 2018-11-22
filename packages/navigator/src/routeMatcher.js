@@ -4,8 +4,11 @@ import {compose} from 'lodash/fp'
 import {getProps, wrapChildren} from './utils'
 import {DEFAULT_KEY} from './update'
 
-const {matchRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
-const {mapChildren: mapChilds} = require(`${process.env.BABEL_ENV}/component.js`)
+// const {matchRoute} = require(`${process.env.BABEL_ENV}/routes.js`)
+// const {mapChildren: mapChilds} = require(`${process.env.BABEL_ENV}/component.js`)
+
+import {matchRoute} from './env/react/routes'
+import {mapChildren as mapChilds} from './env/react/component'
 
 const RouteMatcher = props => {
   const {children, navigation} = getProps({

@@ -4,7 +4,8 @@ import {DEFAULT_KEY, createUpdate} from './update'
 import {actions} from './actions'
 import RouteMatcher from './routeMatcher'
 
-const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
+// const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
+import {Component} from './env/react/component'
 
 class Navigator extends Component {
   static defaultProps = {
