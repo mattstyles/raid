@@ -1,25 +1,23 @@
 
 import {render} from 'react-dom'
 
-import {Signal} from 'raid/src'
+import {Signal} from 'raid'
 import {
   default as screenStream,
   actions as screenActions
-} from 'raid-streams/src/screen'
+} from 'raid-streams/screen'
 import {
   default as keyStream,
   actions as keyActions,
   keySequence,
   timedKeySequence
-} from 'raid-streams/src/keys'
+} from 'raid-streams/keys'
 import {
   default as tickStream,
   actions as tickActions
-} from 'raid-streams/src/tick'
+} from 'raid-streams/tick'
 
-import element from '../_common/element'
-// import {View, Main, Code} from '../_common/layout'
-import {App} from '../_common'
+import {App, element, P, H1} from '../_common'
 
 // Create main app signal
 const signal = new Signal({
@@ -108,10 +106,10 @@ signal.register(update)
 signal.observe(state => {
   render(
     <App state={state}>
-      <p>Try resizing the screen</p>
-      <p>Try changing the orientation</p>
-      <p>Try scrolling the screen</p>
-      <p>Try holding the enter key</p>
+      <P>Try resizing the screen</P>
+      <P>Try changing the orientation</P>
+      <P>Try scrolling the screen</P>
+      <P>Try holding the enter key</P>
       <div style={{
         width: 48,
         height: 48,
@@ -120,12 +118,12 @@ signal.observe(state => {
         color: 'white',
         background: state.toggle ? 'rgb(109, 170, 44)' : 'rgb(208, 70, 72)'
       }}>{state.frames}</div>
-      <p style={{
+      <P style={{
         color: state.keypress ? 'rgb(117, 113, 97)' : 'rgb(20, 12, 28)'
-      }}>{state.key}</p>
-      <h1 style={{
+      }}>{state.key}</P>
+      <H1 style={{
         display: state.hadoken ? 'block' : 'none'
-      }}>Hadoken</h1>
+      }}>Hadoken</H1>
     </App>,
     element
   )

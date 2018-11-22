@@ -1,37 +1,18 @@
 
-import Button from '../_common/actionButton'
+import {Card, H2, P, Button, Inline} from '../_common'
 import {dispatch, actions} from './actions'
 
-const styles = `
-  .container {
-    margin: 30px;
-    background: white;
-    border-radius: 3px;
-    padding: 12px;
-    font-size: 1.5rem;
-    display: table;
-  }
-  .btn {
-    display: block;
-    margin-right: 0;
-    margin-top: 8px;
-  }
-`
-
-export const Person = ({name, age}) => {
-  return (
-    <div className='container'>
-      <h2>{name}</h2>
-      <p>{`Age: ${age}`}</p>
+export const Person = ({name, age}) => (
+  <Card>
+    <H2>{name}</H2>
+    <P>{`Age: ${age}`}</P>
+    <Inline>
       <Button
-        classes='btn'
         onClick={dispatch(actions.changeAge)}
       >Update Age</Button>
       <Button
-        classes='btn'
         onClick={dispatch(actions.changeName)}
       >Update Name</Button>
-      <style jsx>{styles}</style>
-    </div>
-  )
-}
+    </Inline>
+  </Card>
+)

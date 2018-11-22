@@ -6,10 +6,10 @@
  */
 
 import {render} from 'react-dom'
-import {Signal} from 'raid/src'
-import {match, debug} from 'raid-addons/src'
+import {Signal} from 'raid'
+import {match, debug} from 'raid-addons'
 
-import {App, Button, element, theme} from '../_common'
+import {App, Button, element, theme, Counter, Count, Inline} from '../_common'
 
 /**
  * The main signal can be observed for changes to application state.
@@ -51,43 +51,23 @@ const update = match([
  */
 const dispatch = (type, payload) => domEvent => signal.emit({type, payload})
 
-const Counter = ({count}) => {
-  return (
-    <div className='Counter'>
-      <span className='Count'>{count}</span>
-      <div className='Controls'>
-        <Button
-          onClick={dispatch(actions.alter, 1)}
-        >+</Button>
-        <Button
-          onClick={dispatch(actions.alter, -1)}
-        >-</Button>
-        <Button
-          onClick={dispatch(actions.reset)}
-          background={theme.color.secondary}
-        >Reset</Button>
-      </div>
-      <style jsx>{`
-        .Counter {
-          display: inline-block;
-          padding: 8px 0px 8px 8px;
-          background: rgb(255, 255, 255);
-          border: 1px solid rgb(230,232,238);
-          border-radius: 3px;
-        }
-        .Count {
-          display: inline-block;
-          font-size: 28px;
-          margin: 0px 16px 0px 8px;
-          vertical-align: middle;
-        }
-        .Controls {
-          display: inline-block;
-        }
-      `}</style>
-    </div>
-  )
-}
+const CountWidget = ({count}) => (
+  <Counter>
+    <Count>{count}</Count>
+    <Inline>
+      <Button
+        onClick={dispatch(actions.alter, 1)}
+      >+</Button>
+      <Button
+        onClick={dispatch(actions.alter, -1)}
+      >-</Button>
+      <Button
+        onClick={dispatch(actions.reset)}
+        background={theme.color.secondary}
+      >Reset</Button>
+    </Inline>
+  </Counter>
+)
 
 /**
  * The signal observer notifies when the application state changes
@@ -95,7 +75,7 @@ const Counter = ({count}) => {
 signal.observe(state => {
   render(
     <App state={state}>
-      <Counter count={state.count} />
+      <CountWidget count={state.count} />
     </App>,
     element
   )

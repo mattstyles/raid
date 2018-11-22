@@ -7,11 +7,9 @@
 import {render} from 'react-dom'
 import Immutable from 'immutable'
 
-import {Signal} from 'raid/src'
+import {Signal} from 'raid'
 
-import element from '../_common/element'
-import Button from '../_common/actionButton'
-import {App} from '../_common/layout'
+import {App, element, Button} from '../_common'
 
 const generateShape = () => {
   return {
@@ -50,9 +48,10 @@ const styles = {
 }
 
 const Main = ({state}) => {
-  let shapes = state.toArray().map(shape => {
+  let shapes = state.toArray().map((shape, i) => {
     return (
       <div
+        key={i}
         style={{
           position: 'absolute',
           left: shape.left + '%',

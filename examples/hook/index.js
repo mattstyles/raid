@@ -4,9 +4,9 @@ import {render} from 'react-dom'
 import {
   compress,
   hook
-} from 'raid-addons/src'
+} from 'raid-addons'
 
-import element from '../_common/element'
+import {App, element} from '../_common'
 
 import {signal} from './store'
 import {actions} from './actions'
@@ -44,7 +44,9 @@ signal.register(hook(log, {
 
 signal.observe(state => {
   render(
-    <Person name={state.name} age={state.age} />,
+    <App state={state}>
+      <Person name={state.name} age={state.age} />
+    </App>,
     element
   )
 })

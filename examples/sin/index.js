@@ -1,12 +1,11 @@
 
-import 'babel-polyfill'
+import '@babel/polyfill'
 import {render} from 'react-dom'
-import {Signal} from 'raid/src'
+import {Signal} from 'raid'
 
-import {sin} from 'raid-addons/src'
+import {sin} from 'raid-addons'
 
-import element from '../_common/element'
-import Button from '../_common/actionButton'
+import {App, element, Button} from '../_common'
 
 const signal = new Signal({
   name: 'Joe',
@@ -76,7 +75,10 @@ signal.register(request)
 
 signal.observe(state => {
   render(
-    <Person name={state.name} age={state.age} isRequesting={state.isRequesting} />,
+    <App state={state}>
+      <h1>Deprecated: don't use <code>sin</code>, use <code>arc</code> instead.</h1>
+      <Person name={state.name} age={state.age} isRequesting={state.isRequesting} />
+    </App>,
     element
   )
 }, e => console.error(e))

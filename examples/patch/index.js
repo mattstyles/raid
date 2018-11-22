@@ -1,12 +1,10 @@
 
 import {render} from 'react-dom'
 
-import {Signal} from 'raid/src'
-import patch from 'raid-addons/src/patch'
+import {Signal} from 'raid'
+import {patch} from 'raid-addons'
 
-import element from '../_common/element'
-import Button from '../_common/actionButton'
-import {App} from '../_common/layout'
+import {App, Button, element, H2} from '../_common'
 
 const signal = new Signal({
   patched: {
@@ -30,6 +28,7 @@ const update = (state, event) => {
   }
 }
 
+// Either form of patch() will work
 // signal.register(patch('patched', update))
 signal.register(patch('patched')(update))
 
@@ -37,6 +36,7 @@ signal.observe(state => {
   render(
     <App state={state}>
       <Button onClick={dispatch(actions.foo)}>Click me</Button>
+      <H2>{state.patched.foo}</H2>
     </App>,
     element
   )

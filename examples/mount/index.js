@@ -1,11 +1,9 @@
 
 import {render} from 'react-dom'
 
-import {Signal} from 'raid/src'
+import {Signal} from 'raid'
 
-import element from '../_common/element'
-import Button from '../_common/actionButton'
-import {View, Main, Code} from '../_common/layout'
+import {App, H2, element, Button} from '../_common'
 
 import {fromEvent} from 'most'
 import EventEmitter from 'eventemitter3'
@@ -60,26 +58,16 @@ const update = (state, event) => {
 
 signal.register(update)
 
-const App = ({state}) => {
-  return (
-    <View>
-      <Main>
-        <Button onClick={dispatch(actions.add)}>Add</Button>
-        <Button
-          onClick={sourceDispatch(actions.add)}
-          background='rgb(24, 190, 80)'
-        >Add 2</Button>
-      </Main>
-      <Code>
-        <pre>{JSON.stringify(state, null, '  ')}</pre>
-      </Code>
-    </View>
-  )
-}
-
 signal.observe(state => {
   render(
-    <App state={state} />,
+    <App state={state}>
+      <Button onClick={dispatch(actions.add)}>Add</Button>
+      <Button
+        onClick={sourceDispatch(actions.add)}
+        background='rgb(24, 190, 80)'
+      >Add 2</Button>
+      {state.key && <H2>{state.key}</H2>}
+    </App>,
     element
   )
 })

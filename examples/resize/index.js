@@ -2,7 +2,7 @@
 import {render} from 'react-dom'
 import {compress} from 'raid-addons'
 
-import element from '../_common/element'
+import {element, H1, App} from '../_common'
 
 import {signal} from './store'
 import {resize, actions} from './resize'
@@ -17,11 +17,10 @@ signal.register(compress({
 
 signal.mount(resize)
 
-const App = state => (
-  <div>
-    <h1>Main</h1>
+signal.observe(state => render(
+  <App state={state}>
+    <H1>Main</H1>
     <Flex />
-  </div>
-)
-
-signal.observe(state => render(<App />, element))
+  </App>,
+  element
+))

@@ -1,18 +1,22 @@
 
 import {render} from 'react-dom'
 
-import {Signal} from 'raid/src'
+import {Signal} from 'raid'
 import {
   scope,
   compress,
   adaptor
-} from 'raid-addons/src'
+} from 'raid-addons'
 
 import {
   App,
   element,
   Button,
-  theme
+  theme,
+  Count,
+  P,
+  Card,
+  Box
 } from '../_common'
 
 const screens = {
@@ -36,7 +40,7 @@ const navigateTo = payload => event => navigate(payload)
 
 const Loading = () => (
   <div>
-    <p>Clicking add will dispatch an event here, but it will not match in the updater.</p>
+    <P>Clicking add will dispatch an event here, but it will not match in the updater.</P>
   </div>
 )
 
@@ -44,14 +48,8 @@ const MainScreen = connect(
   ({count}) => ({count}),
   ({count}) => (
     <div>
-      <p>The updater can access state and realise it should respond to add events.</p>
-      <div className='Count'>{count}</div>
-      <style jsx>{`
-        .Count {
-          font-size: ${theme.baseFontSize * 3}rem;
-          text-align: center;
-        }
-      `}</style>
+      <P>The updater can access state and realise it should respond to add events.</P>
+      <Count>{count}</Count>
     </div>
   )
 )
@@ -59,23 +57,17 @@ const MainScreen = connect(
 const ActionBar = ({children}) => {
   return (
     <div>
-      <div>
+      <Box isMargin>
         <Button onClick={navigateTo(screens.loading)}>Loading</Button>
         <Button onClick={navigateTo(screens.main)}>Main</Button>
         <Button
           onClick={dispatch(actions.add)}
           background={theme.color.secondary}
         >Add</Button>
-      </div>
-      <div className='Main'>
+      </Box>
+      <Card>
         {children}
-      </div>
-      <style jsx>{`
-        .Main {
-          font-size: ${theme.baseFontSize}rem;
-          margin: ${theme.basePadding}rem 0;
-        }
-      `}</style>
+      </Card>
     </div>
   )
 }
