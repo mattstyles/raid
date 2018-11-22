@@ -1,11 +1,11 @@
 
 import {render} from 'react-dom'
 
-import {RouteMatcher} from 'raid-navigator/src'
+import {RouteMatcher} from 'raid-navigator'
 import {Navigation, Push, Back, Forward} from './navigation'
 import {signal} from './store'
 
-import {element, App} from '../_common'
+import {element, App, Card} from '../_common'
 
 const View = ({children, params, route}) => {
   console.log('params:', params)
@@ -49,20 +49,12 @@ signal.observe(state => {
           <Push route='/home/bar'>Home/bar</Push>
         </View>
       </Navigation>
-      <div className='root'>
+      <Card>
         <RouteMatcher navigation={state.navigation}>
           <div route='/home/*'>Matched on home</div>
           <div route='/settings/*'>Matched on settings</div>
         </RouteMatcher>
-        <style jsx>{`
-          div.root {
-            margin: 20px 0;
-            padding: 20px;
-            background: white;
-            border-radius: 3px;
-          }
-        `}</style>
-      </div>
+      </Card>
     </App>,
     element
   )
