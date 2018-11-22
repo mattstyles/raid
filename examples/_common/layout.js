@@ -8,6 +8,20 @@ export const View = styled('div')`
   flex-direction: row;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  padding: ${props => props.isPadded && props.theme.basePadding + 'rem'};
+`
+
+export const Box = styled('div')`
+  display: block;
+  padding: ${props => props.isPadded && props.theme.basePadding + 'rem'};
+  margin: ${props => props.isMargin && props.theme.basePadding + 'rem'};
+`
+
+export const Card = styled('div')`
+  display: block;
+  background: ${props => props.theme.color.white};
+  border-radius: ${props => props.theme.borderRadius}px;
+  padding: ${props => props.theme.basePadding}rem;
 `
 
 export const Main = styled('div')`
@@ -45,77 +59,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 `
 
-// export const View = ({styles, children}) => {
-//   return (
-//     <div
-//       className='View'
-//       style={styles}
-//     >
-//       {children}
-//       <style jsx>{`
-//         .View {
-//           display: flex;
-//           flex: 1;
-//           flex-direction: row;
-//           min-height: 100vh;
-//           -webkit-font-smoothing: antialiased;
-//         }
-//       `}</style>
-//     </div>
-//   )
-// }
-//
-// export const Main = ({styles, children}) => {
-//   return (
-//     <div
-//       className='Main'
-//       style={styles}
-//     >
-//       {children}
-//       <style jsx>{`
-//         .Main {
-//           position: relative;
-//           flex: 1;
-//           padding: ${theme.basePadding}rem;
-//           box-sizing: border-box;
-//           overflow: scroll;
-//           height: 100vh;
-//         }
-//       `}</style>
-//     </div>
-//   )
-// }
-//
-// export const Code = ({styles, children}) => {
-//   return (
-//     <div
-//       className='Code'
-//       style={styles}
-//     >
-//       {children}
-//       <style jsx>{`
-//         .Code {
-//           flex: 1;
-//           font-family: 'Source Code Pro', consolas, monospace;
-//           font-size: ${theme.baseFontSize}rem;
-//           -webkit-font-smoothing: subpixel-antialiased;
-//           margin: 0;
-//           padding: ${theme.basePadding}em;
-//           background: ${theme.color.codeBg};
-//           color: ${theme.color.white};
-//           border-left: 1px solid ${theme.color.border};
-//           overflow: scroll;
-//           height: 100vh;
-//           box-sizing: border-box;
-//         }
-//         .Code :global(pre) {
-//           margin: 0;
-//           font-family: inherit;
-//         }
-//       `}</style>
-//     </div>
-//   )
-// }
+export const Inline = styled('div')`
+  display: inline-block;
+`
 
 export const App = ({state, children}) => {
   return (

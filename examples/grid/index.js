@@ -6,12 +6,11 @@
  */
 
 import {render} from 'react-dom'
+import styled from 'styled-components'
 
-import {Signal} from 'raid/src'
+import {Signal} from 'raid'
 
-import element from '../_common/element'
-import Button from '../_common/actionButton'
-import {View, Main} from '../_common/layout'
+import {App, Button, element} from '../_common'
 
 var LINE = '........................................'
 
@@ -82,18 +81,16 @@ const update = (state, event) => {
 }
 
 /**
- * Raid can be used with any view library, here we use InfernoJS partnered
- * with styled-jsx for styling.
+ * Raid can be used with any view library
  */
-const styles = {
-  grid: `.grid {
-    font-family: 'DejaVu Sans Mono';
-    font-size: 1.5rem;
-    white-space: pre;
-    color: rgb(232, 232, 232);
-    background: rgb(24, 24, 24);
-  }`
-}
+const Grid = styled('div')`
+  font-family: 'DejaVu Sans Mono';
+  font-size: 1.5rem;
+  white-space: pre;
+  color: rgb(232, 232, 232);
+  background: rgb(24, 24, 24);
+  margin-bottom: 16px;
+`
 
 /**
  * Action handlers are a simple bit of sugar to add
@@ -111,31 +108,24 @@ const Map = ({map}) => {
   }
   return (
     <div>
-      <div className='grid'>
-        {content.map(str => <Line str={str} />)}
-      </div>
+      <Grid>
+        {content.map((str, i) => <Line key={i} str={str} />)}
+      </Grid>
       <Button
         styles={{marginTop: 8}}
         onClick={dispatch(ACTIONS.GENERATE)}
       >Generate</Button>
-      <style jsx>{styles.grid}</style>
     </div>
   )
 }
-
-const App = ({state}) => (
-  <View>
-    <Main>
-      <Map map={state.map} />
-    </Main>
-  </View>
-)
 
 /**
  * The signal observer notifies when the application state changes
  */
 signal.observe(state => render(
-  <App state={state} />,
+  <App state={state}>
+    <Map map={state.map} />
+  </App>,
   element
 ))
 

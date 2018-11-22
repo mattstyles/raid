@@ -1,11 +1,11 @@
 
-import 'babel-polyfill'
+import '@babel/polyfill'
 import {render} from 'react-dom'
 
 import {
   compress,
   safe
-} from 'raid-addons/src'
+} from 'raid-addons'
 import {element, App} from '../_common'
 
 import {signal} from './store'

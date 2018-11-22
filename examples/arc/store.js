@@ -1,5 +1,5 @@
 
-import {Signal} from 'raid/src'
+import {Signal} from 'raid'
 
 export const signal = new Signal({
   user: null,

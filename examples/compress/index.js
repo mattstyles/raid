@@ -5,10 +5,9 @@ import {Signal} from 'raid'
 import {
   compress,
   flow
-} from 'raid-addons/src'
+} from 'raid-addons'
 
-import element from '../_common/element'
-import Button from '../_common/actionButton'
+import {Box, Button, element, App, H2, P} from '../_common'
 
 const signal = new Signal({
   name: 'Joe',
@@ -23,13 +22,13 @@ const dispatch = type => {
 
 const Person = ({name, age}) => {
   return (
-    <div style={{padding: 30}}>
-      <h2 onClick={dispatch('CHANGE_NAME')}>{name}</h2>
-      <p onClick={dispatch('CHANGE_AGE')}>{`Age: ${age}`}</p>
+    <Box isPadded>
+      <H2 onClick={dispatch('CHANGE_NAME')}>{name}</H2>
+      <P onClick={dispatch('CHANGE_AGE')}>{`Age: ${age}`}</P>
       <Button
         onClick={dispatch('CHANGE')}
       >Update</Button>
-    </div>
+    </Box>
   )
 }
 
@@ -59,7 +58,9 @@ signal.register(compress('CHANGE')(update))
 
 signal.observe(state => {
   render(
-    <Person name={state.name} age={state.age} />,
+    <App state={state}>
+      <Person name={state.name} age={state.age} />
+    </App>,
     element
   )
 })

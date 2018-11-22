@@ -1,5 +1,5 @@
 
-import Button from '../_common/actionButton'
+import {Button} from '../_common'
 
 import {dispatch, actions} from './actions'
 

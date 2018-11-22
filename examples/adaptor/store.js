@@ -1,6 +1,6 @@
 
-import {Signal} from 'raid/src'
-import adaptor from 'raid-addons/src/adaptor'
+import {Signal} from 'raid'
+import {adaptor} from 'raid-addons'
 
 export const signal = new Signal({
   name: 'Raid',
