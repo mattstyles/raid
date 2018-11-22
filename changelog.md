@@ -3,6 +3,7 @@
 
 * _update_ babel 7
 * _update_ examples
+* _remove_ unnecessary dependencies from raid-streams
 
 # 2.13.0
 
