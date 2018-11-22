@@ -48,7 +48,7 @@
     "cross-spawn": "^5.1.0",
     "event-stream": "^3.3.4",
     "inquirer": "^3.2.3",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mustache": "^2.3.0",

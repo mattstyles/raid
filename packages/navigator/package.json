@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "history": "^4.7.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "raid-addons": "^2.13.0",
     "reselect": "^3.0.0"
   },
