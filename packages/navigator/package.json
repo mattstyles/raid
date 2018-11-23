@@ -74,7 +74,7 @@
     "reselect": "^3.0.0"
   },
   "peerDependencies": {
-    "raid": "^2.13.0",
+    "raid": "^3.0.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0"
   },
