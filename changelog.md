@@ -1,5 +1,7 @@
 
-# - Breaking Change
+# 3.0.0
+
+> Breaking Change
 
 * _update_ babel 7
 * _update_ examples
