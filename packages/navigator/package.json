@@ -1,6 +1,6 @@
 {
   "name": "raid-navigator",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Navigation stack hooked in to a raid signal",
   "main": "lib",
   "scripts": {
