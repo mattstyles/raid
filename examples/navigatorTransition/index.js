@@ -1,12 +1,12 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
-import {Navigation, Push, Back, Forward} from './navigation'
-import {signal} from './store'
+import { Navigation, Push, Back, Forward } from './navigation'
+import { signal } from './store'
 
-import {element, App} from '../_common'
+import { element, App } from '../_common'
 
-const View = ({children, params, route}) => {
+const View = ({ children, params, route }) => {
   console.log('params:', params)
   console.log('route:', route)
   return children.length ? <div>{children}</div> : children

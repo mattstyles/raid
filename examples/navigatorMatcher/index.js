@@ -1,13 +1,13 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
-import {RouteMatcher} from 'raid-navigator'
-import {Navigation, Push, Back, Forward} from './navigation'
-import {signal} from './store'
+import { RouteMatcher } from 'raid-navigator'
+import { Navigation, Push, Back, Forward } from './navigation'
+import { signal } from './store'
 
-import {element, App, Card} from '../_common'
+import { element, App, Card } from '../_common'
 
-const View = ({children, params, route}) => {
+const View = ({ children, params, route }) => {
   console.log('params:', params)
   console.log('route:', route)
   return children.length ? <div>{children}</div> : children

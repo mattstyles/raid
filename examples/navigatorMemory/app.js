@@ -1,15 +1,15 @@
 
-import {Navigation, Push, Back, Forward} from './navigation'
+import { Navigation, Push, Back, Forward } from './navigation'
 
-import {App} from '../_common'
+import { App } from '../_common'
 
-const View = ({children, params, route}) => {
+const View = ({ children, params, route }) => {
   return children.length
     ? <div>{children}</div>
     : children
 }
 
-export default ({state}) => (
+export default ({ state }) => (
   <App state={state}>
     <Back />
     <Forward />

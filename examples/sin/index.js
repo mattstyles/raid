@@ -1,11 +1,11 @@
 
 import '@babel/polyfill'
-import {render} from 'react-dom'
-import {Signal} from 'raid'
+import { render } from 'react-dom'
+import { Signal } from 'raid'
 
-import {sin} from 'raid-addons'
+import { sin } from 'raid-addons'
 
-import {App, element, Button} from '../_common'
+import { App, element, Button } from '../_common'
 
 const signal = new Signal({
   name: 'Joe',
@@ -15,14 +15,14 @@ const signal = new Signal({
 
 const dispatch = type => {
   return payload => {
-    signal.emit({type, payload})
+    signal.emit({ type, payload })
   }
 }
 
-const Person = ({name, age, isRequesting}) => {
+const Person = ({ name, age, isRequesting }) => {
   return (
-    <div style={{margin: 30, background: 'white', borderRadius: 3, padding: 12, display: 'table'}}>
-      <h2 style={{margin: 6}}>{name}</h2>
+    <div style={{ margin: 30, background: 'white', borderRadius: 3, padding: 12, display: 'table' }}>
+      <h2 style={{ margin: 6 }}>{name}</h2>
       <Button
         styles={{
           marginRight: 0,

@@ -1,17 +1,17 @@
 
 import '@babel/polyfill'
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
 import {
   compress,
   safe
 } from 'raid-addons'
-import {element, App} from '../_common'
+import { element, App } from '../_common'
 
-import {signal} from './store'
-import {Main} from './user'
-import {request} from './effects'
-import {actions} from './actions'
+import { signal } from './store'
+import { Main } from './user'
+import { request } from './effects'
+import { actions } from './actions'
 
 const onRequestPending = (state, payload) => {
   return {

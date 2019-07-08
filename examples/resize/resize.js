@@ -1,5 +1,5 @@
 
-import {fromEvent} from 'most'
+import { fromEvent } from 'most'
 
 export const actions = {
   resize: 'raid:resize'
@@ -12,10 +12,10 @@ const initial = {
 
 export const resize = fromEvent('resize', window)
   .scan((prev, event) => {
-    const {innerWidth, innerHeight} = event.target
+    const { innerWidth, innerHeight } = event.target
     return {
       width: innerWidth,
       height: innerHeight
     }
   }, initial)
-  .map(payload => ({type: actions.resize, payload}))
+  .map(payload => ({ type: actions.resize, payload }))

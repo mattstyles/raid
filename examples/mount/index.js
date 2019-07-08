@@ -1,11 +1,11 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
-import {Signal} from 'raid'
+import { Signal } from 'raid'
 
-import {App, H2, element, Button} from '../_common'
+import { App, H2, element, Button } from '../_common'
 
-import {fromEvent} from 'most'
+import { fromEvent } from 'most'
 import EventEmitter from 'eventemitter3'
 
 // Create main app signal
@@ -28,8 +28,8 @@ const keys = fromEvent('keydown', window.document.body)
 signal.mount(source)
 signal.mount(keys)
 
-const dispatch = type => payload => signal.emit({type, payload})
-const sourceDispatch = type => payload => emitter.emit('action', {type, payload})
+const dispatch = type => payload => signal.emit({ type, payload })
+const sourceDispatch = type => payload => emitter.emit('action', { type, payload })
 
 const actions = {
   add: 'actions:add',

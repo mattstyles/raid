@@ -1,6 +1,6 @@
 
-import {Signal} from 'raid'
-import {adaptor} from 'raid-addons'
+import { Signal } from 'raid'
+import { adaptor } from 'raid-addons'
 
 export const signal = new Signal({
   width: window.innerWidth,
@@ -10,4 +10,4 @@ export const signal = new Signal({
 export const connect = adaptor(signal)
 
 export const dispatch = type => payload =>
-  signal.emit({type, payload})
+  signal.emit({ type, payload })

@@ -1,5 +1,5 @@
 
-import {signal} from './store'
+import { signal } from './store'
 
 export const actions = {
   request: 'request',
@@ -9,4 +9,4 @@ export const actions = {
 }
 
 export const dispatch = type =>
-  payload => signal.emit({type, payload})
+  payload => signal.emit({ type, payload })

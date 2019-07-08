@@ -5,12 +5,12 @@
  * by action types
  */
 
-import {render} from 'react-dom'
-import {Signal} from 'raid'
-import {connect} from 'raid-fl'
-import {match} from 'raid-addons'
+import { render } from 'react-dom'
+import { Signal } from 'raid'
+import { connect } from 'raid-fl'
+import { match } from 'raid-addons'
 
-import {App, Button, element, theme, Counter, Count, Inline} from '../_common'
+import { App, Button, element, theme, Counter, Count, Inline } from '../_common'
 
 /**
  * The main signal can be observed for changes to application state.
@@ -51,7 +51,7 @@ const update = match([
 /**
  * Action handlers are a simple bit of sugar to add
  */
-const CountWidget = ({count}) => (
+const CountWidget = ({ count }) => (
   <Counter>
     <Count>{count}</Count>
     <Inline>

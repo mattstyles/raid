@@ -1,7 +1,7 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
-import {Signal} from 'raid'
+import { Signal } from 'raid'
 import {
   scope,
   compress,
@@ -34,7 +34,7 @@ const actions = {
   add: 'actions:add'
 }
 
-const dispatch = type => payload => signal.emit({type, payload})
+const dispatch = type => payload => signal.emit({ type, payload })
 const navigate = dispatch(actions.navigate)
 const navigateTo = payload => event => navigate(payload)
 
@@ -45,8 +45,8 @@ const Loading = () => (
 )
 
 const MainScreen = connect(
-  ({count}) => ({count}),
-  ({count}) => (
+  ({ count }) => ({ count }),
+  ({ count }) => (
     <div>
       <P>The updater can access state and realise it should respond to add events.</P>
       <Count>{count}</Count>
@@ -54,7 +54,7 @@ const MainScreen = connect(
   )
 )
 
-const ActionBar = ({children}) => {
+const ActionBar = ({ children }) => {
   return (
     <div>
       <Box isMargin>
@@ -72,7 +72,7 @@ const ActionBar = ({children}) => {
   )
 }
 
-const Container = ({screen}) => {
+const Container = ({ screen }) => {
   return (
     <ActionBar>
       {screen === screens.loading
@@ -100,7 +100,7 @@ signal.observe(state => {
  * * Easier to consume events from certain action streams, such as responding
  * to window or input (mouse/keyboard) events
  */
-const isMainScreen = scope(({screen}) => screen === screens.main)
+const isMainScreen = scope(({ screen }) => screen === screens.main)
 
 signal.register(compress({
   [actions.navigate]: (state, screen) => {

@@ -1,10 +1,10 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
-import {Signal} from 'raid'
-import {patch} from 'raid-addons'
+import { Signal } from 'raid'
+import { patch } from 'raid-addons'
 
-import {App, Button, element, H2} from '../_common'
+import { App, Button, element, H2 } from '../_common'
 
 const signal = new Signal({
   patched: {
@@ -16,12 +16,12 @@ const actions = {
   'foo': 'bar'
 }
 
-const dispatch = type => payload => signal.emit({type, payload})
+const dispatch = type => payload => signal.emit({ type, payload })
 const toggle = (a, b) => cond => cond === a ? b : a
 const toggleFoo = toggle('quux', 'bar')
 
 const update = (state, event) => {
-  const {foo} = state
+  const { foo } = state
   return {
     ...state,
     foo: toggleFoo(foo)

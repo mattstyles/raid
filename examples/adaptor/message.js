@@ -1,9 +1,9 @@
 
-import {createSelector} from 'reselect'
+import { createSelector } from 'reselect'
 
-import {connect} from './store'
+import { connect } from './store'
 
-const Message = ({msg, id}) => {
+const Message = ({ msg, id }) => {
   return (
     <div>
       <h1>{`${msg} ${id}`}</h1>
@@ -13,7 +13,7 @@ const Message = ({msg, id}) => {
 
 const selector = createSelector(
   state => state.name,
-  name => ({id: name})
+  name => ({ id: name })
 )
 
 export default connect(selector, Message)

@@ -5,12 +5,12 @@
  * by action functions
  */
 
-import {render} from 'react-dom'
-import {Signal} from 'raid'
-import {debug} from 'raid-addons'
-import {union} from 'folktale/adt/union'
+import { render } from 'react-dom'
+import { Signal } from 'raid'
+import { debug } from 'raid-addons'
+import { union } from 'folktale/adt/union'
 
-import {App, Button, element, theme, Counter, Count, Inline} from '../_common'
+import { App, Button, element, theme, Counter, Count, Inline } from '../_common'
 
 /**
  * The main signal can be observed for changes to application state.
@@ -24,7 +24,7 @@ const signal = new Signal({
  * Tagged union for action
  */
 const actions = union('actions', {
-  alter: value => ({value}),
+  alter: value => ({ value }),
   reset: () => {}
 })
 
@@ -35,7 +35,7 @@ const actions = union('actions', {
  */
 const update = (state, event) => {
   return event.matchWith({
-    alter: ({value}) => ({
+    alter: ({ value }) => ({
       ...state,
       count: state.count + value
     }),
@@ -54,7 +54,7 @@ const update = (state, event) => {
  */
 const dispatch = type => event => signal.emit(type)
 
-const CountWidget = ({count}) => (
+const CountWidget = ({ count }) => (
   <Counter>
     <Count>{count}</Count>
     <Inline>

@@ -1,13 +1,13 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
-import {Signal} from 'raid'
+import { Signal } from 'raid'
 import {
   compress,
   flow
 } from 'raid-addons'
 
-import {Box, Button, element, App, H2, P} from '../_common'
+import { Box, Button, element, App, H2, P } from '../_common'
 
 const signal = new Signal({
   name: 'Joe',
@@ -16,11 +16,11 @@ const signal = new Signal({
 
 const dispatch = type => {
   return event => {
-    signal.emit({type})
+    signal.emit({ type })
   }
 }
 
-const Person = ({name, age}) => {
+const Person = ({ name, age }) => {
   return (
     <Box isPadded>
       <H2 onClick={dispatch('CHANGE_NAME')}>{name}</H2>

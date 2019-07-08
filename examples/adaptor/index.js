@@ -1,9 +1,9 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
-import {element, App} from '../_common'
-import {signal} from './store'
-import {counter} from './update'
+import { element, App } from '../_common'
+import { signal } from './store'
+import { counter } from './update'
 
 import Message from './message'
 import Counter from './counter'

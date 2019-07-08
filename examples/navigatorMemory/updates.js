@@ -1,8 +1,8 @@
 
-import {safe} from 'raid-addons'
+import { safe } from 'raid-addons'
 
-import {signal} from './store'
-import {memoryUpdate} from './navigation'
+import { signal } from './store'
+import { memoryUpdate } from './navigation'
 
 export const register = () => {
   signal.register(safe((state, event) => {

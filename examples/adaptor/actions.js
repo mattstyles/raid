@@ -1,5 +1,5 @@
 
-import {signal} from './store'
+import { signal } from './store'
 
 export const ACTIONS = {
   ADD: 'actions:add',
@@ -8,6 +8,6 @@ export const ACTIONS = {
 
 export const dispatch = type => {
   return event => {
-    signal.emit({type})
+    signal.emit({ type })
   }
 }

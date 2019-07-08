@@ -1,5 +1,5 @@
 
-import {ACTIONS} from './actions'
+import { ACTIONS } from './actions'
 
 export const counter = (state, event) => {
   if (event.type === ACTIONS.ADD) {

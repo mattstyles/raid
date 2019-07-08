@@ -1,23 +1,20 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
-import {Signal} from 'raid'
-import {
-  default as screenStream,
+import { Signal } from 'raid'
+import screenStream, {
   actions as screenActions
 } from 'raid-streams/screen'
-import {
-  default as keyStream,
+import keyStream, {
   actions as keyActions,
   keySequence,
   timedKeySequence
 } from 'raid-streams/keys'
-import {
-  default as tickStream,
+import tickStream, {
   actions as tickActions
 } from 'raid-streams/tick'
 
-import {App, element, P, H1} from '../_common'
+import { App, element, P, H1 } from '../_common'
 
 // Create main app signal
 const signal = new Signal({
@@ -39,9 +36,9 @@ signal.mount(screenStream())
 signal.mount(tickStream())
 signal.mount(keyStream())
 signal.mount(keySequence())
-signal.mount(timedKeySequence({timeout: 500}))
+signal.mount(timedKeySequence({ timeout: 500 }))
 
-const update = (state, {type, payload}) => {
+const update = (state, { type, payload }) => {
   if (type === keyActions.timedSequence) {
     state.timedSequence = payload.keys
     state.hadoken = state.timedSequence.join('') === 'ASD<enter>'

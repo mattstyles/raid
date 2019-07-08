@@ -7,8 +7,8 @@ import {
   compress
 } from 'raid-addons'
 
-import {signal} from './store'
-import {dispatch, actions} from './actions'
+import { signal } from './store'
+import { dispatch, actions } from './actions'
 
 const onPending = dispatch(actions.requestPending)
 const onSuccess = dispatch(actions.requestSuccess)

@@ -5,11 +5,11 @@
  * by action functions
  */
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
-import {Signal} from 'raid'
+import { Signal } from 'raid'
 
-import {App, Button, element} from '../_common'
+import { App, Button, element } from '../_common'
 
 /**
  * The main signal can be observed for changes to application state.
@@ -72,11 +72,11 @@ const styles = {
  */
 const dispatch = type => {
   return event => {
-    signal.emit({type})
+    signal.emit({ type })
   }
 }
 
-const Counter = ({count}) => {
+const Counter = ({ count }) => {
   return (
     <div style={styles.counter}>
       <span style={styles.count}>{count}</span>

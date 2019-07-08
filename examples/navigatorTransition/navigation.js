@@ -1,12 +1,12 @@
 
 import React from 'react'
-import {createSelector} from 'reselect'
-import {Navigator, push, back, forward, actions} from 'raid-navigator'
-import {safe, compress} from 'raid-addons'
-import {TransitionGroup} from 'react-transition-group'
+import { createSelector } from 'reselect'
+import { Navigator, push, back, forward, actions } from 'raid-navigator'
+import { safe, compress } from 'raid-addons'
+import { TransitionGroup } from 'react-transition-group'
 
-import {Button} from '../_common'
-import {signal, connect} from './store'
+import { Button } from '../_common'
+import { signal, connect } from './store'
 
 export const Navigation = connect(
   createSelector(
@@ -39,7 +39,7 @@ export const Push = ({
   </Button>
 )
 
-const NavButton = ({children, onClick, disabled}) => (
+const NavButton = ({ children, onClick, disabled }) => (
   <Button
     styles={disabled
       ? {
@@ -56,9 +56,9 @@ const NavButton = ({children, onClick, disabled}) => (
 )
 
 export const Back = connect(
-  ({navigation}) => ({navigation}),
-  ({children, navigation}) => {
-    const {index} = navigation
+  ({ navigation }) => ({ navigation }),
+  ({ children, navigation }) => {
+    const { index } = navigation
     const disabled = index === 0
     return (
       <NavButton
@@ -67,15 +67,15 @@ export const Back = connect(
           if (disabled) return
           back()
         }
-      }>{'<'}</NavButton>
+        }>{'<'}</NavButton>
     )
   }
 )
 
 export const Forward = connect(
-  ({navigation}) => ({navigation}),
-  ({children, navigation}) => {
-    const {stack, index} = navigation
+  ({ navigation }) => ({ navigation }),
+  ({ children, navigation }) => {
+    const { stack, index } = navigation
     const disabled = index === stack.length - 1
     return (
       <NavButton
@@ -84,7 +84,7 @@ export const Forward = connect(
           if (disabled) return
           forward()
         }
-      }>{'>'}</NavButton>
+        }>{'>'}</NavButton>
     )
   }
 )

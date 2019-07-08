@@ -1,6 +1,6 @@
 
 import theme from './theme'
-import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 export const View = styled('div')`
   display: flex;
@@ -63,7 +63,7 @@ export const Inline = styled('div')`
   display: inline-block;
 `
 
-export const App = ({state, children}) => {
+export const App = ({ state, children }) => {
   return (
     <ThemeProvider theme={theme}>
       <View>

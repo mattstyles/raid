@@ -1,5 +1,5 @@
 
-import {signal} from './store'
+import { signal } from './store'
 
 export const actions = {
   changeName: 'change:name',
@@ -8,6 +8,6 @@ export const actions = {
 
 export const dispatch = type => {
   return event => {
-    signal.emit({type, meta: 'change'})
+    signal.emit({ type, meta: 'change' })
   }
 }

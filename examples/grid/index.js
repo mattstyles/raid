@@ -5,12 +5,12 @@
  * by action functions
  */
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 import styled from 'styled-components'
 
-import {Signal} from 'raid'
+import { Signal } from 'raid'
 
-import {App, Button, element} from '../_common'
+import { App, Button, element } from '../_common'
 
 var LINE = '........................................'
 
@@ -96,12 +96,12 @@ const Grid = styled('div')`
  * Action handlers are a simple bit of sugar to add
  */
 const dispatch = type => event => {
-  signal.emit({type})
+  signal.emit({ type })
 }
 
-const Line = ({str}) => <div>{str}</div>
+const Line = ({ str }) => <div>{str}</div>
 
-const Map = ({map}) => {
+const Map = ({ map }) => {
   let content = []
   for (let i = 0; i < 20; i++) {
     content.push(map.slice(i * 40, (i + 1) * 40))
@@ -112,7 +112,7 @@ const Map = ({map}) => {
         {content.map((str, i) => <Line key={i} str={str} />)}
       </Grid>
       <Button
-        styles={{marginTop: 8}}
+        styles={{ marginTop: 8 }}
         onClick={dispatch(ACTIONS.GENERATE)}
       >Generate</Button>
     </div>

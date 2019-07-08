@@ -1,11 +1,11 @@
 
-import {createSelector} from 'reselect'
+import { createSelector } from 'reselect'
 
-import {Button, Counter, Count, Inline} from '../_common'
-import {connect} from './store'
-import {ACTIONS, dispatch} from './actions'
+import { Button, Counter, Count, Inline } from '../_common'
+import { connect } from './store'
+import { ACTIONS, dispatch } from './actions'
 
-const CountWidget = ({count}) => (
+const CountWidget = ({ count }) => (
   <Counter>
     <Count>{count}</Count>
     <Inline>
@@ -21,6 +21,6 @@ const CountWidget = ({count}) => (
 
 const selector = createSelector(
   state => state.count,
-  count => ({count})
+  count => ({ count })
 )
 export default connect(selector, CountWidget)

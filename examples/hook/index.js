@@ -1,16 +1,16 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
 import {
   compress,
   hook
 } from 'raid-addons'
 
-import {App, element} from '../_common'
+import { App, element } from '../_common'
 
-import {signal} from './store'
-import {actions} from './actions'
-import {Person} from './person'
+import { signal } from './store'
+import { actions } from './actions'
+import { Person } from './person'
 
 const changeName = state => {
   state.name = state.name === 'Joe'
