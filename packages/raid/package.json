@@ -52,20 +52,20 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/preset-env": "^7.1.6",
-    "@babel/register": "^7.0.0",
-    "babel-eslint": "^7.0.0",
-    "coveralls": "^2.11.14",
-    "nyc": "^10.1.2",
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/preset-env": "^7.5.2",
+    "@babel/register": "^7.4.4",
+    "babel-eslint": "^10.0.2",
+    "coveralls": "^3.0.4",
+    "nyc": "^14.1.1",
     "rimraf": "^2.6.2",
     "standard": "^12.0.1",
     "tape": "^4.9.1"
   },
   "dependencies": {
-    "eventemitter3": "^2.0.2",
+    "eventemitter3": "^4.0.0",
     "most": "^1.7.3"
   }
 }
