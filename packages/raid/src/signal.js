@@ -45,7 +45,7 @@ class Signal {
   }
 
   /**
-   * Instance methods for creating a new Signal
+   * Instance method for creating a new Signal
    * @constructs
    * @param initialState <any> an object is expected but any structure can be used
    */
@@ -163,7 +163,9 @@ class Signal {
    */
   disposeAll = () => {
     let results = []
+    console.log(this.updates)
     for (let update of this.updates.keys()) {
+      console.log(update)
       let res = this.updates.delete(update)
       if (!res) {
         results.push(update)

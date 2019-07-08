@@ -310,3 +310,22 @@ tape('Signals can dispose of all of their functions', t => {
   signal.disposeAll()
   t.equal(signal.updates.size, 0, 'Disposes of all functions')
 })
+
+tape('Signals can dispose of a single update with disposeAll', t => {
+  t.plan(2)
+
+  let signal = new Signal({})
+  let update = (state, event) => {}
+  signal.register(update)
+
+  t.equal(signal.updates.size, 1, 'A single update is registered')
+
+  signal.disposeAll()
+  t.equal(signal.updates.size, 0, 'Disposed of a single update function')
+})
+
+tape('Signals can be created using the of instance method', t => {
+  t.plan(1)
+
+  t.ok(Signal.of({}) instanceof Signal, 'creates an instance')
+})
