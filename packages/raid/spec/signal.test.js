@@ -1,7 +1,7 @@
 
 const tape = require('tape')
 
-const {Signal} = require('../src')
+const { Signal } = require('../src')
 
 tape('Signals can register and dispose of mutator functions', t => {
   t.plan(3)
@@ -56,7 +56,7 @@ tape('Observers must be supplied to observe/subscribe', t => {
 tape('Signals emit an initial event when an observer is connected', t => {
   t.plan(2)
 
-  let initialState = {foo: 'bar'}
+  let initialState = { foo: 'bar' }
   let signal = new Signal(initialState)
   signal.observe(state => {
     t.deepEqual(state, initialState, 'Initial observer is triggered')
@@ -77,10 +77,10 @@ tape('Signals constructor applies a default empty object as state', t => {
     t.deepEqual(state, {}, 'State defaults to an empty object')
   })
 
-  let signal2 = new Signal({foo: 'bar'})
+  let signal2 = new Signal({ foo: 'bar' })
   signal2.register((state) => state)
   signal2.observe(state => {
-    t.deepEqual(state, {foo: 'bar'},
+    t.deepEqual(state, { foo: 'bar' },
       'State constructor accepts an initial state object')
   })
 })
@@ -88,7 +88,7 @@ tape('Signals constructor applies a default empty object as state', t => {
 tape('Signal observation triggers so the consumer can use initial state', t => {
   t.plan(1)
 
-  let initial = {foo: 'bar'}
+  let initial = { foo: 'bar' }
   let signal = new Signal(initial)
   signal.observe(state => {
     t.equal(state, initial, 'Initial state is consumed')
@@ -110,13 +110,13 @@ tape('Emitting actions triggers updates to fire', t => {
 
   signal.observe(() => {})
 
-  signal.emit({type: 'action'})
+  signal.emit({ type: 'action' })
 })
 
 tape('State and triggering event are both passed through to the mutator', t => {
   t.plan(3)
 
-  let initial = {foo: 'bar'}
+  let initial = { foo: 'bar' }
   let signal = new Signal(initial)
   signal.register((state, event) => {
     t.equal(typeof event, 'object', 'Action event should always be an object')
@@ -128,13 +128,13 @@ tape('State and triggering event are both passed through to the mutator', t => {
   })
 
   signal.observe(() => {})
-  signal.emit({type: 'action', payload: 'foo'})
+  signal.emit({ type: 'action', payload: 'foo' })
 })
 
 tape('Fold traverses the mutator map', t => {
   t.plan(1)
 
-  let initial = {foo: 'bar'}
+  let initial = { foo: 'bar' }
   let signal = new Signal(initial)
   signal.register(state => {
     state.bar = 'quux'
@@ -167,7 +167,7 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   t.plan(1)
   let count = 0
 
-  let signal = new Signal({foo: 'bar'})
+  let signal = new Signal({ foo: 'bar' })
   signal.register(state => state)
   signal.observe(state => {
     if (++count === 3) {
@@ -181,7 +181,7 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
 tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   t.plan(1)
 
-  let signal = new Signal({foo: 'bar'})
+  let signal = new Signal({ foo: 'bar' })
   signal.register((state, event) => {
     if (event.type === 'one') {
       state.one = true
@@ -199,16 +199,16 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   })
   signal.observe(state => {})
 
-  signal.emit({type: 'one'})
-  signal.emit({type: 'two'})
+  signal.emit({ type: 'one' })
+  signal.emit({ type: 'two' })
 })
 tape('Updates can trigger actions', t => {
   t.plan(1)
 
-  let signal = new Signal({foo: 'bar'})
+  let signal = new Signal({ foo: 'bar' })
   signal.register((state, event) => {
     if (event.type === 'one') {
-      signal.emit({type: 'two'})
+      signal.emit({ type: 'two' })
     }
     if (event.type === 'two') {
       t.pass('Signal has been emitted and received')
@@ -216,7 +216,7 @@ tape('Updates can trigger actions', t => {
     return state
   })
   signal.observe(() => {})
-  signal.emit({type: 'one'})
+  signal.emit({ type: 'one' })
 })
 tape('Actions triggered by update functions mutate state correctly', t => {
   t.plan(2)
@@ -226,7 +226,7 @@ tape('Actions triggered by update functions mutate state correctly', t => {
   signal.register((state, event) => {
     if (event.type === 'one') {
       state.one = 'one'
-      signal.emit({type: 'two'})
+      signal.emit({ type: 'two' })
       return state
     }
     if (event.type === 'two') {
@@ -252,27 +252,27 @@ tape('Actions triggered by update functions mutate state correctly', t => {
       two: 'two'
     }, 'Second update mutates state and triggers observable')
   })
-  signal.emit({type: 'one'})
+  signal.emit({ type: 'one' })
 })
 
 tape('Signals with multiple observers still fire update functions once per event', t => {
   t.plan(1)
 
-  let signal = new Signal({foo: 'bar'})
+  let signal = new Signal({ foo: 'bar' })
   signal.register((state, event) => {
     t.pass('Triggered once')
     return state
   })
   signal.observe(() => {})
   signal.observe(() => {})
-  signal.emit({type: 'update'})
+  signal.emit({ type: 'update' })
 })
 
 tape('Signals should emit errors', t => {
   t.plan(1)
 
   const ERR = 'update error'
-  let signal = new Signal({foo: 'bar'})
+  let signal = new Signal({ foo: 'bar' })
   signal.register((state, event) => {
     throw new Error(ERR)
   })

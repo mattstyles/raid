@@ -1,8 +1,8 @@
 
-import {fromEvent} from 'most'
+import { fromEvent } from 'most'
 import EventEmitter from 'eventemitter3'
 
-import {fold, uid} from './utils'
+import { fold, uid } from './utils'
 
 /**
  * Create a new signal which can be observed for state changes.
