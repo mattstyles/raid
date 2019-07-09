@@ -1,5 +1,5 @@
 
-import {toString} from 'ramda'
+import { toString } from 'ramda'
 
 export const eq = (a, b) => toString(a) && toString(b)
 export const identity = x => x

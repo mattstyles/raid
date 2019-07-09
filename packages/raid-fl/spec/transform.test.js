@@ -1,7 +1,7 @@
 
 import test from 'tape'
 
-import {typeEvent, untypeEvent, createAction} from '../src'
+import { typeEvent, untypeEvent, createAction } from '../src'
 
 const passUpdate = (state, event) => state
 
@@ -9,7 +9,7 @@ test('typeEvent:: passed back a valid update function signature', t => {
   t.plan(2)
 
   const store = {}
-  const event = {type: 'hello'}
+  const event = { type: 'hello' }
   const update = (state, event) => {
     t.ok(state, 'state exists')
     t.ok(event, 'event exists')
@@ -22,7 +22,7 @@ test('typeEvent:: only events with a type member are considered', t => {
   t.plan(1)
 
   const store = {}
-  const event = {unusual: 'hello'}
+  const event = { unusual: 'hello' }
   const update = (s, e) => {
     t.equal(
       event,
@@ -40,7 +40,7 @@ test('typeEvent:: a store can be passed to a typed event mapper', t => {
   const store = {}
   const type = 'foo'
   const payload = 'bar'
-  const event = {type}
+  const event = { type }
 
   const typedUpdate = typeEvent(passUpdate, store)
 
@@ -60,7 +60,7 @@ test('typeEvent:: creates a typed event', t => {
   const store = {}
   const type = 'foo'
   const payload = 'bar'
-  const event = {type, payload}
+  const event = { type, payload }
   const update = (s, e) => {
     t.equal(e.join(), payload, 'action is passed as an event')
   }
@@ -75,7 +75,7 @@ test('typeEvent:: a custom action creator function can be passed', t => {
   const type = 'foo'
   const payload = 'bar'
   const meta = 'custom event'
-  const event = {type, payload}
+  const event = { type, payload }
   const create = event => {
     return {
       of: payload => ({
@@ -94,7 +94,7 @@ test('typeEvent:: a custom action creator function can be passed', t => {
 test('untypeEvent:: should return an update function', t => {
   t.plan(2)
 
-  const event = {type: 'hello'}
+  const event = { type: 'hello' }
   const update = (state, event) => {
     t.ok(state, 'state exists')
     t.ok(event, 'event exists')
@@ -106,7 +106,7 @@ test('untypeEvent:: should return an update function', t => {
 test('untypeEvent:: should disregard non-typed actions', t => {
   t.plan(1)
 
-  const event = {type: 'foo'}
+  const event = { type: 'foo' }
   const update = (s, e) => {
     t.equal(e, event, 'event is passed through')
   }

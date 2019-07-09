@@ -8,8 +8,8 @@ import functor from 'fantasy-land/laws/functor'
 import chain from 'fantasy-land/laws/chain'
 import monad from 'fantasy-land/laws/monad'
 
-import {eq, identity, inc, add} from './utils'
-import {createAction} from '../src'
+import { eq, identity, inc, add } from './utils'
+import { createAction } from '../src'
 
 test('actions should implement fantasy-land monad specification', t => {
   t.plan(10)
@@ -120,8 +120,8 @@ test('actions are an applicative', t => {
   const str = Action.of('str')
   t.ok(eq(str.join(), 'str'), 'an action can be a string')
 
-  const obj = Action.of({v: 1})
-  t.ok(eq(obj.join(), {v: 1}), 'an action can be an object')
+  const obj = Action.of({ v: 1 })
+  t.ok(eq(obj.join(), { v: 1 }), 'an action can be an object')
 
   const arr = Action.of([1, 2, 3])
   t.ok(eq(arr.join(), [1, 2, 3]), 'an action can be an array')

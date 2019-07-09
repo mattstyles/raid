@@ -1,5 +1,5 @@
 
-import {createAction} from './actions'
+import { createAction } from './actions'
 
 const typeId = '@@type'
 const globalStore = {}
@@ -14,7 +14,7 @@ export const typeEvent = (update, store = globalStore, create = createAction) =>
       return event
     }
 
-    const {type, payload = null} = event
+    const { type, payload = null } = event
     const typed = store[type]
 
     if (typed) {

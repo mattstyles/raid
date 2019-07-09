@@ -2,7 +2,7 @@
 import forceArray from 'force-array'
 import fl from 'fantasy-land'
 
-import {isString} from './utils'
+import { isString } from './utils'
 
 const rFANTASY = /^fantasy-land\//
 
@@ -21,7 +21,7 @@ const aliasType = c => {
 }
 
 export const createAction = name => {
-  var action = {[name]: class {
+  var action = { [name]: class {
     constructor (value) {
       this.__value = value
       this['@@type'] = name
@@ -58,7 +58,7 @@ export const createAction = name => {
         ? _default
         : this.join()
     }
-  }}
+  } }
   return aliasType(action[name])
 }
 

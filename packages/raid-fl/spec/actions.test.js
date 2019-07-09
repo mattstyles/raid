@@ -1,8 +1,8 @@
 
 import test from 'tape'
 
-import {inc, add} from './utils'
-import {createAction, createActions, connect} from '../src'
+import { inc, add } from './utils'
+import { createAction, createActions, connect } from '../src'
 
 test('should create a new wrapped action class', t => {
   t.plan(2)
@@ -87,9 +87,9 @@ test('actions implement a lift function to apply a value to them', t => {
 test('connect emits a function for creating actions', t => {
   t.plan(3)
 
-  const signal = {emit: event => {
+  const signal = { emit: event => {
     t.ok(event, 'Event is emitted upon instantiation')
-  }}
+  } }
   const createActions = connect(signal)
   t.equal(typeof createActions, 'function', 'connect(signal) returns a function')
   const [action] = createActions('hello')

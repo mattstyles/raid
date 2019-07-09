@@ -5,6 +5,7 @@
   "main": "lib/",
   "scripts": {
     "clean": "rimraf lib && rimraf compat",
+    "lint": "standard",
     "prebuild": "npm run clean",
     "build:latest": "babel src --out-dir lib",
     "build:compat": "BABEL_ENV=compat babel src --out-dir compat",
