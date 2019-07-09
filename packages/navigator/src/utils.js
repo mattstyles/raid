@@ -1,6 +1,6 @@
 
-import {createStructuredSelector} from 'reselect'
-import {findIndex, isArray, head} from 'lodash/fp'
+import { createStructuredSelector } from 'reselect'
+import { findIndex, isArray, head } from 'lodash/fp'
 
 export const getProps = createStructuredSelector({
   children: props => props.children,
@@ -35,13 +35,13 @@ const getHistoryState = history => {
   }
 
   if (history.state) {
-    const {state, key} = history.state
-    return {state, key}
+    const { state, key } = history.state
+    return { state, key }
   }
 
   history.replaceState(Object.assign({},
     history.state,
-    {key}
+    { key }
   ), getWindowPathname())
 
   return {

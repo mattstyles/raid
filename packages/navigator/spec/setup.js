@@ -1,10 +1,14 @@
 
-import {jsdom} from 'jsdom'
+import { JSDOM } from 'jsdom'
 
-global.document = jsdom('<!doctype html><html><body></body></html>')
-global.window = document.defaultView
+const url = `https://${Math.random().toString(16).split('.')[1]}.example.com`
+var dom = new JSDOM('<!doctype html><html><body></body></html>', {
+  url
+})
+global.window = dom.window
+global.document = window.document
 global.navigator = global.window.navigator
-global.window.sessionStorage = {
-  getItem: () => {},
-  setItem: () => {}
-}
+// global.window.sessionStorage = {
+//   getItem: () => {console.log('getting'); return null},
+//   setItem: () => {}
+// }

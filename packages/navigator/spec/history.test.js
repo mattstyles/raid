@@ -2,16 +2,16 @@
 import './setup'
 
 import tape from 'tape'
-import createHistory from 'history/createMemoryHistory'
-import {Signal} from 'raid'
+import { createMemoryHistory } from 'history'
+import { Signal } from 'raid'
 
-import {getHistory, createListener} from '../src/history'
-import {actions} from '../src/actions'
+import { getHistory, createListener } from '../src/history'
+import { actions } from '../src/actions'
 
 tape('getHistory should return a passed history function', t => {
   t.plan(1)
 
-  const history = createHistory()
+  const history = createMemoryHistory()
   t.equal(getHistory(history), history, 'History is returned')
 })
 

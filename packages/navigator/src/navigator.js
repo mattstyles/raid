@@ -1,11 +1,11 @@
 
-import {getHistory, createListener} from './history'
-import {DEFAULT_KEY, createUpdate} from './update'
-import {actions} from './actions'
+import { getHistory, createListener } from './history'
+import { DEFAULT_KEY, createUpdate } from './update'
+import { actions } from './actions'
 import RouteMatcher from './routeMatcher'
 
 // const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
-import {Component} from './env/react/component'
+import { Component } from './env/react/component'
 
 class Navigator extends Component {
   static defaultProps = {
@@ -19,7 +19,7 @@ class Navigator extends Component {
   }
 
   componentWillMount () {
-    const {signal, history, root, storage} = this.props
+    const { signal, history, root, storage } = this.props
 
     this.disposeHistory = getHistory(history).listen(
       createListener(signal)
@@ -49,7 +49,7 @@ class Navigator extends Component {
 
   render () {
     const Route = RouteMatcher(this.props)
-    const {Component, ComponentProps} = this.props
+    const { Component, ComponentProps } = this.props
 
     return Component
       ? <Component {...ComponentProps}>{Route}</Component>

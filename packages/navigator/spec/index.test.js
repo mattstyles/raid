@@ -3,7 +3,7 @@ import './setup'
 
 import tape from 'tape'
 
-import {initial} from '../src'
+import { initial } from '../src'
 
 tape('Initial state should contain stack and index', t => {
   t.plan(2)

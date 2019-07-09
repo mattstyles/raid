@@ -1,12 +1,12 @@
 
-import createHistory from 'history/createBrowserHistory'
+import { createBrowserHistory } from 'history'
 
-import {actions, dispatcher} from './actions'
+import { actions, dispatcher } from './actions'
 
 var defaultHistory = null
 
 const create = () => {
-  defaultHistory = createHistory()
+  defaultHistory = createBrowserHistory()
   return defaultHistory
 }
 
@@ -20,11 +20,11 @@ export const createListener = signal => {
 
   return (location, action) => {
     if (action === 'POP') {
-      pop({location})
+      pop({ location })
     }
 
     if (action === 'PUSH') {
-      push({location})
+      push({ location })
     }
   }
 }

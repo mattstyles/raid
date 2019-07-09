@@ -2,9 +2,9 @@
 import './setup'
 
 import tape from 'tape'
-import {Signal} from 'raid'
+import { Signal } from 'raid'
 
-import {actions} from '../src/actions'
+import { actions } from '../src/actions'
 import {
   DEFAULT_KEY,
   selector,
@@ -62,7 +62,7 @@ tape('setInitial should set the key for the navigator', t => {
 
   const key = '_nav'
   const has = hasKeys(['stack', 'index'])
-  const state = setInitial({key})
+  const state = setInitial({ key })
   const nav = state[key]
 
   t.ok(nav, 'Initial state has specified key')
@@ -76,11 +76,11 @@ tape('setInitial can accept a different storage method', t => {
   const storage = {
     getItem: () => '{"foo": "bar"}'
   }
-  const state = setInitial({storage})
+  const state = setInitial({ storage })
   const nav = state.navigation
 
   t.ok(nav, 'State has default key')
-  t.deepEqual(nav, {foo: 'bar'})
+  t.deepEqual(nav, { foo: 'bar' })
 
   const state2 = setInitial({
     storage,
@@ -89,7 +89,7 @@ tape('setInitial can accept a different storage method', t => {
   const nav2 = state2.foo
 
   t.ok(nav2, 'State has specified key')
-  t.deepEqual(nav2, {foo: 'bar'})
+  t.deepEqual(nav2, { foo: 'bar' })
 })
 
 tape('Pop event should add a new route to the state if unfound', t => {
@@ -99,7 +99,7 @@ tape('Pop event should add a new route to the state if unfound', t => {
 
   signal.register(update)
   signal.register((state, event) => {
-    const {stack, index} = state.navigation
+    const { stack, index } = state.navigation
     t.equal(stack.length, 2, 'New route added')
     t.equal(index, 0, 'Pop assumes moving backwards')
   })
@@ -120,7 +120,7 @@ tape('Push event should add a new route to the tail of the list', t => {
 
   signal.register(update)
   signal.register((state, event) => {
-    const {stack, index} = state.navigation
+    const { stack, index } = state.navigation
     t.equal(stack.length, 2, 'New route added')
     t.equal(index, 1, 'Push moves to the end of the list')
   })
@@ -136,7 +136,10 @@ tape('Push event should add a new route to the tail of the list', t => {
 tape('Push event should add a new route to the middle of a navigation stack', t => {
   t.plan(3)
 
-  let state = setInitial({key: 'navigation'})
+  let state = setInitial({
+    key: 'navigation',
+    storage: null
+  })
   state.navigation.stack.push({})
   state.navigation.stack.push({})
 
@@ -146,7 +149,7 @@ tape('Push event should add a new route to the middle of a navigation stack', t 
 
   signal.register(update)
   signal.register((state, event) => {
-    const {stack, index} = state.navigation
+    const { stack, index } = state.navigation
     t.equal(stack.length, 2, 'New route added')
     t.equal(index, 1, 'Push mutates the navigation stack')
   })

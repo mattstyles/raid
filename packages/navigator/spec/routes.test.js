@@ -3,7 +3,7 @@ import './setup'
 
 import tape from 'tape'
 
-import {findRoute, matchRoute} from '../src/env/react/routes'
+import { findRoute, matchRoute } from '../src/env/react/routes'
 
 const createChild = (route, id) => <div route={route} id={route || id} />
 
@@ -102,7 +102,7 @@ tape('Children get params appended as properties', t => {
   t.plan(2)
 
   const child = <div route='/foo/:id' />
-  const route = {pathname: '/foo/123'}
+  const route = { pathname: '/foo/123' }
 
   const match = matchRoute(route)([child])
   const params = match[0].props.params
@@ -115,7 +115,7 @@ tape('Matches on starred routes', t => {
   t.plan(1)
 
   const child = createChild('foo/*', 'foo')
-  const route = {pathname: 'foo/bar'}
+  const route = { pathname: 'foo/bar' }
 
   const match = matchRoute(route)([child])
   t.ok(match.length > 0, 'Matches on starred routes')
@@ -125,7 +125,7 @@ tape('Matches on deep starred routes', t => {
   t.plan(1)
 
   const child = createChild('foo/bar/*', 'foo')
-  const route = {pathname: 'foo/bar/baz/quux'}
+  const route = { pathname: 'foo/bar/baz/quux' }
 
   const match = matchRoute(route)([child])
   t.ok(match.length > 0, 'Matches on deep starred routes')

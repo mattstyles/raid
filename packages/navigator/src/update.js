@@ -1,10 +1,10 @@
 
-import {safe, compress} from 'raid-addons'
-import {isNull} from 'lodash/fp'
+import { safe, compress } from 'raid-addons'
+import { isNull } from 'lodash/fp'
 
-import {actions} from './actions'
-import {getHistory} from './history'
-import {getRouteIndex, getCurrentRoute} from './utils'
+import { actions } from './actions'
+import { getHistory } from './history'
+import { getRouteIndex, getCurrentRoute } from './utils'
 
 export const DEFAULT_KEY = 'navigation'
 
@@ -41,7 +41,7 @@ const getInitialState = (storage, history) => {
 
 // const initialState = (storage, history) =>
 
-export const setInitial = ({key, storage, history}) => {
+export const setInitial = ({ key, storage, history }) => {
   storage = getStorage(storage)
   key = key || DEFAULT_KEY
 
@@ -62,8 +62,8 @@ export const selector = (key = DEFAULT_KEY) => state => state[key]
 /**
  * Popper
  */
-const pop = ({key, get, state, location, history}) => {
-  const {index, stack} = get(state)
+const pop = ({ key, get, state, location, history }) => {
+  const { index, stack } = get(state)
   let routeIndex = getRouteIndex(location, stack)
 
   // If the route was found then use it
@@ -85,8 +85,8 @@ const pop = ({key, get, state, location, history}) => {
 /**
  * pusher
  */
-const push = ({key, get, state, location, history}) => {
-  const {index, stack} = get(state)
+const push = ({ key, get, state, location, history }) => {
+  const { index, stack } = get(state)
 
   // If we're pushing in to the middle next nuke end of stack
   if (index < stack.length - 1) {
@@ -100,7 +100,7 @@ const push = ({key, get, state, location, history}) => {
 /**
  * Storage
  */
-const save = ({storage, key, state, get}) => {
+const save = ({ storage, key, state, get }) => {
   if (!storage) {
     return
   }
@@ -111,39 +111,39 @@ const save = ({storage, key, state, get}) => {
 /**
  * Setup
  */
-const init = ({state, storage, history, key, get}) => {
+const init = ({ state, storage, history, key, get }) => {
   return {
     ...state,
-    ...setInitial({key, storage, history})
+    ...setInitial({ key, storage, history })
   }
 }
 
 /**
  * Updates the state based on a navigation pop event
  */
-const createUpdatePop = ({key, history, storage}) => {
+const createUpdatePop = ({ key, history, storage }) => {
   const get = selector(key)
   return safe((state, payload) => {
-    pop({key, get, state, location: payload.location, history})
-    save({storage, key, get, state})
+    pop({ key, get, state, location: payload.location, history })
+    save({ storage, key, get, state })
   })
 }
 
 /**
  * Updates the state based on a navigation push event
  */
-const createUpdatePush = ({key, history, storage}) => {
+const createUpdatePush = ({ key, history, storage }) => {
   const get = selector(key)
   return safe((state, payload) => {
-    push({key, get, state, location: payload.location, history})
-    save({storage, key, get, state})
+    push({ key, get, state, location: payload.location, history })
+    save({ storage, key, get, state })
   })
 }
 
-const createInit = ({key, storage, history}) => {
+const createInit = ({ key, storage, history }) => {
   const get = selector(key)
   return safe((state, payload) => {
-    return init({key, storage, history, state, get})
+    return init({ key, storage, history, state, get })
   })
 }
 
@@ -151,14 +151,14 @@ const createInit = ({key, storage, history}) => {
  * Can be used to create an update function that refs a defined root and
  * can be supplied with a specific history instance
  */
-export const createUpdate = ({key, history, storage}) => {
+export const createUpdate = ({ key, history, storage }) => {
   key = key || DEFAULT_KEY
   history = getHistory(history)
   storage = getStorage(storage)
   return compress({
-    [actions.pop]: createUpdatePop({key, history, storage}),
-    [actions.push]: createUpdatePush({key, history, storage}),
-    [actions.init]: createInit({key, history, storage})
+    [actions.pop]: createUpdatePop({ key, history, storage }),
+    [actions.push]: createUpdatePush({ key, history, storage }),
+    [actions.init]: createInit({ key, history, storage })
   })
 }
 
