@@ -1,8 +1,8 @@
 
-import {namespace} from './utils'
+import { namespace } from './utils'
 
-import {Signal} from 'raid'
-import {flow} from '../src'
+import { Signal } from 'raid'
+import { flow } from '../src'
 
 const test = namespace(__filename)
 
@@ -21,5 +21,5 @@ test('Should pass state through all update functions', t => {
       clearTimeout(timer)
     }
   ))
-  signal.emit({type: event})
+  signal.emit({ type: event })
 })

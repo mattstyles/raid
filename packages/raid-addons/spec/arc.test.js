@@ -1,8 +1,8 @@
 
-import {namespace} from './utils'
+import { namespace } from './utils'
 
-import {Signal} from 'raid'
-import {arc} from '../src'
+import { Signal } from 'raid'
+import { arc } from '../src'
 
 const test = namespace(__filename)
 

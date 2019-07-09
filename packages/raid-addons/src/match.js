@@ -14,14 +14,14 @@ const match = matcher => {
         }
 
         return [
-          ({event}) => p(event),
-          ({state, event}) => arm(state, event)
+          ({ event }) => p(event),
+          ({ state, event }) => arm(state, event)
         ]
       })
       .filter(v => !!v)
-      .concat([[({state}) => state]])
+      .concat([[({ state }) => state]])
   )
-  return (state, event) => _matcher({state, event})
+  return (state, event) => _matcher({ state, event })
 }
 
 export default match

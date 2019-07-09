@@ -1,8 +1,8 @@
 
-import {namespace} from './utils'
+import { namespace } from './utils'
 
-import {Signal} from 'raid'
-import {squash} from '../src'
+import { Signal } from 'raid'
+import { squash } from '../src'
 
 const test = namespace(__filename)
 
@@ -27,7 +27,7 @@ test('Should attach an update function to a specific event', t => {
   }
 
   signal.register(attach([update]))
-  signal.emit({type: event})
+  signal.emit({ type: event })
 })
 
 test('Should ignore other events', t => {
@@ -45,7 +45,7 @@ test('Should ignore other events', t => {
   }
 
   signal.register(attach([update]))
-  signal.emit({type: 'foo'})
+  signal.emit({ type: 'foo' })
 })
 
 test('Should accept a single update function', t => {
@@ -63,7 +63,7 @@ test('Should accept a single update function', t => {
   }
 
   signal.register(attach(update))
-  signal.emit({type: event})
+  signal.emit({ type: event })
 })
 
 test('Should pass state through all update functions', t => {
@@ -82,5 +82,5 @@ test('Should pass state through all update functions', t => {
       clearTimeout(timer)
     }
   ]))
-  signal.emit({type: event})
+  signal.emit({ type: event })
 })

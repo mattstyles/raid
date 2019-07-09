@@ -22,7 +22,7 @@ function sin () {
       .resolve(fold(updates, state, event))
       .then(res => {
         let collected = res
-          .reduce(newState => ({state, ...newState}), state)
+          .reduce(newState => ({ state, ...newState }), state)
 
         signal.emit({
           type: key,

@@ -1,8 +1,8 @@
 
-import {namespace} from './utils'
+import { namespace } from './utils'
 
-import {Signal} from 'raid'
-import {hook} from '../src'
+import { Signal } from 'raid'
+import { hook } from '../src'
 
 const test = namespace(__filename)
 
@@ -22,7 +22,7 @@ test('Should attach an update function to a specific event using a string', t =>
   signal.register(hook(update, {
     predicate: event
   }))
-  signal.emit({type: event})
+  signal.emit({ type: event })
 })
 
 test('Should ignore other event strings', t => {
@@ -41,7 +41,7 @@ test('Should ignore other event strings', t => {
   signal.register(hook(update, {
     predicate: event
   }))
-  signal.emit({type: 'foo'})
+  signal.emit({ type: 'foo' })
 })
 
 test('Should attach an update function to a specific event using a regex', t => {
@@ -60,7 +60,7 @@ test('Should attach an update function to a specific event using a regex', t => 
   signal.register(hook(update, {
     predicate: /^ev/
   }))
-  signal.emit({type: event})
+  signal.emit({ type: event })
 })
 
 test('Should ignore other events not matching regex', t => {
@@ -78,7 +78,7 @@ test('Should ignore other events not matching regex', t => {
   signal.register(hook(update, {
     predicate: /$ev/
   }))
-  signal.emit({type: 'foo'})
+  signal.emit({ type: 'foo' })
 })
 
 test('Should attach an update function to a specific event using a function', t => {
@@ -98,7 +98,7 @@ test('Should attach an update function to a specific event using a function', t 
   signal.register(hook(update, {
     predicate: match
   }))
-  signal.emit({type: event, meta: 'test'})
+  signal.emit({ type: event, meta: 'test' })
 })
 
 test('Should ignore other events not matching regex', t => {
@@ -118,5 +118,5 @@ test('Should ignore other events not matching regex', t => {
   signal.register(hook(update, {
     predicate: match
   }))
-  signal.emit({type: event, meta: 'something else'})
+  signal.emit({ type: event, meta: 'something else' })
 })

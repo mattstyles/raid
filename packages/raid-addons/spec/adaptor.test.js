@@ -1,8 +1,8 @@
 
-import {namespace} from './utils'
+import { namespace } from './utils'
 
-import {Signal} from 'raid'
-import {adaptor} from '../src'
+import { Signal } from 'raid'
+import { adaptor } from '../src'
 
 const test = namespace(__filename)
 
@@ -23,7 +23,7 @@ test('Should return functions', t => {
 test('Connect pass state through to component props', t => {
   t.plan(1)
 
-  const signal = new Signal({foo: 'bar'})
+  const signal = new Signal({ foo: 'bar' })
   const connect = adaptor(signal)
 
   const hoc = connect(
@@ -51,7 +51,7 @@ test('Connect should throw errors if arguments do not exist', t => {
 test('Selector functions should select from state and provide to component', t => {
   t.plan(1)
 
-  const signal = new Signal({foo: 'bar'})
+  const signal = new Signal({ foo: 'bar' })
   const connect = adaptor(signal)
 
   const hoc = connect(
@@ -70,7 +70,7 @@ test('Selector functions should select from state and provide to component', t =
 test('Selector function is optional', t => {
   t.plan(1)
 
-  const state = {foo: 'bar'}
+  const state = { foo: 'bar' }
   const signal = new Signal(state)
   const connect = adaptor(signal)
 

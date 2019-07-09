@@ -1,7 +1,7 @@
 
-import {namespace} from './utils'
+import { namespace } from './utils'
 
-import {patch} from '../src'
+import { patch } from '../src'
 
 const test = namespace(__filename)
 
@@ -46,9 +46,9 @@ test('Should pass through the specified keys value as state', t => {
 test('Should apply the update to correct key', t => {
   t.plan(2)
 
-  const state = createState('bar', {baz: 'quux'})
-  const expected = createState('bar', {baz: 'fred'})
-  const update = state => ({baz: 'fred'})
+  const state = createState('bar', { baz: 'quux' })
+  const expected = createState('bar', { baz: 'fred' })
+  const update = state => ({ baz: 'fred' })
   const patched = patch('bar', update)
   const fixedArity = patch('bar')(update)
 

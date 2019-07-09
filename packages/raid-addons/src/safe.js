@@ -1,5 +1,5 @@
 
-import {isDefined} from './utils'
+import { isDefined } from './utils'
 
 const safe = fn => (state, event) => {
   const out = fn(state, event)

@@ -1,9 +1,8 @@
 
-import util from 'util'
-import {namespace} from './utils'
+import { namespace } from './utils'
 
-import {Signal} from 'raid'
-import {compress} from '../src'
+import { Signal } from 'raid'
+import { compress } from '../src'
 
 const test = namespace(__filename)
 
@@ -24,7 +23,7 @@ test('Should attach an update function to a specific event', t => {
     [event]: update
   }))
 
-  signal.emit({type: event})
+  signal.emit({ type: event })
 })
 
 test('Should successfully ignore triggering updates for irrelevant events', t => {
@@ -44,14 +43,14 @@ test('Should successfully ignore triggering updates for irrelevant events', t =>
     'another event': update
   }))
 
-  signal.emit({type: event})
+  signal.emit({ type: event })
 })
 
 test('Should pass state and payload through to the update function', t => {
   t.plan(3)
 
-  const state = {foo: 'bar'}
-  const payload = {bar: 'quux'}
+  const state = { foo: 'bar' }
+  const payload = { bar: 'quux' }
   const events = {
     payload: 'payload',
     empty: 'empty'
@@ -65,7 +64,7 @@ test('Should pass state and payload through to the update function', t => {
   }
 
   const checkEmpty = (s, p) => {
-    t.ok(util.isUndefined(p), 'Payload is not required on events')
+    t.ok(p === undefined, 'Payload is not required on events')
   }
 
   signal.register(compress({
@@ -73,8 +72,8 @@ test('Should pass state and payload through to the update function', t => {
     [events.empty]: checkEmpty
   }))
 
-  signal.emit({type: events.payload, payload})
-  signal.emit({type: events.empty})
+  signal.emit({ type: events.payload, payload })
+  signal.emit({ type: events.empty })
 })
 
 test('Should accept an event key', t => {
@@ -101,7 +100,7 @@ test('String key version should trigger on events', t => {
 
   const attach = compress(event)
   signal.register(attach(update))
-  signal.emit({type: event})
+  signal.emit({ type: event })
 })
 
 test('String key version ignores events', t => {
@@ -119,5 +118,5 @@ test('String key version ignores events', t => {
   const attach = compress(event)
 
   signal.register(attach(update))
-  signal.emit({type: 'another event'})
+  signal.emit({ type: 'another event' })
 })

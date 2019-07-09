@@ -1,7 +1,7 @@
 
-import {namespace} from './utils'
+import { namespace } from './utils'
 
-import {match} from '../src'
+import { match } from '../src'
 
 const test = namespace(__filename)
 
@@ -24,7 +24,7 @@ test('Should match on a predicate', t => {
   t.plan(2)
 
   const type = 'foo'
-  const event = {type}
+  const event = { type }
   const predicate = type => event => event.type === type
   const identity = (state, event) => state
 
@@ -52,7 +52,7 @@ test('Should apply a default case', t => {
 
   const update = match([])
 
-  const newState = update(state, {type: 'no_match'})
+  const newState = update(state, { type: 'no_match' })
   t.equal(newState, state, 'default case returns the state unmodified')
 })
 

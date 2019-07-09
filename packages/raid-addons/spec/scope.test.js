@@ -1,15 +1,15 @@
 
-import {namespace, noop} from './utils'
+import { namespace, noop } from './utils'
 
-import {scope} from '../src'
+import { scope } from '../src'
 
 const test = namespace(__filename)
 
 test('Should return state when function predicate does not match', t => {
   t.plan(2)
 
-  const expected = {quux: 'fred'}
-  const state = {foo: 'bar'}
+  const expected = { quux: 'fred' }
+  const state = { foo: 'bar' }
   const scoped = scope(
     (state, event) => event,
     (state, event) => expected
@@ -25,8 +25,8 @@ test('Should return state when function predicate does not match', t => {
 test('Should pass through state and event to predicate', t => {
   t.plan(2)
 
-  const expectedState = {foo: 'bar'}
-  const expectedEvent = {quux: 'fred'}
+  const expectedState = { foo: 'bar' }
+  const expectedEvent = { quux: 'fred' }
   const scoped = scope((state, event) => {
     t.deepEqual(state, expectedState, 'State matches')
     t.deepEqual(event, expectedEvent, 'Event matches')
@@ -45,9 +45,9 @@ test('Should allow single or dual arity invocation', t => {
 test('Should match against different predicate types', t => {
   t.plan(4)
 
-  const state = {foo: 'bar'}
-  const expected = {quux: 'fred'}
-  const event = {type: 'foo'}
+  const state = { foo: 'bar' }
+  const expected = { quux: 'fred' }
+  const event = { type: 'foo' }
   const update = () => expected
 
   t.deepEqual(scope('foo', update)(state, event), expected,

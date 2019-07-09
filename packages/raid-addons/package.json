@@ -5,6 +5,7 @@
   "main": "lib/",
   "scripts": {
     "clean": "rimraf lib",
+    "lint": "standard",
     "prebuild": "npm run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
