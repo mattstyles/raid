@@ -25,7 +25,7 @@ create-raid-app
 Once a new project is scaffolded and installed a live-reloading development environment can be run using,
 
 ```sh
-npm start -- -o
+npm start
 ```
 
 `create-raid-app` contains some basic documentation for each instruction, simply append `--help` to the call to get more details on how to use it, e.g.
@@ -49,8 +49,6 @@ Unlike [create-react-app](https://www.npmjs.com/package/create-react-app) (which
 
 ```
 .
-├── bin
-│   └── start
 ├── package.json
 ├── package-lock.json
 ├── readme.md

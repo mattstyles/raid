@@ -1,4 +1,3 @@
-
 {
   "name": "{{projectName}}",
   "private": true,
@@ -7,26 +6,36 @@
   "main": "dist/index.html",
   "scripts": {
     "clean": "rimraf dist && mkdirp dist",
+    "lint": "standard",
     "prebuild": "npm run clean",
-    "build": "NODE_PATH=src NODE_ENV=production browserify --extension jsx src/main.js | uglifyjs -cm > dist/main.js && ncp src/index.html dist/index.html && ncp src/assets dist/assets",
+    "build": "NODE_PATH=src NODE_ENV=production parcel build src/index.html",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "start": "NODE_PATH=src DEBUG=true bin/start"
-  },
-  "browserify": {
-    "transform": [
-      "babelify",
-      "envify"
-    ]
+    "start": "NODE_PATH=src DEBUG=true parcel src/index.html"
   },
   "babel": {
     "presets": [
-      "urban"
+      "@babel/preset-env",
+      "@babel/preset-react"
     ],
     "plugins": [
+      "styled-components",
       "transform-react-require",
       "lodash",
-      "styled-jsx/babel"
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": false
+        }
+      ],
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src"
+          ]
+        }
+      ]
     ]
   },
   "standard": {
@@ -51,34 +60,38 @@
   },
   "homepage": "https://{{username}}.github.io/{{projectName}}",
   "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "babel-plugin-lodash": "^3.2.11",
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.2",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-styled-components": "^1.10.6",
     "babel-plugin-transform-react-require": "^1.0.1",
-    "babel-preset-urban": "^1.0.0",
-    "babelify": "^7.3.0",
-    "browserify": "^14.4.0",
-    "budo": "^9.4.7",
-    "create-raid-app": "2.10.0",
-    "envify": "^4.1.0",
-    "gh-pages": "^1.0.0",
-    "minimist": "^1.2.0",
+    "gh-pages": "^2.0.1",
     "mkdirp": "^0.5.1",
-    "ncp": "^2.0.0",
-    "rimraf": "^2.6.1",
-    "standard": "^10.0.3",
-    "styled-jsx": "^2.0.0"
+    "parcel-bundler": "^1.12.3",
+    "rimraf": "^2.6.3",
+    "standard": "^12.0.1"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
-    "lodash": "^4.17.4",
-    "prop-types": "^15.5.10",
-    "raid": "^2.10.0",
-    "raid-addons": "^2.10.0",
-    "raid-fl": "^2.10.0",
-    "raid-navigator": "^2.10.0",
-    "raid-streams": "^2.10.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "reselect": "^2.5.4"
+    "eventemitter3": "^4.0.0",
+    "history": "^4.9.0",
+    "lodash": "^4.17.11",
+    "most": "^1.7.3",
+    "open-color": "^1.6.3",
+    "prop-types": "^15.7.2",
+    "raid": "^3.0.0",
+    "raid-addons": "^3.0.0",
+    "raid-navigator": "^3.0.1",
+    "raid-streams": "^3.0.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-helmet": "^5.2.0",
+    "reselect": "2.5.4",
+    "styled-components": "^4.3.2"
   }
 }

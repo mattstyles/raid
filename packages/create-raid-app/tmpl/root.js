@@ -21,7 +21,7 @@ export async function onInstallComplete ({cwd, skip}) {
     return
   }
 
-  spawn.sync('npm', ['start', '--', '-o'], {
+  spawn.sync('npm', ['start'], {
     cwd,
     stdio: 'inherit'
   })

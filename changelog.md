@@ -4,6 +4,7 @@
 * _update_ create-raid-app dependencies
 * _add_ colours to cra output
 * _add_ debug to cra output
+* _update_ cra template to use parcel bundler
 
 # 3.0.2
 

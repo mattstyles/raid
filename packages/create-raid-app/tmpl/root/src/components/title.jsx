@@ -1,15 +1,15 @@
 
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+const H1 = styled('h1')`
+  font-size: 2.8rem;
+`
+
 export const Title = ({ text, children }) => (
-  <h1 className='h1'>
+  <H1>
     {children || text}
-    <style jsx>{`
-      .h1 {
-        font-size: 2.8rem;
-      }
-    `}</style>
-  </h1>
+  </H1>
 )
 
 Title.propTypes = {
