@@ -1,4 +1,8 @@
 
+# 3.0.1
+
+* _update_ all dependencies
+
 # 3.0.0
 
 > Breaking Change
