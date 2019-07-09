@@ -1,5 +1,5 @@
 
-import {commands} from './constants'
+import { commands } from './constants'
 
 import install from '../cmd/install'
 import help from '../cmd/help'

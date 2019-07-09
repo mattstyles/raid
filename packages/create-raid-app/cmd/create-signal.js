@@ -1,8 +1,8 @@
 
 import path from 'path'
 
-import {installFile} from '../lib/install'
-import {getPkgDir} from '../lib/utils'
+import { installFile } from '../lib/install'
+import { getPkgDir } from '../lib/utils'
 
 import {
   getData,
@@ -35,5 +35,5 @@ export default async function createSignal (cmds, opts) {
     }
   )
 
-  await onInstallComplete({cwd: installpath})
+  await onInstallComplete({ cwd: installpath })
 }

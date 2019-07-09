@@ -1,15 +1,13 @@
 #! /usr/bin/env node
 
-require('../')
-var argv = require('minimist')(process.argv.slice(2), {
-  alias: {
-    h: 'help',
-    v: 'version',
-    i: 'install-version'
-  }
-})
-var start = argv.run
-  ? require('./cmd').default
-  : require('./install').default
+require = require('esm')(module) // eslint-disable-line
 
-start(argv)
+var fs = require('fs')
+var { promisifyAll } = require('bluebird')
+
+promisifyAll(fs)
+promisifyAll(require('child_process'))
+promisifyAll(require('mkdirp'))
+
+const start = require('./start')
+start()

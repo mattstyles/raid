@@ -1,8 +1,8 @@
 
 import path from 'path'
 
-import {installFile, installFromFolder} from '../lib/install'
-import {getPkgDir, rename} from '../lib/utils'
+import { installFile, installFromFolder } from '../lib/install'
+import { getPkgDir, rename } from '../lib/utils'
 
 import {
   getData,
@@ -58,5 +58,5 @@ export default async function createComponent (cmds, opts) {
     )
   }
 
-  await onInstallComplete({cwd: installpath})
+  await onInstallComplete({ cwd: installpath })
 }

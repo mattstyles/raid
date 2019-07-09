@@ -1,6 +1,6 @@
 
 import version from './version'
-import {commands} from '../lib/constants'
+import { commands } from '../lib/constants'
 
 import root from '../man/root'
 import install from '../man/install'

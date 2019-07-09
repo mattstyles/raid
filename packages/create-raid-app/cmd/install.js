@@ -2,13 +2,13 @@
 import fs from 'fs'
 import path from 'path'
 
-import {remove} from 'lodash/fp'
+import { remove } from 'lodash/fp'
 import spawn from 'cross-spawn'
 
-import {viableInstallItems} from '../lib/constants'
-import {isListItem, getUserConfirm, getPkgDir} from '../lib/utils'
-import {installFromFolder} from '../lib/install'
-import {getData, onInstallComplete} from '../tmpl/root'
+import { viableInstallItems } from '../lib/constants'
+import { isListItem, getUserConfirm, getPkgDir } from '../lib/utils'
+import { installFromFolder } from '../lib/install'
+import { getData, onInstallComplete } from '../tmpl/root'
 
 const checkAgainstViableList = isListItem(viableInstallItems)
 const checkItemViability = remove(checkAgainstViableList)

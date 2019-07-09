@@ -1,6 +1,6 @@
 
 import pkg from '../package.json'
-import {commands} from '../lib/constants'
+import { commands } from '../lib/constants'
 
 export default () => `
   Usage

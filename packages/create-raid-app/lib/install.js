@@ -1,11 +1,11 @@
 
-import {join, relative} from 'path'
-import {statAsync, readdirAsync} from 'fs'
+import { join, relative } from 'path'
+import fs from 'fs'
 
 import mkdirpAsync from 'mkdirp'
 
-import {exists, getUserConfirm, installWithMustache} from './utils'
-import {userCancel} from './constants'
+import { exists, getUserConfirm, installWithMustache } from './utils'
+import { userCancel } from './constants'
 
 async function installFolder (pathname, opts) {
   if (await exists(pathname)) {
@@ -31,13 +31,13 @@ export async function installFile (from, to, data, opts) {
 }
 
 export async function installFromFolder (from, to, data = {}, opts = {}) {
-  const fileprops = await statAsync(from)
+  const fileprops = await fs.statAsync(from)
   const fileOpts = {
     shortname: relative(opts.root, to)
   }
   if (fileprops.isDirectory()) {
     if (to === opts.root || await installFolder(to, fileOpts)) {
-      let files = await readdirAsync(from)
+      let files = await fs.readdirAsync(from)
       for (let file of files) {
         await installFromFolder(
           join(from, file),

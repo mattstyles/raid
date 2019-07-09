@@ -3,7 +3,7 @@ import fs from 'fs'
 
 import es from 'event-stream'
 import mustache from 'mustache'
-import {prompt} from 'inquirer'
+import { prompt } from 'inquirer'
 import pkgDir from 'pkg-dir'
 
 export async function exists (pathname) {
@@ -56,7 +56,7 @@ const mustacheStream = data => es.through(function write (chunk) {
 })
 
 export async function installWithMustache (from, to, data = {}) {
-  const {mode} = await fs.statAsync(from)
+  const { mode } = await fs.statAsync(from)
   return new Promise((resolve, reject) => {
     const reader = fs.createReadStream(from)
     reader.on('error', reject)

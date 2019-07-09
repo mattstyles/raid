@@ -2,8 +2,8 @@
 import path from 'path'
 import spawn from 'cross-spawn'
 
-import {help, version} from './man'
-import {exists, getPkgDir} from '../lib/utils'
+import { help, version } from './man'
+import { exists, getPkgDir } from '../lib/utils'
 
 async function scaffoldCra (cwd, version) {
   if (process.env.DEBUG) {

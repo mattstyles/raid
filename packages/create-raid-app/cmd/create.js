@@ -1,5 +1,5 @@
 
-import {commands} from '../lib/constants'
+import { commands } from '../lib/constants'
 import component from './create-component'
 import signal from './create-signal'
 import help from '../man/create'

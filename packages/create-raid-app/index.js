@@ -1,10 +1,12 @@
 
-require('@std/esm')
+
+console.log('mangling require')
 var fs = require('fs')
-var {promisifyAll} = require('bluebird')
+var { promisifyAll } = require('bluebird')
 
 promisifyAll(fs)
 promisifyAll(require('child_process'))
 promisifyAll(require('mkdirp'))
 
-module.exports = require('./lib').default
+require = require('esm')(module)
+module.exports = require('./lib')
