@@ -1,5 +1,6 @@
 
-import {prompt} from 'inquirer'
+import { prompt } from 'inquirer'
+import chalk from 'chalk'
 
 export async function getData () {
   const answers = await prompt([{
@@ -14,9 +15,9 @@ export async function getData () {
 }
 
 export async function onInstallComplete () {
-  console.log('Signal created successfully')
+  console.log('Signal created successfully', chalk.green('✔︎'))
 }
 
 export async function onInstallCancelled () {
-  console.log('Signal creation cancelled')
+  console.log('Signal creation cancelled', chalk.red('X'))
 }

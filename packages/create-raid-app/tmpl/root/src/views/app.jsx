@@ -1,6 +1,4 @@
 
-import Title from 'components/title'
+import { Title } from 'components/title'
 
-const App = state => <Title text='{{projectName}}' />
-
-export default App
+export const App = state => <Title text='{{projectName}}' />

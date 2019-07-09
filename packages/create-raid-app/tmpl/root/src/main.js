@@ -1,9 +1,9 @@
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
+import { debug } from 'raid-addons'
 
-import {signal} from 'signals'
-import App from 'views/app'
-import {debug} from 'core/updates'
+import { signal } from 'signals'
+import { App } from 'views/app'
 
 const el = document.querySelector('.js-main')
 

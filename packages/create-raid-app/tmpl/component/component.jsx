@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types'
 
-const {{componentName}} = ({text, children}) => (
+export const {{componentName}} = ({ text, children }) => (
   <h1 className='h1'>
     {children || text}
     <style jsx>{`
@@ -19,5 +19,3 @@ const {{componentName}} = ({text, children}) => (
 {{componentName}}.defaultProps = {
   text: null
 }
-
-export default {{componentName}}

@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types'
 
-const Title = ({text, children}) => (
+export const Title = ({ text, children }) => (
   <h1 className='h1'>
     {children || text}
     <style jsx>{`
@@ -19,5 +19,3 @@ Title.propTypes = {
 Title.defaultProps = {
   text: null
 }
-
-export default Title

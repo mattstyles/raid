@@ -1,2 +1,2 @@
 
-export const getMessage = ({message}) => message
+export const getMessage = ({ message }) => message
