@@ -1,6 +1,6 @@
 {
   "name": "raid-fl",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Raid with fantasy-land compliant structures",
   "main": "lib/",
   "scripts": {

@@ -1,7 +1,7 @@
 {
   "name": "@raid/monorepo",
   "private": "true",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "scripts": {
     "test": "lerna run test --ignore @raid/monorepo",
     "lint": "standard",
@@ -97,7 +97,7 @@
     "nyc": "^14.1.1",
     "raid": "^3.0.2",
     "raid-addons": "^3.0.2",
-    "raid-fl": "^3.0.2",
+    "raid-fl": "^3.1.0",
     "raid-navigator": "^3.0.2",
     "raid-streams": "^3.0.2",
     "react": "^16.8.6",
