@@ -51,9 +51,11 @@ export async function getUserConfirm (question) {
   return answers[key]
 }
 
-const mustacheStream = data => es.through(function write (chunk) {
-  this.emit('data', mustache.render(chunk.toString(), data))
-})
+const mustacheStream = data => es.through(
+  function write (chunk) {
+    this.emit('data', mustache.render(chunk.toString(), data))
+  }
+)
 
 export async function installWithMustache (from, to, data = {}) {
   const { mode } = await fs.statAsync(from)

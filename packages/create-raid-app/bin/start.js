@@ -1,6 +1,5 @@
 #! /usr/bin/env node
 
-// require('../')
 var argv = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',

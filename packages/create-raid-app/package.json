@@ -2,7 +2,7 @@
   "name": "create-raid-app",
   "version": "3.0.2",
   "description": "Zero config scaffold of a basic raid-powered application setup",
-  "main": "index.js",
+  "main": "lib/index.js",
   "bin": {
     "create-raid-app": "bin/index.js"
   },
@@ -40,22 +40,24 @@
     "parser": "babel-eslint",
     "ignore": [
       "**/node_modules/**",
-      "**/lib/"
+      "**/lib/",
+      "**/tmpl/"
     ]
   },
   "dependencies": {
-    "@std/esm": "^0.26.0",
     "bluebird": "^3.5.5",
-    "cross-spawn": "^5.1.0",
+    "chalk": "^2.4.2",
+    "cross-spawn": "^6.0.5",
+    "debug": "^4.1.1",
     "esm": "^3.2.25",
-    "event-stream": "^3.3.4",
+    "event-stream": "^4.0.1",
     "inquirer": "^6.4.1",
     "lodash": "^4.17.11",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "mustache": "^2.3.0",
+    "mustache": "^3.0.1",
     "osenv": "^0.1.5",
-    "pkg-dir": "^2.0.0"
+    "pkg-dir": "^4.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",
