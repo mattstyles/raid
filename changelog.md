@@ -1,7 +1,11 @@
 
-# 3.0.1
+# 3.0.2
 
 * _update_ all dependencies
+
+# 3.0.1
+
+* _update_ navigator peer dependencies
 
 # 3.0.0
 
