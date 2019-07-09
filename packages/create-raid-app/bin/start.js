@@ -1,6 +1,10 @@
-#! /usr/bin/env node
 
-var argv = require('minimist')(process.argv.slice(2), {
+import minimist from 'minimist'
+
+import cmd from './cmd'
+import install from './install'
+
+var argv = minimist(process.argv.slice(2), {
   alias: {
     h: 'help',
     v: 'version',
@@ -9,7 +13,7 @@ var argv = require('minimist')(process.argv.slice(2), {
 })
 
 var start = argv.run
-  ? require('./cmd').default
-  : require('./install').default
+  ? cmd
+  : install
 
 module.exports = () => start(argv)

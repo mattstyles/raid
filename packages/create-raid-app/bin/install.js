@@ -1,18 +1,15 @@
 
 import path from 'path'
 import spawn from 'cross-spawn'
+import chalk from 'chalk'
 
 import { help, version } from './man'
-import { exists, getPkgDir } from '../lib/utils'
+import { exists, getPkgDir, debug } from '../lib/utils'
 
 async function scaffoldCra (cwd, version) {
-  if (process.env.DEBUG) {
-    console.log('[DEBUG] Aborting scaffold')
-    process.exit(0)
-  }
-
+  debug('Installing cra locally')
   const cra = 'create-raid-app' + (version ? `@${version}` : '')
-  console.log(`Scaffolding ${cra} in to`, cwd)
+  console.log(`Scaffolding ${chalk.cyan(cra)} in to ${chalk.yellow(cwd)}`)
   try {
     await spawn.sync('npm', ['install', cra], {
       cwd,

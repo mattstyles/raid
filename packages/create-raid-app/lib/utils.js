@@ -5,6 +5,9 @@ import es from 'event-stream'
 import mustache from 'mustache'
 import { prompt } from 'inquirer'
 import pkgDir from 'pkg-dir'
+import createDebug from 'debug'
+
+export const debug = createDebug('create-raid-app')
 
 export async function exists (pathname) {
   try {

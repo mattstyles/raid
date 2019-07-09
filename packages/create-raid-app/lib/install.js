@@ -1,6 +1,7 @@
 
 import { join, relative } from 'path'
 import fs from 'fs'
+import chalk from 'chalk'
 
 import mkdirpAsync from 'mkdirp'
 
@@ -9,24 +10,24 @@ import { userCancel } from './constants'
 
 async function installFolder (pathname, opts) {
   if (await exists(pathname)) {
-    if (!await getUserConfirm(`${opts.shortname} already exists, replace?`)) {
+    if (!await getUserConfirm(`${chalk.yellow(opts.shortname)} already exists, replace?`)) {
       return false
     }
   }
 
-  console.log(`Creating ${opts.shortname}`)
+  console.log(`Creating ${chalk.yellow(opts.shortname)}`)
   await mkdirpAsync(pathname)
   return true
 }
 
 export async function installFile (from, to, data, opts) {
   if (await exists(to)) {
-    if (!await getUserConfirm(`${opts.shortname} already exists, replace?`)) {
+    if (!await getUserConfirm(`${chalk.yellow(opts.shortname)} already exists, replace?`)) {
       return Promise.reject(new Error(userCancel))
     }
   }
 
-  console.log(`Creating ${opts.shortname}`)
+  console.log(`Creating ${chalk.yellow(opts.shortname)}`)
   await installWithMustache(from, to, data)
 }
 

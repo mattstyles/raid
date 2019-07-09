@@ -2,6 +2,7 @@
 import fs from 'fs'
 import path from 'path'
 
+import chalk from 'chalk'
 import { remove } from 'lodash/fp'
 import spawn from 'cross-spawn'
 
@@ -20,7 +21,7 @@ async function checkFolderViability (pwd) {
 
 export default async function install (opts) {
   if (!await checkFolderViability(process.cwd())) {
-    console.log(`${process.cwd()} contains files`)
+    console.log(`${chalk.yellow(process.cwd())} contains files`)
 
     if (!await getUserConfirm('Are you sure you want to proceed?')) {
       return
