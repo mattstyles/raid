@@ -1,4 +1,9 @@
 
+#
+
+* _update_ cra component template
+* _fix_ cra as a dependency of the template to ensure it isn’t reinstalled and changes the version number
+
 # 3.1.0
 
 * _update_ create-raid-app dependencies
