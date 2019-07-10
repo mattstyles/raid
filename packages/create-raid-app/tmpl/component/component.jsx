@@ -1,15 +1,15 @@
 
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+const Example = styled('div')`
+  color: red;
+`
+
 export const {{componentName}} = ({ text, children }) => (
-  <h1 className='h1'>
+  <Example>
     {children || text}
-    <style jsx>{`
-      .h1 {
-        font-size: 1.2rem;
-      }
-    `}</style>
-  </h1>
+  </Example>
 )
 
 {{componentName}}.propTypes = {

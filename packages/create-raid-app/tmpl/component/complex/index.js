@@ -1,5 +1,5 @@
 
-export {default as {{componentName}}} from './{{componentFileName}}'
-export {default as actions} from './actions'
-export {default as update} from './update'
-export {default as selectors} from './selectors'
+export { {{componentName}}} from './{{componentFileName}}'
+export { actions } from './actions'
+export { update } from './update'
+export { getMessage } from './selectors'
