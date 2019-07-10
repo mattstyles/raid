@@ -90,6 +90,7 @@
     "raid-navigator": "^3.0.1",
     "raid-streams": "^3.0.0",
     "react": "^16.8.3",
+    "react-basic-kit": "^0.1.0",
     "react-dom": "^16.8.3",
     "react-helmet": "^5.2.0",
     "reselect": "2.5.4",

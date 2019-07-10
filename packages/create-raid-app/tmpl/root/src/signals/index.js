@@ -3,7 +3,7 @@ import { Signal } from 'raid'
 import { adaptor } from 'raid-addons'
 
 const initial = {
-  message: 'hello'
+  message: {{projectName}}
 }
 
 export const signal = new Signal(initial)

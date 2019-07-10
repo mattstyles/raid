@@ -3,7 +3,8 @@ import { render } from 'react-dom'
 import { debug } from 'raid-addons'
 
 import { signal } from 'signals'
-import { App } from 'views/app'
+import { App } from 'components/app'
+import { Navigation } from 'components/navigation'
 
 const el = document.querySelector('.js-main')
 
@@ -13,7 +14,9 @@ if (process.env.DEBUG) {
 
 signal.observe(state => {
   render(
-    <App state={state} />,
+    <App>
+      <Navigation navigation={state.navigation} />
+    </App>,
     el
   )
 }, err => console.error(err))

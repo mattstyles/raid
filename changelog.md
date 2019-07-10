@@ -1,6 +1,7 @@
 
 #
 
+* _add_ navigator to cra template
 * _update_ cra component template
 * _fix_ cra as a dependency of the template to ensure it isn’t reinstalled and changes the version number
 
