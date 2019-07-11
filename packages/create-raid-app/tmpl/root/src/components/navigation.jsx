@@ -4,7 +4,7 @@ import { Navigator } from 'raid-navigator'
 import { connect, signal } from 'signals'
 import { routes, history, getNavigation } from 'core/routing'
 
-import { Home } from 'views'
+import { Home } from 'views/home'
 
 const AppNavigation = ({
   navigation

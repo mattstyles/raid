@@ -9,7 +9,7 @@ import { Navigation } from 'components/navigation'
 const el = document.querySelector('.js-main')
 
 if (process.env.DEBUG) {
-  signal.register(debug)
+  signal.register(debug('[{{projectName}}]'))
 }
 
 signal.observe(state => {
