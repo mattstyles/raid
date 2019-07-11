@@ -4,7 +4,8 @@
   "description": "Zero config scaffold of a basic raid-powered application setup",
   "main": "lib/index.js",
   "bin": {
-    "create-raid-app": "bin/index.js"
+    "create-raid-app": "bin/index.js",
+    "cra": "bin/index.js"
   },
   "scripts": {
     "lint": "standard",
