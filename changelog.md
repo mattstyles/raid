@@ -1,5 +1,5 @@
 
-#
+# 3.2.0
 
 * _add_ navigator to cra template
 * _update_ cra component template
