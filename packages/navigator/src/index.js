@@ -1,5 +1,5 @@
 
-export { default as Navigator } from './navigator'
+export { Navigator } from './navigator'
 export { initial } from './update'
 export {
   createActions,
@@ -9,4 +9,4 @@ export {
   back,
   forward
 } from './actions'
-export { default as RouteMatcher } from './routeMatcher'
+export { RouteMatcher } from './routeMatcher'

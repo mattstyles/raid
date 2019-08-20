@@ -10,7 +10,7 @@ import { DEFAULT_KEY } from './update'
 import { matchRoute } from './env/react/routes'
 import { mapChildren as mapChilds } from './env/react/component'
 
-const RouteMatcher = props => {
+export const RouteMatcher = props => {
   const { children, navigation } = getProps({
     ...props,
     root: DEFAULT_KEY
@@ -38,5 +38,3 @@ const RouteMatcher = props => {
     matchRoute(stack[index])
   )(childs)
 }
-
-export default RouteMatcher

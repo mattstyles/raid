@@ -7,7 +7,7 @@ import RouteMatcher from './routeMatcher'
 // const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
 import { useEffect } from './env/react/hooks'
 
-const Navigator = props => {
+export const Navigator = props => {
   const Route = RouteMatcher(props)
   const { Component, ComponentProps, signal, history, root, storage } = props
 
@@ -49,5 +49,3 @@ Navigator.defaultProps = {
   ComponentProps: {},
   mapChildren: null
 }
-
-export default Navigator
