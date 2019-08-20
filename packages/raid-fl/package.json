@@ -1,6 +1,6 @@
 {
   "name": "raid-fl",
-  "version": "3.1.0",
+  "version": "3.3.0",
   "description": "Raid with fantasy-land compliant structures",
   "main": "lib/",
   "scripts": {
@@ -71,7 +71,7 @@
     "babel-eslint": "^10.0.2",
     "coveralls": "^3.0.4",
     "nyc": "^14.1.1",
-    "raid": "^3.0.2",
+    "raid": "^3.3.0",
     "ramda": "^0.26.1",
     "rimraf": "^2.6.2",
     "standard": "^12.0.1",
