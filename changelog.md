@@ -1,4 +1,9 @@
 
+# 3.3.0
+
+* _update_ remove deprecation on lifecycle methods within `Navigator`
+* _update_ dependency updates
+
 # 3.2.0
 
 * _add_ navigator to cra template
