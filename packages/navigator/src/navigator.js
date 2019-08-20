@@ -5,56 +5,49 @@ import { actions } from './actions'
 import RouteMatcher from './routeMatcher'
 
 // const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
-import { Component } from './env/react/component'
+import { useEffect } from './env/react/hooks'
 
-class Navigator extends Component {
-  static defaultProps = {
-    signal: null,
-    history: null,
-    root: DEFAULT_KEY,
-    navigation: null,
-    Component: null,
-    ComponentProps: {},
-    mapChildren: null
-  }
+const Navigator = props => {
+  const Route = RouteMatcher(props)
+  const { Component, ComponentProps, signal, history, root, storage } = props
 
-  componentWillMount () {
-    const { signal, history, root, storage } = this.props
+  useEffect(() => {
+    const disposeHistory = getHistory(history)
+      .listen(createListener(signal))
 
-    this.disposeHistory = getHistory(history).listen(
-      createListener(signal)
-    )
-
-    this.disposeUpdate = signal.register(createUpdate({
-      key: root,
-      history,
-      signal,
-      storage
-    }))
+    const disposeUpdate = signal
+      .register(createUpdate({
+        key: root,
+        history,
+        signal,
+        storage
+      }))
 
     signal.emit({
       type: actions.init
     })
-  }
 
-  componentWillUnmount () {
-    if (this.disposeHistory) {
-      this.disposeHistory()
+    return () => {
+      disposeHistory()
+      disposeUpdate()
     }
+  }, [
+    props.history,
+    props.storage
+  ])
 
-    if (this.disposeUpdate) {
-      this.disposeUpdate()
-    }
-  }
-
-  render () {
-    const Route = RouteMatcher(this.props)
-    const { Component, ComponentProps } = this.props
-
-    return Component
-      ? <Component {...ComponentProps}>{Route}</Component>
-      : Route
-  }
+  return Component
+    ? <Component {...ComponentProps}>{Route}</Component>
+    : Route
+}
+Navigator.defaultProps = {
+  signal: null,
+  history: null,
+  root: DEFAULT_KEY,
+  navigation: null,
+  Component: null,
+  ComponentProps: {},
+  mapChildren: null
 }
 
 export default Navigator
