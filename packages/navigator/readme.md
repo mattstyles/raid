@@ -25,9 +25,9 @@ npm i -S raid-navigator
 ## Example
 
 ```js
-import {render} from 'react-dom'
-import {Navigator} from 'raid-navigator'
-import {Signal} from 'raid'
+import { render } from 'react-dom'
+import { Navigator } from 'raid-navigator'
+import { Signal } from 'raid'
 
 const signal = new Signal()
 
@@ -78,7 +78,7 @@ To get started include `raid` and set up a signal. `raid-navigator` exposes an i
 > This example can all be placed in one file, any dependencies relate to the snippet they are in but remember to place those imports at the top of the file. As things progress splitting into multiple files is beneficial.
 
 ```js
-import {Signal} from 'raid'
+import { Signal } from 'raid'
 
 const signal = new Signal()
 ```
@@ -86,9 +86,9 @@ const signal = new Signal()
 The simplest setup for navigator is to hook in to the browser history which it will do by default which means that navigator just needs a signal and the navigation stack supplied to it, either add them as props directly or use something like [reselect](http://npmjs.com/package/reselect) and `adaptor` from [raid-addons](https://www.npmjs.com/package/raid-addons) to manage supplying props.
 
 ```js
-import {createSelector} from 'reselect'
-import {adaptor} from 'raid-addons'
-import {Navigator} from 'raid-navigator'
+import { createSelector } from 'reselect'
+import { adaptor } from 'raid-addons'
+import { Navigator } from 'raid-navigator'
 
 const connect = adaptor(signal)
 
@@ -107,7 +107,7 @@ const Navigation = connect(
 Navigator aims to be easy to get set up and running, we just need one more step which is to implement the routes and render the app.
 
 ```js
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
 signal.observe(state => {
   render(
@@ -124,15 +124,15 @@ signal.observe(state => {
 })
 ```
 
-Navigator is now hooked up to state and will work to select routes based on pathname but we can still go a little further and make this more usable by adding a `Link` component which will update the navigation stack. Navigator exposes a few actions so to create the `Link` component we simply need to create something that pokes at the action and let navigator handle the rest.
+Navigator is now hooked up to state and will work to select routes based on pathname but we can still go a little further and make this more usable by adding a `Link` component which will update the navigation stack. Navigator exposes a few actions so to create the `Link` component we need to create something that pokes at the action and let navigator handle the rest.
 
 ```js
-import {push} from 'raid-navigator'
+import { push } from 'raid-navigator'
 
-const Link = ({children, route, state}) => (
-  <button onClick={event => push(route, state)}>
+const Link = ({ children, route, state }) => (
+  <a onClick={event => push(route, state)}>
     {children}
-  </button>
+  </a>
 )
 ```
 
@@ -149,21 +149,21 @@ render(
       <h1>Settings</h1>
       <Link route='/'>Go to index</Link>
     </div>
-  </Navigation>
+  </Navigation>,
   document.querySelector('root')
 )
 ```
 
 ## Memory history navigator
 
-Creating a navigator based on memory history rather than browser history is also fairly straight forward but does need a little extra work.
+Creating a navigator based on memory history rather than browser history is also fairly straight forward but does require a little extra work.
 
 To get started set up a raid signal as before but also instantiate a [memory history implementation](https://www.npmjs.com/package/history) and use that to let navigator set things up.
 
 ```js
-import {Signal} from 'raid'
-import {adaptor} from 'raid-addons'
-import {Navigator} from 'raid-navigator'
+import { Signal } from 'raid'
+import { adaptor } from 'raid-addons'
+import { Navigator } from 'raid-navigator'
 import createHistory from 'history/createMemoryHistory'
 
 const signal = new Signal()
@@ -171,11 +171,11 @@ const connect = adaptor(signal)
 const history = createHistory()
 ```
 
-We’ll supply the navigator with props using `reselect` and `adaptor` again, this time passing in the history instance we want navigator to use. If you’re planning on running this in the browser then navigator will still try to use `sessionStorage` by default which can (depending on your use-case) result in inconsistent behaviour, as its often unnecessary or unwanted to store the state for long we’re just going to disable it.
+We’ll supply the navigator with props using `reselect` and `adaptor` again, this time passing in the history instance we want navigator to use. If you’re planning on running this in the browser then navigator will still try to use `sessionStorage` by default which can (depending on your use-case) result in inconsistent behaviour. As it is often unnecessary or undesirable to store the state for long when using in-memory history we’re just going to disable the storage.
 
 
 ```js
-import {createSelector} from 'reselect'
+import { createSelector } from 'reselect'
 
 const Navigation = connect(
   createSelector(
@@ -194,11 +194,11 @@ const Navigation = connect(
 To make the navigator more usable we could do with a `Link` function again and navigator exposes a helper to create the actions hooked up to the new history instance.
 
 ```js
-import {createActions} from 'raid-navigator'
+import { createActions } from 'raid-navigator'
 
-const {push} = createActions(history)
+const { push } = createActions(history)
 
-const Link = ({children, route, state}) => (
+const Link = ({ children, route, state }) => (
   <button onClick={event => push(route, state)}>
     {children}
   </button>
@@ -212,13 +212,13 @@ And thats it, just a few quick changes to use memory history instead of browser 
 The match algorithm will also collect up route parameters and pass those to children as props under the `params` key. Route parameters are delimited by starting with `/:`.
 
 ```js
-const View = ({params: {title}}) => <h1>{title}</h1>
+const View = ({ params: { title } }) => <h1>{title}</h1>
 
 render(
   <Navigation>
     <View route='/foo/:title' />
     <View route='/bar/:title' />
-  </Navigation>
+  </Navigation>,
   document.querySelector('root')
 )
 ```
@@ -228,7 +228,7 @@ render(
 The match algorithm also honours `*` routes as a wildcard to match against all routes or subroutes.
 
 ```js
-const View = ({params: {title}}) => <h1>{title}</h1>
+const View = ({ params: { title } }) => <h1>{title}</h1>
 
 render(
   <Navigation>
@@ -246,14 +246,14 @@ render(
 `RouteMatcher` just implements the route matching algorithm to choose a child without the connectivity that `Navigator` supplies.
 
 ```js
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 
 signal.observe(state => {
   render(
     <RouteMatcher navigation={state.navigation}>
       <div route='/home/*'>Matched on home</div>
       <div route='/settings/*'>Matched on settings</div>
-    </RouteMatcher>
+    </RouteMatcher>,
     document.querySelector('root')
   )
 })
@@ -283,9 +283,9 @@ Passing in a `Raid Signal` is required to hook up the `Navigator` to the various
 
 ### history
 
-Defaults to `history/createBrowserHistory`.
+Defaults to `history.createBrowserHistory`.
 
-Browser history is the primary target for `Navigator` but any implementation (such as `history/createMemoryHistory`) that matches the specification set out by [history](https://www.npmjs.com/package/history) should work fine.
+Browser history is the primary target for `Navigator` but any implementation (such as `history.createMemoryHistory`) that matches the specification set out by [history](https://www.npmjs.com/package/history) should work fine.
 
 Note that the default actions exposed by `Navigator` expect to hook in to browser history, if you supply a different history implementation then you’ll also want to create actions based on that history to hook everything up. See the `navigatorMemory` example for clarity.
 
