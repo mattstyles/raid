@@ -1,4 +1,12 @@
 
+# 3.3.2
+
+* _fix_ navigator:routeMatcher default export
+
+# 3.3.1
+
+* _fix_ tag and publish
+
 # 3.3.0
 
 * _update_ remove deprecation on lifecycle methods within `Navigator`
