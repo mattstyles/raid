@@ -70,7 +70,7 @@
   },
   "dependencies": {
     "history": "^4.9.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "raid-addons": "^3.3.1",
     "reselect": "^4.0.0"
   },
@@ -79,5 +79,6 @@
     "react": "^16.5.0",
     "react-dom": "^16.5.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "679cc2c82f8c4453bf19db29364661fef246ad0f"
 }
