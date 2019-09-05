@@ -1,6 +1,6 @@
 {
   "name": "raid-addons",
-  "version": "3.3.1",
+  "version": "3.3.3",
   "description": "Add-ons functions for use with Raid",
   "main": "lib/",
   "scripts": {
@@ -61,7 +61,7 @@
     "babel-eslint": "^10.0.2",
     "coveralls": "^3.0.4",
     "nyc": "^14.1.1",
-    "raid": "^3.3.1",
+    "raid": "^3.3.3",
     "rimraf": "^2.6.3",
     "standard": "^12.0.1",
     "tape": "^4.9.1"
