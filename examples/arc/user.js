@@ -3,13 +3,19 @@ import { Button } from '../_common'
 
 import { dispatch, actions } from './actions'
 
-const getUserData = ({ name, avatarUrl }) => ({
-  name,
-  image: avatarUrl
+const getUserData = (user) => ({
+  name: user.name,
+  image: user.avatar_url
 })
 
 const styles = {
-  container: { margin: 30, background: 'white', borderRadius: 3, padding: 12, display: 'table' },
+  container: {
+    margin: 30,
+    background: 'white',
+    borderRadius: 3,
+    padding: 12,
+    display: 'table'
+  },
   btn: {
     marginRight: 0,
     marginTop: 0,
