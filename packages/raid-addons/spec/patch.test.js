@@ -55,3 +55,24 @@ test('Should apply the update to correct key', t => {
   t.deepEqual(patched(state), expected, 'Changes applied correctly')
   t.deepEqual(fixedArity(state), expected, 'Changes applied correctly')
 })
+
+test('Passes through all of the state to patched functions', t => {
+  t.plan(1)
+
+  const state = {
+    foo: { bar: 'foo:bar' },
+    baz: {
+      quux: 'baz:quux',
+      fred: 'baz:fred'
+    }
+  }
+  const expected = {
+    quux: 'baz:quux',
+    fred: 'baz:fred'
+  }
+  const patched = patch('baz', state => {
+    t.deepEqual(state, expected, 'Correctly passes through all state')
+  })
+
+  patched(state)
+})
