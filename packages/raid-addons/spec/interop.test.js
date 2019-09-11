@@ -57,3 +57,32 @@ tape('Interop :: compress and arc', t => {
   signal.register(fn)
   signal.emit(action)
 })
+
+tape('Interop :: patch, compress and arc', t => {
+  t.plan(1)
+
+  const signal = new Signal({
+    foo: 'foo',
+    bar: {
+      baz: 'bar::baz',
+      quux: 'bar::quux'
+    }
+  })
+  const event = 'event'
+  const expected = {
+    baz: 'bar::baz',
+    quux: 'bar::quux'
+  }
+  const compressed = compress({
+    [event]: (getState, payload) => {
+      t.deepEqual(getState(), expected, 'arcs can be patched and compressed and still grab state correctly')
+    }
+  })
+  const patched = patch('bar', compressed)
+
+  signal.register(arc(signal)(patched))
+  signal.emit({
+    type: event,
+    payload: 'a payload'
+  })
+})
