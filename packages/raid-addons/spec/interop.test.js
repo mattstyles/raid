@@ -2,9 +2,9 @@
 import tape from 'tape'
 import { Signal } from 'raid'
 
-import { patch, compress } from '../src'
+import { arc, patch, compress } from '../src'
 
-tape.only('Interop :: compress and patch', t => {
+tape('Interop :: compress and patch', t => {
   t.plan(1)
 
   const signal = new Signal({
@@ -31,4 +31,29 @@ tape.only('Interop :: compress and patch', t => {
     type: event,
     payload: 'a payload'
   })
+})
+
+tape('Interop :: compress and arc', t => {
+  t.plan(3)
+
+  const signal = new Signal({
+    foo: 'bar'
+  })
+  const action = {
+    type: 'action',
+    payload: 'payload'
+  }
+  const update = (getState, payload, s) => {
+    t.deepEqual({
+      foo: 'bar'
+    }, getState(), 'state can be grabbed')
+    t.deepEqual(payload, action.payload, 'event is passed through')
+    t.deepEqual(s, signal, 'signal should be the correct signal')
+  }
+
+  const fn = arc(signal)(compress({
+    [action.type]: update
+  }))
+  signal.register(fn)
+  signal.emit(action)
 })

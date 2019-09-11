@@ -10,10 +10,10 @@ const compress = updates => {
   if (typeof updates === 'string') {
     return squash(updates)
   }
-  return (state, event) => {
+  return (state, event, signal) => {
     let update = updates[event.type]
     if (update) {
-      return update(state, event.payload)
+      return update(state, event.payload, signal)
     }
     return state
   }
