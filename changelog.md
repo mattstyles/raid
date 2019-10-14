@@ -1,4 +1,13 @@
 
+# 3.4.0
+
+* _add_ raid-addons:plug
+* _add_ raid-addons:lock
+* _add_ private create adaptor for adaptor and plug
+* _fix_ compress passes through params for arc correctly
+* _fix_ patch and arc compatibility
+* _add_ arc tests using async/await
+
 # 3.3.2
 
 * _fix_ navigator:routeMatcher default export
