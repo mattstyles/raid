@@ -1,6 +1,6 @@
 {
   "name": "raid-navigator",
-  "version": "3.3.3",
+  "version": "3.4.0",
   "description": "Navigation stack hooked in to a raid signal",
   "main": "lib",
   "scripts": {
@@ -63,7 +63,7 @@
     "coveralls": "^3.0.4",
     "jsdom": "^15.1.1",
     "nyc": "^14.1.1",
-    "raid": "^3.3.3",
+    "raid": "^3.4.0",
     "rimraf": "^2.6.3",
     "standard": "^12.0.1",
     "tape": "^4.9.1"
@@ -71,7 +71,7 @@
   "dependencies": {
     "history": "^4.9.0",
     "lodash": "^4.17.15",
-    "raid-addons": "^3.3.3",
+    "raid-addons": "^3.4.0",
     "reselect": "^4.0.0"
   },
   "peerDependencies": {
