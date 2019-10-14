@@ -11,6 +11,7 @@ export { default as squash } from './squash'
 export { default as sin } from './sin'
 export { default as patch } from './patch'
 export { default as scope } from './scope'
+export { lock } from './lock'
 
 // var addons = {
 //   adaptor,
