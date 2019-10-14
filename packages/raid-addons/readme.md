@@ -55,6 +55,31 @@ The state selector function is optional and the component function will become t
 
 > The source uses JSX to pass through the `Component` and is currently building only for use with [React](https://github.com/facebook/react).
 
+### Plug
+
+`(<Signal>) => <Function <Function[optional], Component>> => <Function <Any[optional]>>`
+
+A plug is functionally identical to `adaptor`, but without the property massaging to be used any component specification i.e. it can be used with raw functions instead.
+
+Plug returns a `connect` function which can be used to decorate a function and pass through state from a Raid Signal.
+
+```js
+const signal = new Signal({
+  foo: 'hello'
+})
+const connect = plug(signal)
+
+const hof = (
+  state => state.foo,
+  (state, passed) => {
+    console.log(state, ':', passed)
+  }
+)
+
+hof('world')
+// hello : world
+```
+
 ### Compress (Object notation)
 
 `(<Object>) => <Function <state, event>>`
