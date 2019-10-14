@@ -1,28 +1,37 @@
 
 import React from 'react'
 
-const identity = a => a
+// const identity = a => a
+//
+// export const adaptor = signal => {
+//   let internalState = {}
+//   signal.observe(state => {
+//     internalState = state
+//   })
+//   return function connect (selector, Component) {
+//     if (Component && !selector) {
+//       throw new Error('No state selector for connected component')
+//     }
+//
+//     // selector is optional, if it is omitted then assume the first
+//     // argument is the component function
+//     const select = Component ? selector : identity
+//     const Comp = Component || selector
+//
+//     return props => {
+//       let state = select(internalState)
+//       return <Comp {...state} {...props} />
+//     }
+//   }
+// }
+//
+// export default adaptor
 
-const adaptor = signal => {
-  let internalState = {}
-  signal.observe(state => {
-    internalState = state
-  })
-  return function connect (selector, Component) {
-    if (Component && !selector) {
-      throw new Error('No state selector for connected component')
-    }
+import { createAdaptor } from './createAdaptor'
 
-    // selector is optional, if it is omitted then assume the first
-    // argument is the component function
-    const select = Component ? selector : identity
-    const Comp = Component || selector
-
-    return props => {
-      let state = select(internalState)
-      return <Comp {...state} {...props} />
-    }
+export const adaptor = createAdaptor((select, getState, func) => {
+  return props => {
+    let state = select(getState())
+    return <func {...state} {...props} />
   }
-}
-
-export default adaptor
+})

@@ -49,4 +49,4 @@ test('Should manage blocking a an update', t => {
     dispose()
     signal.emit({ type: 'three' })
   }, 200)
-}, true)
+})

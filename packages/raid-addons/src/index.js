@@ -1,5 +1,5 @@
 
-export { default as adaptor } from './adaptor'
+export { adaptor } from './adaptor'
 export { default as compress } from './compress'
 export { default as debug } from './debug'
 export { default as flow } from './flow'
@@ -12,6 +12,7 @@ export { default as sin } from './sin'
 export { default as patch } from './patch'
 export { default as scope } from './scope'
 export { lock } from './lock'
+export { plug } from './plug'
 
 // var addons = {
 //   adaptor,
