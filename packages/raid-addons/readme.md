@@ -379,6 +379,38 @@ signal.register(isMain(update))
 
 > Using scope to match against certain actions is fine, but consider if [compress](https://github.com/mattstyles/raid/blob/master/packages/raid-addons/readme.md#compress) would be a better solution.
 
+### Lock
+
+`(<Signal>) => <Function <state, event>> => <Function <void>>`
+
+Lock provides a mechanism whereby only one function registered through the lock will be active at any one time on a signal, i.e. it locks the signal for the **last** function supplied through the lock register function. Lock returns a function which can be used to register updates to a signal, this registration function will return a dispose function for each update to remove them from the signal.
+
+```js
+const signal = Signal.of({})
+const register = lock(signal)
+
+const dispose1 = register(safe(() => {
+  console.log('one')
+}))
+signal.emit({})
+// one
+
+// ...later
+const dispose2 = register(safe(() => {
+  console.log('two')
+}))
+signal.emit({})
+// two
+
+// ...later
+dispose2()
+signal.emit({})
+// one
+```
+
+Note that signal emissions are delayed a tick to be consistent so asynchronicity is something that needs to be considered i.e. the above example, run as written, will not work as you expect as the 2nd update function will be registered and disposed (whereby registering the 1st one again) synchronously whilst the emission will be on the next tick, leading to only 'one' being logged to the console.
+
+
 ### Arc
 
 Arcs can be used to create functions which can handle side effects away from regular update functions by ensuring that async-await can be handled correctly.
