@@ -53,7 +53,7 @@
     "esm": "^3.2.25",
     "event-stream": "^4.0.1",
     "inquirer": "^6.4.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mustache": "^3.0.1",
