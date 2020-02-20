@@ -70,5 +70,6 @@
   "dependencies": {
     "@mattstyles/match": "^1.0.1",
     "force-array": "^3.1.0"
-  }
+  },
+  "gitHead": "81080cdcb00aa3ca3524913bd387fbe764fda04c"
 }
