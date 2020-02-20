@@ -91,10 +91,14 @@ export const timedKeySequence = (opts = {
     }))
 }
 
-const keystream = () => {
+const keystream = (opts = {
+  rate: 0,
+  el: window
+}) => {
   const pressed = new Map()
 
-  const keypress = fromEvent('data', raf(window))
+  const keypress = fromEvent('data', raf(opts.el || window))
+    .throttle(opts.rate || 0)
     .filter(dt => pressed.size > 0)
     .tap(dt => {
       for (let [key, value] of pressed) {
