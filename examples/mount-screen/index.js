@@ -34,7 +34,9 @@ const signal = new Signal({
 // Apply stream as an input source for the main signal
 signal.mount(screenStream())
 signal.mount(tickStream())
-signal.mount(keyStream())
+signal.mount(keyStream({
+  rate: 1000 / 30
+}))
 signal.mount(keySequence())
 signal.mount(timedKeySequence({ timeout: 500 }))
 
@@ -63,6 +65,7 @@ const update = (state, { type, payload }) => {
   }
 
   if (type === keyActions.keypress) {
+    console.log(payload.keys)
     if (payload.keys.has('<enter>')) {
       state.enterDownFor = payload.keys.get('<enter>')
     }

@@ -2,4 +2,7 @@ node_modules
 *.log*
 _book
 coverage
+.cache
+dist
+index.*.html
 
