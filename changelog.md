@@ -1,4 +1,10 @@
 
+# 3.5.0
+
+* _update_ all dependencies
+* _add_ raid-streams:keystream keypress repeat rate option
+* _add_ raid-streams:keystream element select option
+
 # 3.4.0
 
 * _add_ raid-addons:plug
