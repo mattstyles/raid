@@ -46,22 +46,22 @@
     ]
   },
   "dependencies": {
-    "bluebird": "^3.5.5",
-    "chalk": "^2.4.2",
-    "cross-spawn": "^6.0.5",
+    "bluebird": "^3.7.2",
+    "chalk": "^3.0.0",
+    "cross-spawn": "^7.0.1",
     "debug": "^4.1.1",
     "esm": "^3.2.25",
     "event-stream": "^4.0.1",
-    "inquirer": "^6.4.1",
+    "inquirer": "^7.0.4",
     "lodash": "^4.17.15",
     "minimist": "^1.2.0",
-    "mkdirp": "^0.5.1",
-    "mustache": "^3.0.1",
+    "mkdirp": "^1.0.3",
+    "mustache": "^4.0.0",
     "osenv": "^0.1.5",
     "pkg-dir": "^4.2.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.2",
-    "standard": "^12.0.1"
+    "babel-eslint": "^10.0.3",
+    "standard": "^14.3.1"
   }
 }
