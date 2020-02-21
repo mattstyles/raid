@@ -24,7 +24,10 @@ const exclude = keys => ({payload: {key}}) => !keys.includes(key)
 
 const prevent = ({payload: {event}}) => event.preventDefault()
 
-export const keydown = keys => fromEvent('keydown', window)
+export const keydown = ({
+  keys,
+  el
+}) => fromEvent('keydown', el || window)
   .map(keymap(actions.keydown, keys))
   .filter(exclude([
     '<tab>'
@@ -33,7 +36,10 @@ export const keydown = keys => fromEvent('keydown', window)
   .tap(({payload: {key}}) => keys.set(key, 0))
   .tap(prevent)
 
-export const keyup = keys => fromEvent('keyup', window)
+export const keyup = ({
+  keys,
+  el
+}) => fromEvent('keyup', el || window)
   .map(keymap(actions.keyup, keys))
   .filter(exclude([
     '<tab>'
@@ -97,7 +103,7 @@ const keystream = (opts = {
 }) => {
   const pressed = new Map()
 
-  const keypress = fromEvent('data', raf(opts.el || window))
+  const keypress = fromEvent('data', raf(window))
     .throttle(opts.rate || 0)
     .filter(dt => pressed.size > 0)
     .tap(dt => {
@@ -113,8 +119,14 @@ const keystream = (opts = {
     }))
 
   return mergeArray([
-    keydown(pressed),
-    keyup(pressed),
+    keydown({
+      keys: pressed,
+      el: el || window
+    }),
+    keyup({
+      keys: pressed,
+      el: el || window
+    }),
     keypress
   ])
 }
