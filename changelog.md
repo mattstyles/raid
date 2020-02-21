@@ -1,4 +1,24 @@
 
+#
+
+* _breaking_ Changed API for raid-addons:keyup and keydown to be single arity with an `el` property for selecting which element to target.
+
+**Previous:**
+
+```js
+const keyMap = new Map()
+keyup(keyMap)
+```
+
+**Now:**
+
+```js
+const keyMap = new Map()
+keyup({
+  keys: keyMap
+})
+```
+
 # 3.5.0
 
 * _update_ all dependencies
