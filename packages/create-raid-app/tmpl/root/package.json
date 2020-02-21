@@ -68,32 +68,31 @@
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.2",
     "babel-plugin-lodash": "^3.3.4",
-    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-styled-components": "^1.10.6",
     "babel-plugin-transform-react-require": "^1.0.1",
-    "create-raid-app": "^3.1.0",
+    "create-raid-app": "^4.0.0",
     "gh-pages": "^2.0.1",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.3",
     "parcel-bundler": "^1.12.3",
-    "rimraf": "^2.6.3",
-    "standard": "^12.0.1"
+    "rimraf": "^3.0.2",
+    "standard": "^14.3.1"
   },
   "dependencies": {
     "eventemitter3": "^4.0.0",
     "history": "^4.9.0",
     "lodash": "^4.17.11",
     "most": "^1.7.3",
-    "open-color": "^1.6.3",
     "prop-types": "^15.7.2",
-    "raid": "^3.0.0",
-    "raid-addons": "^3.0.0",
-    "raid-navigator": "^3.0.1",
-    "raid-streams": "^3.0.0",
+    "raid": "^3.5.0",
+    "raid-addons": "^3.5.0",
+    "raid-navigator": "^3.5.0",
+    "raid-streams": "^3.5.0",
     "react": "^16.8.3",
-    "react-basic-kit": "^0.1.0",
+    "react-basic-kit": "^0.11.0",
     "react-dom": "^16.8.3",
     "react-helmet": "^5.2.0",
     "reselect": "2.5.4",
-    "styled-components": "^4.3.2"
+    "styled-components": "^5.0.1"
   }
 }

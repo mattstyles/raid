@@ -2,9 +2,9 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-const Example = styled('div')`
-  color: red;
-`
+const Example = styled('div')(
+  color: 'red'
+)
 
 export const {{componentName}} = ({ text, children }) => (
   <Example>
