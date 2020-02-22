@@ -16,11 +16,6 @@
     "coverage-report": "nyc report --reporter=lcov",
     "prepublish": "npm run build"
   },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "babel": {
     "presets": [
       "@babel/preset-env",
@@ -72,7 +67,7 @@
     "history": "^4.10.1",
     "lodash": "^4.17.15",
     "raid-addons": "^3.5.0",
-    "reselect": "^4.0.0"
+    "reselect": "^2.5.4"
   },
   "peerDependencies": {
     "raid": "^3.0.0",

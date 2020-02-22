@@ -1,20 +1,19 @@
 #!/usr/bin/env node
 
-var path = require('path')
-var fs = require('fs')
+const path = require('path')
+const fs = require('fs')
 
-var argv = require('minimist')(process.argv.slice(2), {
+const argv = require('minimist')(process.argv.slice(2), {
   alias: {
     o: 'open'
   }
 })
-var inquirer = require('inquirer')
-var budo = require('budo')
+const inquirer = require('inquirer')
+const { run } = require('speedrun')
 
-const basepath = path.resolve(__dirname, '../')
+const basepath = path.join(__dirname, '../')
 const expath = path.join(basepath, 'examples')
-const packages = path.join(basepath, 'packages')
-const index = path.join(expath, '_common/index.html')
+const addIndex = p => path.join(p, 'index.js')
 
 function getDirectory (file) {
   return new Promise((resolve, reject) => {
@@ -64,24 +63,10 @@ function exampleSelect (examples) {
 }
 
 function spawnServer (example) {
-  let dir = path.resolve(expath, example)
-  let paths = [
-    dir,
-    packages
-  ]
+  const entry = addIndex(path.join('./examples', example))
 
-  budo(dir + '/index.js', {
-    live: true,
-    dir,
-    watchGlob: paths,
-    browserify: {
-      paths
-    },
-    open: argv.open,
-    defaultIndex: opt => fs.createReadStream(index),
-    verbose: true,
-    stream: process.stdout,
-    host: '0.0.0.0',
-    pushstate: true
+  run({
+    entry: entry,
+    autoOpen: argv.open
   })
 }
