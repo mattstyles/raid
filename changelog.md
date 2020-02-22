@@ -1,5 +1,10 @@
 
-#
+# 4.0.0
+
+* _fix_ React casing issue with adaptor
+* _prep_ Internal organisation. Examples use parcel. Yarn makes the monorepo easier to manage.
+* _update_ create-raid-app root template
+* _fix_ create-raid-app root template navigation issue
 
 * _breaking_ Changed API for raid-addons:keyup and keydown to be single arity with an `el` property for selecting which element to target.
 
