@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 const H1 = styled('h1')`
   font-size: 2.8rem;
+  line-height: 3.2rem;
 `
 
 export const Title = ({ text, children }) => (
