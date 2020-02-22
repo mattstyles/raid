@@ -8,13 +8,6 @@ import { counter } from './update'
 import Message from './message'
 import Counter from './counter'
 
-// const App = state => (
-//   <div>
-//     <Message msg='Hello' />
-//     <Counter />
-//   </div>
-// )
-
 signal.register(counter)
 
 signal.observe(state => render(
