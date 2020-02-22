@@ -15,14 +15,24 @@
 
 First time use involves globally installing `create-raid-app` which will also place `create-raid-app` into your path, after that any calls will defer to a locally installed version which means that each project can use a different version easily (or even a fork).
 
-Install globally with [npm](https://npmjs.com) and invoke to scaffold a new project.
+Install globally with [npm](https://npmjs.com).
 
 ```sh
 npm i -g create-raid-app
+```
+
+To create a new app `create-raid-app` will need a `package.json` to act as root. For a monorepo you will almost certainly have one of these at the repo root, but, for other instances you won’t so for regular scaffolding create a `package.json` and invoke `create-raid-app`:
+
+```sh
+npm init -y
 create-raid-app
 ```
 
-Once a new project is scaffolded and installed a live-reloading development environment can be run using,
+During installation `create-raid-app` will warn that a `package.json` already exists (as it wants to create a new one), hit `y` when prompted and `create-raid-app` will scaffold you a package and then process to install your dependencies.
+
+> Note that for a monorepo you can omit manually running `npm init -y` as you’ll likely already have a package root.
+
+Once a new project is scaffolded and installed a live-reloading development environment will already be running. To start it again later, use:
 
 ```sh
 npm start
@@ -56,7 +66,7 @@ Unlike [create-react-app](https://www.npmjs.com/package/create-react-app) (which
 └── src
     ├── assets
     ├── components
-    │   └── title.jsx
+    │   └── title.js
     ├── core
     │   ├── actions.js
     │   ├── constants.js
