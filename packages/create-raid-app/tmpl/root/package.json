@@ -84,15 +84,15 @@
     "lodash": "^4.17.11",
     "most": "^1.7.3",
     "prop-types": "^15.7.2",
-    "raid": "^3.5.0",
-    "raid-addons": "^3.5.0",
-    "raid-navigator": "^3.5.0",
-    "raid-streams": "^3.5.0",
+    "raid": "^4.0.0",
+    "raid-addons": "^4.0.0",
+    "raid-navigator": "^4.0.0",
+    "raid-streams": "^4.0.0",
     "react": "^16.8.3",
     "react-basic-kit": "^0.11.0",
     "react-dom": "^16.8.3",
     "react-helmet": "^5.2.0",
-    "reselect": "2.5.4",
+    "reselect": "4.0.0",
     "styled-components": "^5.0.1"
   }
 }
