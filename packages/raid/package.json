@@ -6,15 +6,15 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "standard",
-    "prebuild": "npm run clean",
+    "prebuild": "yarn run clean",
     "build": "babel src --out-dir lib",
     "watch": "babel --watch src --out-dir lib",
-    "prestart": "npm run build",
-    "start": "npm run watch",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
     "coverage-report": "nyc report --reporter=lcov",
-    "prepublish": "npm run build"
+    "prepublish": "yarn run build",
+    "prestart": "yarn run build",
+    "start": "yarn run watch"
   },
   "browserify": {
     "transform": [

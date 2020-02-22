@@ -14,10 +14,10 @@
     "cover": "lerna run coverage-report --ignore raid/monorepo",
     "postcover": "istanbul-combine -d coverage -p summary -r lcov packages/**/coverage/*.json",
     "cover:upload": "cat ./coverage/lcov.info | coveralls",
-    "predocs": "npm run clean && gitbook install",
+    "predocs": "yarn run clean && gitbook install",
     "docs": "gitbook build",
     "docs:watch": "gitbook serve",
-    "predocs:deploy": "npm run docs",
+    "predocs:deploy": "yarn run docs",
     "docs:deploy": "gh-pages -d _book",
     "start": "node scripts/examples"
   },
