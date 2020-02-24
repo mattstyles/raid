@@ -18,7 +18,7 @@ const getStorage = storage => {
  * Initial state root
  */
 const getInitialState = (storage, history) => {
-  let initial = {
+  const initial = {
     stack: [getCurrentRoute(null, history)],
     index: 0
   }
@@ -28,7 +28,7 @@ const getInitialState = (storage, history) => {
   }
 
   try {
-    let stored = storage.getItem(DEFAULT_KEY)
+    const stored = storage.getItem(DEFAULT_KEY)
     if (stored) {
       return JSON.parse(stored)
     }
@@ -64,7 +64,7 @@ export const selector = (key = DEFAULT_KEY) => state => state[key]
  */
 const pop = ({ key, get, state, location, history }) => {
   const { index, stack } = get(state)
-  let routeIndex = getRouteIndex(location, stack)
+  const routeIndex = getRouteIndex(location, stack)
 
   // If the route was found then use it
   if (routeIndex >= 0) {

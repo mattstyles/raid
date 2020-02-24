@@ -4,7 +4,6 @@ import { DEFAULT_KEY, createUpdate } from './update'
 import { actions } from './actions'
 import { RouteMatcher } from './routeMatcher'
 
-// const {Component} = require(`${process.env.BABEL_ENV}/component.js`)
 import { useEffect } from './env/react/hooks'
 
 export const Navigator = props => {
