@@ -1,12 +1,12 @@
 
 import { createSelector } from 'reselect'
-import createHistory from 'history/createMemoryHistory'
+import { createMemoryHistory } from 'history'
 import { Navigator, createActions } from 'raid-navigator'
 
 import { Button } from '../_common'
 import { signal, connect } from './store'
 
-const history = createHistory()
+const history = createMemoryHistory()
 
 const {
   push,
