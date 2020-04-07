@@ -1,3 +1,4 @@
+
 # Raid
 
 > Centralised state container
@@ -36,6 +37,12 @@ mkdir my-awesome-project
 npm i -g create-raid-app
 create-raid-app
 npm start -- -o
+```
+
+You can also scaffold using `npx`
+
+```sh
+npx create-raid-app
 ```
 
 ## Examples
