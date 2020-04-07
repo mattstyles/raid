@@ -1,5 +1,5 @@
 {
-  "name": "raid-navigator",
+  "name": "@raid/navigator",
   "version": "4.1.0",
   "description": "Navigation stack hooked in to a raid signal",
   "main": "lib",

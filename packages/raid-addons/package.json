@@ -1,5 +1,5 @@
 {
-  "name": "raid-addons",
+  "name": "@raid/addons",
   "version": "4.1.0",
   "description": "Add-ons functions for use with Raid",
   "main": "lib/",

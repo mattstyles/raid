@@ -1,9 +1,9 @@
 
-# Raid-addons
+# @raid/addons
 
 > Addons and helpers for use with raid
 
-[![npm](https://img.shields.io/npm/v/raid.svg?style=flat)](https://www.npmjs.com/package/raid)
+[![npm](https://img.shields.io/npm/v/@raid/addons.svg?style=flat)](https://www.npmjs.com/package/@raid/addons)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/mattstyles/raid.svg?branch=master)](https://travis-ci.org/mattstyles/raid)
 [![Coverage Status](https://coveralls.io/repos/mattstyles/raid/badge.svg?branch=master&service=github)](https://coveralls.io/github/mattstyles/raid?branch=master)
@@ -16,11 +16,11 @@
 Install with [yarn](https://yarnpkg.com) or [npm](https://npmjs.com)
 
 ```sh
-yarn add raid raid-addons
+yarn add raid @raid/addons
 ```
 
 ```sh
-npm i -S raid raid-addons
+npm i -S raid @raid/addons
 ```
 
 Raid does one job, it helps to manage the state of your application. It does this job simply enough but sometimes you want to add some sugar or some extra _stuff_ for tasks you typically do often.

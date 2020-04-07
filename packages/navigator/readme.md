@@ -1,11 +1,11 @@
 
-# raid-navigator
+# @raid/navigator
 
 > Navigation stack hooked in to a raid signal
 
-[![npm](https://img.shields.io/npm/v/raid-navigator.svg?style=flat)](https://www.npmjs.com/package/raid-navigator)
+[![npm](https://img.shields.io/npm/v/@raid/navigator.svg?style=flat)](https://www.npmjs.com/package/@raid/navigator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/mattstyles/raid-navigator.svg?branch=composer)](https://travis-ci.org/mattstyles/raid)
+[![Build Status](https://travis-ci.org/mattstyles/raid.svg?branch=composer)](https://travis-ci.org/mattstyles/raid)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 [Documentation](https://mattstyles.github.io/raid/)
@@ -15,18 +15,18 @@
 Install with [yarn](https://yarnpkg.com) or [npm](https://npmjs.com)
 
 ```sh
-yarn add raid-navigator
+yarn add @raid/navigator
 ```
 
 ```sh
-npm i -S raid-navigator
+npm i -S @raid/navigator
 ```
 
 ## Example
 
 ```js
 import { render } from 'react-dom'
-import { Navigator } from 'raid-navigator'
+import { Navigator } from '@raid/navigator'
 import { Signal } from 'raid'
 
 const signal = new Signal()
@@ -48,7 +48,7 @@ signal.observe(state => {
 
 ## Usage
 
-Raid-navigator controls and selects a set of routes based on the current history state, usually this means selecting a single route but multiple will
+@raid/navigator controls and selects a set of routes based on the current history state, usually this means selecting a single route but multiple will
 be rendered if they match. In addition navigator passes the current route state to any matched children.
 
 ### signal `<Signal>`
@@ -73,7 +73,7 @@ Detailed `Navigator` component [api](#api—navigator) documentation.
 
 By default navigator will attempt to use browser memory to manage its stack, this includes storing the navigation state to `sessionStorage`.
 
-To get started include `raid` and set up a signal. `raid-navigator` exposes an initial state that can be added to the signal but its unnecessary as the navigator component will sort it out when it mounts.
+To get started include `raid` and set up a signal. `@raid/navigator` exposes an initial state that can be added to the signal but its unnecessary as the navigator component will sort it out when it mounts.
 
 > This example can all be placed in one file, any dependencies relate to the snippet they are in but remember to place those imports at the top of the file. As things progress splitting into multiple files is beneficial.
 
@@ -88,7 +88,7 @@ The simplest setup for navigator is to hook in to the browser history which it w
 ```js
 import { createSelector } from 'reselect'
 import { adaptor } from 'raid-addons'
-import { Navigator } from 'raid-navigator'
+import { Navigator } from '@raid/navigator'
 
 const connect = adaptor(signal)
 
@@ -127,7 +127,7 @@ signal.observe(state => {
 Navigator is now hooked up to state and will work to select routes based on pathname but we can still go a little further and make this more usable by adding a `Link` component which will update the navigation stack. Navigator exposes a few actions so to create the `Link` component we need to create something that pokes at the action and let navigator handle the rest.
 
 ```js
-import { push } from 'raid-navigator'
+import { push } from '@raid/navigator'
 
 const Link = ({ children, route, state }) => (
   <a onClick={event => push(route, state)}>
@@ -163,7 +163,7 @@ To get started set up a raid signal as before but also instantiate a [memory his
 ```js
 import { Signal } from 'raid'
 import { adaptor } from 'raid-addons'
-import { Navigator } from 'raid-navigator'
+import { Navigator } from '@raid/navigator'
 import createHistory from 'history/createMemoryHistory'
 
 const signal = new Signal()
@@ -194,7 +194,7 @@ const Navigation = connect(
 To make the navigator more usable we could do with a `Link` function again and navigator exposes a helper to create the actions hooked up to the new history instance.
 
 ```js
-import { createActions } from 'raid-navigator'
+import { createActions } from '@raid/navigator'
 
 const { push } = createActions(history)
 

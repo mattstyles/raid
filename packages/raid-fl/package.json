@@ -1,5 +1,5 @@
 {
-  "name": "raid-fl",
+  "name": "@raid/fl",
   "version": "4.1.0",
   "description": "Raid with fantasy-land compliant structures",
   "main": "lib/",
