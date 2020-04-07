@@ -11,34 +11,42 @@
 
 ## Getting Started
 
-> `create-raid-app` requires node version > 8 for async support.
+> `create-raid-app` requires node version > 8 for async support and, by default, uses `yarn` to scaffold dependencies.
 
-First time use involves globally installing `create-raid-app` which will also place `create-raid-app` into your path, after that any calls will defer to a locally installed version which means that each project can use a different version easily (or even a fork).
+Create a new package to act as the root for the project, and then run `create-raid-app` to scaffold the project:
 
-Install globally with [npm](https://npmjs.com).
+```sh
+yarn init -y
+npx create-raid-app
+```
+
+Alternatively you can install `create-raid-app` either locally or globally and running `create-raid-app`. Once the project is scaffolded `create-raid-app` can be used to create additional scaffolds (such as components or signals for the project), at which point it will defer to the local version. This allows you to use a project-specific version (or even a fork).
+
+To install globally with [npm](https://npmjs.com) use the `-g` flag, the command is the similar for [yarn](https://yarnpkg.com)
 
 ```sh
 npm i -g create-raid-app
 ```
 
-To create a new app `create-raid-app` will need a `package.json` to act as root. For a monorepo you will almost certainly have one of these at the repo root, but, for other instances you won’t so for regular scaffolding create a `package.json` and invoke `create-raid-app`:
+```sh
+yarn global add create-raid-app
+```
+
+By default `create-raid-app` will install dependencies using `yarn` and will fail if it can not find `yarn` in the path. Use the `--use-npm` flag if you prefer to use `npm`
 
 ```sh
-npm init -y
-create-raid-app
+npx create-raid-app --use-npm
 ```
 
 During installation `create-raid-app` will warn that a `package.json` already exists (as it wants to create a new one), hit `y` when prompted and `create-raid-app` will scaffold you a package and then process to install your dependencies.
 
-> Note that for a monorepo you can omit manually running `npm init -y` as you’ll likely already have a package root.
-
 Once a new project is scaffolded and installed a live-reloading development environment will already be running. To start it again later, use:
 
 ```sh
-npm start
+yarn start
 ```
 
-`create-raid-app` contains some basic documentation for each instruction, simply append `--help` to the call to get more details on how to use it, e.g.
+`create-raid-app` contains some basic documentation for each instruction, use `--help` to get more details, e.g.
 
 ```sh
 create-raid-app --help
@@ -60,26 +68,31 @@ Unlike [create-react-app](https://www.npmjs.com/package/create-react-app) (which
 ```
 .
 ├── package.json
-├── package-lock.json
+├── yarn.lock
 ├── readme.md
 ├── spec
 └── src
     ├── assets
     ├── components
+    │   ├── app.js
+    │   ├── navigation.js
     │   └── title.js
     ├── core
+    │   ├── routing
+    │   │   ├── index.js
+    │   │   └── routes.js
     │   ├── actions.js
     │   ├── constants.js
     │   ├── selectors.js
     │   └── updates.js
-    ├── index.html
-    ├── main.js
     ├── signals
     │   └── index.js
     ├── utils
     │   └── index.js
-    └── views
-        └── app.jsx
+    ├── views
+    │    └── home.js
+    ├── index.html
+    └── main.js
 ```
 
 Best way to get started is to run `create-raid-app` and have it scaffold a project for you. Be sure to also try `create-raid-app create component`, use `--help` to get more information.
@@ -90,13 +103,13 @@ Best way to get started is to run `create-raid-app` and have it scaffold a proje
 
 There is no formal configuration for `create-raid-app` and it wants to remain as easy to use as possible, this leaves forking as the simplest solution to creating a different base scaffold process or adding additional commands that may be unique to your application, structure and preferences.
 
-As the `create-raid-app` global defers to any local version if you install a specific fork in to your `node_modules` then `create-raid-app` will continue to work as you need.
+As the `create-raid-app` global (or using via `npx`) defers to any local version if you install a specific fork in to your `node_modules` then `create-raid-app` will continue to work as you need.
 
 See the existing `create-raid-app` structure for examples of how to create your own commands and templates.
 
 ## Contributing
 
-Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `npm test` to ensure all tests are passing and add tests for any new features or updates.
+Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
 
 For bugs and feature requests, [please create an issue](https://github.com/mattstyles/raid/issues).
 

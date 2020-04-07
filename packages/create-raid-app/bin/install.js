@@ -6,12 +6,14 @@ import chalk from 'chalk'
 import { help, version } from './man'
 import { exists, getPkgDir, debug } from '../lib/utils'
 
-async function scaffoldCra (cwd, version) {
+async function scaffoldCra (cwd, opts) {
   debug('Installing cra locally')
+  const version = opts['install-version']
+  const cmd = opts['use-npm'] ? 'npm' : 'yarn'
   const cra = 'create-raid-app' + (version ? `@${version}` : '')
   console.log(`Scaffolding ${chalk.cyan(cra)} in to ${chalk.yellow(cwd)}`)
   try {
-    await spawn.sync('npm', ['install', cra], {
+    await spawn.sync(cmd, ['install', cra], {
       cwd,
       stdio: 'inherit'
     })
@@ -41,7 +43,7 @@ async function start (argv) {
     }
 
     try {
-      await scaffoldCra(process.cwd(), argv['install-version'] || '')
+      await scaffoldCra(process.cwd(), argv || {})
     } catch (err) {
       console.error(err)
       process.exit(0)

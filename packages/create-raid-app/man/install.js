@@ -13,4 +13,5 @@ export default () => `
 
        --skip-install        Skips the dependency install step
     -i --install-version     Installs a specific ${pkg.name} version locally
+       --use-npm             Use npm instead of yarn to install dependencies        
 `

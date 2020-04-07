@@ -45,8 +45,9 @@ export default async function install (opts) {
   )
 
   if (!opts['skip-install']) {
+    const cmd = opts['use-npm'] ? 'npm' : 'yarn'
     console.log('\nInstalling dependencies...')
-    spawn.sync('npm', ['install'], {
+    spawn.sync(cmd, ['install'], {
       cwd: installpath,
       stdio: 'inherit'
     })
