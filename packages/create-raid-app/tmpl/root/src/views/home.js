@@ -1,6 +1,6 @@
 
 import { createStructuredSelector } from 'reselect'
-import { View } from 'react-basic-kit'
+import { View } from '@raid/basic-kit'
 
 import { connect } from 'signals'
 import { Title } from 'components/title'

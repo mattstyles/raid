@@ -1,5 +1,5 @@
 
-import { Navigator } from 'raid-navigator'
+import { Navigator } from '@raid/navigator'
 
 import { connect, signal } from 'signals'
 import { routes, history, getNavigation } from 'core/routing'

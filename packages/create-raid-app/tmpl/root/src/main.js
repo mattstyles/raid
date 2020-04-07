@@ -1,6 +1,6 @@
 
 import { render } from 'react-dom'
-import { debug } from 'raid-addons'
+import { debug } from '@raid/addons'
 
 import { signal } from 'signals'
 import { App } from 'components/app'

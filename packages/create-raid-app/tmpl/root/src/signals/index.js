@@ -1,7 +1,7 @@
 
 import { Signal } from 'raid'
-import { adaptor } from 'raid-addons'
-import { initial as navigationState } from 'raid-navigator'
+import { adaptor } from '@raid/addons'
+import { initial as navigationState } from '@raid/navigator'
 
 const initial = {
   ...navigationState,

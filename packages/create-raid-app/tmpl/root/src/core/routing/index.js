@@ -1,5 +1,5 @@
 
-import { createActions } from 'raid-navigator'
+import { createActions } from '@raid/navigator'
 import { createMemoryHistory } from 'history'
 import { get } from 'lodash/fp'
 
