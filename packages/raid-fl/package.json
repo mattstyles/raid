@@ -42,6 +42,7 @@
       }
     }
   },
+  "sideEffects": false,
   "standard": {
     "parser": "babel-eslint"
   },

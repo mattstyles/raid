@@ -16,11 +16,6 @@
     "prestart": "yarn run build",
     "start": "yarn run watch"
   },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "babel": {
     "presets": [
       "@babel/preset-env"
@@ -34,6 +29,7 @@
       ]
     ]
   },
+  "sideEffects": false,
   "standard": {
     "parser": "babel-eslint"
   },

@@ -21,6 +21,7 @@
       "@babel/preset-env"
     ]
   },
+  "sideEffects": false,
   "standard": {
     "parser": "babel-eslint"
   },
