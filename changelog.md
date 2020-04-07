@@ -1,7 +1,9 @@
 
-#
+# 5.0.0
 
 * _update_ cra template to include @raid/ui projects
+* _add_ side effect free hints
+* _add_ cra uses yarn by default, with flag to switch to npm
 
 * _breaking_ Changed package names to be under the @raid project
 
