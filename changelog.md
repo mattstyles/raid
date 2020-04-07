@@ -1,4 +1,19 @@
 
+#
+
+* _update_ cra template to include @raid/ui projects
+
+* _breaking_ Changed package names to be under the @raid project
+
+List of changed package names:
+
+`raid`: <unchanged> `raid`
+`create-raid-app`: <unchanged> `create-raid-app`
+`raid-addons`: `@raid/addons`
+`raid-fl`: `@raid/fl`
+`raid-streams`: `@raid/streams`
+`raid-navigator`: `@raid/navigator`
+
 # 4.0.0
 
 * _fix_ React casing issue with adaptor
