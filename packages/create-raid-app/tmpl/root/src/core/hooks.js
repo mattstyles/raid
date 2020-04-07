@@ -3,16 +3,16 @@ import { useEffect } from 'react'
 
 import { emit } from '../signals'
 
-export const useMount = (type, payload = null) => {
+export const useMount = (type, payload = null, deps = []) => {
   useEffect(() => {
     if (!type) {
       return
     }
     emit(type, payload)
-  })
+  }, deps)
 }
 
-export const useUnmount = (type, payload = null) => {
+export const useUnmount = (type, payload = null, deps = []) => {
   useEffect(() => {
     if (!type) {
       return
@@ -21,10 +21,10 @@ export const useUnmount = (type, payload = null) => {
     return () => {
       emit(type, payload)
     }
-  })
+  }, deps)
 }
 
-export const useAction = ({ onMount, onUnmount }) => {
+export const useAction = ({ onMount, onUnmount }, deps = []) => {
   useEffect(() => {
     if (onMount) {
       const { type, payload = null } = onMount
@@ -43,5 +43,5 @@ export const useAction = ({ onMount, onUnmount }) => {
         emit(type, payload)
       }
     }
-  })
+  }, deps)
 }

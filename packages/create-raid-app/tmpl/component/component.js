@@ -1,9 +1,12 @@
 
 import styled from 'styled-components'
+import { css } from '@styled-system/css'
 import PropTypes from 'prop-types'
 
 const Example = styled('div')(
-  color: 'red'
+  css({
+    color: 'primary'
+  })
 )
 
 export const {{componentName}} = ({ text, children }) => (
@@ -17,5 +20,5 @@ export const {{componentName}} = ({ text, children }) => (
 }
 
 {{componentName}}.defaultProps = {
-  text: null
+  text: ''
 }

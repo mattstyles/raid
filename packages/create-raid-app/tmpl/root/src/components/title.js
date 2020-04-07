@@ -1,11 +1,14 @@
 
 import styled from 'styled-components'
+import { css } from '@styled-system/css'
 import PropTypes from 'prop-types'
 
-const H1 = styled('h1')`
-  font-size: 2.8rem;
-  line-height: 3.2rem;
-`
+const H1 = styled('h1')(
+  css({
+    fontSize: 'xxl',
+    lineHeight: 'xxl'
+  })
+)
 
 export const Title = ({ text, children }) => (
   <H1>

@@ -1,5 +1,6 @@
 
 import { createStructuredSelector } from 'reselect'
+import { css } from '@styled-system/css'
 
 import {connect, dispatch} from 'signals'
 import {getMessage} from './selectors'
@@ -7,11 +8,14 @@ import actions from './actions'
 
 const dispatchAction = dispatch(actions.onAction)
 
-const Button = styled('div')`
-  background: blue;
-  color: white;
-  padding: 3px 18px;
-`
+const Button = styled('div')(
+  css({
+    background: 'info.600',
+    color: 'white',
+    px: 6,
+    py: 2
+  })
+)
 
 const {{componentName}} = ({ message }) => (
   <Button
