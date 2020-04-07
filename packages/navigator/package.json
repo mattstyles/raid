@@ -71,9 +71,9 @@
     "reselect": "^4.0.0"
   },
   "peerDependencies": {
-    "raid": "^4.0.0",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0"
+    "raid": "^5.0.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "license": "MIT",
   "gitHead": "50852943b2ebe16e16e855110e57161dd654133d"
