@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 
 const H1 = styled('h1')(
   css({
-    fontSize: 'xxl',
-    lineHeight: 'xxl'
+    fontSize: 'xl',
+    lineHeight: 'xl'
   })
 )
 
