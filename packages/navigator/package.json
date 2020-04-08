@@ -1,6 +1,6 @@
 {
   "name": "@raid/navigator",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Navigation stack hooked in to a raid signal",
   "main": "lib",
   "scripts": {
@@ -59,7 +59,7 @@
     "coveralls": "^3.0.9",
     "jsdom": "^16.2.0",
     "nyc": "^15.0.0",
-    "raid": "^5.0.0",
+    "raid": "^5.0.1",
     "rimraf": "^3.0.2",
     "standard": "^14.3.1",
     "tape": "^4.13.0"
