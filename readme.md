@@ -47,29 +47,29 @@ npx create-raid-app
 
 ## Examples
 
-The Raid codebase has been written to encourage collaboration and uses [lerna](https://lernajs.io/) to implement a monorepo.
+The Raid codebase has been written to encourage collaboration and uses [lerna](https://lernajs.io/) to implement a monorepo. To hook dependencies up correctly prefer `yarn` over `npm`.
 
 To get going you can let lerna do the heavy lifting so you simply need to clone the repository, install the root dependencies and then let lerna hook things together.
 
 To fire in to the examples run `npm start` after letting lerna hook things up. This is also a live development environment and will automatically reload the browser when there are changes to any of the packages.
 
 ```sh
-$ npm i
-$ npm run setup
-$ npm start -- -o
+yarn
+yarn run setup
+yarn start
 ```
 
 ## Running tests
 
 ```sh
-$ npm i
-$ npm run setup
-$ npm test
+yarn
+yarn run setup
+yarn test
 ```
 
 ## Contributing
 
-Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `npm test` to ensure all tests are passing and add tests for any new features or updates.
+Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
 
 For bugs and feature requests, [please create an issue](https://github.com/mattstyles/raid/issues).
 

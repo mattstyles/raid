@@ -8,7 +8,6 @@ cache:
     - packages/*/node_modules
 before_script:
   - npm run setup
-  - npm run build
 after_script:
   - npm run cover
   - npm run cover:upload
