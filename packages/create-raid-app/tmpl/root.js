@@ -8,11 +8,16 @@ export async function getData () {
     name: 'projectName',
     type: 'input',
     message: 'What is the name of this awesome project?'
+  }, {
+    name: 'projectDescription',
+    type: 'input',
+    message: 'What is the description for this awesome project?'
   }])
 
   return Object.assign({
     username: user(),
-    projectName: '@TODO Project Name'
+    projectName: '@TODO Project Name',
+    projectDescription: '@TODO project description'
   }, answers)
 }
 

@@ -2,7 +2,7 @@
   "name": "{{projectName}}",
   "private": true,
   "version": "0.0.0",
-  "description": "@TODO description",
+  "description": "{{projectDescription}}",
   "main": "dist/index.html",
   "scripts": {
     "clean": "rimraf dist && mkdirp dist",
