@@ -1,6 +1,6 @@
 
 import { createSelector } from 'reselect'
-import { Navigator, push, back, forward } from 'raid-navigator'
+import { Navigator, push, back, forward } from '@raid/navigator'
 
 import { Button } from '../_common'
 import { signal, connect } from './store'

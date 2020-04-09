@@ -1,7 +1,7 @@
 
 import { render } from 'react-dom'
 
-import { RouteMatcher } from 'raid-navigator'
+import { RouteMatcher } from '@raid/navigator'
 import { Navigation, Push, Back, Forward } from './navigation'
 import { signal } from './store'
 

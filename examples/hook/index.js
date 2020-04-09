@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import {
   compress,
   hook
-} from 'raid-addons'
+} from '@raid/addons'
 
 import { App, element } from '../_common'
 

@@ -4,15 +4,15 @@ import { render } from 'react-dom'
 import { Signal } from 'raid'
 import screenStream, {
   actions as screenActions
-} from 'raid-streams/screen'
+} from '@raid/streams/screen'
 import keyStream, {
   actions as keyActions,
   keySequence,
   timedKeySequence
-} from 'raid-streams/keys'
+} from '@raid/streams/keys'
 import tickStream, {
   actions as tickActions
-} from 'raid-streams/tick'
+} from '@raid/streams/tick'
 
 import { App, element, P, H1 } from '../_common'
 

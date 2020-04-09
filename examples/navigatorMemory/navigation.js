@@ -1,7 +1,7 @@
 
 import { createSelector } from 'reselect'
 import { createMemoryHistory } from 'history'
-import { Navigator, createActions } from 'raid-navigator'
+import { Navigator, createActions } from '@raid/navigator'
 
 import { Button } from '../_common'
 import { signal, connect } from './store'

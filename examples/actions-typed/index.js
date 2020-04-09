@@ -7,8 +7,8 @@
 
 import { render } from 'react-dom'
 import { Signal } from 'raid'
-import { connect } from 'raid-fl'
-import { match } from 'raid-addons'
+import { connect } from '@raid/fl'
+import { match } from '@raid/addons'
 
 import { App, Button, element, theme, Counter, Count, Inline } from '../_common'
 

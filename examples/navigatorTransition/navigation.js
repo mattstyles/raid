@@ -1,8 +1,8 @@
 
 import React from 'react'
 import { createSelector } from 'reselect'
-import { Navigator, push, back, forward, actions } from 'raid-navigator'
-import { safe, compress } from 'raid-addons'
+import { Navigator, push, back, forward, actions } from '@raid/navigator'
+import { safe, compress } from '@raid/addons'
 import { TransitionGroup } from 'react-transition-group'
 
 import { Button } from '../_common'

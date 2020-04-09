@@ -2,7 +2,7 @@
 import { render } from 'react-dom'
 
 import { Signal } from 'raid'
-import { patch } from 'raid-addons'
+import { patch } from '@raid/addons'
 
 import { App, Button, element, H2 } from '../_common'
 

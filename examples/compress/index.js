@@ -5,7 +5,7 @@ import { Signal } from 'raid'
 import {
   compress,
   flow
-} from 'raid-addons'
+} from '@raid/addons'
 
 import { Box, Button, element, App, H2, P } from '../_common'
 

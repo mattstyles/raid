@@ -1,6 +1,6 @@
 
 import { createStructuredSelector } from 'reselect'
-import { Navigator, push, back, forward, RouteMatcher as Matcher } from 'raid-navigator'
+import { Navigator, push, back, forward, RouteMatcher as Matcher } from '@raid/navigator'
 
 import { Button } from '../_common'
 import { signal, connect } from './store'

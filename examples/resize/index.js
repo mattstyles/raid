@@ -1,6 +1,6 @@
 
 import { render } from 'react-dom'
-import { compress } from 'raid-addons'
+import { compress } from '@raid/addons'
 
 import { element, H1, App } from '../_common'
 

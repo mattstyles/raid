@@ -5,7 +5,7 @@ import {
   arc,
   flow,
   compress
-} from 'raid-addons'
+} from '@raid/addons'
 
 import { signal } from './store'
 import { dispatch, actions } from './actions'

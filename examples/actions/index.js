@@ -7,7 +7,7 @@
 
 import { render } from 'react-dom'
 import { Signal } from 'raid'
-import { debug } from 'raid-addons'
+import { debug } from '@raid/addons'
 import { union } from 'folktale/adt/union'
 
 import { App, Button, element, theme, Counter, Count, Inline } from '../_common'

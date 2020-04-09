@@ -6,7 +6,7 @@ import {
   scope,
   compress,
   adaptor
-} from 'raid-addons'
+} from '@raid/addons'
 
 import {
   App,

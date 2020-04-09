@@ -3,7 +3,7 @@ import '@babel/polyfill'
 import { render } from 'react-dom'
 import { Signal } from 'raid'
 
-import { sin } from 'raid-addons'
+import { sin } from '@raid/addons'
 
 import { App, element, Button } from '../_common'
 
