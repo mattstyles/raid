@@ -79,26 +79,26 @@
     "standard": "^14.3.3"
   },
   "dependencies": {
+    "@raid/addons": "^5.0.0",
+    "@raid/app-kit": "^0.16.0",
+    "@raid/basic-kit": "^0.16.0",
+    "@raid/navigator": "^5.0.0",
+    "@raid/streams": "^5.0.0",
+    "@styled-system/css": "5.1.5",
+    "@styled-system/theme-get": "5.1.2",
+    "@styled-system/variant": "5.1.5",
     "eventemitter3": "^4.0.0",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
     "most": "^1.8.0",
     "prop-types": "^15.7.2",
     "raid": "^5.0.0",
-    "@raid/addons": "^5.0.0",
-    "@raid/app-kit": "^0.16.0",
-    "@raid/basic-kit": "^0.16.0",
-    "@raid/navigator": "^5.0.0",
-    "@raid/streams": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
     "react-is": "^16.13.1",
     "reselect": "4.0.0",
     "styled-components": "^5.1.0",
-    "styled-system": "5.1.5",
-    "@styled-system/css": "5.1.5",
-    "@styled-system/theme-get": "5.1.2",
-    "@styled-system/variant": "5.1.5"
+    "styled-system": "5.1.5"
   }
 }
