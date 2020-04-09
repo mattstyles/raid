@@ -51,7 +51,7 @@ The Raid codebase has been written to encourage collaboration and uses [lerna](h
 
 To get going you can let lerna do the heavy lifting so you simply need to clone the repository, install the root dependencies and then let lerna hook things together.
 
-To fire in to the examples run `npm start` after letting lerna hook things up. This is also a live development environment and will automatically reload the browser when there are changes to any of the packages.
+To fire in to the examples run `yarn start` after letting lerna hook things up. This is also a live development environment and will automatically reload the browser when there are changes to any of the packages.
 
 ```sh
 yarn
