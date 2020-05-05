@@ -3,3 +3,22 @@ node_modules
 *.log
 coverage
 .nyc_output
+
+# Transpiled output
+adaptor.js
+arc.js
+compress.js
+debug.js
+flow.js
+hook.js
+lock.js
+match.js
+patch.js
+plug.js
+safe.js
+scope.js
+squash.js
+
+utils.js
+sin.js
+createAdaptor.js

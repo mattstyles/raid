@@ -8,6 +8,7 @@
     "lint": "standard",
     "prebuild": "yarn run clean",
     "build": "babel src --out-dir lib",
+    "postbuild": "node build.js",
     "watch": "babel --watch src --out-dir lib",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
