@@ -29,7 +29,31 @@ This is a disparate list of add-ons and whilst they were created with Raid in mi
 
 See the [examples](https://github.com/mattstyles/raid/blob/master/examples) for more detailed usage.
 
+## Direct imports
+
+Addons are also provided via a direct import to the file housing the addon, which will be named the same. All exports are named exports. These are provided as tree shaking is unreliable and you often will not want to carry around every addon when you only want one/a few.
+
+```js
+import { adaptor } from '@raid/addons'
+
+import { adaptor } from '@raid/addons/adaptor'
+```
+
 ## Add-ons
+
+* [Adaptor](#adaptor)
+* [Plug](#plug)
+* [Compress](#compress-object-notation)
+* [Debug](#debug)
+* [Squash](#squash)
+* [Flow](#flow)
+* [Hook](#hook)
+* [Match](#match)
+* [Patch](#patch)
+* [Safe](#safe)
+* [Scope](#scope)
+* [Lock](#lock)
+* [Arc](#arc)
 
 ### Adaptor
 
