@@ -24,10 +24,10 @@ signal.observe(state => {
 if (module.hot) {
   module.hot.dispose(() => {
     console.group('[HMR] dispose')
-    console.log('disposing signal updates')
+    console.log('disposing signal updates, detaching observers')
 
     signal.disposeAll()
-    signal.observers = []
+    signal.detachAll()
 
     console.groupEnd('[HMR] dispose')
   })
