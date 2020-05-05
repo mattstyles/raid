@@ -503,20 +503,15 @@ signal.register(signalArc(wait))
 signal.emit({type: 'WAIT'})
 ```
 
-### Sin
-
-Sin is another way to use async-await but its far less safe as it allows asynchronous functions to try to return state and become regular update functions. It is included as an example of using asynchronous update functions but `arc` should be preferred.
-
 ## Running tests
 
 ```sh
-$ npm
-$ npm test
+yarn test
 ```
 
 ## Contributing
 
-Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `npm test` to ensure all tests are passing and add tests for any new features or updates.
+Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
 
 For bugs and feature requests, [please create an issue](https://github.com/mattstyles/raid/issues).
 

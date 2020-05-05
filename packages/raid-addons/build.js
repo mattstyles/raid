@@ -1,8 +1,7 @@
 
 /**
- * Enables `import {adapator} from '@raid/addons/adaptor'` as tree
- * shaking is unreliable and there is an often use-case to import
- * only parts of this library.
+ * Enables `import { adaptor } from '@raid/addons/adaptor'` as tree
+ * shaking is unreliable.
  *
  * Transpiles and places files at root. As there are a couple with
  * dependencies they become available via direct import, (they aren't
