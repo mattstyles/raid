@@ -105,3 +105,14 @@ test('Higher order function parameters are also passed through', t => {
     hof(pass)
   })
 })
+
+test('The observer that allows a connection can be removed', t => {
+  t.plan(2)
+
+  const signal = new Signal()
+  const connect = plug(signal)
+
+  t.equal(signal.observers.size, 1, 'Plugging in creates an observer')
+  connect.detach()
+  t.equal(signal.observers.size, 0, 'That observer can be removed')
+})

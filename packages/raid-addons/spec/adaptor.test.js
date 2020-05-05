@@ -81,3 +81,14 @@ test('Selector function is optional', t => {
     t.deepEqual(state, component.props, 'Selector defaults to identity')
   })
 })
+
+test('The observer that allows a connection can be removed', t => {
+  t.plan(2)
+
+  const signal = new Signal()
+  const connect = adaptor(signal)
+
+  t.equal(signal.observers.size, 1, 'Calling adaptor creates an observer')
+  connect.detach()
+  t.equal(signal.observers.size, 0, 'That observer can be removed')
+})

@@ -1,6 +1,7 @@
 
 #
 
+* _add_ allow detaching connected functions from a signal
 * _add_ detach observers from a stream
 * _add_ cra project description prompt
 * _add_ cra accessibility additions

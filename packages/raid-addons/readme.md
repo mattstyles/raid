@@ -75,7 +75,15 @@ The returned `connect` function should be supplied with a selector function (whi
 
 The state selector function is optional and the component function will become the first argument if omitted.
 
-* Libraries like [reselect](https://npmjs.com/package/reselect), which help to create the selector function for you, work great with this pattern.
+> Libraries like [reselect](https://npmjs.com/package/reselect), which help to create the selector function for you, work great with this pattern.
+
+When creating an adaptor a new observer is attached to the signal, the returned `connect` function has a method to remove that observer if required:
+
+```js
+const connect = adaptor(Signal)
+
+connect.detach()
+```
 
 > The source uses JSX to pass through the `Component` and is currently building only for use with [React](https://github.com/facebook/react).
 
@@ -93,7 +101,7 @@ const signal = new Signal({
 })
 const connect = plug(signal)
 
-const hof = (
+const hof = connect(
   state => state.foo,
   (state, passed) => {
     console.log(state, ':', passed)
@@ -102,6 +110,14 @@ const hof = (
 
 hof('world')
 // hello : world
+```
+
+When creating a plug a new observer is attached to the signal, the returned `connect` function has a method to remove that observer if required:
+
+```js
+const connect = adaptor(Signal)
+
+connect.detach()
 ```
 
 ### Compress (Object notation)
