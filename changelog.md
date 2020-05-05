@@ -1,4 +1,22 @@
 
+#
+
+* _add_ cra project description prompt
+* _add_ cra accessibility additions
+* _fix_ correct addon peer deps
+* _add_ addons have individual exports, all named
+* _remove_ sin has finished deprecation, and is now removed
+
+# 5.0.2
+
+* _fix_ react import, enabling preact compatibility
+* _update_ build scripts and examples
+
+# 5.0.1
+
+* _update_ dependencies
+* _fix_ cra title styling
+
 # 5.0.0
 
 * _update_ cra template to include @raid/ui projects
@@ -15,6 +33,10 @@ List of changed package names:
 `raid-fl`: `@raid/fl`
 `raid-streams`: `@raid/streams`
 `raid-navigator`: `@raid/navigator`
+
+# 4.1.0
+
+* _update_ cra dependencies
 
 # 4.0.0
 
