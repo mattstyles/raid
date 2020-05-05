@@ -6,8 +6,8 @@ const { Signal } = require('../src')
 tape('Signals can register and dispose of mutator functions', t => {
   t.plan(3)
 
-  let signal = new Signal()
-  let dispose = signal.register(() => {})
+  const signal = new Signal()
+  const dispose = signal.register(() => {})
 
   t.equal('function', typeof dispose, 'Register returns a dispose function')
   t.equal(signal.updates.size, 1,
@@ -21,7 +21,7 @@ tape('Signals can register and dispose of mutator functions', t => {
 tape('Signal updates can be disposed by key', t => {
   t.plan(2)
 
-  let signal = new Signal()
+  const signal = new Signal()
   signal.register(() => {}, 'mut')
 
   t.equal(signal.updates.size, 1, 'Initial mutator map size is ok')
@@ -34,7 +34,7 @@ tape('Signal updates can be disposed by key', t => {
 tape('Signals can register functions with specific keys', t => {
   t.plan(1)
 
-  let signal = new Signal()
+  const signal = new Signal()
   signal.register(() => {}, 'test')
 
   t.equal(typeof signal.updates.get('test'), 'function',
@@ -44,7 +44,7 @@ tape('Signals can register functions with specific keys', t => {
 tape('Observers must be supplied to observe/subscribe', t => {
   t.plan(2)
 
-  let signal = new Signal()
+  const signal = new Signal()
   t.throws(() => {
     signal.observe()
   }, 'Supplying no argument to observe/subscribe throws an error')
@@ -56,8 +56,8 @@ tape('Observers must be supplied to observe/subscribe', t => {
 tape('Signals emit an initial event when an observer is connected', t => {
   t.plan(2)
 
-  let initialState = { foo: 'bar' }
-  let signal = new Signal(initialState)
+  const initialState = { foo: 'bar' }
+  const signal = new Signal(initialState)
   signal.observe(state => {
     t.deepEqual(state, initialState, 'Initial observer is triggered')
   })
@@ -71,13 +71,13 @@ tape('Signals emit an initial event when an observer is connected', t => {
 tape('Signals constructor applies a default empty object as state', t => {
   t.plan(2)
 
-  let signal = new Signal()
+  const signal = new Signal()
   signal.register((state) => state)
   signal.observe(state => {
     t.deepEqual(state, {}, 'State defaults to an empty object')
   })
 
-  let signal2 = new Signal({ foo: 'bar' })
+  const signal2 = new Signal({ foo: 'bar' })
   signal2.register((state) => state)
   signal2.observe(state => {
     t.deepEqual(state, { foo: 'bar' },
@@ -88,8 +88,8 @@ tape('Signals constructor applies a default empty object as state', t => {
 tape('Signal observation triggers so the consumer can use initial state', t => {
   t.plan(1)
 
-  let initial = { foo: 'bar' }
-  let signal = new Signal(initial)
+  const initial = { foo: 'bar' }
+  const signal = new Signal(initial)
   signal.observe(state => {
     t.equal(state, initial, 'Initial state is consumed')
   })
@@ -99,7 +99,7 @@ tape('Emitting actions triggers updates to fire', t => {
   t.plan(1)
 
   let count = 0
-  let signal = new Signal()
+  const signal = new Signal()
   signal.register(state => {
     count++
     if (count !== 0) {
@@ -116,8 +116,8 @@ tape('Emitting actions triggers updates to fire', t => {
 tape('State and triggering event are both passed through to the mutator', t => {
   t.plan(3)
 
-  let initial = { foo: 'bar' }
-  let signal = new Signal(initial)
+  const initial = { foo: 'bar' }
+  const signal = new Signal(initial)
   signal.register((state, event) => {
     t.equal(typeof event, 'object', 'Action event should always be an object')
     t.equal(state, initial, 'Current state is passed to the mutator')
@@ -134,8 +134,8 @@ tape('State and triggering event are both passed through to the mutator', t => {
 tape('Fold traverses the mutator map', t => {
   t.plan(1)
 
-  let initial = { foo: 'bar' }
-  let signal = new Signal(initial)
+  const initial = { foo: 'bar' }
+  const signal = new Signal(initial)
   signal.register(state => {
     state.bar = 'quux'
     return state
@@ -154,7 +154,7 @@ tape('Fold traverses the mutator map', t => {
 tape('Actions to be emitted must be objects', t => {
   t.plan(1)
 
-  let signal = new Signal()
+  const signal = new Signal()
 
   signal.observe(() => {})
 
@@ -167,7 +167,7 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   t.plan(1)
   let count = 0
 
-  let signal = new Signal({ foo: 'bar' })
+  const signal = new Signal({ foo: 'bar' })
   signal.register(state => state)
   signal.observe(state => {
     if (++count === 3) {
@@ -181,7 +181,7 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
 tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   t.plan(1)
 
-  let signal = new Signal({ foo: 'bar' })
+  const signal = new Signal({ foo: 'bar' })
   signal.register((state, event) => {
     if (event.type === 'one') {
       state.one = true
@@ -205,7 +205,7 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
 tape('Updates can trigger actions', t => {
   t.plan(1)
 
-  let signal = new Signal({ foo: 'bar' })
+  const signal = new Signal({ foo: 'bar' })
   signal.register((state, event) => {
     if (event.type === 'one') {
       signal.emit({ type: 'two' })
@@ -222,7 +222,7 @@ tape('Actions triggered by update functions mutate state correctly', t => {
   t.plan(2)
 
   let count = 0
-  let signal = new Signal()
+  const signal = new Signal()
   signal.register((state, event) => {
     if (event.type === 'one') {
       state.one = 'one'
@@ -258,7 +258,7 @@ tape('Actions triggered by update functions mutate state correctly', t => {
 tape('Signals with multiple observers still fire update functions once per event', t => {
   t.plan(1)
 
-  let signal = new Signal({ foo: 'bar' })
+  const signal = new Signal({ foo: 'bar' })
   signal.register((state, event) => {
     t.pass('Triggered once')
     return state
@@ -272,7 +272,7 @@ tape('Signals should emit errors', t => {
   t.plan(1)
 
   const ERR = 'update error'
-  let signal = new Signal({ foo: 'bar' })
+  const signal = new Signal({ foo: 'bar' })
   signal.register((state, event) => {
     throw new Error(ERR)
   })
@@ -286,8 +286,8 @@ tape('Signals should emit errors', t => {
 tape('Signals can dispose of functions', t => {
   t.plan(2)
 
-  let signal = new Signal({})
-  let update = (state, event) => {}
+  const signal = new Signal({})
+  const update = (state, event) => {}
   signal.register(update)
 
   t.equal(signal.updates.size, 1, 'An update is registered')
@@ -299,9 +299,9 @@ tape('Signals can dispose of functions', t => {
 tape('Signals can dispose of all of their functions', t => {
   t.plan(2)
 
-  let signal = new Signal({})
-  let update = (state, event) => {}
-  let update2 = (state, event) => {}
+  const signal = new Signal({})
+  const update = (state, event) => {}
+  const update2 = (state, event) => {}
   signal.register(update)
   signal.register(update2)
 
@@ -314,8 +314,8 @@ tape('Signals can dispose of all of their functions', t => {
 tape('Signals can dispose of a single update with disposeAll', t => {
   t.plan(2)
 
-  let signal = new Signal({})
-  let update = (state, event) => {}
+  const signal = new Signal({})
+  const update = (state, event) => {}
   signal.register(update)
 
   t.equal(signal.updates.size, 1, 'A single update is registered')

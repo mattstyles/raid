@@ -10,7 +10,7 @@ tape('Mount should add a new source to the signal', t => {
 
   const msg = { foo: 'bar' }
 
-  let signal = new Signal()
+  const signal = new Signal()
   signal.register((state, event) => {
     t.deepEqual(event.payload, msg, 'Source emit passes through signal updaters')
     return state

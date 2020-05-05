@@ -162,11 +162,9 @@ class Signal {
    * @returns <Boolean||Array> true if successful, an array of failed keys if not
    */
   disposeAll = () => {
-    let results = []
-    console.log(this.updates)
-    for (let update of this.updates.keys()) {
-      console.log(update)
-      let res = this.updates.delete(update)
+    const results = []
+    for (const update of this.updates.keys()) {
+      const res = this.updates.delete(update)
       if (!res) {
         results.push(update)
       }

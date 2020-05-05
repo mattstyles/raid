@@ -15,7 +15,7 @@ tape('fold should traverse an iterator invoking functions', t => {
   var m = new Map()
   m.set('test', val => ++val)
 
-  let output = fold(m.values(), (v, k) => {
+  const output = fold(m.values(), (v, k) => {
     return k(v)
   }, 0)
 
@@ -29,7 +29,7 @@ tape('fold should handle several values', t => {
   m.set('test', val => ++val)
   m.set('test1', val => val + 10)
 
-  let output = fold(m.values(), (v, k) => {
+  const output = fold(m.values(), (v, k) => {
     return k(v)
   }, 0)
 
