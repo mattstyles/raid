@@ -67,5 +67,8 @@
     "@mattstyles/match": "^1.0.1",
     "force-array": "^3.1.0"
   },
+  "peerDependencies": {
+    "react": "^16.8"
+  },
   "gitHead": "50852943b2ebe16e16e855110e57161dd654133d"
 }
