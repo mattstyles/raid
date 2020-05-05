@@ -1,6 +1,7 @@
 
 #
 
+* _add_ detach observers from a stream
 * _add_ cra project description prompt
 * _add_ cra accessibility additions
 * _fix_ correct addon peer deps

@@ -3,6 +3,8 @@ const tape = require('tape')
 
 const { Signal } = require('../src')
 
+const noop = () => {}
+
 tape('Signals can register and dispose of mutator functions', t => {
   t.plan(3)
 
@@ -93,6 +95,67 @@ tape('Signal observation triggers so the consumer can use initial state', t => {
   signal.observe(state => {
     t.equal(state, initial, 'Initial state is consumed')
   })
+})
+
+tape('Signal observers can be detached from the stream', t => {
+  t.plan(3)
+
+  const signal = new Signal({})
+  const detach = signal.observe(state => ({}))
+  t.equal(typeof detach, 'function', 'signal.observe returns a function')
+  t.equal(signal.observers.size, 1, 'Observe adds a function to the internal stack')
+
+  detach()
+
+  t.equal(signal.observers.size, 0, 'Detach removes the update')
+})
+
+tape('Signal observers can be detached based on their key', t => {
+  t.plan(2)
+
+  const signal = Signal.of({})
+  signal.observe(state => {}, 'obs')
+  t.equal(signal.observers.size, 1, 'Listener is attached')
+
+  signal.detach('obs')
+  t.equal(signal.observers.size, 0, 'Listener is detached')
+})
+
+tape('Signal observers can be detached based on their key whilst specifying an error', t => {
+  t.plan(2)
+
+  const signal = Signal.of({})
+  signal.observe(noop, noop, 'obs')
+  t.equal(signal.observers.size, 1, 'Listener is attached')
+
+  signal.detach('obs')
+  t.equal(signal.observers.size, 0, 'Listener is detached')
+})
+
+tape('Signal observers can be detached based on their key when using object form', t => {
+  t.plan(2)
+
+  const signal = Signal.of({})
+  signal.observe({
+    next: noop
+  }, 'obs')
+  t.equal(signal.observers.size, 1, 'Listener is attached')
+
+  signal.detach('obs')
+  t.equal(signal.observers.size, 0, 'Listener is detached')
+})
+
+tape('Signal observers can all be removed with one call', t => {
+  t.plan(2)
+
+  const signal = Signal.of({})
+  signal.observe(noop)
+  signal.observe(noop)
+
+  t.equal(signal.observers.size, 2, 'Listeners are attached')
+
+  signal.detachAll()
+  t.equal(signal.observers.size, 0, 'Listeners are all detached')
 })
 
 tape('Emitting actions triggers updates to fire', t => {

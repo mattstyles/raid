@@ -18,7 +18,7 @@ class Signal {
   constructor (initialState = {}) {
     this.emitter = new EventEmitter()
     this.updates = new Map()
-    this.observers = []
+    this.observers = new Map()
 
     /**
      * Creates a source stream that holds application state
@@ -84,33 +84,38 @@ class Signal {
    * Applies an observer to the signal source
    * @param onNext <Function> triggered for each action, passing back the
    *   current signal state
-   * @param onError <Function> triggered for each stream error, passing
-   *   back the current error
    * @param onNext <Object> observe can accept an object containing next
    *   and error handlers
-   * @returns <null>
+   * @param onError <Function> triggered for each stream error, passing
+   *   back the current error
+   * @param key <String<optional>> uid for the listener
+   * @returns <Function> detach function to remove the observe function
    */
-  observe = (next, error) => {
+  observe = (next, error, key = uid()) => {
     if (!next) {
       throw new Error('Observer required to subscribe/observe')
     }
 
+    if (typeof error === 'string') {
+      key = error
+    }
+
     if (typeof next === 'function') {
-      this.observers.push({
+      this.observers.set(key, {
         next,
         error
       })
-      return
+
+      return function detach () {
+        this.detach(key)
+      }.bind(this)
     }
 
     if (!next.next) {
       throw new Error('Observer required to subscribe/observe')
     }
 
-    this.observers.push({
-      next: next.next,
-      error: next.error
-    })
+    return this.observe(next.next, next.error, error || key)
   }
 
   /**
@@ -122,14 +127,19 @@ class Signal {
    * Observes the source stream and emits next events to all signal observers
    */
   onNext = (event) => {
-    this.observers.forEach(o => o.next(event))
+    // for...of is faster than .forEach
+    for (const o of this.observers.values()) {
+      o.next(event)
+    }
   }
 
   /**
    * Observes the source stream and emits error events to all signal observers
    */
   onError = (err) => {
-    this.observers.forEach(o => o.error && o.error(err))
+    for (const o of this.observers.values()) {
+      o.error && o.error(err)
+    }
   }
 
   /**
@@ -167,6 +177,30 @@ class Signal {
       const res = this.updates.delete(update)
       if (!res) {
         results.push(update)
+      }
+    }
+    return results.length ? results : true
+  }
+
+  /**
+   * Removes an observer
+   * @param key <String> identifier
+   * @returns <Boolean>
+   */
+  detach = key => {
+    return this.observers.delete(key)
+  }
+
+  /**
+   * Removes all observers from a signal
+   * @returns <Boolean||Array> true if successful, an array of failed keys if not
+   */
+  detachAll = () => {
+    const results = []
+    for (const listener of this.observers.keys()) {
+      const res = this.observers.delete(listener)
+      if (!res) {
+        results.push(listener)
       }
     }
     return results.length ? results : true
