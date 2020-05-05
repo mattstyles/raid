@@ -6,7 +6,7 @@ const squash = key => update => (state, event) => {
   return update(state, event.payload)
 }
 
-const compress = updates => {
+export const compress = updates => {
   if (typeof updates === 'string') {
     return squash(updates)
   }
@@ -18,5 +18,3 @@ const compress = updates => {
     return state
   }
 }
-
-export default compress

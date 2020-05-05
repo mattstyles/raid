@@ -8,7 +8,7 @@ import {
  * Creates a hook that runs on every emit and matches on an event
  * type predicate
  */
-const hook = (fn, opts = {}) => {
+export const hook = (fn, opts = {}) => {
   let predicate = opts.predicate || null
   let match = check(predicate)
   return (state, event) => {
@@ -20,5 +20,3 @@ const hook = (fn, opts = {}) => {
       : state
   }
 }
-
-export default hook

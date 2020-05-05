@@ -1,5 +1,5 @@
 
-const debug = (pre = '') => {
+export const debug = (pre = '') => {
   if (typeof pre !== 'string') {
     throw new Error('raid-addons::debug expects a string')
   }
@@ -23,5 +23,3 @@ const debug = (pre = '') => {
     return state
   }
 }
-
-export default debug

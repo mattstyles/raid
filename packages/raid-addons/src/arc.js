@@ -1,5 +1,5 @@
 
-const arc = signal => {
+export const arc = signal => {
   let internal = {}
   signal.observe(state => {
     internal = state
@@ -10,5 +10,3 @@ const arc = signal => {
     return state
   }
 }
-
-export default arc

@@ -21,7 +21,7 @@ const select = (key, update) => (state, event) => ({
 const createPatch = key => update => select(key, update)
 
 // Allow fixed arity for easier composition
-const patch = (key, update) => {
+export const patch = (key, update) => {
   if (!key) {
     throw new Error('[raid:patch] key must be supplied')
   }
@@ -32,5 +32,3 @@ const patch = (key, update) => {
 
   return select(key, update)
 }
-
-export default patch

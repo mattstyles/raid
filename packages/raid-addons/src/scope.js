@@ -24,8 +24,6 @@ const scopedUpdate = (predicate, update) => {
 
 const createScope = predicate => update => scopedUpdate(predicate, update)
 
-const scope = (predicate, update) => isDefined(update)
+export const scope = (predicate, update) => isDefined(update)
   ? scopedUpdate(predicate, update)
   : createScope(predicate)
-
-export default scope
