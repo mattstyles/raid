@@ -12,8 +12,6 @@ export const createAdaptor = (cb) => {
         throw new Error('No state selector for connected function')
       }
 
-      console.log('internals:', internalState)
-
       // selector is optional, if it is omitted then assume the first
       // argument is the component function
       const select = fn ? selector : identity
