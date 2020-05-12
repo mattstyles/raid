@@ -1,0 +1,71 @@
+{
+  "name": "@raid/hooks",
+  "version": "5.0.1",
+  "description": "React hooks to complement @raid",
+  "main": "lib/",
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "standard",
+    "prebuild": "yarn run clean",
+    "build": "babel src --out-dir lib",
+    "watch": "babel --watch src --out-dir lib",
+    "test": "tape -r @babel/register spec/*.test.js",
+    "cover": "nyc tape -r @babel/register spec/*.test.js",
+    "coverage-report": "nyc --reporter=lcov npm run test",
+    "prepublish": "yarn run build",
+    "prestart": "yarn run build",
+    "start": "yarn run watch"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": false
+        }
+      ]
+    ]
+  },
+  "sideEffects": false,
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "keywords": [
+    "raid",
+    "react",
+    "hooks",
+    "helpers",
+    "utility"
+  ],
+  "author": "Matt Styles",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattstyles/raid"
+  },
+  "bugs": "https://github.com/mattstyles/raid/issues",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/register": "^7.8.3",
+    "babel-eslint": "^10.0.3",
+    "coveralls": "^3.0.9",
+    "nyc": "^15.0.0",
+    "raid": "^5.0.1",
+    "regenerator-runtime": "^0.13.3",
+    "rimraf": "^3.0.0",
+    "standard": "^14.3.1",
+    "tape": "^4.13.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8"
+  },
+  "gitHead": "50852943b2ebe16e16e855110e57161dd654133d"
+}

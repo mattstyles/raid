@@ -1,6 +1,7 @@
 
 import theme from './theme'
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { GlobalStyle } from '@raid/basic-kit'
+import styled, { ThemeProvider } from 'styled-components'
 
 export const View = styled('div')`
   display: flex;
@@ -45,19 +46,21 @@ export const Code = styled('pre')`
   overflow: scroll;
   height: 100vh;
   box-sizing: border-box;
+  font-size: 10px;
+  line-height: 14px;
 `
 
-export const GlobalStyle = createGlobalStyle`
-  html {
-    font-size: 10px;
-  }
-  body {
-    margin: 0;
-    background: ${props => props.theme.color.bg};
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-    color: ${props => props.theme.color.font};
-  }
-`
+// export const GlobalStyle = createGlobalStyle`
+//   html {
+//     font-size: 10px;
+//   }
+//   body {
+//     margin: 0;
+//     background: ${props => props.theme.color.bg};
+//     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+//     color: ${props => props.theme.color.font};
+//   }
+// `
 
 export const Inline = styled('div')`
   display: inline-block;

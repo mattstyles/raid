@@ -1,0 +1,7 @@
+lib
+node_modules
+*.log
+coverage
+.nyc_output
+
+# Transpiled output

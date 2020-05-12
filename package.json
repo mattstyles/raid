@@ -74,6 +74,7 @@
     "@babel/register": "^7.4.4",
     "@mattstyles/match": "^1.0.1",
     "@raid/addons": "^5.0.0",
+    "@raid/basic-kit": "^0.16.1",
     "@raid/fl": "^5.0.0",
     "@raid/navigator": "^5.0.0",
     "@raid/streams": "^5.0.0",

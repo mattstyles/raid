@@ -1,4 +1,6 @@
 
+import { utils } from '@raid/basic-kit'
+
 const theme = {
   baseFontSize: 1.5,
   basePadding: 1.2,
@@ -22,4 +24,4 @@ const theme = {
   }
 }
 
-export default theme
+export default utils.extend(theme)
