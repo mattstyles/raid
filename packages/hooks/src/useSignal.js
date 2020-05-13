@@ -1,12 +1,19 @@
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+
+import { SignalContext } from './provider'
 
 export const useSignal = (signal) => {
-  // @TODO if no signal then try looking for a provider
+  if (!signal) {
+    // Should it always attach? Probably, or should it wrap in a useEffect?
+    const value = useContext(SignalContext)
+    console.log('useContext:', value)
+    return [value.state, value.emit]
+  }
 
-  const [ state, setState ] = useState({})
+  const [state, setState] = useState({})
 
   signal.observe(setState)
 
-  return [ state, signal.emit ]
+  return [state, signal.emit]
 }

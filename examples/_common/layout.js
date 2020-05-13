@@ -32,6 +32,7 @@ export const Main = styled('div')`
   box-sizing: border-box;
   overflow: scroll;
   height: 100vh;
+  background: ${props => props.theme.colors.background[75]};
 `
 export const Code = styled('pre')`
   flex: 1;

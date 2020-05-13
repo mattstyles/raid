@@ -1,13 +1,14 @@
 
 import { createSelector } from 'reselect'
+import { Box, H1 } from '@raid/basic-kit'
 
 import { connect } from './store'
 
 const Message = ({ msg, id }) => {
   return (
-    <div>
-      <h1>{`${msg} ${id}`}</h1>
-    </div>
+    <Box>
+      <H1>{`${msg} ${id}`}</H1>
+    </Box>
   )
 }
 

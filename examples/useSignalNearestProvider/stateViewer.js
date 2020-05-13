@@ -3,12 +3,12 @@ import { Pane, Code, Divider } from '@raid/basic-kit'
 
 import { useSignal } from '@raid/hooks'
 
-import { counter } from './counter'
-import { toggle } from './toggle'
+import { counterSignal } from './counter'
+import { toggleSignal } from './toggle'
 
 export const StateViewer = () => {
-  const [countState] = useSignal(counter)
-  const [toggleState] = useSignal(toggle)
+  const [countState] = useSignal(counterSignal)
+  const [toggleState] = useSignal(toggleSignal)
 
   return (
     <Pane sx={{ color: 'white' }}>

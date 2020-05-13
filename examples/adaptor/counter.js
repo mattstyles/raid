@@ -1,23 +1,28 @@
 
 import { createSelector } from 'reselect'
 
-import { Button, Counter, Count, Inline } from '../_common'
+import { Button, Spacer, Flex, Text, Card } from '@raid/basic-kit'
 import { connect } from './store'
 import { ACTIONS, dispatch } from './actions'
 
-const CountWidget = ({ count }) => (
-  <Counter>
-    <Count>{count}</Count>
-    <Inline>
-      <Button
-        onClick={dispatch(ACTIONS.ADD)}
-      >+</Button>
-      <Button
-        onClick={dispatch(ACTIONS.SUBTRACT)}
-      >-</Button>
-    </Inline>
-  </Counter>
-)
+const CountWidget = ({ count }) => {
+  return (
+    <Card depth={2} sx={{ display: 'inline-block' }}>
+      <Text size={7} block sx={{ textAlign: 'center' }}>{count}</Text>
+      <Flex row>
+        <Button
+          variant='primary'
+          onClick={dispatch(ACTIONS.ADD)}
+        >+</Button>
+        <Spacer px={1} />
+        <Button
+          variant='primary'
+          onClick={dispatch(ACTIONS.SUBTRACT)}
+        >-</Button>
+      </Flex>
+    </Card>
+  )
+}
 
 const selector = createSelector(
   state => state.count,
