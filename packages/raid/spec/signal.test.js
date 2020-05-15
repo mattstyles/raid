@@ -393,7 +393,7 @@ tape('Signals can be created using the of static instance method', t => {
   t.ok(Signal.of({}) instanceof Signal, 'creates an instance')
 })
 
-tape('Observers attached in the future receive an initial state of the signal', t => {
+tape.skip('Observers attached in the future receive an initial state of the signal', t => {
   t.plan(2)
 
   const signal = Signal.of({})
@@ -408,7 +408,7 @@ tape('Observers attached in the future receive an initial state of the signal', 
   }, 10)
 })
 
-tape('Future observers receive the current/last value in the signal', t => {
+tape.skip('Future observers receive the current/last value in the signal', t => {
   t.plan(1)
 
   const expected = 'world'
@@ -417,7 +417,7 @@ tape('Future observers receive the current/last value in the signal', t => {
   signal.emit({})
 
   setTimeout(() => {
-    signal.observer(state => {
+    signal.observe(state => {
       t.equal(state, expected, 'Observer receives the current state')
     })
   }, 10)

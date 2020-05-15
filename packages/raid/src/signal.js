@@ -25,16 +25,19 @@ class Signal {
      * Creates a source stream that holds application state
      */
     // @TODO wrap source in `hold`
-    this.source = fromEvent('action', this.emitter)
-      .scan((state, event) => {
-        /**
-         * Actions that request state changes are passed in to the stream with
-         * side effects happening within the execution of update functions
-         */
-        return fold(this.updates.values(), (state, update) => {
-          return update(state, event)
-        }, state)
-      }, initialState)
+    // this.source = hold(
+    this.source =
+      fromEvent('action', this.emitter)
+        .scan((state, event) => {
+          /**
+           * Actions that request state changes are passed in to the stream with
+           * side effects happening within the execution of update functions
+           */
+          return fold(this.updates.values(), (state, update) => {
+            return update(state, event)
+          }, state)
+        }, initialState)
+    // )
 
     /**
      * Pass source observer events to all signal observers.
@@ -44,6 +47,10 @@ class Signal {
       next: this.onNext,
       error: this.onError
     })
+    // const subscription = this.source.subscribe({
+    //   next: () => {}
+    // })
+    // subscription.unsubscribe()
   }
 
   /**
@@ -107,6 +114,11 @@ class Signal {
         next,
         error
       })
+
+      // this.source.subscribe({
+      //   next,
+      //   error
+      // })
 
       return function detach () {
         this.detach(key)
