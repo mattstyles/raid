@@ -6,7 +6,7 @@ import { makeTest } from './tests'
 import prettyTime from 'pretty-hrtime'
 
 const numUpdates = 1e6
-const numObservers = 1e4
+const numObservers = 1
 const numEmits = 1
 const iterations = 1
 // The *2 is because each initial observe function causes a trigger,
@@ -37,7 +37,7 @@ tape('it waits until all events are passed through the signal', t => {
     console.log('  reducer observer firing', numTests)
     // numTests--
 
-    if (numTests < 0) {
+    if (numTests <= 0) {
       console.log('end', numTests)
       const end = process.hrtime(start)
       t.pass('Fin')
