@@ -1,5 +1,6 @@
 
 import { fromEvent } from 'most'
+// import { hold } from '@most/hold'
 import EventEmitter from 'eventemitter3'
 
 import { fold, uid } from './utils'
@@ -23,6 +24,7 @@ class Signal {
     /**
      * Creates a source stream that holds application state
      */
+    // @TODO wrap source in `hold`
     this.source = fromEvent('action', this.emitter)
       .scan((state, event) => {
         /**

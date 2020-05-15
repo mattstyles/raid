@@ -387,8 +387,38 @@ tape('Signals can dispose of a single update with disposeAll', t => {
   t.equal(signal.updates.size, 0, 'Disposed of a single update function')
 })
 
-tape('Signals can be created using the of instance method', t => {
+tape('Signals can be created using the of static instance method', t => {
   t.plan(1)
 
   t.ok(Signal.of({}) instanceof Signal, 'creates an instance')
+})
+
+tape('Observers attached in the future receive an initial state of the signal', t => {
+  t.plan(2)
+
+  const signal = Signal.of({})
+  signal.observe(state => {
+    t.pass('Immediately attached observer fires')
+  })
+
+  setTimeout(() => {
+    signal.observe(state => {
+      t.pass('Future observer fires')
+    })
+  }, 10)
+})
+
+tape('Future observers receive the current/last value in the signal', t => {
+  t.plan(1)
+
+  const expected = 'world'
+  const signal = Signal.of('hello')
+  signal.register(() => expected)
+  signal.emit({})
+
+  setTimeout(() => {
+    signal.observer(state => {
+      t.equal(state, expected, 'Observer receives the current state')
+    })
+  }, 10)
 })
