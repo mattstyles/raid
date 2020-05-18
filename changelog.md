@@ -33,6 +33,46 @@ If a subscription object is applied then it will take precedence over any suppli
 
 This API change encourages consumers to attach an error function whilst allowing a subscription object to still be applied should a consumer prefer that API.
 
+To adhere to the new API:
+
+Object-based subscription:
+
+```js
+// Previously
+signal.observe({
+  next: fn,
+  error: fn
+})
+
+// Now
+signal.observe(null, null, {
+  subscription: {
+    next: fn,
+    error: fn
+  }
+})
+```
+
+Applying a key to a subscription:
+
+```js
+// Previously
+signal.observe(fn, key)
+
+// Now
+signal.observe(fn, { key })
+```
+
+If you previously used to apply next and/or error functions, these will still work as before:
+
+```js
+// Previously
+signal.observe(fn, errorFn)
+
+// Now *no change*
+signal.observe(fn, errorFn)
+```
+
 # 5.0.2
 
 * _fix_ react import, enabling preact compatibility

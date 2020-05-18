@@ -40,8 +40,10 @@ class Signal {
 
     // @TODO investigate why unsubscribing this sole subscriber
     // causes double events when the next observer comes in.
+    // @TODO how to utilise these internally
     this.source.subscribe({
-      next: function debug () {}
+      next: function debug () {},
+      error: function debug () {}
     })
     // subscription.unsubscribe()
   }
@@ -97,14 +99,15 @@ class Signal {
     key = uid(),
     subscription = {}
   } = {}) => {
-    if (!next && !subscription.next) {
+    if (typeof next !== 'function' && !subscription.next) {
       throw new Error('Observer required to subscribe/observe')
     }
 
-    const observer = this.source.subscribe({
-      next,
-      error
-    })
+    const sub = subscription.next
+      ? subscription
+      : { next, error }
+
+    const observer = this.source.subscribe(sub)
 
     this.observers.set(key, observer)
 
