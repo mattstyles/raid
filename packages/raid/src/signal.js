@@ -22,12 +22,10 @@ class Signal {
     this.observers = new Map()
 
     /**
-     * Creates a source stream that holds application state
+     * Creates a held source stream that holds application state.
+     * Held streams output the last value on subscription.
      */
-    // @TODO wrap source in `hold`
-    // var hold = src => src
     this.source = hold(
-    // this.source =
       fromEvent('action', this.emitter)
         .scan((state, event) => {
           /**
@@ -40,32 +38,12 @@ class Signal {
         }, initialState)
     )
 
-    /**
-     * Pass source observer events to all signal observers.
-     * This ensures update functions run only once per event.
-     */
-    // this.source.subscribe({
-    //   next: this.onNext,
-    //   error: this.onError
-    // })
-
-    // Hmm, this is an interesting problem.
-    // In the case that an observer is attached in the same tick as the signal
-    // is created this will fire, however, a held signal will _also_ fire meaning
-    // that you get two events initially. Nuts.
-    // In the case that there is no observer attached initially then subsequent
-    // observers will not get an event as the held signal is not 'primed'.
-    // @TODO might have to create our own hold function.
-    // const subscription = this.source.subscribe({
-    //   next: () => console.log('Bingo!!!!!')
-    // })
-    // subscription.unsubscribe()
-
-    // @TODO investigate why unsubscribing this sole subscriber (above)
+    // @TODO investigate why unsubscribing this sole subscriber
     // causes double events when the next observer comes in.
     this.source.subscribe({
-      next: () => {}
+      next: function debug () {}
     })
+    // subscription.unsubscribe()
   }
 
   /**
@@ -106,71 +84,39 @@ class Signal {
 
   /**
    * Applies an observer to the signal source
-   * @param onNext <Function> triggered for each action, passing back the
+   * @param next <Function> triggered for each action, passing back the
    *   current signal state
-   * @param onNext <Object> observe can accept an object containing next
-   *   and error handlers
-   * @param onError <Function> triggered for each stream error, passing
+   * @param error <Function> triggered for each stream error, passing
    *   back the current error
-   * @param key <String<optional>> uid for the listener
+   * @param options <Object> uid for the listener
+   * @param options.key <String<optional>>
+   * @param options.subscription <Object> Will be preferred over next and error if supplied
    * @returns <Function> detach function to remove the observe function
    */
-  observe = (next, error, key = uid()) => {
-    if (!next) {
+  observe = (next, error, {
+    key = uid(),
+    subscription = {}
+  } = {}) => {
+    if (!next && !subscription.next) {
       throw new Error('Observer required to subscribe/observe')
     }
 
-    if (typeof error === 'string') {
-      key = error
-    }
+    const observer = this.source.subscribe({
+      next,
+      error
+    })
 
-    if (typeof next === 'function') {
-      // this.observers.set(key, {
-      //   next,
-      //   error
-      // })
+    this.observers.set(key, observer)
 
-      this.source.subscribe({
-        next,
-        error
-      })
-
-      return function detach () {
-        this.detach(key)
-      }.bind(this)
-    }
-
-    if (!next.next) {
-      throw new Error('Observer required to subscribe/observe')
-    }
-
-    return this.observe(next.next, next.error, error || key)
+    return function detach () {
+      this.detach(key)
+    }.bind(this)
   }
 
   /**
    * @alias observe
    */
   subscribe = this.observe
-
-  /**
-   * Observes the source stream and emits next events to all signal observers
-   */
-  onNext = (event) => {
-    console.log('onNext function')
-    // for...of is faster than .forEach
-    // for (const o of this.observers.values()) {
-    //   o.next(event)
-    // }
-  }
-
-  /**
-   * Observes the source stream and emits error events to all signal observers
-   */
-  onError = (err) => {
-    for (const o of this.observers.values()) {
-      o.error && o.error(err)
-    }
-  }
 
   /**
    * Registers an update function with this signal
@@ -218,6 +164,16 @@ class Signal {
    * @returns <Boolean>
    */
   detach = key => {
+    try {
+      const observer = this.observers.get(key)
+
+      if (observer) {
+        observer.unsubscribe()
+      }
+    } catch (err) {
+      return err
+    }
+
     return this.observers.delete(key)
   }
 
@@ -229,7 +185,7 @@ class Signal {
     const results = []
     for (const listener of this.observers.keys()) {
       const res = this.observers.delete(listener)
-      if (!res) {
+      if (res instanceof Error) {
         results.push(listener)
       }
     }
