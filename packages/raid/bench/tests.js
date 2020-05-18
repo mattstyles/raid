@@ -12,6 +12,9 @@ export const expensive = _ => {
 export const realistic = _ => {
   // @TODO
 }
+export const random = _ => {
+  return Math.random().toString(32)
+}
 
 // export const single = () => {
 //   const signal = Signal.of({})
