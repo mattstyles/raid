@@ -48,7 +48,9 @@ export const makeTest = ({
   }
 
   const test = () => {
+    console.log('running single in here')
     for (let i = 0; i < numEmits; i++) {
+      console.log('emitting', i, 'of', numEmits)
       signal.emit(emit())
     }
   }

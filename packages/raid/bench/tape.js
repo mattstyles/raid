@@ -1,17 +1,16 @@
 
 import tape from 'tape'
-// import Benchmark from 'benchmark'
 
 import { makeTest } from './tests'
 import prettyTime from 'pretty-hrtime'
 
-const numUpdates = 1e6
-const numObservers = 1
+const numUpdates = 10
+const numObservers = 2
 const numEmits = 1
-const iterations = 1
+const iterations = 3
 // The *2 is because each initial observe function causes a trigger,
 // whereas we're only interested in the _next_ one here
-let numTests = ((numObservers * 2)) * numEmits
+let numTests = (numObservers) + (numObservers * numEmits * iterations)
 console.log({ numTests })
 
 tape('it waits until all events are passed through the signal', t => {
@@ -19,6 +18,7 @@ tape('it waits until all events are passed through the signal', t => {
 
   const single = makeTest({
     name: 'Single',
+    initial: { num: 'Initial Single State' },
     numUpdates: numUpdates,
     update: _ => {
       const num = Math.random().toString(32)
@@ -34,7 +34,7 @@ tape('it waits until all events are passed through the signal', t => {
   })
 
   single.signal.observe(() => {
-    console.log('  reducer observer firing', numTests)
+    // console.log('  reducer observer firing', numTests)
     // numTests--
 
     if (numTests <= 0) {
@@ -47,7 +47,10 @@ tape('it waits until all events are passed through the signal', t => {
 
   const start = process.hrtime()
 
-  for (let i = 0; i < iterations; i++) {
-    single()
-  }
+  setTimeout(() => {
+    for (let i = 0; i < iterations; i++) {
+      console.log('running single')
+      single()
+    }
+  }, 10)
 })

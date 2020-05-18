@@ -25,6 +25,7 @@ class Signal {
      * Creates a source stream that holds application state
      */
     // @TODO wrap source in `hold`
+    // var hold = src => src
     this.source = hold(
     // this.source =
       fromEvent('action', this.emitter)
@@ -43,10 +44,18 @@ class Signal {
      * Pass source observer events to all signal observers.
      * This ensures update functions run only once per event.
      */
-    this.source.subscribe({
-      next: this.onNext,
-      error: this.onError
-    })
+    // this.source.subscribe({
+    //   next: this.onNext,
+    //   error: this.onError
+    // })
+
+    // Hmm, this is an interesting problem.
+    // In the case that an observer is attached in the same tick as the signal
+    // is created this will fire, however, a held signal will _also_ fire meaning
+    // that you get two events initially. Nuts.
+    // In the case that there is no observer attached initially then subsequent
+    // observers will not get an event as the held signal is not 'primed'.
+    // @TODO might have to create our own hold function.
     // const subscription = this.source.subscribe({
     //   next: () => {}
     // })
@@ -84,7 +93,9 @@ class Signal {
       throw new Error('Incorrect payload type, expects object')
     }
 
+    console.log('Emit called')
     setTimeout(() => {
+      console.log('Emit actioned')
       this.emitter.emit('action', payload)
     }, 0)
   }
@@ -110,15 +121,19 @@ class Signal {
     }
 
     if (typeof next === 'function') {
-      this.observers.set(key, {
-        next,
-        error
-      })
-
-      // this.source.subscribe({
+      // this.observers.set(key, {
       //   next,
       //   error
       // })
+
+      console.log('Observe called')
+      // setTimeout(() => {
+        console.log('Observe actioned')
+        this.source.subscribe({
+          next,
+          error
+        })
+      // }, 4)
 
       return function detach () {
         this.detach(key)
@@ -141,10 +156,11 @@ class Signal {
    * Observes the source stream and emits next events to all signal observers
    */
   onNext = (event) => {
+    console.log('onNext function')
     // for...of is faster than .forEach
-    for (const o of this.observers.values()) {
-      o.next(event)
-    }
+    // for (const o of this.observers.values()) {
+    //   o.next(event)
+    // }
   }
 
   /**
