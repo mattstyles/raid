@@ -430,7 +430,7 @@ tape('Future observers receive the current/last value in the signal', t => {
 })
 
 // Use-case. No initial observers, future observers.
-tape.only('Future observers receive the current/last value in the signal when they are the initial observer', t => {
+tape('Future observers receive the current/last value in the signal when they are the initial observer', t => {
   t.plan(1)
 
   const expected = 'world'

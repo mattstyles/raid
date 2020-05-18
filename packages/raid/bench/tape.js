@@ -4,10 +4,10 @@ import tape from 'tape'
 import { makeTest } from './tests'
 import prettyTime from 'pretty-hrtime'
 
-const numUpdates = 10
-const numObservers = 2
-const numEmits = 1
-const iterations = 3
+const numUpdates = 1e3
+const numObservers = 4
+const numEmits = 4
+const iterations = 1e3
 // The *2 is because each initial observe function causes a trigger,
 // whereas we're only interested in the _next_ one here
 let numTests = (numObservers) + (numObservers * numEmits * iterations)
@@ -49,7 +49,7 @@ tape('it waits until all events are passed through the signal', t => {
 
   setTimeout(() => {
     for (let i = 0; i < iterations; i++) {
-      console.log('running single')
+      // console.log('running single')
       single()
     }
   }, 10)

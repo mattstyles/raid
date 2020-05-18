@@ -57,9 +57,15 @@ class Signal {
     // observers will not get an event as the held signal is not 'primed'.
     // @TODO might have to create our own hold function.
     // const subscription = this.source.subscribe({
-    //   next: () => {}
+    //   next: () => console.log('Bingo!!!!!')
     // })
     // subscription.unsubscribe()
+
+    // @TODO investigate why unsubscribing this sole subscriber (above)
+    // causes double events when the next observer comes in.
+    this.source.subscribe({
+      next: () => {}
+    })
   }
 
   /**
@@ -93,9 +99,7 @@ class Signal {
       throw new Error('Incorrect payload type, expects object')
     }
 
-    console.log('Emit called')
     setTimeout(() => {
-      console.log('Emit actioned')
       this.emitter.emit('action', payload)
     }, 0)
   }
@@ -126,14 +130,10 @@ class Signal {
       //   error
       // })
 
-      console.log('Observe called')
-      // setTimeout(() => {
-        console.log('Observe actioned')
-        this.source.subscribe({
-          next,
-          error
-        })
-      // }, 4)
+      this.source.subscribe({
+        next,
+        error
+      })
 
       return function detach () {
         this.detach(key)
