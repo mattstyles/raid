@@ -23,7 +23,7 @@ const test = (name, options) => {
         const end = process.hrtime(start)
         t.pass('Fin')
         console.log(name, '::')
-        console.log(`Done ${iterations} tests in`, prettyTime(end), '\n')
+        console.log(`${iterations * numEmits} trials in`, prettyTime(end), '\n')
       }
     })
 
@@ -46,7 +46,7 @@ test('Updates: 1e2. Observers: 1e2. Emits: 1e1. Iterations: 1e4', {
   update: random,
   numObservers: 1e2,
   numEmits: 1e1,
-  iterations: 1e4
+  iterations: 5e3
 })
 
 // Running more than one bench causes issues, which is probably GC thrashing,
