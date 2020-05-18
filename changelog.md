@@ -1,6 +1,7 @@
 
 #
 
+* _add_ Observing a Raid::Signal now triggers the observer with the last source stream value
 * _add_ allow detaching connected functions from a signal
 * _add_ detach observers from a stream
 * _add_ cra project description prompt
@@ -8,6 +9,29 @@
 * _fix_ correct addon peer deps
 * _add_ addons have individual exports, all named
 * _remove_ sin has finished deprecation, and is now removed
+
+* _breaking_ Raid::Signal::observer API change
+
+`Raid::Signal::Observe` no longer accepts a subscription object as first parameter, instead this is moved to an options object. This means that the `observe` or `subscribe` is no longer overloaded and will only accept the following signature:
+
+```
+Signal.observe(
+  next: Function,
+  error: Function,
+  options: Object
+)
+```
+
+```
+options {
+  key: String,
+  subscription: Object
+}
+```
+
+If a subscription object is applied then it will take precedence over any supplied `next` and/or `error` functions.
+
+This API change encourages consumers to attach an error function whilst allowing a subscription object to still be applied should a consumer prefer that API.
 
 # 5.0.2
 
