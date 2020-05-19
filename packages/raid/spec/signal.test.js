@@ -25,7 +25,9 @@ tape('Signal updates can be disposed by key', t => {
   t.plan(2)
 
   const signal = new Signal()
-  signal.register(identity, 'mut')
+  signal.register(identity, {
+    key: 'mut'
+  })
 
   t.equal(signal.updates.size, 1, 'Initial mutator map size is ok')
 
@@ -38,7 +40,9 @@ tape('Signals can register functions with specific keys', t => {
   t.plan(1)
 
   const signal = new Signal()
-  signal.register(identity, 'test')
+  signal.register(identity, {
+    key: 'test'
+  })
 
   t.equal(typeof signal.updates.get('test'), 'function',
     'Mutator functions can be referenced by id')

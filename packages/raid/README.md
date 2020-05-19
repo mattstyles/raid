@@ -158,6 +158,8 @@ _Note that `key` is declared as a String here, which is usual, but anything that
 
 If a `subscription` object is supplied as an option then it will take precedence over `next` and/or `error` parameters and be used as outputs of the stream. The `complete` function is mentioned above for completeness, Raid signals typically never complete as they are the stream form of event emitters.
 
+`signal.subscribe` exists as an alias to `signal.observe`.
+
 ## Managing a signal lifecycle
 
 Signals have a clean and minimal API and each function that creates resources will return a function to remove them, i.e.

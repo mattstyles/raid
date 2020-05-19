@@ -126,10 +126,13 @@ class Signal {
    * @param update <Function(state, event)> updates are called with the
    *   previous application state and the triggering event and are expected to
    *   return a representation of the new state
-   * @param key <String<optional>> uid for the update function
+   * @param options <Object> uid for the update
+   * @param options.key <String<optional>> uid for the update function
    * @returns <Function> dispose function to remove the update function
    */
-  register = (update, key = uid()) => {
+  register = (update, {
+    key = uid()
+  } = {}) => {
     this.updates.set(key, update)
 
     return function dispose () {
