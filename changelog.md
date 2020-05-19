@@ -10,7 +10,10 @@
 * _add_ addons have individual exports, all named
 * _remove_ sin has finished deprecation, and is now removed
 
+## Breaking changes
+
 * _breaking_ Raid::Signal::observer API change
+* _breaking_ Raid::Addons::sin removed
 
 `Raid::Signal::Observe` no longer accepts a subscription object as first parameter, instead this is moved to an options object. This means that the `observe` or `subscribe` is no longer overloaded and will only accept the following signature:
 
