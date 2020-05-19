@@ -1,6 +1,7 @@
 
 #
 
+* _add_ Hooks::useSignal will accept a selector function
 * _add_ Observing a Raid::Signal now triggers the observer with the last source stream value
 * _add_ allow detaching connected functions from a signal
 * _add_ detach observers from a stream
@@ -13,9 +14,12 @@
 ## Breaking changes
 
 * _breaking_ Raid::Signal::observer API change
+* _breaking_ Raid::Signal::register API change
 * _breaking_ Raid::Addons::sin removed
 
-`Raid::Signal::Observe` no longer accepts a subscription object as first parameter, instead this is moved to an options object. This means that the `observe` or `subscribe` is no longer overloaded and will only accept the following signature:
+### Raid::Signal::observe
+
+`Raid::Signal::observe` no longer accepts a subscription object as first parameter, instead this is moved to an options object. This means that the `observe` (and `subscribe` alias) method is no longer overloaded and will only accept the following signature:
 
 ```
 Signal.observe(
@@ -75,6 +79,21 @@ signal.observe(fn, errorFn)
 // Now *no change*
 signal.observe(fn, errorFn)
 ```
+
+### Raid:Signal::register
+
+`register()` follows the API change to now accept an options object, which can be used to specify a key for the update function that is being registered.
+
+```js
+// Previously
+signal.register(fn, key)
+
+// Now
+signal.register(fn, { key })
+```
+
+This is to keep it inline with `observe` and open up more opportunities in the future.
+
 
 # 5.0.2
 

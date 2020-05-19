@@ -2,9 +2,6 @@
 /**
  * Without a specified signal `useSignal` will use the nearest context
  * provider.
- *
- * @TODO this only 'works' because adding the `StateViewer` triggers a
- * rerender, which propagates the `Counter` and `Toggle`.
  */
 
 import { render } from 'react-dom'

@@ -1,7 +1,9 @@
 
 # Raid
 
-> Centralised state container
+> De/Centralised state container
+
+> v6 now better supports single or multiple signals. Build your app how you want!
 
 [![npm](https://img.shields.io/npm/v/raid.svg?style=flat)](https://www.npmjs.com/package/raid)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
