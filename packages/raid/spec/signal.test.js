@@ -4,12 +4,13 @@ const tape = require('tape')
 const { Signal } = require('../src')
 
 const noop = () => {}
+const identity = _ => _
 
 tape('Signals can register and dispose of mutator functions', t => {
   t.plan(3)
 
   const signal = new Signal()
-  const dispose = signal.register(() => {})
+  const dispose = signal.register(identity)
 
   t.equal('function', typeof dispose, 'Register returns a dispose function')
   t.equal(signal.updates.size, 1,
@@ -24,7 +25,7 @@ tape('Signal updates can be disposed by key', t => {
   t.plan(2)
 
   const signal = new Signal()
-  signal.register(() => {}, 'mut')
+  signal.register(identity, 'mut')
 
   t.equal(signal.updates.size, 1, 'Initial mutator map size is ok')
 
@@ -37,7 +38,7 @@ tape('Signals can register functions with specific keys', t => {
   t.plan(1)
 
   const signal = new Signal()
-  signal.register(() => {}, 'test')
+  signal.register(identity, 'test')
 
   t.equal(typeof signal.updates.get('test'), 'function',
     'Mutator functions can be referenced by id')
@@ -63,9 +64,11 @@ tape('Signals emit an initial event when an observer is connected', t => {
   signal.observe(state => {
     t.deepEqual(state, initialState, 'Initial observer is triggered')
   })
-  signal.observe({
-    next: state => {
-      t.deepEqual(state, initialState, 'Initial object-form observable is triggered')
+  signal.observe(null, null, {
+    subscription: {
+      next: state => {
+        t.deepEqual(state, initialState, 'Initial object-form observable is triggered')
+      }
     }
   })
 })
@@ -74,13 +77,13 @@ tape('Signals constructor applies a default empty object as state', t => {
   t.plan(2)
 
   const signal = new Signal()
-  signal.register((state) => state)
+  signal.register(identity)
   signal.observe(state => {
     t.deepEqual(state, {}, 'State defaults to an empty object')
   })
 
   const signal2 = new Signal({ foo: 'bar' })
-  signal2.register((state) => state)
+  signal2.register(identity)
   signal2.observe(state => {
     t.deepEqual(state, { foo: 'bar' },
       'State constructor accepts an initial state object')
@@ -101,7 +104,7 @@ tape('Signal observers can be detached from the stream', t => {
   t.plan(3)
 
   const signal = new Signal({})
-  const detach = signal.observe(state => ({}))
+  const detach = signal.observe(noop)
   t.equal(typeof detach, 'function', 'signal.observe returns a function')
   t.equal(signal.observers.size, 1, 'Observe adds a function to the internal stack')
 
@@ -114,7 +117,9 @@ tape('Signal observers can be detached based on their key', t => {
   t.plan(2)
 
   const signal = Signal.of({})
-  signal.observe(state => {}, 'obs')
+  signal.observe(noop, null, {
+    key: 'obs'
+  })
   t.equal(signal.observers.size, 1, 'Listener is attached')
 
   signal.detach('obs')
@@ -125,7 +130,9 @@ tape('Signal observers can be detached based on their key whilst specifying an e
   t.plan(2)
 
   const signal = Signal.of({})
-  signal.observe(noop, noop, 'obs')
+  signal.observe(noop, noop, {
+    key: 'obs'
+  })
   t.equal(signal.observers.size, 1, 'Listener is attached')
 
   signal.detach('obs')
@@ -136,9 +143,12 @@ tape('Signal observers can be detached based on their key when using object form
   t.plan(2)
 
   const signal = Signal.of({})
-  signal.observe({
-    next: noop
-  }, 'obs')
+  signal.observe(null, null, {
+    key: 'obs',
+    subscription: {
+      next: noop
+    }
+  })
   t.equal(signal.observers.size, 1, 'Listener is attached')
 
   signal.detach('obs')
@@ -219,7 +229,7 @@ tape('Actions to be emitted must be objects', t => {
 
   const signal = new Signal()
 
-  signal.observe(() => {})
+  signal.observe(noop)
 
   t.throws(() => {
     signal.emit('action string')
@@ -231,7 +241,7 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   let count = 0
 
   const signal = new Signal({ foo: 'bar' })
-  signal.register(state => state)
+  signal.register(identity)
   signal.observe(state => {
     if (++count === 3) {
       t.pass('Observe has been called the correct number of times')
@@ -241,6 +251,7 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   signal.emit({})
   signal.emit({})
 })
+
 tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   t.plan(1)
 
@@ -265,6 +276,7 @@ tape('Multiple actions can be emitted and fulfilled in the same tick', t => {
   signal.emit({ type: 'one' })
   signal.emit({ type: 'two' })
 })
+
 tape('Updates can trigger actions', t => {
   t.plan(1)
 
@@ -281,6 +293,7 @@ tape('Updates can trigger actions', t => {
   signal.observe(() => {})
   signal.emit({ type: 'one' })
 })
+
 tape('Actions triggered by update functions mutate state correctly', t => {
   t.plan(2)
 
@@ -334,14 +347,14 @@ tape('Signals with multiple observers still fire update functions once per event
 tape('Signals should emit errors', t => {
   t.plan(1)
 
-  const ERR = 'update error'
+  const err = 'update error'
   const signal = new Signal({ foo: 'bar' })
   signal.register((state, event) => {
-    throw new Error(ERR)
+    throw new Error(err)
   })
   signal.observe(
     () => {},
-    err => t.equal(err.message, ERR, 'Error is propagated to handler')
+    err => t.equal(err.message, err.message, 'Error is propagated to handler')
   )
   signal.emit({})
 })
@@ -387,8 +400,144 @@ tape('Signals can dispose of a single update with disposeAll', t => {
   t.equal(signal.updates.size, 0, 'Disposed of a single update function')
 })
 
-tape('Signals can be created using the of instance method', t => {
+tape('Signals can be created using the Signal.of static instance method', t => {
   t.plan(1)
 
   t.ok(Signal.of({}) instanceof Signal, 'creates an instance')
+})
+
+tape('Observers attached in the future receive an initial state of the signal', t => {
+  t.plan(2)
+
+  const signal = Signal.of({})
+  signal.observe(state => {
+    t.pass('Immediately attached observer fires')
+  })
+
+  setTimeout(() => {
+    signal.observe(state => {
+      t.pass('Future observer fires')
+    })
+  }, 10)
+})
+
+// Use-case. Initial observer, future observers.
+tape('Future observers receive the current/last value in the signal', t => {
+  t.plan(1)
+
+  const mut = []
+  const expected = ['Desmond', 'Tu', 'Tu']
+  const signal = Signal.of('Desmond')
+  signal.register((type, payload) => payload.subject)
+  signal.emit({ subject: 'Tu' })
+  signal.observe(state => {
+    mut.push(state)
+  })
+
+  setTimeout(() => {
+    signal.observe(state => {
+      mut.push(state)
+      t.deepEqual(mut, expected, 'Future observer fired and mutation stack is as expected')
+    })
+  }, 10)
+})
+
+// Use-case. No initial observers, future observers.
+tape('Future observers receive the current/last value in the signal when they are the initial observer', t => {
+  t.plan(1)
+
+  const expected = 'world'
+  const signal = Signal.of('hello')
+  signal.register((type, payload) => payload.subject)
+  signal.emit({ subject: expected })
+
+  setTimeout(() => {
+    signal.observe(state => {
+      t.equal(state, expected, 'Future observer fires with correct state')
+    })
+  }, 10)
+})
+
+tape('Future observers receive the current/last value in the signal when they are in the initial observer and the event is fired in the same tick they are attached', t => {
+  t.plan(1)
+
+  const mut = []
+  const expected = ['hello', 'world']
+  const signal = Signal.of('hello')
+  signal.register((type, payload) => payload.subject)
+
+  setTimeout(() => {
+    signal.emit({ subject: 'world' })
+    signal.observe(state => {
+      mut.push(state)
+    })
+
+    // Defer again to give the emit time to drain through and update the mutation stack
+    setTimeout(() => {
+      t.deepEqual(mut, expected, 'Observer fires on attachment and on emission')
+    }, 10)
+  }, 10)
+})
+
+tape('Multiple observers attached in the future all receive immediate updates', t => {
+  t.plan(3)
+
+  const signal = Signal.of({ hello: 'world' })
+  signal.observe(state => {
+    t.pass('Immediately attached observer fires')
+  })
+
+  setTimeout(() => {
+    signal.observe(state => {
+      t.pass('Future observer fires')
+    })
+
+    signal.observe(state => {
+      t.pass('Future observer 2 fires')
+    })
+  }, 10)
+})
+
+tape('Multiple observers attached immediately all receive updates', t => {
+  t.plan(2)
+
+  const signal = Signal.of({})
+  signal.observe(state => {
+    t.pass('Observer1 fired')
+  })
+  signal.observe(state => {
+    t.pass('Observer2 fired')
+  })
+})
+
+tape('Multiple observers attached all receive emits', t => {
+  t.plan(4)
+
+  const signal = Signal.of({})
+  signal.observe(state => {
+    t.pass('Observer1 fired')
+  })
+  signal.observe(state => {
+    t.pass('Observer2 fired')
+  })
+
+  signal.emit({})
+})
+
+tape('Updates run only once even with multiple observers attached', t => {
+  t.plan(5)
+
+  const signal = Signal.of({})
+  signal.register(_ => {
+    t.pass('Fired only once')
+    return _
+  })
+  signal.observe(state => {
+    t.pass('Observer1 fired')
+  })
+  signal.observe(state => {
+    t.pass('Observer2 fired')
+  })
+
+  signal.emit({})
 })

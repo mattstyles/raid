@@ -4,6 +4,7 @@
   "description": "Centralised state container",
   "main": "lib/",
   "scripts": {
+    "bench": "node -r @babel/register bench/tape",
     "clean": "rimraf lib",
     "lint": "standard",
     "prebuild": "yarn run clean",
@@ -57,11 +58,13 @@
     "babel-eslint": "^10.0.3",
     "coveralls": "^3.0.9",
     "nyc": "^15.0.0",
+    "pretty-hrtime": "^1.0.3",
     "rimraf": "^3.0.2",
-    "standard": "^14.3.1",
+    "standard": "^14.3.4",
     "tape": "^4.13.0"
   },
   "dependencies": {
+    "@most/hold": "^2.0.0",
     "eventemitter3": "^4.0.0",
     "most": "^1.8.0"
   },
