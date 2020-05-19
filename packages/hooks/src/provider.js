@@ -18,18 +18,8 @@ export const SignalProvider = ({
       signal.register(update)
     }
 
-    // This doesn't work because it won't get an initial value as it is
-    // attached _after_ that initial value has been emitted.
-    const detach = signal.observe(state => {
-      console.log('observer:', state)
-      setState(state)
-    })
-
-    return () => {
-      console.log('detaching observer')
-      detach()
-    }
-  }, [])
+    return signal.observe(setState)
+  }, [undefined])
 
   return (
     <SignalContext.Provider value={{ state, emit: signal.emit }}>

@@ -53,13 +53,21 @@ const Counter = () => {
   )
 }
 
-signal.observe(state => {
-  render(
+const AppViewer = ({ children }) => {
+  const [state] = useSignal(signal)
+
+  return (
     <App state={state}>
-      <SignalProvider signal={signal}>
-        <Counter />
-      </SignalProvider>
-    </App>,
-    element
+      {children}
+    </App>
   )
-})
+}
+
+render(
+  <AppViewer>
+    <SignalProvider signal={signal}>
+      <Counter />
+    </SignalProvider>
+  </AppViewer>,
+  element
+)

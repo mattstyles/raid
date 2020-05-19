@@ -18,17 +18,10 @@ const signal = Signal.of({
 })
 
 const update = (state, event) => {
-  if (event.type === 'inc') {
+  if (event.type === 'apply') {
     return {
       ...state,
-      count: state.count + 1
-    }
-  }
-
-  if (event.type === 'dec') {
-    return {
-      ...state,
-      count: state.count - 1
+      count: state.count + event.payload
     }
   }
 
@@ -41,22 +34,42 @@ const Control = () => {
   return (
     <Card depth={1} sx={{ p: 3 }}>
       <Flex row sx={{ pb: 3 }}>
-        <Button sx={{ mr: 2 }} tight onClick={() => dispatch({ type: 'inc' })}>+</Button>
-        <Button tight onClick={() => dispatch({ type: 'dec' })}>-</Button>
+        <Button sx={{ mr: 2 }} tight onClick={() => dispatch({ type: 'apply', payload: 1 })}>+</Button>
+        <Button tight onClick={() => dispatch({ type: 'apply', payload: -1 })}>-</Button>
       </Flex>
       <Text size={3}>{`Count: ${state.count}`}</Text>
     </Card>
   )
 }
 
-signal.observe(state => {
-  render(
+const AppViewer = ({ children }) => {
+  const [state] = useSignal(signal)
+
+  return (
     <App state={state}>
-      <Control />
-    </App>,
-    element
+      {children}
+    </App>
   )
-})
+}
+
+render(
+  <AppViewer>
+    <Control />
+  </AppViewer>,
+  element
+)
 
 signal.register(update)
 signal.register(debug('[useSignal]'))
+
+// This is an anti-pattern when using hooks. This pattern of observing one single stream and rendering an entire tree will cause duplicate renders as this observer fires, and then child observers (i.e. those from useSignal hooks) fire.
+// signal.observe(state => {
+//   render(
+//     <App state={state}>
+//       <Control />
+//       <Spacer py={3} />
+//       <StateTest />
+//     </App>,
+//     element
+//   )
+// })

@@ -1,19 +1,22 @@
 
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 
 import { SignalContext } from './provider'
 
-export const useSignal = (signal) => {
+const identity = _ => _
+
+// @TODO handle adding a selector also, an update might be good too (which would be deregistered when done)
+export const useSignal = (signal, selector = identity) => {
   if (!signal) {
-    // Should it always attach? Probably, or should it wrap in a useEffect?
     const value = useContext(SignalContext)
-    console.log('useContext:', value)
-    return [value.state, value.emit]
+    return [selector(value.state), value.emit]
   }
 
   const [state, setState] = useState({})
 
-  signal.observe(setState)
+  useEffect(() => {
+    return signal.observe(setState)
+  }, [undefined])
 
-  return [state, signal.emit]
+  return [selector(state), signal.emit]
 }

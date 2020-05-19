@@ -17,8 +17,6 @@ export const toggleUpdate = (state, event) => {
 export const Toggle = () => {
   const [state, dispatch] = useSignal()
 
-  console.log('toggle', state)
-
   return (
     <Card depth={1} sx={{ mt: 4, p: 3 }}>
       <Text block sx={{ pb: 3 }}>{state.flag ? 'On' : 'Off'}</Text>
