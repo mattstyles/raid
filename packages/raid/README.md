@@ -200,6 +200,24 @@ signal.dispose('uid for an update function')
 signal.detach('uid for an update function')
 ```
 
+## Applying functions to updates
+
+Raid Signals can additionally keep a stack of functions to apply to every update passing through the stream. They are applied lazily so can be added and removed and will execute for every update on every emit.
+
+```js
+signal.apply(fn => (state, event) => fn(state, event))
+```
+
+Applicator functions are [higher-order functions](https://en.wikipedia.org/wiki/Higher-order_function) that accept an update function to decorate.
+
+An example is using [safe](https://github.com/mattstyles/raid/tree/master/packages/raid-addons#safe) from `@raid/addons` to ensure that updates within the signal always return a state.
+
+```js
+import { safe } from '@raid/addons'
+
+signal.apply(safe)
+```
+
 ## Running tests
 
 ```sh

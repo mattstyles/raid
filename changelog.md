@@ -1,6 +1,7 @@
 
 #
 
+* _add_ Raid::Signal::apply
 * _add_ Hooks::useSignal will accept a selector function
 * _add_ Observing a Raid::Signal now triggers the observer with the last source stream value
 * _add_ allow detaching connected functions from a signal
