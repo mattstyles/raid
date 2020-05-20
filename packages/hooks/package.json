@@ -1,6 +1,6 @@
 {
   "name": "@raid/hooks",
-  "version": "5.0.1",
+  "version": "6.0.0-alpha.0",
   "description": "React hooks to complement @raid",
   "main": "lib/",
   "scripts": {
