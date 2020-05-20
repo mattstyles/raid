@@ -298,6 +298,20 @@ tape('Updates can trigger actions', t => {
   signal.emit({ type: 'one' })
 })
 
+tape('Updates must be supplied to register', t => {
+  t.plan(2)
+
+  const signal = Signal.of({})
+
+  t.throws(() => {
+    signal.register()
+  }, 'Update function must be supplied to register')
+
+  t.throws(() => {
+    signal.register('will throw')
+  }, 'Update function must *be* a function when supplied to register')
+})
+
 tape('Actions triggered by update functions mutate state correctly', t => {
   t.plan(2)
 

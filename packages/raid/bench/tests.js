@@ -46,6 +46,11 @@ export const makeTest = ({
     signal.register(update)
   }
 
+  // signal.apply(fn => (state, event) => {
+  //   state = state + Math.random().toString(32)
+  //   return fn(state, event)
+  // })
+
   for (let i = 0; i < numObservers; i++) {
     signal.observe(observer)
   }

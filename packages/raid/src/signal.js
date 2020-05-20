@@ -20,6 +20,7 @@ class Signal {
     this.emitter = new EventEmitter()
     this.updates = new Map()
     this.observers = new Map()
+    this.applicators = new Map()
 
     /**
      * Creates a held source stream that holds application state.
@@ -33,7 +34,16 @@ class Signal {
            * side effects happening within the execution of update functions
            */
           return fold(this.updates.values(), (state, update) => {
-            return update(state, event)
+            // Apply applicators to each update
+            let up = update
+            if (this.applicators.size > 0) {
+              for (const apply of this.applicators.values()) {
+                up = apply(update)
+              }
+            }
+
+            // Execute the update and return the result to the fold
+            return up(state, event)
           }, state)
         }, initialState)
     )
@@ -133,10 +143,36 @@ class Signal {
   register = (update, {
     key = uid()
   } = {}) => {
+    if (typeof update !== 'function') {
+      throw new Error('Update function required to apply to the Raid:Signal')
+    }
+
     this.updates.set(key, update)
 
     return function dispose () {
       return this.dispose(key)
+    }.bind(this)
+  }
+
+  /**
+   * Registers an applicator function with this signal
+   * @param applicator <Function> => <Function(state, event)> applicators are
+   * applied to every update through the stream.
+   * @param options <Object> uid for the applicator
+   * @param options.key <String<optional>> uid for the applicator function
+   * @returns <Function> dispose function to remove the applicator function
+   */
+  apply = (applicator, {
+    key = uid()
+  } = {}) => {
+    if (typeof applicator !== 'function') {
+      throw new Error('Applicator function required to apply to the Raid:Signal')
+    }
+
+    this.applicators.set(key, applicator)
+
+    return function remove () {
+      return this.remove(key)
     }.bind(this)
   }
 
@@ -159,6 +195,30 @@ class Signal {
       const res = this.updates.delete(update)
       if (!res) {
         results.push(update)
+      }
+    }
+    return results.length ? results : true
+  }
+
+  /**
+   * Removes an applicator function from the signal
+   * @param key <String> identifier
+   * @returns <Boolean>
+   */
+  remove = key => {
+    return this.applicators.delete(key)
+  }
+
+  /**
+   * Removes all applicators from a signal
+   * @returns <Boolean||Array> true if successful, an array of failed keys if not
+   */
+  removeAll = () => {
+    const results = []
+    for (const applicator of this.applicators.keys()) {
+      const res = this.applicators.delete(applicator)
+      if (!res) {
+        results.push(applicator)
       }
     }
     return results.length ? results : true
