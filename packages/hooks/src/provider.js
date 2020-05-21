@@ -11,7 +11,7 @@ export const SignalProvider = ({
   update,
   children
 }) => {
-  const [state, setState] = useState({})
+  const [state, setState] = useState(signal.current)
 
   useEffect(() => {
     if (update) {
