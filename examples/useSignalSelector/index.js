@@ -42,7 +42,9 @@ const Title = ({ children }) => {
 const cap = str => str.replace(/^./, char => char.toUpperCase())
 
 const Control = () => {
-  const { state, emit } = useSignal(signal, state => state?.title && cap(state.title))
+  const { state, emit } = useSignal(signal, {
+    selector: state => state?.title && cap(state.title)
+  })
 
   return (
     <>

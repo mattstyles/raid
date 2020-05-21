@@ -5,9 +5,9 @@ import { SignalContext } from './provider'
 
 const identity = _ => _
 
-// Return an object to allow for backwards compatibility as updates and custom
-// dispatches could be used here
-export const useSignal = (signal, selector = identity) => {
+export const useSignal = (signal, {
+  selector = identity
+} = {}) => {
   if (!signal) {
     const value = useContext(SignalContext)
     return {

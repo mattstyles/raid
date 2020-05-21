@@ -8,16 +8,18 @@ export const SignalConsumer = SignalContext.Consumer
 
 export const SignalProvider = ({
   signal,
-  update,
+  // update,
   children
 }) => {
   const [state, setState] = useState(signal.current)
 
   useEffect(() => {
-    if (update) {
-      signal.register(update)
-    }
+    // if (update) {
+    //   signal.register(update)
+    // }
 
+    // @TODO if updates can be added then we need to clean them up in here, as
+    // well as detach the observer we set here
     return signal.observe(setState)
   }, [undefined])
 
