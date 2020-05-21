@@ -5,18 +5,25 @@ import { SignalContext } from './provider'
 
 const identity = _ => _
 
-// @TODO handle adding a selector also, an update might be good too (which would be deregistered when done)
+// Return an object to allow for backwards compatibility as updates and custom
+// dispatches could be used here
 export const useSignal = (signal, selector = identity) => {
   if (!signal) {
     const value = useContext(SignalContext)
-    return [selector(value.state), value.emit]
+    return {
+      state: selector(value.state),
+      emit: value.emit
+    }
   }
 
-  const [state, setState] = useState({})
+  const [state, setState] = useState(signal.current)
 
   useEffect(() => {
     return signal.observe(setState)
-  }, [undefined])
+  }, [])
 
-  return [selector(state), signal.emit]
+  return {
+    state: selector(state),
+    emit: signal.emit
+  }
 }

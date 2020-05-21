@@ -42,7 +42,7 @@ const Title = ({ children }) => {
 const cap = str => str.replace(/^./, char => char.toUpperCase())
 
 const Control = () => {
-  const [title, dispatch] = useSignal(signal, state => state?.title && cap(state.title))
+  const { state, emit } = useSignal(signal, state => state?.title && cap(state.title))
 
   return (
     <>
@@ -50,17 +50,17 @@ const Control = () => {
         <Input
           variant='flat'
           placeholder='Start typing...'
-          onChange={str => dispatch({ type: 'setTitle', payload: str })}
+          onChange={str => emit({ type: 'setTitle', payload: str })}
         />
       </Flex>
       <Spacer py={3} />
-      <Title>{title}</Title>
+      <Title>{state}</Title>
     </>
   )
 }
 
 const AppViewer = ({ children }) => {
-  const [state] = useSignal(signal)
+  const { state } = useSignal(signal)
 
   return (
     <App state={state}>

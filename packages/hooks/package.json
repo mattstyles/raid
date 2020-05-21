@@ -54,7 +54,10 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/register": "^7.8.3",
-    "standard": "14.3.4"
+    "@testing-library/react-hooks": "^3.2.1",
+    "react-test-renderer": "^16.13.1",
+    "standard": "14.3.4",
+    "tape": "^5.0.0"
   },
   "peerDependencies": {
     "react": "^16.8"

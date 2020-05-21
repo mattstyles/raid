@@ -21,6 +21,7 @@ class Signal {
     this.updates = new Map()
     this.observers = new Map()
     this.applicators = new Map()
+    this.current = initialState
 
     /**
      * Creates a held source stream that holds application state.
@@ -46,6 +47,9 @@ class Signal {
             return up(state, event)
           }, state)
         }, initialState)
+        .tap(state => {
+          this.current = state
+        })
     )
 
     // @TODO investigate why unsubscribing this sole subscriber
