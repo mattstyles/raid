@@ -15,12 +15,12 @@ export const toggleUpdate = (state, event) => {
 }
 
 export const Toggle = () => {
-  const [state, dispatch] = useSignal()
+  const { state, emit } = useSignal()
 
   return (
     <Card depth={1} sx={{ mt: 4, p: 3 }}>
       <Text block sx={{ pb: 3 }}>{state.flag ? 'On' : 'Off'}</Text>
-      <Button onClick={() => dispatch({ type: 'toggle' })}>Toggle</Button>
+      <Button onClick={() => emit({ type: 'toggle' })}>Toggle</Button>
     </Card>
   )
 }

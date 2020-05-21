@@ -38,13 +38,13 @@ counter.register(update)
 counter.register(debug('[counter]'))
 
 export const Counter = () => {
-  const [state, dispatch] = useSignal(counter)
+  const { state, emit } = useSignal(counter)
 
   return (
     <Card depth={1} sx={{ p: 3 }}>
       <Flex row sx={{ pb: 3 }}>
-        <Button sx={{ mr: 2 }} tight onClick={() => dispatch(actions.add(1))}>+</Button>
-        <Button tight onClick={() => dispatch(actions.add(-1))}>-</Button>
+        <Button sx={{ mr: 2 }} tight onClick={() => emit(actions.add(1))}>+</Button>
+        <Button tight onClick={() => emit(actions.add(-1))}>-</Button>
       </Flex>
       <Text size={3}>{`Count: ${state.count}`}</Text>
     </Card>

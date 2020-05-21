@@ -40,13 +40,13 @@ signal.register(debug('[counter]'))
 signal.register(update)
 
 const Counter = () => {
-  const [state, dispatch] = useSignal()
+  const { state, emit } = useSignal()
 
   return (
     <Card depth={1} sx={{ p: 3 }}>
       <Flex row sx={{ pb: 3 }}>
-        <Button sx={{ mr: 2 }} tight onClick={() => dispatch(actions.apply(1))}>+</Button>
-        <Button tight onClick={() => dispatch(actions.apply(-1))}>-</Button>
+        <Button sx={{ mr: 2 }} tight onClick={() => emit(actions.apply(1))}>+</Button>
+        <Button tight onClick={() => emit(actions.apply(-1))}>-</Button>
       </Flex>
       <Text size={3}>{`Count: ${state.count}`}</Text>
     </Card>
@@ -54,7 +54,7 @@ const Counter = () => {
 }
 
 const AppViewer = ({ children }) => {
-  const [state] = useSignal(signal)
+  const { state } = useSignal(signal)
 
   return (
     <App state={state}>

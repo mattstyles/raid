@@ -28,13 +28,13 @@ export const counterUpdate = safe((state, event) => {
 })
 
 export const Counter = () => {
-  const [state, dispatch] = useSignal()
+  const { state, emit } = useSignal()
 
   return (
     <Card depth={1} sx={{ p: 3 }}>
       <Flex row sx={{ pb: 3 }}>
-        <Button sx={{ mr: 2 }} tight onClick={() => dispatch(counterActions.apply(1))}>+</Button>
-        <Button tight onClick={() => dispatch(counterActions.apply(-1))}>-</Button>
+        <Button sx={{ mr: 2 }} tight onClick={() => emit(counterActions.apply(1))}>+</Button>
+        <Button tight onClick={() => emit(counterActions.apply(-1))}>-</Button>
       </Flex>
       <Text size={3}>{`Count: ${state.count}`}</Text>
     </Card>

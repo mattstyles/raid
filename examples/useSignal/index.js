@@ -29,13 +29,13 @@ const update = (state, event) => {
 }
 
 const Control = () => {
-  const [state, dispatch] = useSignal(signal)
+  const { state, emit } = useSignal(signal)
 
   return (
     <Card depth={1} sx={{ p: 3 }}>
       <Flex row sx={{ pb: 3 }}>
-        <Button sx={{ mr: 2 }} tight onClick={() => dispatch({ type: 'apply', payload: 1 })}>+</Button>
-        <Button tight onClick={() => dispatch({ type: 'apply', payload: -1 })}>-</Button>
+        <Button sx={{ mr: 2 }} tight onClick={() => emit({ type: 'apply', payload: 1 })}>+</Button>
+        <Button tight onClick={() => emit({ type: 'apply', payload: -1 })}>-</Button>
       </Flex>
       <Text size={3}>{`Count: ${state.count}`}</Text>
     </Card>
@@ -43,7 +43,7 @@ const Control = () => {
 }
 
 const AppViewer = ({ children }) => {
-  const [state] = useSignal(signal)
+  const { state } = useSignal(signal)
 
   return (
     <App state={state}>

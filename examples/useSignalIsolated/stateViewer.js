@@ -7,8 +7,8 @@ import { counter } from './counter'
 import { toggle } from './toggle'
 
 export const StateViewer = () => {
-  const [countState] = useSignal(counter)
-  const [toggleState] = useSignal(toggle)
+  const { state: countState } = useSignal(counter)
+  const { state: toggleState } = useSignal(toggle)
 
   return (
     <Pane sx={{ color: 'white' }}>
