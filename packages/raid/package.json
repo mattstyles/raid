@@ -59,7 +59,6 @@
     "coveralls": "^3.0.9",
     "nyc": "^15.0.0",
     "pretty-hrtime": "^1.0.3",
-    "rimraf": "^3.0.2",
     "standard": "^14.3.4",
     "tape": "^4.13.0"
   },
