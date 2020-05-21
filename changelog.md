@@ -1,8 +1,9 @@
 
 #
 
+* _add_ Raid::Signal.current exposes the last value through the stream
 * _add_ Raid::Signal::apply
-* _add_ Hooks::useSignal will accept a selector function
+* _add_ Hooks::useSignal
 * _add_ Observing a Raid::Signal now triggers the observer with the last source stream value
 * _add_ allow detaching connected functions from a signal
 * _add_ detach observers from a stream

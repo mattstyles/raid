@@ -559,3 +559,17 @@ tape('Updates run only once even with multiple observers attached', t => {
 
   signal.emit({})
 })
+
+tape('Signal exposes the current value', t => {
+  t.plan(2)
+
+  const signal = Signal.of('one')
+  t.equal(signal.current, 'one', 'Initial value is passed on instantiation')
+
+  signal.register(state => 'two')
+  signal.emit({})
+
+  setTimeout(() => {
+    t.equal(signal.current, 'two', 'Current is indeed current, and not stale')
+  }, 5)
+})
