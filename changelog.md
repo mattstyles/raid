@@ -1,6 +1,7 @@
 
 #
 
+* _prep_ hoist dev dependencies to root
 * _update_ move examples to their own package
 * _add_ Raid::Signal.current exposes the last value through the stream
 * _add_ Raid::Signal::apply

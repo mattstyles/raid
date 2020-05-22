@@ -1,5 +1,6 @@
 
-import { safe, compress } from 'raid-addons'
+import { safe } from '@raid/addons/safe'
+import { compress } from '@raid/addons/compress'
 
 import { actions } from './actions'
 import { getHistory } from './history'

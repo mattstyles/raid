@@ -49,31 +49,20 @@
   },
   "bugs": "https://github.com/mattstyles/raid/issues",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/register": "^7.8.3",
-    "babel-eslint": "^10.0.3",
-    "coveralls": "^3.0.9",
-    "jsdom": "^16.2.0",
-    "nyc": "^15.0.0",
-    "raid": "^6.0.0-alpha.0",
-    "rimraf": "^3.0.2",
-    "standard": "^14.3.1",
-    "tape": "^4.13.0"
+    "jsdom": "^16.2.2",
+    "standard": "^14.3.1"
   },
   "dependencies": {
     "history": "^4.10.1",
     "lodash": "^4.17.15",
-    "raid-addons": "4.1.0",
+    "@raid/addons": "^6.0.0",
     "reselect": "^4.0.0"
   },
   "peerDependencies": {
     "raid": "^6.0.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "^16.9.0",
+    "react-is": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "license": "MIT",
   "gitHead": "133ec598275946f14fe0a0e8ef1fcdae8e2ba3d6"

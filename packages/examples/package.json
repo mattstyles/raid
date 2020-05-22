@@ -47,12 +47,12 @@
     "immutable": "^4.0.0-rc.12",
     "inquirer": "^7.1.0",
     "most": "^1.8.1",
-    "react": "^16.8.0",
-    "react-dom": "^16.8",
-    "react-is": "^16.8",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-is": "^16.9.0",
     "react-transition-group": "^4.4.1",
     "reselect": "^4.0.0",
     "speedrun": "^1.0.2",
-    "styled-components": "^5.x"
+    "styled-components": "^5.1.0"
   }
 }
