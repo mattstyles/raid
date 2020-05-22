@@ -23,7 +23,11 @@
   },
   "sideEffects": false,
   "standard": {
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/node_modules/**",
+      "**/lib/"
+    ]
   },
   "keywords": [
     "raid",
@@ -42,17 +46,7 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.3",
-    "@babel/register": "^7.8.3",
-    "babel-eslint": "^10.0.3",
-    "coveralls": "^3.0.9",
-    "nyc": "^15.0.0",
-    "raid": "^6.0.0-alpha.0",
-    "rimraf": "^3.0.2",
-    "standard": "^14.3.1",
-    "tape": "^4.13.0"
+    "standard": "^14.3.1"
   },
   "dependencies": {
     "most": "^1.8.0",

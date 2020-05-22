@@ -80,6 +80,7 @@
     "istanbul-combine": "^0.3.0",
     "lerna": "^3.15.0",
     "nyc": "^15.0.0",
+    "regenerator-runtime": "^0.13.3",
     "rimraf": "^3.0.2",
     "standard": "^14.3.4",
     "tape": "^5.0.0"

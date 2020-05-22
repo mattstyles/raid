@@ -33,7 +33,11 @@
   },
   "sideEffects": false,
   "standard": {
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/node_modules/**",
+      "**/lib/"
+    ]
   },
   "keywords": [
     "raid",
@@ -49,27 +53,14 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/register": "^7.8.3",
-    "babel-eslint": "^10.0.3",
-    "coveralls": "^3.0.9",
-    "nyc": "^15.0.0",
-    "raid": "^6.0.0-alpha.0",
-    "regenerator-runtime": "^0.13.3",
-    "rimraf": "^3.0.0",
-    "standard": "^14.3.1",
-    "tape": "^4.13.0"
+    "standard": "^14.3.1"
   },
   "dependencies": {
     "@mattstyles/match": "^1.0.1",
     "force-array": "^3.1.0"
   },
   "peerDependencies": {
-    "react": "^16.8"
+    "react": "^16.9"
   },
   "gitHead": "133ec598275946f14fe0a0e8ef1fcdae8e2ba3d6"
 }

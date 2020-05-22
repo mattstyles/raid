@@ -1,6 +1,7 @@
 
 #
 
+* _update_ move examples to their own package
 * _add_ Raid::Signal.current exposes the last value through the stream
 * _add_ Raid::Signal::apply
 * _add_ Hooks::useSignal

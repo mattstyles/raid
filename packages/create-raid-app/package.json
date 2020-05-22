@@ -61,7 +61,6 @@
     "pkg-dir": "^4.2.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
     "standard": "^14.3.1"
   },
   "gitHead": "133ec598275946f14fe0a0e8ef1fcdae8e2ba3d6"

@@ -53,14 +53,12 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
-    "@babel/register": "^7.8.3",
     "@testing-library/react-hooks": "^3.2.1",
     "react-test-renderer": "^16.13.1",
-    "standard": "14.3.4",
-    "tape": "^5.0.0"
+    "standard": "14.3.4"
   },
   "peerDependencies": {
-    "react": "^16.8"
+    "react": "^16.9"
   },
   "gitHead": "133ec598275946f14fe0a0e8ef1fcdae8e2ba3d6"
 }
