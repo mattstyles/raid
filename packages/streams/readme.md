@@ -29,7 +29,7 @@ An application typically involves a number of different input streams that emit 
 
 This is a disparate collection of input streams and whilst they were created with Raid in mind they could equally be used with other libraries. They always emit a Raid action signature `{type<string>, payload<any>}` and they are [most.js](https://npmjs.com/packages/most) streams which can be composed together to create more complex inputs.
 
-See the [examples](https://github.com/mattstyles/raid/blob/master/examples) for more detailed usage.
+See the [examples](https://github.com/mattstyles/raid/tree/master/packages/examples/examples) for more detailed usage.
 
 ## Streams
 
@@ -56,8 +56,8 @@ Keys are referenced using their [vkey](https://www.npmjs.com/package/vkey) defin
 ### Keys
 
 ```js
-import keystream, {actions} from '@raid/streams/keys'
-import {Signal} from 'raid'
+import keystream, { actions } from '@raid/streams/keys'
+import { Signal } from 'raid'
 
 const signal = new Signal({key: ''})
 
@@ -65,7 +65,7 @@ const signal = new Signal({key: ''})
 signal.mount(keystream())
 
 // Respond to key events
-signal.register((state, {type, payload}) => {
+signal.register((state, { type, payload }) => {
   if (type === actions.keydown) {
     state.key = payload.key
   } else {
@@ -102,7 +102,7 @@ Keydown fires on initial keydown event when pressing a key and emits an event of
 ```
 
 ```js
-import {keydown, actions} from '@raid/streams/keys'
+import { keydown, actions } from '@raid/streams/keys'
 
 signal.mount(keydown())
 
@@ -137,11 +137,11 @@ Keyup fires when a key is released and emits an event of the type:
 ```
 
 ```js
-import {keyup, actions} from '@raid/streams/keys'
+import { keyup, actions } from '@raid/streams/keys'
 
 signal.mount(keyup())
 
-signal.register((state, {type, payload}) => {
+signal.register((state, { type, payload }) => {
   if (type === actions.keyup) {
     state.key = payload.key
   }
@@ -166,11 +166,11 @@ The event signature for keyup and keydown matches the underlying key streams the
 The keystream map holds how long a key has been pressed for mapped against its [vkey](https://www.npmjs.com/package/vkey) definition.
 
 ```js
-import keystream, {actions} from '@raid/streams/keys'
+import keystream, { actions } from '@raid/streams/keys'
 
 signal.mount(keystream())
 
-signal.register((state, {type, payload}) => {
+signal.register((state, { type, payload }) => {
   if (type === actions.keydown) {
     state.key = payload.key
   }
@@ -216,11 +216,11 @@ The event signature looks like:
 ```
 
 ```js
-import {keySequence, actions} from '@raid/streams/keys'
+import { keySequence, actions } from '@raid/streams/keys'
 
 signal.mount(keySequence())
 
-signal.register((state, {type, payload}) => {
+signal.register((state, { type, payload }) => {
   if (type === actions.sequence) {
     state.sequence = payload.keys
   }
@@ -257,11 +257,11 @@ The event signature looks like:
 ```
 
 ```js
-import {timedKeySequence, actions} from '@raid/streams/keys'
+import { timedKeySequence, actions } from '@raid/streams/keys'
 
 signal.mount(timedKeySequence())
 
-signal.register((state, {type, payload}) => {
+signal.register((state, { type, payload }) => {
   if (type === actions.timedSequence) {
     state.sequence = payload.keys
   }
@@ -301,11 +301,11 @@ The event signature looks like and just passes the duration of the last frame:
 ```
 
 ```js
-import tick, {actions} from '@raid/streams/tick'
+import tick, { actions } from '@raid/streams/tick'
 
 signal.mount(tick())
 
-signal.register((state, {type, payload}) => {
+signal.register((state, { type, payload }) => {
   if (type === actions.tick) {
     state.lastElapsed = payload.dt
   }
@@ -319,11 +319,11 @@ signal.register((state, {type, payload}) => {
 Screen streams manage common screen events that the browser might emit, screen emits separate streams for each event or a merged stream.
 
 ```js
-import screen, {actions} from '@raid/streams/screen'
+import screen, { actions } from '@raid/streams/screen'
 
 signal.mount(screen())
 
-signal.register((state, {type, payload}) => {
+signal.register((state, { type, payload }) => {
   if (type === actions.orientation) {
     state.orientation = payload.orientation
   }
@@ -366,11 +366,11 @@ Event signature looks like:
 ```
 
 ```js
-import {resize, actions} from '@raid/streams/screen'
+import { resize, actions } from '@raid/streams/screen'
 
 signal.mount(resize())
 
-signal.register((state, {type, payload: {width, height}}) => {
+signal.register((state, { type, payload: { width, height } }) => {
   if (type === actions.resize) {
     state.dimensions = [width, height]
   }
@@ -406,11 +406,11 @@ Event signature looks like:
 ```
 
 ```js
-import {scroll, actions} from '@raid/streams/screen'
+import { scroll, actions } from '@raid/streams/screen'
 
 signal.mount(scroll())
 
-signal.register((state, {type, payload: {left, top}}) => {
+signal.register((state, { type, payload: { left, top } }) => {
   if (type === actions.scroll) {
     state.scrollPosition = [left, top]
   }
@@ -436,11 +436,11 @@ Event signature looks like:
 ```
 
 ```js
-import {orientation, actions} from '@raid/streams/screen'
+import { orientation, actions } from '@raid/streams/screen'
 
 signal.mount(orientation())
 
-signal.register((state, {type, payload}) => {
+signal.register((state, { type, payload }) => {
   if (type === actions.orientation) {
     state.orientation = payload.orientation
   }
@@ -453,14 +453,14 @@ signal.register((state, {type, payload}) => {
 All these action streams are just regular [most.js](https://npmjs.com/packages/most) streams and can be consumed as normal, there is no restriction to use them with Raid. The only tie they have to Raid is that they emit `{type, payload}` objects. As they are regular streams all the regular stream functions work.
 
 ```js
-import keystream, {actions} from '@raid/streams/keys'
+import keystream, { actions } from '@raid/streams/keys'
 
 keystream
   .map(event => ({
     ...event,
     meta: '@@foo'
   }))
-  .observe(({type, payload, meta}) => {
+  .observe(({ type, payload, meta }) => {
     if (type === actions.keydown) {
       console.log(`Pressing ${payload.key}, meta: ${meta}`)
     }
@@ -470,13 +470,13 @@ keystream
 ## Running tests
 
 ```sh
-$ npm
-$ npm test
+$ yarn
+$ yarn test
 ```
 
 ## Contributing
 
-Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `npm test` to ensure all tests are passing and add tests for any new features or updates.
+Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
 
 For bugs and feature requests, [please create an issue](https://github.com/mattstyles/raid/issues).
 

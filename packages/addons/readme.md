@@ -27,7 +27,7 @@ Raid does one job, it helps to manage the state of your application. It does thi
 
 This is a disparate list of add-ons and whilst they were created with Raid in mind they could equally be used with other libraries. They are typically small utility functions and often best used composed together.
 
-See the [examples](https://github.com/mattstyles/raid/blob/master/examples) for more detailed usage.
+See the [examples](https://github.com/mattstyles/raid/tree/master/packages/examples/examples) for more detailed usage.
 
 ## Direct imports
 

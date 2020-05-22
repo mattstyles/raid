@@ -25,7 +25,7 @@ npm i -S raid @raid/fl
 
 Raid does one job, it helps to manage the state of your application. @raid/fl adds some algebraic types to helpers to allow you to use [fantasy-land](https://github.com/fantasyland/fantasy-land) compliant structures to manage your application state.
 
-See the [examples](https://github.com/mattstyles/raid/blob/master/examples) for more detailed usage.
+See the [examples](https://github.com/mattstyles/raid/tree/master/packages/examples/examples) for more detailed usage.
 
 > By default `@raid/fl` outputs a build for modern environments, however, this creates a problem for some build tools as they don’t always understand some `esnext` syntax. Either use minification/build tooling that does or consider using `@raid/fl/compat`, see the [interoperabilty section](https://github.com/mattstyles/raid/tree/master/packages/raid-fl#interoperability) for more details.
 
@@ -47,7 +47,7 @@ This is a common pattern for JS libraries and allows the consumer to specify the
 To use typed actions you first need to create a function that can create them for you:
 
 ```js
-import {createAction} from '@raid/fl'
+import { createAction } from '@raid/fl'
 
 var ChangeTitle = createAction('change-title')
 ```
@@ -86,8 +86,8 @@ Actions are boxed to implement Monad, Functor, Applicative and Setoid so they ha
 Actions can be connected directly to a signal so that when they are instantiated they immediately force the signal to emit them.
 
 ```js
-import {Signal} from 'raid'
-import {connect} from '@raid/fl'
+import { Signal } from 'raid'
+import { connect } from '@raid/fl'
 
 const signal = Signal.of({})
 const createActions = connect(signal)
@@ -108,13 +108,13 @@ reset.of()
 @raid/fl outputs a build for modern browsers which gives named actions output for Safari and Node but if you are supporting older browsers there is also a compat build that will apply more aggressive transpilation. The compat build can be accessed via `/compat`:
 
 ```js
-import {createAction} from '@raid/fl/compat'
+import { createAction } from '@raid/fl/compat'
 ```
 
 Mostly typed and untyped events will work in the same codebase as whatever code you use inside your updates should work fine with both, however, for situations where you want to convert the structure of an argument `@raid/fl` implements two transform helpers which can provide interoperability with modules whose actions are strings/types or whose updates expect strings/types.
 
 ```js
-import {typeEvent, untypeEvent} from '@raid/fl'
+import { typeEvent, untypeEvent } from '@raid/fl'
 
 signal.register(typeEvent(typedUpdate))
 signal.register(untypeEvent(untypedUpdate))
@@ -129,7 +129,7 @@ signal.register(typeEvent(update, {}))
 For situations where you are using connected events you can also pass through the function used to create actions:
 
 ```js
-import {connect, typeEvent} from '@raid/fl'
+import { connect, typeEvent } from '@raid/fl'
 
 const createActions = connect(signal)
 
@@ -147,7 +147,7 @@ The only restriction here is that `typeEvent` expects the `createActions` functi
 Create action returns an action creator which can be used to instantiate actions.
 
 ```js
-import {createAction} from '@raid/fl'
+import { createAction } from '@raid/fl'
 
 const reset = createAction('reset')
 
@@ -161,7 +161,7 @@ const action = reset.of()
 Create action returns an action creator which can be used to instantiate actions.
 
 ```js
-import {createActions} from '@raid/fl'
+import { createActions } from '@raid/fl'
 
 const [reset] = createActions(['reset'])
 
@@ -175,7 +175,7 @@ const action = reset.of()
 Connect accepts a signal and returns a function which can be used to create action which are connected to that signal meaning that instantiation of the action forces the signal to emit.
 
 ```js
-import {connect} from '@raid/fl'
+import { connect } from '@raid/fl'
 
 const createActions = connect(signal)
 const [reset] = createActions(['reset'])
@@ -191,7 +191,7 @@ reset.of()
 `typeEvent` allows a supplied update function to receive only typed events. The consumer can also supply an object for storing action creators as well as a function to create action creators.
 
 ```js
-import {typeEvent} from '@raid/fl'
+import { typeEvent } from '@raid/fl'
 
 const signal = Signal.of({count: 0})
 const update = (state, event) => {
@@ -222,10 +222,10 @@ In this example even though the signal is emitting events with a string type the
 
 `<Function<state, event>> => <Function<state, event>>`
 
-Untyping an event is a little easier and ensures that an update function only receives `{type, payload}` events.
+Untyping an event is a little easier and ensures that an update function only receives `{ type, payload }` events.
 
 ```js
-import {untypeEvent, createActions} from '@raid/fl'
+import { untypeEvent, createActions } from '@raid/fl'
 
 const signal = Signal.of({count: 0})
 const [apply, reset] = createActions([
@@ -257,13 +257,13 @@ signal.emit(reset.of())
 ## Running tests
 
 ```sh
-$ npm install
-$ npm test
+$ yarn install
+$ yarn test
 ```
 
 ## Contributing
 
-Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `npm test` to ensure all tests are passing and add tests for any new features or updates.
+Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
 
 For bugs and feature requests, [please create an issue](https://github.com/mattstyles/raid/issues).
 

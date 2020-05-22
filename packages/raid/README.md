@@ -71,7 +71,7 @@ Raid works great with immutable state objects to ensure that all mutations occur
 
 Further reading exists in the [documentation](https://mattstyles.github.io/raid/).
 
-Additionally there are a number of [examples](https://github.com/mattstyles/raid/tree/master/examples) and [test cases](https://github.com/mattstyles/raid/tree/master/packages/raid/spec).
+Additionally there are a number of [examples](https://github.com/mattstyles/raid/tree/master/packages/examples/examples) and [test cases](https://github.com/mattstyles/raid/tree/master/packages/raid/spec).
 
 See the [changelog](https://github.com/mattstyles/raid/blob/master/changelog.md#breaking-changes) for details regarding changes between major versions. Raid adheres to [semantic versionin](https://semver.org/) and strives to keep breaking changes to a minimum and provide upgrade instructions (or codemods) where necessary.
 
@@ -97,7 +97,7 @@ An update function is always of the form:
 }
 ```
 
-_Note that whilst type is assigned as a string here, which is usual, it needn't be and any type would work. See the [actions](https://github.com/mattstyles/raid/blob/master/examples/actions/index.js) example for a differing implementation._
+_Note that whilst type is assigned as a string here, which is usual, it needn't be and any type would work. See the [actions](https://github.com/mattstyles/raid/tree/master/packages/examples/examples/actions/index.js) example for a differing implementation._
 
 Update functions must always return the new (or mutated) state object, or the next update function in the chain (or, if the last or only, the observers will get it) will receive a void state object.
 
