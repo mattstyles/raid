@@ -10,7 +10,8 @@ import { Signal } from 'raid'
 import { debug } from '@raid/addons'
 import { union } from 'folktale/adt/union'
 
-import { App, Button, element, theme, Counter, Count, Inline } from '../_common'
+import { Spacer, Flex, Button, ButtonGroup, Card, Text } from '@raid/basic-kit'
+import { App, element } from '../_common'
 
 /**
  * The main signal can be observed for changes to application state.
@@ -24,7 +25,7 @@ const signal = new Signal({
  * Tagged union for action
  */
 const actions = union('actions', {
-  alter: value => ({ value }),
+  apply: value => ({ value }),
   reset: () => {}
 })
 
@@ -35,7 +36,7 @@ const actions = union('actions', {
  */
 const update = (state, event) => {
   return event.matchWith({
-    alter: ({ value }) => ({
+    apply: ({ value }) => ({
       ...state,
       count: state.count + value
     }),
@@ -50,27 +51,34 @@ const update = (state, event) => {
 }
 
 /**
- * Action handlers are a simple bit of sugar to add
+ * Action handlers are a bit of sugar to add
  */
 const dispatch = type => event => signal.emit(type)
 
-const CountWidget = ({ count }) => (
-  <Counter>
-    <Count>{count}</Count>
-    <Inline>
-      <Button
-        onClick={dispatch(actions.alter(1))}
-      >+</Button>
-      <Button
-        onClick={dispatch(actions.alter(-1))}
-      >-</Button>
-      <Button
-        onClick={dispatch(actions.reset())}
-        background={theme.color.secondary}
-      >Reset</Button>
-    </Inline>
-  </Counter>
-)
+/**
+ * Component to show variable and dispatch events on interaction
+ */
+const Counter = ({ count }) => {
+  return (
+    <Card>
+      <Flex row sx={{ alignItems: 'center' }}>
+        <Text sx={{ px: 3 }}>{count}</Text>
+        <Spacer px={2} />
+        <ButtonGroup condensed rounding='circular'>
+          <Button tight onClick={dispatch(actions.apply(1))}>+</Button>
+          <Button tight onClick={dispatch(actions.apply(-1))}>-</Button>
+        </ButtonGroup>
+        <Spacer px={2} />
+        <Button
+          onClick={dispatch(actions.reset())}
+          colour='critical'
+        >
+          Reset
+        </Button>
+      </Flex>
+    </Card>
+  )
+}
 
 /**
  * The signal observer notifies when the application state changes
@@ -78,7 +86,7 @@ const CountWidget = ({ count }) => (
 signal.observe(state => {
   render(
     <App state={state}>
-      <CountWidget count={state.count} />
+      <Counter count={state.count} />
     </App>,
     element
   )

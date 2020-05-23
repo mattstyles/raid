@@ -26,7 +26,7 @@ const update = async (getState, payload) => {
   onPending()
 
   try {
-    let user = await makeRequest(URL)
+    const user = await makeRequest(URL)
     onSuccess(user)
   } catch (err) {
     onFailure(err.message)
@@ -38,7 +38,7 @@ const mock = async (getState, payload) => {
 
   try {
     await delay(1000)
-    let user = {
+    const user = {
       name: 'Dave',
       image: 'null'
     }

@@ -1,15 +1,16 @@
 
-import '@babel/polyfill'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import { render } from 'react-dom'
 
 import {
   compress,
-  safe
+  debug
 } from '@raid/addons'
 import { element, App } from '../_common'
 
 import { signal } from './store'
-import { Main } from './user'
+import { Main } from './main'
 import { request } from './effects'
 import { actions } from './actions'
 
@@ -47,9 +48,7 @@ signal.register(compress({
 }))
 
 // Debug
-signal.register(safe((state, event) => {
-  console.log('-- signal --', state, event)
-}))
+signal.register(debug('>>'))
 
 // Register arc
 signal.register(request)

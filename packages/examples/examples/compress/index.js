@@ -4,10 +4,12 @@ import { render } from 'react-dom'
 import { Signal } from 'raid'
 import {
   compress,
-  flow
+  flow,
+  debug
 } from '@raid/addons'
 
-import { Box, Button, element, App, H2, P } from '../_common'
+import { Spacer, Flex, Card, Button, Text } from '@raid/basic-kit'
+import { App, element } from '../_common'
 
 const signal = new Signal({
   name: 'Joe',
@@ -18,18 +20,6 @@ const dispatch = type => {
   return event => {
     signal.emit({ type })
   }
-}
-
-const Person = ({ name, age }) => {
-  return (
-    <Box isPadded>
-      <H2 onClick={dispatch('CHANGE_NAME')}>{name}</H2>
-      <P onClick={dispatch('CHANGE_AGE')}>{`Age: ${age}`}</P>
-      <Button
-        onClick={dispatch('CHANGE')}
-      >Update</Button>
-    </Box>
-  )
 }
 
 const updateAge = state => {
@@ -49,12 +39,68 @@ const update = flow(
   updateAge
 )
 
+const actions = {
+  changeName: 'action:changeName',
+  changeAge: 'action:changeAge',
+  change: 'action:change'
+}
+
+const Person = ({ name, age }) => {
+  return (
+    <Card depth={1}>
+      <Flex row sx={{ alignItems: 'center' }}>
+        <Button
+          variant='transparent'
+          size='small'
+          tight
+          icon
+          onClick={dispatch(actions.changeName)}
+        >
+          😃
+        </Button>
+        <Spacer px={1} />
+        <Text as='h2' size={5}>{name}</Text>
+      </Flex>
+      <Flex row sx={{ alignItems: 'center' }}>
+        <Button
+          variant='transparent'
+          size='small'
+          tight
+          icon
+          onClick={dispatch(actions.changeAge)}
+        >
+          🍺
+        </Button>
+        <Spacer px={1} />
+        <Text>{`Age: ${age}`}</Text>
+      </Flex>
+
+      <Spacer py={2} />
+      <Button
+        variant='primary'
+        onClick={dispatch(actions.change)}
+      >
+        Both
+      </Button>
+    </Card>
+  )
+}
+
+signal.register(debug('>>'))
+
+/**
+ * Object form of compress
+ */
 signal.register(compress({
-  'CHANGE_NAME': updateName,
-  'CHANGE_AGE': updateAge
+  [actions.changeName]: updateName,
+  [actions.changeAge]: updateAge
 }))
 
-signal.register(compress('CHANGE')(update))
+/**
+ * String form of compress.
+ * Returns a function which can be used to assign updates to an action key later.
+ */
+signal.register(compress(actions.change)(update))
 
 signal.observe(state => {
   render(

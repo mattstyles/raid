@@ -1,4 +1,8 @@
 
+/**
+ * Example mounting streams from @raid/streams
+ */
+
 import { render } from 'react-dom'
 
 import { Signal } from 'raid'
@@ -14,10 +18,11 @@ import tickStream, {
   actions as tickActions
 } from '@raid/streams/tick'
 
-import { App, element, P, H1 } from '../_common'
+import { Text, Box } from '@raid/basic-kit'
+import { App, element } from '../_common'
 
 // Create main app signal
-const signal = new Signal({
+const signal = Signal.of({
   width: window.innerWidth,
   height: window.innerHeight,
   orientation: window.screen.orientation.type,
@@ -31,7 +36,7 @@ const signal = new Signal({
   hadoken: false
 })
 
-// Apply stream as an input source for the main signal
+// Apply streams as additional input sources for the main signal
 signal.mount(screenStream())
 signal.mount(tickStream())
 signal.mount(keyStream({
@@ -106,25 +111,46 @@ signal.register(update)
 signal.observe(state => {
   render(
     <App state={state}>
-      <P>Try resizing the screen</P>
-      <P>Try changing the orientation</P>
-      <P>Try scrolling the screen</P>
-      <P>Try holding the enter key</P>
-      <div style={{
-        width: 48,
-        height: 48,
-        lineHeight: '48px',
-        textAlign: 'center',
-        color: 'white',
-        background: state.toggle ? 'rgb(109, 170, 44)' : 'rgb(208, 70, 72)'
-      }}>{state.frames}</div>
-      <P style={{
-        color: state.keypress ? 'rgb(117, 113, 97)' : 'rgb(20, 12, 28)'
-      }}>{state.key}</P>
-      <H1 style={{
-        display: state.hadoken ? 'block' : 'none'
-      }}>Hadoken</H1>
+      <Text block>Try resizing the screen</Text>
+      <Text block>Try changing the orientation</Text>
+      <Text block>Try scrolling the screen</Text>
+      <Text block>Try holding the enter key</Text>
+      <Box
+        size='48px'
+        sx={{
+          mt: 3,
+          bg: state.toggle ? 'positive.500' : 'background.700',
+          color: 'white',
+          textAlign: 'center',
+          lineHeight: '48px'
+        }}
+      >
+        {state.frames}
+      </Box>
+      <Text block sx={{ color: state.keypress ? 'critical.500' : 'background.700' }}>{state.key}</Text>
+      {state.hadoken && <Text block size={8}>HADOKEN!!</Text>}
     </App>,
     element
   )
 })
+
+// <div style={{
+//   width: 48,
+//   height: 48,
+//   lineHeight: '48px',
+//   textAlign: 'center',
+//   color: 'white',
+//   background: state.toggle ? 'rgb(109, 170, 44)' : 'rgb(208, 70, 72)'
+// }}
+// >{state.frames}
+// </div>
+// <P style={{
+//   color: state.keypress ? 'rgb(117, 113, 97)' : 'rgb(20, 12, 28)'
+// }}
+// >{state.key}
+// </P>
+// <H1 style={{
+//   display: state.hadoken ? 'block' : 'none'
+// }}
+// >Hadoken
+// </H1>

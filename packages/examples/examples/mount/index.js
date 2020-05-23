@@ -1,12 +1,16 @@
 
+/**
+ * Mount can attach a stream to a signal.
+ */
+
 import { render } from 'react-dom'
+import { fromEvent } from 'most'
+import EventEmitter from 'eventemitter3'
 
 import { Signal } from 'raid'
 
-import { App, H2, element, Button } from '../_common'
-
-import { fromEvent } from 'most'
-import EventEmitter from 'eventemitter3'
+import { Flex, Spacer, Text, Button } from '@raid/basic-kit'
+import { App, element } from '../_common'
 
 // Create main app signal
 const signal = new Signal({
@@ -37,6 +41,7 @@ const actions = {
   keydown: 'input:keydown'
 }
 
+// Update is attached to the signal and gets fired in response to original stream as well as the mounted stream
 const update = (state, event) => {
   if (event.type === actions.add) {
     state.count += 1
@@ -61,12 +66,22 @@ signal.register(update)
 signal.observe(state => {
   render(
     <App state={state}>
-      <Button onClick={dispatch(actions.add)}>Add</Button>
-      <Button
-        onClick={sourceDispatch(actions.add)}
-        background='rgb(24, 190, 80)'
-      >Add 2</Button>
-      {state.key && <H2>{state.key}</H2>}
+      <Flex row>
+        <Button variant='primary' onClick={dispatch(actions.add)}>Add</Button>
+        <Spacer px={2} />
+        <Button
+          colour='positive'
+          onClick={sourceDispatch(actions.subtract)}
+        >
+          Subtract
+        </Button>
+      </Flex>
+      <Spacer py={3} />
+      <Text>Try hitting a key to see the mounted stream in action.</Text>
+      <Spacer py={2} />
+      {state.key && (
+        <Text size={7}>{state.key}</Text>
+      )}
     </App>,
     element
   )

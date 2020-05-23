@@ -1,4 +1,8 @@
 
+/**
+ * Adaptor can be used to attach a component to a signal
+ */
+
 import { render } from 'react-dom'
 
 import { element, App } from '../_common'

@@ -4,12 +4,13 @@
  * Raid <3's immutable data structures
  */
 
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 import Immutable from 'immutable'
 
-import {Signal} from 'raid'
+import { Signal } from 'raid'
 
-import {App, element, Button} from '../_common'
+import { Button } from '@raid/basic-kit'
+import { App, element } from '../_common'
 
 const generateShape = () => {
   return {
@@ -23,12 +24,12 @@ const generateShape = () => {
 
 const signal = new Signal(Immutable.List([generateShape()]))
 
-const ACTIONS = {
-  ADD: 'action:add'
+const actions = {
+  add: 'action:add'
 }
 
 const update = (state, event) => {
-  if (event.type === ACTIONS.ADD) {
+  if (event.type === actions.add) {
     return state.push(generateShape())
   }
 }
@@ -47,8 +48,8 @@ const styles = {
   }
 }
 
-const Main = ({state}) => {
-  let shapes = state.toArray().map((shape, i) => {
+const Main = ({ state }) => {
+  const shapes = state.toArray().map((shape, i) => {
     return (
       <div
         key={i}
@@ -65,14 +66,17 @@ const Main = ({state}) => {
   })
   return (
     <div style={styles.container}>
-      <div style={{padding: 12}}>
+      <div style={{ padding: 12 }}>
         <Button
+          variant='primary'
           onClick={e => {
-            signal.emit({type: ACTIONS.ADD})
+            signal.emit({ type: actions.add })
           }}
-        >Add</Button>
+        >
+          Add
+        </Button>
       </div>
-      <div style={{position: 'relative', flex: 1}}>
+      <div style={{ position: 'relative', flex: 1 }}>
         {shapes}
       </div>
     </div>

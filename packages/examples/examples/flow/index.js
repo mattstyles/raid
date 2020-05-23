@@ -7,7 +7,8 @@ import {
   flow
 } from '@raid/addons'
 
-import { Card, Button, element, App, H2, P } from '../_common'
+import { Spacer, Card, Button, Text } from '@raid/basic-kit'
+import { element, App } from '../_common'
 
 const signal = new Signal({
   name: 'Joe',
@@ -22,9 +23,10 @@ const dispatch = type => {
 
 const Person = ({ name, age }) => (
   <Card>
-    <H2>{name}</H2>
-    <P>{`Age: ${age}`}</P>
-    <Button onClick={dispatch('CHANGE')}>Update</Button>
+    <Text block size={5}>{name}</Text>
+    <Text block>{`Age: ${age}`}</Text>
+    <Spacer py={2} />
+    <Button variant='primary' onClick={dispatch('change')}>Update</Button>
   </Card>
 )
 
@@ -40,8 +42,12 @@ const updateName = state => {
   return state
 }
 
+/**
+ * Compress is used to assign an update to a key.
+ * Flow assigns multiple updates to a single key, and runs them sequentially.
+ */
 signal.register(compress({
-  'CHANGE': flow(
+  change: flow(
     updateName,
     updateAge
   )

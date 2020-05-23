@@ -1,25 +1,29 @@
 
 import { createSelector } from 'reselect'
 
-import { Button, Spacer, Flex, Text, Card } from '@raid/basic-kit'
+import { Spacer, Button, ButtonGroup, Text, Card } from '@raid/basic-kit'
 import { connect } from './store'
-import { ACTIONS, dispatch } from './actions'
+import { actions, dispatch } from './actions'
 
 const CountWidget = ({ count }) => {
   return (
-    <Card depth={2} sx={{ display: 'inline-block' }}>
+    <Card depth={1} sx={{ display: 'inline-block' }}>
       <Text size={7} block sx={{ textAlign: 'center' }}>{count}</Text>
-      <Flex row>
+      <Spacer py={1} />
+      <ButtonGroup ix={2}>
         <Button
           variant='primary'
-          onClick={dispatch(ACTIONS.ADD)}
-        >+</Button>
-        <Spacer px={1} />
+          onClick={dispatch(actions.add)}
+        >
+          +
+        </Button>
         <Button
           variant='primary'
-          onClick={dispatch(ACTIONS.SUBTRACT)}
-        >-</Button>
-      </Flex>
+          onClick={dispatch(actions.subtract)}
+        >
+          -
+        </Button>
+      </ButtonGroup>
     </Card>
   )
 }

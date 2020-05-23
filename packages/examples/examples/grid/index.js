@@ -10,16 +10,17 @@ import styled from 'styled-components'
 
 import { Signal } from 'raid'
 
-import { App, Button, element } from '../_common'
+import { Box, Spacer, Button, Pre } from '@raid/basic-kit'
+import { App, element } from '../_common'
 
-var LINE = '........................................'
+var line = '........................................'
 
 const generateLine = char => {
   if (char) {
-    return LINE.replace(/\./g, char)
+    return line.replace(/\./g, char)
   }
 
-  var output = LINE.replace(/\./g, ch => {
+  var output = line.replace(/\./g, ch => {
     return Math.random() > 0.7 ? '#' : ' '
   })
   return output
@@ -63,8 +64,8 @@ const signal = new Signal({
 /**
  * Action enum gives the updates a key to perform mutations
  */
-const ACTIONS = {
-  GENERATE: 'actions:generate'
+const actions = {
+  generate: 'actions:generate'
 }
 
 /**
@@ -72,7 +73,7 @@ const ACTIONS = {
  * They can be composed to provide more complex state manipulation.
  */
 const update = (state, event) => {
-  if (event.type === ACTIONS.GENERATE) {
+  if (event.type === actions.generate) {
     state.map = generateMap()
     return state
   }
@@ -80,42 +81,37 @@ const update = (state, event) => {
   return state
 }
 
-/**
- * Raid can be used with any view library
- */
-const Grid = styled('div')`
-  font-family: 'DejaVu Sans Mono';
-  font-size: 1.5rem;
-  white-space: pre;
-  color: rgb(232, 232, 232);
-  background: rgb(24, 24, 24);
-  margin-bottom: 16px;
-`
-
-/**
- * Action handlers are a simple bit of sugar to add
- */
 const dispatch = type => event => {
   signal.emit({ type })
 }
 
+const Grid = styled(Pre)({
+  background: 'hsl(0, 4%, 6%)',
+  color: 'hsl(204, 26%, 94%)',
+  fontWeight: 700,
+  fontSize: 20
+})
+
 const Line = ({ str }) => <div>{str}</div>
 
 const Map = ({ map }) => {
-  let content = []
+  const content = []
   for (let i = 0; i < 20; i++) {
     content.push(map.slice(i * 40, (i + 1) * 40))
   }
   return (
-    <div>
-      <Grid>
+    <Box>
+      <Grid inset>
         {content.map((str, i) => <Line key={i} str={str} />)}
       </Grid>
+      <Spacer py={2} />
       <Button
-        styles={{ marginTop: 8 }}
-        onClick={dispatch(ACTIONS.GENERATE)}
-      >Generate</Button>
-    </div>
+        variant='primary'
+        onClick={dispatch(actions.generate)}
+      >
+        Generate
+      </Button>
+    </Box>
   )
 }
 
