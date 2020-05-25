@@ -77,17 +77,20 @@ signal.register((state, { type, payload }) => {
 
 ### keydown
 
-`<Function <Object>> => <Object>`
+`<Function <Map, Object>> => <Object>`
 
 Keydown accepts only a reference to a keys pressed map, this is a required option:
 
 ```js
 {
-  <Map> keys [required]
+  <Map> keys [required],
+  <?Object> options: {
+    <?HTMLDomElement> el: window
+  }
 }
 
-signal.mount(keydown({
-  keys: new Map()
+signal.mount(keydown(new Map(), {
+  el: window
 }))
 ```
 
@@ -104,7 +107,7 @@ Keydown fires on initial keydown event when pressing a key and emits an event of
 ```js
 import { keydown, actions } from '@raid/streams/keys'
 
-signal.mount(keydown())
+signal.mount(keydown(new Map()))
 
 signal.register((state, event) => {
   if (event.type === actions.keydown) {
@@ -116,14 +119,21 @@ signal.register((state, event) => {
 
 ### keyup
 
-`<Function <Object>> => <Object>`
+`<Function <Map, Object>> => <Object>`
 
 Keyup accepts only a reference to a keys pressed map, this is a required option:
 
 ```js
 {
-  <Map> keys
+  <Map> keys [required],
+  <?Object> options: {
+    <?HTMLDomElement> el: window
+  }
 }
+
+signal.mount(keyup(new Map(), {
+  el: window
+}))
 ```
 
 Keyup fires when a key is released and emits an event of the type:
@@ -139,7 +149,9 @@ Keyup fires when a key is released and emits an event of the type:
 ```js
 import { keyup, actions } from '@raid/streams/keys'
 
-signal.mount(keyup())
+signal.mount(keyup(new Map(), {
+  el: window
+}))
 
 signal.register((state, { type, payload }) => {
   if (type === actions.keyup) {
@@ -159,7 +171,9 @@ The event signature for keyup and keydown matches the underlying key streams the
 
 ```js
 {
-  <Map> keys
+  <?Map> keys: null,
+  <?Number> rate: 0,
+  <?HTMLDomElement> el: window
 }
 ```
 
@@ -215,6 +229,8 @@ The event signature looks like:
 }
 ```
 
+The returned strings reference [vkey](https://www.npmjs.com/package/vkey) definitions.
+
 ```js
 import { keySequence, actions } from '@raid/streams/keys'
 
@@ -255,6 +271,8 @@ The event signature looks like:
   <Array <String>> keys
 }
 ```
+
+The returned strings reference [vkey](https://www.npmjs.com/package/vkey) definitions.
 
 ```js
 import { timedKeySequence, actions } from '@raid/streams/keys'
