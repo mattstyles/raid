@@ -15,7 +15,7 @@ export const fold = (it, fn, initial) => {
 }
 
 /**
- * Returns a random string
+ * Returns a unique string (unique only during the execution of the program)
  * @returns <String>
  */
 let i = 0

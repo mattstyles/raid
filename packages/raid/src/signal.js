@@ -5,11 +5,13 @@ import EventEmitter from 'eventemitter3'
 
 import { fold, uid } from './utils'
 
+const eventKey = 'action'
+
 /**
  * Create a new signal which can be observed for state changes.
  * @class Signal
  */
-class Signal {
+export class Signal {
   /**
    * Sets up the source stream.
    * State is held within the fold and can be observed for changes.
@@ -28,7 +30,7 @@ class Signal {
      * Held streams output the last value on subscription.
      */
     this.source = hold(
-      fromEvent('action', this.emitter)
+      fromEvent(eventKey, this.emitter)
         .scan((state, event) => {
           /**
            * Actions that request state changes are passed in to the stream with
@@ -73,13 +75,26 @@ class Signal {
 
   /**
    * Connects a new stream to the emitter, this requires the stream to emit
-   * objects for the emitter to pass as events through the scanned source
-   * stream.
-   * @param stream <Stream> any object with an `observe` method
-   * @returns <Promise>
+   * objects for the emitter to pass as events.
+   * Signals can also be mounted, whereby this source Signal will also receive
+   * all events passed through the mounted signal.
+   * @param stream <Stream|Signal> any object with a subscribe method. See [ES Observable proposal](https://tc39.es/proposal-observable/) or an instance of a Signal.
+   * @returns <Subscription|Function> allows a method to unmount
    */
   mount = stream => {
-    return stream.observe(this.emit)
+    // Mount a signal
+    if (stream instanceof Signal) {
+      stream.emitter.on(eventKey, this.emit)
+
+      return function unmount () {
+        stream.emitter.removeListener(eventKey, this.emit)
+      }.bind(this)
+    }
+
+    // Mount an observable
+    return stream.subscribe({
+      next: this.emit
+    })
   }
 
   /**
@@ -94,7 +109,7 @@ class Signal {
     }
 
     setTimeout(() => {
-      this.emitter.emit('action', payload)
+      this.emitter.emit(eventKey, payload)
     }, 0)
   }
 
@@ -131,9 +146,13 @@ class Signal {
   }
 
   /**
-   * @alias observe
+   * Implements subscribe, passing parameters to observe.
+   * @param subscription <Object> mostjs stream type Subscription
+   * @returns <Function> detach function to remove the subscription
    */
-  subscribe = this.observe
+  subscribe = subscription => {
+    return this.observe(null, null, { subscription })
+  }
 
   /**
    * Registers an update function with this signal
@@ -262,5 +281,3 @@ class Signal {
     return results.length ? results : true
   }
 }
-
-export default Signal
