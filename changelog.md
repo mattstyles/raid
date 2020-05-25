@@ -20,6 +20,8 @@
 * _breaking_ Raid::Signal::observer API change
 * _breaking_ Raid::Signal::register API change
 * _breaking_ Raid::Addons::sin removed
+* _breaking_ Raid::Streams::keyup API change
+* _breaking_ Raid::Streams::keydown API change
 
 ### Raid::Signal::observe
 
@@ -55,7 +57,7 @@ signal.observe({
   error: fn
 })
 
-// Now
+// v6
 signal.observe(null, null, {
   subscription: {
     next: fn,
@@ -70,7 +72,7 @@ Applying a key to a subscription:
 // Previously
 signal.observe(fn, key)
 
-// Now
+// v6
 signal.observe(fn, { key })
 ```
 
@@ -80,7 +82,7 @@ If you previously used to apply next and/or error functions, these will still wo
 // Previously
 signal.observe(fn, errorFn)
 
-// Now *no change*
+// v6 *no change*
 signal.observe(fn, errorFn)
 ```
 
@@ -92,11 +94,27 @@ signal.observe(fn, errorFn)
 // Previously
 signal.register(fn, key)
 
-// Now
+// v6
 signal.register(fn, { key })
 ```
 
 This is to keep it inline with `observe` and open up more opportunities in the future.
+
+### Raid:Streams:keyup Raid:Streams:keydown
+
+Both `keyup` and `keydown` change in the same way and both now place the required key [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) as the first parameter, and an options object as an optional second parameter.
+
+```js
+// Previously
+keyup({ keys: new Map() })
+keydown({ keys: new Map() })
+
+// v6
+keyup(keys: new Map())
+keydown(keys: new Map())
+```
+
+Note that `keystream`, which has only optional parameters, has the same API (accepts one parameter, an optional object describing the configuration).
 
 
 # 5.0.2
