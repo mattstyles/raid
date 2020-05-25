@@ -1,6 +1,7 @@
 
 #
 
+* _add_ mount signals (in addition to streams)
 * _prep_ hoist dev dependencies to root
 * _update_ move examples to their own package
 * _add_ Raid::Signal.current exposes the last value through the stream
@@ -19,6 +20,7 @@
 
 * _breaking_ Raid::Signal::observer API change
 * _breaking_ Raid::Signal::register API change
+* _breaking_ Raid::Signal::mount return value change
 * _breaking_ Raid::Addons::sin removed
 * _breaking_ Raid::Streams::keyup API change
 * _breaking_ Raid::Streams::keydown API change
@@ -99,6 +101,26 @@ signal.register(fn, { key })
 ```
 
 This is to keep it inline with `observe` and open up more opportunities in the future.
+
+### Raid:Signal:mount
+
+Mount previously returns the response from calling `observe` on the stream passed to `mount`, however, this was not always useful (it is often null) and could not be used to "unmount" a stream.
+
+v6 solves this problem by calling the streams subscribe method, which, if implemented as per the [Observable proposal](https://tc39.es/proposal-observable/), returns a subscription object which can be used to unsubscribe from future events leaving the stream.
+
+v6 additionally allows `mount` to be used with a Signal, whereby the source Signal will receive events passing through the mounted Signal. Mounting a signal has a slightly different implementation to attaching directly to a stream, so the return value differs and is not a subscription object, but a function which can be called to unmount the signal.
+
+```js
+const subscription = signal.mount(stream)
+
+subscription.unsubscribe()
+```
+
+```js
+const unmount = signal.mount(anotherSignal)
+
+unmount()
+```
 
 ### Raid:Streams:keyup Raid:Streams:keydown
 

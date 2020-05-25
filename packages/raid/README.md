@@ -160,7 +160,7 @@ If a `subscription` object is supplied as an option then it will take precedence
 
 `signal.subscribe` exists as an alias to `signal.observe`.
 
-## Managing a signal lifecycle
+## Managing the signal lifecycle
 
 Signals have a clean and minimal API and each function that creates resources will return a function to remove them, i.e.
 
@@ -217,6 +217,43 @@ import { safe } from '@raid/addons'
 
 signal.apply(safe)
 ```
+
+## Mounting other streams
+
+It is often very useful to create streams which emit action objects and then mount those streams on to a Signal.
+
+```js
+import { actions, keyStream } from '@raid/streams'
+
+const signal = Signal.of()
+signal.update((state, event) => {
+  if (event.type === actions.keydown) {
+    // Respond to the keydown event here
+  }
+  return state
+})
+
+const subscription = signal.mount(keyStream())
+```
+
+Mount attempts to use the `subscribe` method of the passed-in stream and will  pass the return value back. For streams which implement the [ES Observable proposal](https://tc39.es/proposal-observable/) the returned value will be a `Subscription` object which can be used to unmount the stream.
+
+```js
+subscription.unsubscibe()
+```
+
+Mount can also mount another Signal, whereby the source Signal will receive any events that pass through the mounted signal (but not its state). When mounting a Signal the return value will be a function that can be invoked to unmount.
+
+```js
+const signal = Signal.of({})
+const mounted = Signal.of({})
+
+const unmount = signal.mount(mounted)
+mounted.emit({ type: 'action', payload: 'I ❤️ Raid'})
+
+unmount()
+```
+
 
 ## Running tests
 
