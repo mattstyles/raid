@@ -6,7 +6,7 @@ export const actions = {
   tick: '@@tick:tick'
 }
 
-const tick = ({
+export const tick = ({
   el = window
 } = {}) => {
   return fromEvent('data', raf(el))
@@ -17,5 +17,3 @@ const tick = ({
       }
     }))
 }
-
-export default tick

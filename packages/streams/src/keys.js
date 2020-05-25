@@ -96,7 +96,7 @@ export const timedKeySequence = ({
     }))
 }
 
-const keystream = ({
+export const keys = ({
   keys = null,
   rate = 0,
   el = window
@@ -128,5 +128,3 @@ const keystream = ({
     keypress
   ])
 }
-
-export default keystream

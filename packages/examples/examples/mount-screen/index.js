@@ -6,15 +6,18 @@
 import { render } from 'react-dom'
 
 import { Signal } from 'raid'
-import screenStream, {
+import {
+  screen,
   actions as screenActions
 } from '@raid/streams/screen'
-import keyStream, {
+import {
+  keys,
   actions as keyActions,
   keySequence,
   timedKeySequence
 } from '@raid/streams/keys'
-import tickStream, {
+import {
+  tick,
   actions as tickActions
 } from '@raid/streams/tick'
 
@@ -37,9 +40,9 @@ const signal = Signal.of({
 })
 
 // Apply streams as additional input sources for the main signal
-signal.mount(screenStream())
-signal.mount(tickStream())
-signal.mount(keyStream({
+signal.mount(screen())
+signal.mount(tick())
+signal.mount(keys({
   rate: 1000 / 30
 }))
 signal.mount(keySequence())

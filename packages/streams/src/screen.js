@@ -1,42 +1,19 @@
 
 import { fromEvent, mergeArray } from 'most'
 
+import { scroll as elementScroll } from './element'
+
 export const actions = {
-  resize: '@@window:resize',
   scroll: '@@window:scroll',
-  orientation: '@@window:orientation'
+  orientation: '@@window:orientation',
+  resize: '@@window:resize'
 }
 
-export const resize = ({
-  debounce = 100,
-  el = window
-} = {}) => {
-  return fromEvent('resize', el)
-    .debounce(debounce)
-    .map(event => ({
-      type: actions.resize,
-      payload: {
-        raw: event,
-        width: event.target.innerWidth,
-        height: event.target.innerHeight,
-        timeStamp: event.timeStamp
-      }
-    }))
-}
-
-export const scroll = ({
-  el = window
-} = {}) => {
-  return fromEvent('scroll', el)
-    .map(event => ({
-      type: actions.scroll,
-      payload: {
-        raw: event,
-        left: el.scrollLeft || el.scrollX,
-        top: el.scrollTop || el.scrollY,
-        timeStamp: event.timeStamp
-      }
-    }))
+export const scroll = () => {
+  return elementScroll({
+    el: window,
+    type: actions.scroll
+  })
 }
 
 export const orientation = () => {
@@ -52,10 +29,28 @@ export const orientation = () => {
     }))
 }
 
-export default () => {
+// Resize refers only to the window event
+// Using ResizeObserver to watch an element is a separate stream
+export const resize = ({
+  debounce = 100
+} = {}) => {
+  return fromEvent('resize', window)
+    .debounce(debounce)
+    .map(event => ({
+      type: actions.resize,
+      payload: {
+        raw: event,
+        width: event.target.innerWidth,
+        height: event.target.innerHeight,
+        timeStamp: event.timeStamp
+      }
+    }))
+}
+
+export const screen = () => {
   return mergeArray([
-    resize(),
     scroll(),
-    orientation()
+    orientation(),
+    resize()
   ])
 }

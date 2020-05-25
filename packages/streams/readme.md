@@ -56,13 +56,13 @@ Keys are referenced using their [vkey](https://www.npmjs.com/package/vkey) defin
 ### Keys
 
 ```js
-import keystream, { actions } from '@raid/streams/keys'
+import { keys, actions } from '@raid/streams/keys'
 import { Signal } from 'raid'
 
 const signal = new Signal({key: ''})
 
 // Mount the keystream to the signal
-signal.mount(keystream())
+signal.mount(keys())
 
 // Respond to key events
 signal.register((state, { type, payload }) => {
@@ -161,11 +161,11 @@ signal.register((state, { type, payload }) => {
 })
 ```
 
-### keystream
+### keys
 
-Keystream emits keydown, keyup and keypress events. The keypress event fires when a key is pressed at an interval equalling `requestAnimationFrame`. Keystream is the default export from `raid-streams/keys`.
+Keys is a stream that emits keydown, keyup and keypress events. The keypress event fires when a key is pressed at an interval equalling `requestAnimationFrame`. Keystream is the default export from `raid-streams/keys`.
 
-Keystream has no initialisation properties that can be set and will create its own keypress map.
+`keys` accepts a few parameters, the keymap to use can be shared with other streams and passed in, similar an element to attach to can specified. The `rate` parameter defines how frequently the `keypress` event will fire.
 
 The event signature for keyup and keydown matches the underlying key streams they come from, the keypress event signature is slightly simpler as its only concern is that _something_ has been pressed:
 
@@ -177,12 +177,12 @@ The event signature for keyup and keydown matches the underlying key streams the
 }
 ```
 
-The keystream map holds how long a key has been pressed for mapped against its [vkey](https://www.npmjs.com/package/vkey) definition.
+The key map holds how long a key has been pressed for mapped against its [vkey](https://www.npmjs.com/package/vkey) definition.
 
 ```js
-import keystream, { actions } from '@raid/streams/keys'
+import { keys, actions } from '@raid/streams/keys'
 
-signal.mount(keystream())
+signal.mount(keys())
 
 signal.register((state, { type, payload }) => {
   if (type === actions.keydown) {
@@ -319,7 +319,7 @@ The event signature looks like and just passes the duration of the last frame:
 ```
 
 ```js
-import tick, { actions } from '@raid/streams/tick'
+import { tick, actions } from '@raid/streams/tick'
 
 signal.mount(tick())
 
@@ -337,7 +337,7 @@ signal.register((state, { type, payload }) => {
 Screen streams manage common screen events that the browser might emit, screen emits separate streams for each event or a merged stream.
 
 ```js
-import screen, { actions } from '@raid/streams/screen'
+import { screen, actions } from '@raid/streams/screen'
 
 signal.mount(screen())
 
@@ -357,14 +357,13 @@ signal.register((state, { type, payload }) => {
 
 ### resize
 
-resize triggers whenever the element changes its size and emits the new dimensions.
+resize triggers whenever the window changes its size and emits the new dimensions.
 
 Options object looks like:
 
 ```js
 {
-  <?Number> debounce: 100,
-  <?HTMLDomElement> el: window
+  <?Number> debounce: 100
 }
 
 signal.mount(resize({
@@ -398,18 +397,10 @@ signal.register((state, { type, payload: { width, height } }) => {
 
 ### scroll
 
-scroll triggers whenever the element is scrolled its size and emits the new scroll position.
-
-Options object looks like:
+`scroll` triggers whenever the window is scrolled and emits the new scroll position.
 
 ```js
-{
-  <?HTMLDomElement> el: window
-}
-
-signal.mount(scroll({
-  el: document.querySelector('js-list')
-}))
+signal.mount(scroll())
 ```
 
 Event signature looks like:
@@ -471,7 +462,7 @@ signal.register((state, { type, payload }) => {
 All these action streams are just regular [most.js](https://npmjs.com/packages/most) streams and can be consumed as normal, there is no restriction to use them with Raid. The only tie they have to Raid is that they emit `{type, payload}` objects. As they are regular streams all the regular stream functions work.
 
 ```js
-import keystream, { actions } from '@raid/streams/keys'
+import { keys, actions } from '@raid/streams/keys'
 
 keystream
   .map(event => ({
