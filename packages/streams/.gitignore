@@ -5,6 +5,7 @@ coverage
 .nyc_output
 
 # Transpiled output
+/element.js
 /keys.js
 /screen.js
 /tick.js
