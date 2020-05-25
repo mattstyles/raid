@@ -1,7 +1,7 @@
 
 import vkey from 'vkey'
 import raf from 'raf-stream'
-import { fromEvent, mergeArray, merge } from 'most'
+import { fromEvent, mergeArray } from 'most'
 
 export const actions = {
   keydown: '@@keys:keydown',
@@ -52,10 +52,10 @@ export const keySequence = ({
 } = {}) => {
   const keyMap = keys || new Map()
 
-  return merge(
+  return mergeArray([
     keydown(keyMap),
     keyup(keyMap)
-  )
+  ])
     .filter(({ type }) => type === actions.keydown)
     .scan((keyMap, { payload: { key } }) => {
       return keyMap
@@ -77,10 +77,10 @@ export const timedKeySequence = ({
 } = {}) => {
   const keyMap = keys || new Map()
 
-  return merge(
+  return mergeArray([
     keydown(keyMap),
     keyup(keyMap)
-  )
+  ])
     .filter(({ type }) => type === actions.keydown)
     .scan((keys, { payload: { key, event: { timeStamp } } }) => {
       return keys
@@ -104,7 +104,7 @@ const keystream = ({
   const pressed = keys || new Map()
 
   const keypress = fromEvent('data', raf(el))
-    .throttle(rate || 0)
+    .throttle(rate)
     .filter(dt => pressed.size > 0)
     .tap(dt => {
       for (const [key, value] of pressed) {

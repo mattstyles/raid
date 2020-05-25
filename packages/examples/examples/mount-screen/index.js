@@ -46,6 +46,10 @@ signal.mount(keySequence())
 signal.mount(timedKeySequence({ timeout: 500 }))
 
 const update = (state, { type, payload }) => {
+  if (!type.match(/tick/)) {
+    console.log(type, payload)
+  }
+
   if (type === keyActions.timedSequence) {
     state.timedSequence = payload.keys
     state.hadoken = state.timedSequence.join('') === 'ASD<enter>'
@@ -70,7 +74,6 @@ const update = (state, { type, payload }) => {
   }
 
   if (type === keyActions.keypress) {
-    console.log(payload.keys)
     if (payload.keys.has('<enter>')) {
       state.enterDownFor = payload.keys.get('<enter>')
     }
@@ -133,24 +136,3 @@ signal.observe(state => {
     element
   )
 })
-
-// <div style={{
-//   width: 48,
-//   height: 48,
-//   lineHeight: '48px',
-//   textAlign: 'center',
-//   color: 'white',
-//   background: state.toggle ? 'rgb(109, 170, 44)' : 'rgb(208, 70, 72)'
-// }}
-// >{state.frames}
-// </div>
-// <P style={{
-//   color: state.keypress ? 'rgb(117, 113, 97)' : 'rgb(20, 12, 28)'
-// }}
-// >{state.key}
-// </P>
-// <H1 style={{
-//   display: state.hadoken ? 'block' : 'none'
-// }}
-// >Hadoken
-// </H1>

@@ -1,5 +1,5 @@
 
-import {fromEvent, mergeArray} from 'most'
+import { fromEvent, mergeArray } from 'most'
 
 export const actions = {
   resize: '@@window:resize',
@@ -7,12 +7,12 @@ export const actions = {
   orientation: '@@window:orientation'
 }
 
-export const resize = (opts = {
-  debounce: 100,
-  el: window
-}) => {
-  return fromEvent('resize', opts.el)
-    .debounce(opts.debounce)
+export const resize = ({
+  debounce = 100,
+  el = window
+} = {}) => {
+  return fromEvent('resize', el)
+    .debounce(debounce)
     .map(event => ({
       type: actions.resize,
       payload: {
@@ -24,16 +24,16 @@ export const resize = (opts = {
     }))
 }
 
-export const scroll = (opts = {
-  el: window
-}) => {
-  return fromEvent('scroll', opts.el)
+export const scroll = ({
+  el = window
+} = {}) => {
+  return fromEvent('scroll', el)
     .map(event => ({
       type: actions.scroll,
       payload: {
         raw: event,
-        left: opts.el === window ? opts.el.scrollX : opts.el.scrollLeft,
-        top: opts.el === window ? opts.el.scrollY : opts.el.scrollTop,
+        left: el.scrollLeft || el.scrollX,
+        top: el.scrollTop || el.scrollY,
         timeStamp: event.timeStamp
       }
     }))
