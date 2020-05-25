@@ -11,15 +11,14 @@ import { debug } from '@raid/addons/debug'
 import { scroll, actions } from '@raid/streams/element'
 import { keys } from '@raid/streams/keys'
 
-import { Box, Spacer, Card, Text, Input, H2, P } from '@raid/basic-kit'
+import { Box, Spacer, Card, Text, H2, P } from '@raid/basic-kit'
 import { App, element } from '../_common'
 import { sizeUpdate } from './size'
 
 const signal = Signal.of({
   top: 0,
   width: 200,
-  height: 200,
-  bg: 'hsl(329, 100%, 54%)'
+  height: 200
 })
 
 signal.register(debug(''))
@@ -65,7 +64,7 @@ const ScrollComponent = ({ top }) => {
   )
 }
 
-const SizeComponent = ({ width, height, bg }) => {
+const SizeComponent = ({ width, height }) => {
   const ref = useRef(null)
   useEffect(() => {
     const subscription = signal.mount(keys({
@@ -86,7 +85,7 @@ const SizeComponent = ({ width, height, bg }) => {
         ref={ref}
         sx={{
           position: 'relative',
-          bg: bg,
+          bg: 'hsl(329, 100%, 54%)',
           width: width,
           height: height
         }}
@@ -102,7 +101,7 @@ signal.observe(state => {
         <Text block size='s'>Open the console to see all events passing through the signal.</Text>
       </Card>
       <Spacer py={2} />
-      <SizeComponent width={state.width} height={state.height} bg={state.bg} />
+      <SizeComponent width={state.width} height={state.height} />
       <Spacer py={2} />
       <ScrollComponent top={state.top} />
     </App>,

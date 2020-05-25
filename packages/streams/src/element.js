@@ -14,8 +14,8 @@ export const scroll = ({
       type: type,
       payload: {
         raw: event,
-        left: el.scrollLeft || el.scrollX,
-        top: el.scrollTop || el.scrollY,
+        left: el === window ? el.scrollX : el.scrollLeft,
+        top: el === window ? el.scrollY : el.scrollTop,
         timeStamp: event.timeStamp
       }
     }))
