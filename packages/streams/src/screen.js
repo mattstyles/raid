@@ -9,17 +9,21 @@ export const actions = {
   resize: '@@window:resize'
 }
 
-export const scroll = () => {
+export const scroll = ({
+  type = actions.scroll
+} = {}) => {
   return elementScroll({
     el: window,
-    type: actions.scroll
+    type: type
   })
 }
 
-export const orientation = () => {
+export const orientation = ({
+  type = actions.orientation
+} = {}) => {
   return fromEvent('orientationchange', window)
     .map(event => ({
-      type: actions.orientation,
+      type: type,
       payload: {
         raw: event,
         angle: window.screen.orientation.angle,
@@ -32,12 +36,13 @@ export const orientation = () => {
 // Resize refers only to the window event
 // Using ResizeObserver to watch an element is a separate stream
 export const resize = ({
-  debounce = 100
+  debounce = 100,
+  type = actions.resize
 } = {}) => {
   return fromEvent('resize', window)
     .debounce(debounce)
     .map(event => ({
-      type: actions.resize,
+      type: type,
       payload: {
         raw: event,
         width: event.target.innerWidth,

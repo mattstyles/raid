@@ -29,6 +29,7 @@ export const Main = styled('div')`
   position: relative;
   display: flex;
   flex: 1;
+  flex-direction: column;
   padding: ${props => props.theme.basePadding}rem;
   box-sizing: border-box;
   overflow: scroll;

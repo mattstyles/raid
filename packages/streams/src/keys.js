@@ -3,12 +3,12 @@ import vkey from 'vkey'
 import raf from 'raf-stream'
 import { fromEvent, mergeArray } from 'most'
 
-const defaultKeyAction = '@@keys:key'
+const defaultKeyAction = '@@keys'
 
 export const actions = {
-  keydown: '@@keys:key:down',
-  keyup: '@@keys:key:up',
-  keypress: '@@keys:key:press',
+  keydown: '@@keys:down',
+  keyup: '@@keys:up',
+  keypress: '@@keys:press',
   sequence: '@@keys:sequence',
   timedSequence: '@@keys:timedSequence'
 }
@@ -52,7 +52,8 @@ export const keyup = (keys, {
 
 export const keySequence = ({
   length = 10,
-  keys = null
+  keys = null,
+  type = actions.sequence
 } = {}) => {
   const keyMap = keys || new Map()
 
@@ -67,7 +68,7 @@ export const keySequence = ({
         .slice(0 - length)
     }, [])
     .map(keys => ({
-      type: actions.sequence,
+      type: type,
       payload: {
         keys
       }
@@ -77,7 +78,8 @@ export const keySequence = ({
 export const timedKeySequence = ({
   length = 10,
   keys = null,
-  timeout = 200
+  timeout = 200,
+  type = actions.timedSequence
 } = {}) => {
   const keyMap = keys || new Map()
 
@@ -93,7 +95,7 @@ export const timedKeySequence = ({
         .slice(0 - length)
     }, [])
     .map(keys => ({
-      type: actions.timedSequence,
+      type: type,
       payload: {
         keys: keys.map(([key]) => key)
       }
