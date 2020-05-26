@@ -3,10 +3,12 @@ import vkey from 'vkey'
 import raf from 'raf-stream'
 import { fromEvent, mergeArray } from 'most'
 
+const defaultKeyAction = '@@keys:key'
+
 export const actions = {
-  keydown: '@@keys:keydown',
-  keyup: '@@keys:keyup',
-  keypress: '@@keys:keypress',
+  keydown: '@@keys:key:down',
+  keyup: '@@keys:key:up',
+  keypress: '@@keys:key:press',
   sequence: '@@keys:sequence',
   timedSequence: '@@keys:timedSequence'
 }
@@ -26,9 +28,10 @@ const prevent = ({ payload: { event } }) => event.preventDefault()
 
 // @TODO make this work on the server by checking for a global window
 export const keydown = (keys, {
-  el = window
+  el = window,
+  type = actions.keydown
 } = {}) => fromEvent('keydown', el)
-  .map(keymap(actions.keydown, keys))
+  .map(keymap(type, keys))
   .filter(exclude([
     '<tab>'
   ]))
@@ -37,9 +40,10 @@ export const keydown = (keys, {
   .tap(prevent)
 
 export const keyup = (keys, {
-  el = window
+  el = window,
+  type = actions.keyup
 } = {}) => fromEvent('keyup', el)
-  .map(keymap(actions.keyup, keys))
+  .map(keymap(type, keys))
   .filter(exclude([
     '<tab>'
   ]))
@@ -99,7 +103,8 @@ export const timedKeySequence = ({
 export const keys = ({
   keys = null,
   rate = 0,
-  el = window
+  el = window,
+  type = defaultKeyAction
 } = {}) => {
   const pressed = keys || new Map()
 
@@ -112,7 +117,7 @@ export const keys = ({
       }
     })
     .map(dt => ({
-      type: actions.keypress,
+      type: type + ':press',
       payload: {
         keys: pressed
       }
@@ -120,10 +125,12 @@ export const keys = ({
 
   return mergeArray([
     keydown(pressed, {
-      el: el
+      el: el,
+      type: type + ':down'
     }),
     keyup(pressed, {
-      el: el
+      el: el,
+      type: type + ':up'
     }),
     keypress
   ])

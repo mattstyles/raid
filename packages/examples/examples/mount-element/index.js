@@ -1,6 +1,8 @@
 
 /**
- *
+ * Signals can be mounted in response to elements registering streams with
+ * the signal. Streams/element also handles attaching streams to events
+ * specific to a DOM element.
  */
 
 import React, { useEffect, useRef } from 'react'
