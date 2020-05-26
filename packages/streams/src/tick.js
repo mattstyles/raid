@@ -7,11 +7,12 @@ export const actions = {
 }
 
 export const tick = ({
-  el = window
+  el = window,
+  type = actions.tick
 } = {}) => {
   return fromEvent('data', raf(el))
     .map(event => ({
-      type: actions.tick,
+      type: type,
       payload: {
         dt: event
       }

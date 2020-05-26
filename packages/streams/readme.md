@@ -79,13 +79,14 @@ signal.register((state, { type, payload }) => {
 
 `<Function <Map, Object>> => <Object>`
 
-Keydown accepts only a reference to a keys pressed map, this is a required option:
+Keydown attaches to keydown events.
 
 ```js
 {
   <Map> keys [required],
   <?Object> options: {
-    <?HTMLDomElement> el: window
+    <?HTMLDomElement> el: window,
+    <?String> type: actions.keydown
   }
 }
 
@@ -121,13 +122,14 @@ signal.register((state, event) => {
 
 `<Function <Map, Object>> => <Object>`
 
-Keyup accepts only a reference to a keys pressed map, this is a required option:
+Keyup attaches to keyup events.
 
 ```js
 {
   <Map> keys [required],
   <?Object> options: {
-    <?HTMLDomElement> el: window
+    <?HTMLDomElement> el: window,
+    <?String> type: actions.keyup
   }
 }
 
@@ -163,9 +165,11 @@ signal.register((state, { type, payload }) => {
 
 ### keys
 
-Keys is a stream that emits keydown, keyup and keypress events. The keypress event fires when a key is pressed at an interval equalling `requestAnimationFrame`. Keystream is the default export from `raid-streams/keys`.
+Keys is a stream that emits keydown, keyup and keypress events. The keypress event fires when a key is pressed at an interval equalling `requestAnimationFrame`.
 
-`keys` accepts a few parameters, the keymap to use can be shared with other streams and passed in, similar an element to attach to can specified. The `rate` parameter defines how frequently the `keypress` event will fire.
+`keys` accepts a few parameters; the keymap to use can be shared with other streams and passed in, similarly, an element to attach to can specified. The `rate` parameter defines how frequently the `keypress` event will fire.
+
+Like all other streams, the event type can be specified, however, as `keys` emits 3 different action types the `type` parameter is prefixed with `:up`, `:press`, and `:down` to produce the action types emitted from this stream.
 
 The event signature for keyup and keydown matches the underlying key streams they come from, the keypress event signature is slightly simpler as its only concern is that _something_ has been pressed:
 
@@ -173,7 +177,8 @@ The event signature for keyup and keydown matches the underlying key streams the
 {
   <?Map> keys: null,
   <?Number> rate: 0,
-  <?HTMLDomElement> el: window
+  <?HTMLDomElement> el: window,
+  <?String> type: '@@keys'
 }
 ```
 
@@ -213,7 +218,8 @@ KeySequence options object looks like:
 ```js
 {
   <?Number> length: 10,
-  <?Map> keys: null
+  <?Map> keys: null,
+  <?String> type: actions.sequence
 }
 
 signal.mount(keySequence({
@@ -255,7 +261,8 @@ The options object looks like:
 {
   <?Number> length: 10,
   <?Map> keys: null,
-  <?Number> timeout: 200
+  <?Number> timeout: 200,
+  <?String> type: actions.timedSequence
 }
 
 signal.mount(timedKeySequence({
@@ -302,7 +309,8 @@ By default it attaches to the `window` but this can be configured:
 
 ```js
 {
-  <?HTMLDomElement> el: window
+  <?HTMLDomElement> el: window,
+  <?String> type: actions.tick
 }
 
 signal.mount(tick({
@@ -310,7 +318,7 @@ signal.mount(tick({
 }))
 ```
 
-The event signature looks like and just passes the duration of the last frame:
+The event signature looks like this and contains the duration of the last frame:
 
 ```js
 {
@@ -363,7 +371,8 @@ Options object looks like:
 
 ```js
 {
-  <?Number> debounce: 100
+  <?Number> debounce: 100,
+  <?String> type: actions.resize
 }
 
 signal.mount(resize({
@@ -400,6 +409,12 @@ signal.register((state, { type, payload: { width, height } }) => {
 `scroll` triggers whenever the window is scrolled and emits the new scroll position.
 
 ```js
+{
+  <?String> type: actions.scroll
+}
+```
+
+```js
 signal.mount(scroll())
 ```
 
@@ -431,7 +446,16 @@ signal.register((state, { type, payload: { left, top } }) => {
 
 orientation triggers whenever the window `orientationchange` event is triggered.
 
-There are no configuration options for orientation.
+
+```js
+{
+  <?String> type: actions.orientation
+}
+```
+
+```js
+signal.mount(orientation())
+```
 
 Event signature looks like:
 

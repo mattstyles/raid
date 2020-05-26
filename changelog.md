@@ -1,6 +1,7 @@
 
 #
 
+* _add_ Raid streams now accept a type parameter
 * _add_ Raid streams now exposes an element observer
 * _update_ Raid screen stream scroll observer only attaches to window
 * _add_ mount signals (in addition to streams)
