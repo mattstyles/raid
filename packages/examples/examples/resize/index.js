@@ -2,11 +2,12 @@
 import { render } from 'react-dom'
 import { compress } from '@raid/addons'
 
-import { element, H1, App } from '../_common'
+import { Spacer, Text } from '@raid/basic-kit'
+import { element, App } from '../_common'
 
 import { signal } from './store'
 import { resize, actions } from './resize'
-import Flex from './flex'
+import { Dimensions } from './dimensions'
 
 signal.register(compress({
   [actions.resize]: (state, payload) => ({
@@ -19,8 +20,9 @@ signal.mount(resize)
 
 signal.observe(state => render(
   <App state={state}>
-    <H1>Main</H1>
-    <Flex />
+    <Text block size='xl' fontWeight={700}>Main</Text>
+    <Spacer py={2} />
+    <Dimensions />
   </App>,
   element
 ))

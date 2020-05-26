@@ -3,20 +3,14 @@ import { render } from 'react-dom'
 
 import { Signal } from 'raid'
 import {
-  scope,
-  compress,
-  adaptor
+  scope, compress, adaptor, debug
 } from '@raid/addons'
 
 import {
-  App,
-  element,
-  Button,
-  theme,
-  Count,
-  P,
-  Card,
-  Box
+  Box, Flex, Spacer, Card, Button, Text
+} from '@raid/basic-kit'
+import {
+  App, element
 } from '../_common'
 
 const screens = {
@@ -39,36 +33,41 @@ const navigate = dispatch(actions.navigate)
 const navigateTo = payload => event => navigate(payload)
 
 const Loading = () => (
-  <div>
-    <P>Clicking add will dispatch an event here, but it will not match in the updater.</P>
-  </div>
+  <Box>
+    <Text block>Clicking add will dispatch an event here, but it will not match in the updater.</Text>
+  </Box>
 )
 
 const MainScreen = connect(
   ({ count }) => ({ count }),
   ({ count }) => (
-    <div>
-      <P>The updater can access state and realise it should respond to add events.</P>
-      <Count>{count}</Count>
-    </div>
+    <Box>
+      <Text block>The updater can access state and realise it should respond to add events.</Text>
+      <Spacer py={2} />
+      <Text block size='xl' fontWeight={700}>{count}</Text>
+    </Box>
   )
 )
 
 const ActionBar = ({ children }) => {
   return (
-    <div>
-      <Box isMargin>
+    <Box>
+      <Flex row>
         <Button onClick={navigateTo(screens.loading)}>Loading</Button>
+        <Spacer px={2} />
         <Button onClick={navigateTo(screens.main)}>Main</Button>
+        <Spacer px={2} />
         <Button
           onClick={dispatch(actions.add)}
-          background={theme.color.secondary}
-        >Add</Button>
-      </Box>
+          background='primary'
+        >Add
+        </Button>
+      </Flex>
+      <Spacer py={2} />
       <Card>
         {children}
       </Card>
-    </div>
+    </Box>
   )
 }
 
@@ -100,7 +99,7 @@ signal.observe(state => {
  * * Easier to consume events from certain action streams, such as responding
  * to window or input (mouse/keyboard) events
  */
-const isMainScreen = scope(({ screen }) => screen === screens.main)
+const isMainScreen = scope((state) => state.screen === screens.main)
 
 signal.register(compress({
   [actions.navigate]: (state, screen) => {
@@ -112,3 +111,5 @@ signal.register(compress({
     return state
   })
 }))
+
+signal.register(debug(''))

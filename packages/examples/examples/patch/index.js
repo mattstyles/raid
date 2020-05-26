@@ -4,7 +4,8 @@ import { render } from 'react-dom'
 import { Signal } from 'raid'
 import { patch } from '@raid/addons'
 
-import { App, Button, element, H2 } from '../_common'
+import { Spacer, Button, Text } from '@raid/basic-kit'
+import { App, element } from '../_common'
 
 const signal = new Signal({
   patched: {
@@ -13,7 +14,7 @@ const signal = new Signal({
 })
 
 const actions = {
-  'foo': 'bar'
+  foo: 'bar'
 }
 
 const dispatch = type => payload => signal.emit({ type, payload })
@@ -36,7 +37,8 @@ signal.observe(state => {
   render(
     <App state={state}>
       <Button onClick={dispatch(actions.foo)}>Click me</Button>
-      <H2>{state.patched.foo}</H2>
+      <Spacer py={2} />
+      <Text block size={6}>{state.patched.foo}</Text>
     </App>,
     element
   )

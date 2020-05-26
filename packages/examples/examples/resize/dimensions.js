@@ -1,17 +1,18 @@
 
 import { createSelector } from 'reselect'
+import { Text } from '@raid/basic-kit'
 
 import { connect } from './store'
 
-import { P } from '../_common'
-
-const Flex = ({ width, height }) => <P>{`[${width}, ${height}]`}</P>
-
-export default connect(
+export const Dimensions = connect(
   createSelector(
     state => state.width,
     state => state.height,
     (width, height) => ({ width, height })
   ),
-  Flex
+  ({ width, height }) => {
+    return (
+      <Text block>{`[${width}, ${height}]`}</Text>
+    )
+  }
 )
