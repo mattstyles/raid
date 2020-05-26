@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { css } from '@styled-system/css'
 import React, { useState, useCallback } from 'react'
 import { render } from 'react-dom'
-import { useMergeRefs } from 'use-callback-ref'
+// import { useMergeRefs } from 'use-callback-ref'
 
 import { Signal } from 'raid'
 import { debug } from '@raid/addons/debug'
@@ -71,15 +71,28 @@ signal.register((state, event) => {
   return state
 })
 
-const useFocus = () => {
+const useFocussedKeys = id => {
   const [isFocussed, setFocussed] = useState(false)
+  let subscription = null
+
   const ref = useCallback(node => {
     if (!node) {
       return
     }
 
-    const setFocus = () => setFocussed(true)
-    const setBlur = () => setFocussed(false)
+    const setFocus = () => {
+      setFocussed(true)
+      subscription = signal.mount(keys({
+        type: id,
+        el: node
+      }))
+    }
+    const setBlur = () => {
+      setFocussed(false)
+      if (subscription) {
+        subscription.unsubscribe()
+      }
+    }
 
     node.addEventListener('focus', setFocus)
     node.addEventListener('blur', setBlur)
@@ -91,27 +104,6 @@ const useFocus = () => {
   }, [])
 
   return [isFocussed, ref]
-}
-
-// Note this should really mount and unmount on focus, possibly storing the
-// stream somehow to save recreating it
-const useKeys = id => {
-  const ref = useCallback(node => {
-    if (!node) {
-      return
-    }
-
-    const subscription = signal.mount(keys({
-      type: id,
-      el: node
-    }))
-
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [])
-
-  return [ref]
 }
 
 const FocusIndicator = styled(Box)(
@@ -136,12 +128,13 @@ const Mover = ({
   url,
   position
 }) => {
-  const [isFocussed, ref] = useFocus()
-  const [keyRef] = useKeys(id)
+  const [isFocussed, ref] = useFocussedKeys(id)
+
+  // ref={useMergeRefs([ref, keyRef])}
 
   return (
     <Pane
-      ref={useMergeRefs([ref, keyRef])}
+      ref={ref}
       tabIndex={0}
       sx={{ borderBottom: 'light.200', position: 'relative' }}
     >
