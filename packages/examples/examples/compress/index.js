@@ -2,11 +2,7 @@
 import { render } from 'react-dom'
 
 import { Signal } from 'raid'
-import {
-  compress,
-  flow,
-  debug
-} from '@raid/addons'
+import { compress, flow, debug } from '@raid/addons'
 
 import { Spacer, Flex, Card, Button, Text } from '@raid/basic-kit'
 import { App, element } from '../_common'
