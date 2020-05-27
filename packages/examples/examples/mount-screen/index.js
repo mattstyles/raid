@@ -43,7 +43,7 @@ const signal = Signal.of({
 signal.mount(screen())
 signal.mount(tick())
 signal.mount(keys({
-  rate: 1000 / 30
+  rate: 1000 / 10
 }))
 signal.mount(keySequence())
 signal.mount(timedKeySequence({ timeout: 500 }))
@@ -65,11 +65,18 @@ const update = (state, { type, payload }) => {
   }
 
   if (type === keyActions.keydown) {
+    // @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
+    // console.log('keydown', payload.key)
+    // console.log('caps:', payload.event.getModifierState('CapsLock'))
+    // console.log('shift:', payload.event.getModifierState('Shift'))
     state.key = payload.key
     return state
   }
 
   if (type === keyActions.keyup) {
+    // console.log('keyup')
+    // console.log('caps:', payload.event.getModifierState('CapsLock'))
+    window.payload = payload
     if (payload.key === '<enter>') {
       state.enterDownFor = 0
     }

@@ -86,7 +86,8 @@ Keydown attaches to keydown events.
   <Map> keys [required],
   <?Object> options: {
     <?HTMLDomElement> el: window,
-    <?String> type: actions.keydown
+    <?String> type: actions.keydown,
+    <?Array<String>> exclude: excludeList
   }
 }
 
@@ -94,6 +95,8 @@ signal.mount(keydown(new Map(), {
   el: window
 }))
 ```
+
+`type` can be used to specify the event type which this stream produces. `exclude` is a list of [vkey](https://www.npmjs.com/package/vkey) definitions to ignore when they fire.
 
 Keydown fires on initial keydown event when pressing a key and emits an event of the type:
 
@@ -129,7 +132,8 @@ Keyup attaches to keyup events.
   <Map> keys [required],
   <?Object> options: {
     <?HTMLDomElement> el: window,
-    <?String> type: actions.keyup
+    <?String> type: actions.keyup,
+    <?Array<String>> exclude: excludeList
   }
 }
 
@@ -137,6 +141,8 @@ signal.mount(keyup(new Map(), {
   el: window
 }))
 ```
+
+`type` can be used to specify the event type which this stream produces. `exclude` is a list of [vkey](https://www.npmjs.com/package/vkey) definitions to ignore when they fire.
 
 Keyup fires when a key is released and emits an event of the type:
 

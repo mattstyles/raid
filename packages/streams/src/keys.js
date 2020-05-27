@@ -22,19 +22,22 @@ const keymap = (type, keys) => event => ({
   }
 })
 
-const exclude = keys => ({ payload: { key } }) => !keys.includes(key)
+const excludeFn = keys => ({ payload: { key } }) => !keys.includes(key)
+const excludeList = [
+  '<tab>',
+  '<caps-lock>'
+]
 
 const prevent = ({ payload: { event } }) => event.preventDefault()
 
 // @TODO make this work on the server by checking for a global window
 export const keydown = (keys, {
   el = window,
-  type = actions.keydown
+  type = actions.keydown,
+  exclude = excludeList
 } = {}) => fromEvent('keydown', el)
   .map(keymap(type, keys))
-  .filter(exclude([
-    '<tab>'
-  ]))
+  .filter(excludeFn(excludeList))
   .filter(({ payload: { key } }) => !keys.has(key))
   .tap(({ payload: { key } }) => keys.set(key, 0))
   .tap(prevent)
@@ -44,9 +47,7 @@ export const keyup = (keys, {
   type = actions.keyup
 } = {}) => fromEvent('keyup', el)
   .map(keymap(type, keys))
-  .filter(exclude([
-    '<tab>'
-  ]))
+  .filter(excludeFn(excludeList))
   .tap(({ payload: { key } }) => keys.delete(key))
   .tap(prevent)
 
@@ -113,6 +114,10 @@ export const keys = ({
   const keypress = fromEvent('data', raf(el))
     .throttle(rate)
     .filter(dt => pressed.size > 0)
+    .tap(dt => {
+      console.log(pressed)
+    })
+    // .filter(dt => pressed.size > 0 || ignoreKeys.includes())
     .tap(dt => {
       for (const [key, value] of pressed) {
         pressed.set(key, value + dt)
