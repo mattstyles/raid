@@ -65,17 +65,19 @@ A history implementation to use, this defaults to `history/createBrowserHistory`
 
 ### storage
 
-Navigator will try to be smart and store the navigation stack into persistent memory, in order to match its own navigation stack with that of the browser as closely as it can it will attempt to use `sessionStorage` by default.
+Navigator will not try to be too smart and, by default, each page refresh will get a clean navigation state to work with. You can pass in `sessionStorage` (or anything else) if you want though and the navigation state will be initialised from that persistent state.
 
 Detailed `Navigator` component [api](#api—navigator) documentation.
 
 ## Browser history navigator
 
-By default navigator will attempt to use browser memory to manage its stack, this includes storing the navigation state to `sessionStorage`.
+By default navigator will attempt to use browser memory, which means that navigation events you handle in code will be reflected in the browser history (i.e. the browser navigation buttons will do as you would expect given your app navigation). Browser history is typically session based, you can add `sessionStorage` to the `storage` parameter to initialise based on the browser history.
+
+## Getting Started
 
 To get started include `raid` and set up a signal. `@raid/navigator` exposes an initial state that can be added to the signal but its unnecessary as the navigator component will sort it out when it mounts.
 
-> This example can all be placed in one file, any dependencies relate to the snippet they are in but remember to place those imports at the top of the file. As things progress splitting into multiple files is beneficial.
+> This example can all be placed in one file, any dependencies relate to the snippet they are in but remember to place those imports at the top of the file. As things progress, splitting into multiple files is beneficial.
 
 ```js
 import { Signal } from 'raid'
@@ -83,11 +85,27 @@ import { Signal } from 'raid'
 const signal = new Signal()
 ```
 
-The simplest setup for navigator is to hook in to the browser history which it will do by default which means that navigator just needs a signal and the navigation stack supplied to it, either add them as props directly or use something like [reselect](http://npmjs.com/package/reselect) and `adaptor` from [raid-addons](https://www.npmjs.com/package/raid-addons) to manage supplying props.
+Navigator requires a signal to work against and navigation array passed to it.
+
+```js
+import { render } from 'react-dom'
+import { Navigator } from '@raid/navigator'
+
+signal.observe(state => {
+  render(
+    <Navigator navigation={state.navigation} signal={signal}>
+      {/* ..routes */}
+    </Navigator>,
+    document.querySelector('js-root')
+  )
+})
+```
+
+Rather than adding them as props directly it can be beneficial to use `adaptor` (from [@raid/addons](https://www.npmjs.com/package/addons)) and supply the props that way. The following example also uses [reselect](https://www.npmjs.com/package/reselect) to create a memoized selector to pull the navigation array out of state.
 
 ```js
 import { createSelector } from 'reselect'
-import { adaptor } from 'raid-addons'
+import { adaptor } from '@raid/addons'
 import { Navigator } from '@raid/navigator'
 
 const connect = adaptor(signal)
@@ -104,7 +122,7 @@ const Navigation = connect(
 )
 ```
 
-Navigator aims to be easy to get set up and running, we just need one more step which is to implement the routes and render the app.
+Navigator aims to be (relatively) easy to get set up and running, we need one more step which is to implement the routes and render the app.
 
 ```js
 import { render } from 'react-dom'
@@ -119,7 +137,7 @@ signal.observe(state => {
         <h1>Settings</h1>
       </div>
     </Navigation>
-    document.querySelector('root')
+    document.querySelector('js-root')
   )
 })
 ```
@@ -156,23 +174,24 @@ render(
 
 ## Memory history navigator
 
-Creating a navigator based on memory history rather than browser history is also fairly straight forward but does require a little extra work.
+The history implementation can be altered via props. This can be particularly useful if you don’t want to use the browser history, or you aren’t running in a context where that makes any sense (for example an Electron or Cordova app).
 
 To get started set up a raid signal as before but also instantiate a [memory history implementation](https://www.npmjs.com/package/history) and use that to let navigator set things up.
 
 ```js
 import { Signal } from 'raid'
-import { adaptor } from 'raid-addons'
+import { adaptor } from '@raid/addons'
 import { Navigator } from '@raid/navigator'
-import createHistory from 'history/createMemoryHistory'
+import { createMemoryHistory } from 'history'
 
 const signal = new Signal()
 const connect = adaptor(signal)
 const history = createHistory()
 ```
 
-We’ll supply the navigator with props using `reselect` and `adaptor` again, this time passing in the history instance we want navigator to use. If you’re planning on running this in the browser then navigator will still try to use `sessionStorage` by default which can (depending on your use-case) result in inconsistent behaviour. As it is often unnecessary or undesirable to store the state for long when using in-memory history we’re just going to disable the storage.
+We’ll supply the navigator with props using the `reselect` and `adaptor` pattern, as before, but this time we will also pass in the history instance we want navigator to use.
 
+> As of version 6, navigator will default to not use any persistent storage so there is no need to remove it here (as there was previously).
 
 ```js
 import { createSelector } from 'reselect'
@@ -183,8 +202,7 @@ const Navigation = connect(
     (navigation) => ({
       history,
       navigation,
-      signal,
-      storage: null
+      signal
     })
   ),
   Navigator
@@ -206,6 +224,8 @@ const Link = ({ children, route, state }) => (
 ```
 
 And thats it, just a few quick changes to use memory history instead of browser history.
+
+See also [the memory history example](https://github.com/mattstyles/raid/tree/master/packages/examples/examples/navigatorMemory)
 
 ## Route parameters
 
@@ -243,7 +263,7 @@ render(
 
 `Navigator` is a connected component that attaches to the signal, however, sometimes you might want a supplementary component on your view that can react to url changes but is not connected to a history store.
 
-`RouteMatcher` just implements the route matching algorithm to choose a child without the connectivity that `Navigator` supplies.
+`RouteMatcher` just implements the route matching algorithm to choose a child without the connectivity that `Navigator` supplies. It does require a navigation stack to match against, so pass that in.
 
 ```js
 import { render } from 'react-dom'
@@ -271,7 +291,7 @@ signal.observe(state => {
   mapChildren: Function
 ```
 
-Most properties are optional, only a `navigation` object and the `Raid Signal` to operate against are required.
+Most properties are optional, only the `navigation` object and the `Raid Signal` to operate against are required.
 
 ### navigation
 
@@ -288,6 +308,14 @@ Defaults to `history.createBrowserHistory`.
 Browser history is the primary target for `Navigator` but any implementation (such as `history.createMemoryHistory`) that matches the specification set out by [history](https://www.npmjs.com/package/history) should work fine.
 
 Note that the default actions exposed by `Navigator` expect to hook in to browser history, if you supply a different history implementation then you’ll also want to create actions based on that history to hook everything up. See the `navigatorMemory` example for clarity.
+
+### storage
+
+By default Navigator will not attempt to store nor retrieve any state.
+
+Passing in something like `window.sessionStorage` via the `storage` prop will change this behaviour, whereby Navigator will attempt to bootstrap the state from storage and persist state changes to storage.
+
+The primary intended target is `sessionStorage` (which will give you pretty consistent results if using `createBrowserHistory`) but any object that implements `getItem` and `setItem` synchronously will work.
 
 ### root
 

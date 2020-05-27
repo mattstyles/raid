@@ -1,33 +1,42 @@
 
+import { View, Flex, ButtonGroup, Spacer, Text } from '@raid/basic-kit'
+
 import { Navigation, Push, Back, Forward } from './navigation'
-
 import { App } from '../_common'
-
-const View = ({ children, params, route }) => {
-  return children.length
-    ? <div>{children}</div>
-    : children
-}
 
 export default ({ state }) => (
   <App state={state}>
-    <Back />
-    <Forward />
+    <Flex row>
+      <ButtonGroup condensed rounding='circular'>
+        <Back />
+        <Forward />
+      </ButtonGroup>
+    </Flex>
+    <Spacer py={4} />
     <Navigation>
       <View route='/'>
-        <h1>Index</h1>
-        <Push route='/home'>Home</Push>
-        <Push route='/settings'>Settings</Push>
+        <Text block size='xl' fontWeight={700}>Index</Text>
+        <Spacer py={2} />
+        <ButtonGroup>
+          <Push route='/home'>Home</Push>
+          <Push route='/settings'>Settings</Push>
+        </ButtonGroup>
       </View>
       <View route='/home'>
-        <h1>Home</h1>
-        <Push route='/'>Index</Push>
-        <Push route='/settings'>Settings</Push>
+        <Text block size='xl' fontWeight={700}>Home</Text>
+        <Spacer py={2} />
+        <ButtonGroup>
+          <Push route='/'>Index</Push>
+          <Push route='/settings'>Settings</Push>
+        </ButtonGroup>
       </View>
       <View route='/settings'>
-        <h1>Settings</h1>
-        <Push route='/'>Index</Push>
-        <Push route='/home'>Home</Push>
+        <Text block size='xl' fontWeight={700}>Settings</Text>
+        <Spacer py={2} />
+        <ButtonGroup>
+          <Push route='/'>Index</Push>
+          <Push route='/home'>Home</Push>
+        </ButtonGroup>
       </View>
     </Navigation>
   </App>

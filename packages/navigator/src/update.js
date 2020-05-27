@@ -8,10 +8,11 @@ import { getRouteIndex, getCurrentRoute } from './utils'
 
 export const DEFAULT_KEY = 'navigation'
 
+/**
+ * Get storage no longer defaults to using sessionStorage
+ */
 const getStorage = storage => {
   return storage
-    ? storage || (window && window.sessionStorage)
-    : null
 }
 
 /**

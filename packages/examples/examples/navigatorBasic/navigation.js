@@ -2,7 +2,7 @@
 import { createSelector } from 'reselect'
 import { Navigator, push, back, forward } from '@raid/navigator'
 
-import { Button } from '../_common'
+import { Button } from '@raid/basic-kit'
 import { signal, connect } from './store'
 
 export const Navigation = connect(
@@ -11,7 +11,8 @@ export const Navigation = connect(
     () => signal,
     (navigation, signal) => ({
       navigation,
-      signal
+      signal,
+      storage: window.sessionStorage
     })
   ),
   Navigator
@@ -25,18 +26,11 @@ export const Push = ({ children, route, state }) => (
 
 const NavButton = ({ children, onClick, disabled }) => (
   <Button
-    styles={disabled
-      ? {
-        background: 'rgb(255, 255, 255)',
-        color: 'rgb(232, 234, 238)'
-      }
-      : {
-        background: 'rgb(255, 255, 255)',
-        color: 'rgb(64, 64, 64)'
-      }
-    }
+    tight
+    disabled={disabled}
     onClick={onClick}
-  >{children}</Button>
+  >{children}
+  </Button>
 )
 
 export const Back = connect(
@@ -48,10 +42,10 @@ export const Back = connect(
       <NavButton
         disabled={disabled}
         onClick={event => {
-          if (disabled) return
           back()
-        }
-        }>{'<'}</NavButton>
+        }}
+      >{'<'}
+      </NavButton>
     )
   }
 )
@@ -65,10 +59,10 @@ export const Forward = connect(
       <NavButton
         disabled={disabled}
         onClick={event => {
-          if (disabled) return
           forward()
-        }
-        }>{'>'}</NavButton>
+        }}
+      >{'>'}
+      </NavButton>
     )
   }
 )

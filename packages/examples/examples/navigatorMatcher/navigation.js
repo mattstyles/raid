@@ -2,9 +2,10 @@
 import { createStructuredSelector } from 'reselect'
 import { Navigator, push, back, forward, RouteMatcher as Matcher } from '@raid/navigator'
 
-import { Button } from '../_common'
+import { Button } from '@raid/basic-kit'
 import { signal, connect } from './store'
 
+// Connect navigator to the signal and the state using connect
 export const Navigation = connect(
   createStructuredSelector({
     navigation: state => state.navigation,
@@ -13,6 +14,7 @@ export const Navigation = connect(
   Navigator
 )
 
+// Similarly, connect the routematcher to the state
 export const RouteMatcher = connect(
   createStructuredSelector({
     navigation: state => state.navigation
@@ -28,18 +30,12 @@ export const Push = ({ children, route, state }) => (
 
 const NavButton = ({ children, onClick, disabled }) => (
   <Button
-    styles={disabled
-      ? {
-        background: 'rgb(255, 255, 255)',
-        color: 'rgb(232, 234, 238)'
-      }
-      : {
-        background: 'rgb(255, 255, 255)',
-        color: 'rgb(64, 64, 64)'
-      }
-    }
+    tight
+    disabled={disabled}
     onClick={onClick}
-  >{children}</Button>
+  >
+    {children}
+  </Button>
 )
 
 export const Back = connect(
@@ -50,11 +46,9 @@ export const Back = connect(
     return (
       <NavButton
         disabled={disabled}
-        onClick={event => {
-          if (disabled) return
-          back()
-        }
-        }>{'<'}</NavButton>
+        onClick={event => back()}
+      >{'<'}
+      </NavButton>
     )
   }
 )
@@ -67,11 +61,9 @@ export const Forward = connect(
     return (
       <NavButton
         disabled={disabled}
-        onClick={event => {
-          if (disabled) return
-          forward()
-        }
-        }>{'>'}</NavButton>
+        onClick={event => { forward() }}
+      >{'>'}
+      </NavButton>
     )
   }
 )

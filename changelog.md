@@ -21,16 +21,17 @@
 
 ## Breaking changes
 
-* _breaking_ Raid::Signal::observer API change
-* _breaking_ Raid::Signal::register API change
-* _breaking_ Raid::Signal::mount return value change
-* _breaking_ Raid::Addons::sin removed
-* _breaking_ Raid::Streams::keyup API change
-* _breaking_ Raid::Streams::keydown API change
-* _breaking_ Raid::Streams::resize API change
-* _breaking_ Raid::Streams::scroll API change
+* _breaking_ raid::Signal.observer API change
+* _breaking_ raid::Signal.register API change
+* _breaking_ raid::Signal.mount return value change
+* _breaking_ @raid/addons::sin removed
+* _breaking_ @raid/streams::keyup API change
+* _breaking_ @raid/streams::keydown API change
+* _breaking_ @raid/streams::resize API change
+* _breaking_ @raid/streams::scroll API change
+* _breaking_ @raid/navigator::storage defaults to null
 
-### Raid::Signal::observe
+### raid::Signal.observe
 
 `Raid::Signal::observe` no longer accepts a subscription object as first parameter, instead this is moved to an options object. This means that the `observe` (and `subscribe` alias) method is no longer overloaded and will only accept the following signature:
 
@@ -93,7 +94,7 @@ signal.observe(fn, errorFn)
 signal.observe(fn, errorFn)
 ```
 
-### Raid::Signal::register
+### raid::Signal.register
 
 `register()` follows the API change to now accept an options object, which can be used to specify a key for the update function that is being registered.
 
@@ -107,7 +108,7 @@ signal.register(fn, { key })
 
 This is to keep it inline with `observe` and open up more opportunities in the future.
 
-### Raid::Signal::mount
+### raid::Signal.mount
 
 Mount previously returns the response from calling `observe` on the stream passed to `mount`, however, this was not always useful (it is often null) and could not be used to "unmount" a stream.
 
@@ -127,7 +128,7 @@ const unmount = signal.mount(anotherSignal)
 unmount()
 ```
 
-### Raid::Streams::keyup Raid::Streams::keydown
+### @raid/streams::keyup @raid/streams::keydown
 
 Both `keyup` and `keydown` change in the same way and both now place the required key [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) as the first parameter, and an options object as an optional second parameter.
 
@@ -143,15 +144,20 @@ keydown(keys: new Map())
 
 Note that `keystream`, which has only optional parameters, has the same API (accepts one parameter, an optional object describing the configuration).
 
-### Raid::Streams::resize
+### @raid/streams::resize
 
 Resize previously accepted an `el` property but this is mostly redundant. It is now removed and resize will **only** connect to `window`.
 
-### Raid::Streams::screen::scroll
+### @raid/streams::screen::scroll
 
 Scroll (as part of `screen`) no longer accepts an `el` property and always attaches to the window.
 
 The previous behaviour, where an element can be specified is maintained, but it has moved to `@raid/streams/element`.
+
+
+### @raid/navigator::storage
+
+Storage now defaults to null and not `window.sessionStorage`. This is a clearer API than trying to guess the intention of the consumer.
 
 
 # 5.0.2

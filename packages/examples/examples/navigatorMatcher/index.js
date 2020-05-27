@@ -1,58 +1,77 @@
 
 import { render } from 'react-dom'
+import { debug } from '@raid/addons/debug'
 
 import { RouteMatcher } from '@raid/navigator'
 import { Navigation, Push, Back, Forward } from './navigation'
 import { signal } from './store'
 
-import { element, App, Card } from '../_common'
+import { ButtonGroup, Flex, Spacer, Text, Card } from '@raid/basic-kit'
+import { element, App } from '../_common'
 
 const View = ({ children, params, route }) => {
   console.log('params:', params)
   console.log('route:', route)
-  return children.length ? <div>{children}</div> : children
+  return children
 }
 
 // Base debug function
-signal.register((state, event) => {
-  console.log(event, ':::', state)
-  return state
-})
+signal.register(debug())
 
 signal.observe(state => {
   render(
     <App state={state}>
-      <Back />
-      <Forward />
-      <Push route='/foo'>Unmatched</Push>
+      <Flex row>
+        <ButtonGroup condensed rounding='circular'>
+          <Back />
+          <Forward />
+        </ButtonGroup>
+        <Spacer px={2} />
+        <Push route='/foo'>Unmatched</Push>
+      </Flex>
+      <Spacer py={4} />
       <Navigation>
         <View route='/'>
-          <h1>Index</h1>
-          <Push route='/home/foo'>Home/foo</Push>
-          <Push route='/home/bar'>Home/bar</Push>
-          <Push route='/settings'>Settings</Push>
+          <Text block size='xl' fontWeight={700}>Index</Text>
+          <Spacer py={2} />
+          <ButtonGroup>
+            <Push route='/home/foo'>Home/foo</Push>
+            <Push route='/home/bar'>Home/bar</Push>
+            <Push route='/settings'>Settings</Push>
+          </ButtonGroup>
         </View>
         <View route='/home/foo'>
-          <h1>Home/foo</h1>
-          <Push route='/home/bar'>Home/bar</Push>
-          <Push route='/settings'>Settings</Push>
+          <Text block size='xl' fontWeight={700}>Home/foo</Text>
+          <Spacer py={2} />
+          <ButtonGroup>
+            <Push route='/home/bar'>Home/bar</Push>
+            <Push route='/settings'>Settings</Push>
+          </ButtonGroup>
         </View>
         <View route='/home/bar'>
-          <h1>home/bar</h1>
-          <Push route='/home/foo'>Home/foo</Push>
-          <Push route='/settings'>Settings</Push>
+          <Text block size='xl' fontWeight={700}>Home/bar</Text>
+          <Spacer py={2} />
+          <ButtonGroup>
+            <Push route='/home/foo'>Home/foo</Push>
+            <Push route='/settings'>Settings</Push>
+          </ButtonGroup>
         </View>
         <View route='/settings'>
-          <h1>Settings</h1>
-          <Push route='/'>Index</Push>
-          <Push route='/home/foo'>Home/foo</Push>
-          <Push route='/home/bar'>Home/bar</Push>
+          <Text block size='xl' fontWeight={700}>Settings</Text>
+          <Spacer py={2} />
+          <ButtonGroup>
+            <Push route='/'>Index</Push>
+            <Push route='/home/foo'>Home/foo</Push>
+            <Push route='/home/bar'>Home/bar</Push>
+          </ButtonGroup>
         </View>
       </Navigation>
+      <Spacer py={2} />
       <Card>
         <RouteMatcher navigation={state.navigation}>
-          <div route='/home/*'>Matched on home</div>
-          <div route='/settings/*'>Matched on settings</div>
+          <Text block route='/home/*'>Matched on home.</Text>
+          <Text block route='/settings/*'>Matched on settings.</Text>
+          <Text block route='*'>Matches on everything.</Text>
         </RouteMatcher>
       </Card>
     </App>,
