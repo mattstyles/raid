@@ -31,7 +31,7 @@ See the [examples](https://github.com/mattstyles/raid/tree/master/packages/examp
 
 ## Action Types
 
-Raid, by default, has a deliberately simplistic action (or event) model that looks like:
+Raid, by default, has an action (or event) model that looks like:
 
 ```
 {
@@ -40,9 +40,7 @@ Raid, by default, has a deliberately simplistic action (or event) model that loo
 }
 ```
 
-This is a common pattern for JS libraries and allows the consumer to specify their actions (or events) using strings as identifiers.
-
-@raid/fl builds on basic events to add helpers to create specific action creators which type actions and pack their payloads into a [fantasy-land](https://github.com/fantasyland/fantasy-land) compliant structure that implements Monad, Functor, Applicative, and Setoid.
+@raid/fl builds on this event structure to add helpers to create specific action creators which type actions and pack their payloads into a [fantasy-land](https://github.com/fantasyland/fantasy-land) compliant structure that implements Monad, Functor, Applicative, and Setoid.
 
 To use typed actions you first need to create a function that can create them for you:
 
@@ -83,7 +81,7 @@ Actions are boxed to implement Monad, Functor, Applicative and Setoid so they ha
 
 ## Connected action types
 
-Actions can be connected directly to a signal so that when they are instantiated they immediately force the signal to emit them.
+Actions can be connected directly to a signal so that when they are instantiated they trigger an emit from the connected signal.
 
 ```js
 import { Signal } from 'raid'
@@ -104,12 +102,6 @@ reset.of()
 ```
 
 ## Interoperability
-
-@raid/fl outputs a build for modern browsers which gives named actions output for Safari and Node but if you are supporting older browsers there is also a compat build that will apply more aggressive transpilation. The compat build can be accessed via `/compat`:
-
-```js
-import { createAction } from '@raid/fl/compat'
-```
 
 Mostly typed and untyped events will work in the same codebase as whatever code you use inside your updates should work fine with both, however, for situations where you want to convert the structure of an argument `@raid/fl` implements two transform helpers which can provide interoperability with modules whose actions are strings/types or whose updates expect strings/types.
 
@@ -137,6 +129,14 @@ signal.register(typeEvent(update, {}, createActions))
 ```
 
 The only restriction here is that `typeEvent` expects the `createActions` function to expose actions that can be created via `Action.of`, this works fine with connected actions but you could use the `typeEvent` transform to create completely different events, or add meta to an event or anything else.
+
+## Compatibility build
+
+@raid/fl outputs a build for modern browsers which gives named actions output for Safari and Node but if you are supporting older browsers there is also a compat build that will apply more aggressive transpilation. The compat build can be accessed via `/compat`:
+
+```js
+import { createAction } from '@raid/fl/compat'
+```
 
 ## API
 
