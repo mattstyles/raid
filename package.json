@@ -65,12 +65,12 @@
   },
   "homepage": "https://github.com/mattstyles/raid#readme",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.6",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
-    "@babel/register": "^7.9.0",
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/preset-env": "^7.10.1",
+    "@babel/preset-react": "^7.10.1",
+    "@babel/register": "^7.10.1",
     "babel-eslint": "^10.1.0",
     "babel-plugin-styled-components": "^1.10.6",
     "babel-plugin-transform-react-require": "^1.0.1",
@@ -78,12 +78,12 @@
     "coveralls": "^3.0.9",
     "gh-pages": "^2.0.1",
     "istanbul-combine": "^0.3.0",
-    "lerna": "^3.15.0",
+    "lerna": "^3.22.0",
     "nyc": "^15.0.0",
     "regenerator-runtime": "^0.13.5",
     "rimraf": "^3.0.2",
     "standard": "^14.3.4",
-    "tape": "^5.0.0"
+    "tape": "^5.0.1"
   },
   "dependencies": {
     "gitbook-cli": "^2.3.2",
