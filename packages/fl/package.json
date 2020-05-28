@@ -1,6 +1,6 @@
 {
   "name": "@raid/fl",
-  "version": "6.0.0-alpha.0",
+  "version": "6.0.0",
   "description": "Raid with fantasy-land compliant structures",
   "main": "lib/",
   "scripts": {

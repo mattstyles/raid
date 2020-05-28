@@ -1,6 +1,6 @@
 {
   "name": "@raid/navigator",
-  "version": "6.0.0-alpha.0",
+  "version": "6.0.0",
   "description": "Navigation stack hooked in to a raid signal",
   "main": "lib",
   "scripts": {
@@ -53,16 +53,16 @@
     "standard": "^14.3.1"
   },
   "dependencies": {
+    "@raid/addons": "^6.0.0",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
-    "@raid/addons": "^6.0.0-alpha.0",
     "reselect": "^4.0.0"
   },
   "peerDependencies": {
     "raid": "^6.0.0",
     "react": "^16.9.0",
-    "react-is": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-is": "^16.9.0"
   },
   "license": "MIT",
   "gitHead": "133ec598275946f14fe0a0e8ef1fcdae8e2ba3d6"
