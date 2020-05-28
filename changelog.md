@@ -1,5 +1,5 @@
 
-#
+# 6.0.0
 
 * _add_ Raid streams now accept a type parameter
 * _add_ Raid streams now exposes an element observer
