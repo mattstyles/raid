@@ -1,4 +1,9 @@
 
+# 6.0.1
+
+* _fix_ CRA self dependency
+* _fix_ common issues with HMR fixed by removing incremental HMR
+
 # 6.0.0
 
 * _add_ Raid streams now accept a type parameter

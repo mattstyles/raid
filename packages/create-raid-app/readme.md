@@ -107,6 +107,16 @@ As the `create-raid-app` global (or using via `npx`) defers to any local version
 
 See the existing `create-raid-app` structure for examples of how to create your own commands and templates.
 
+## Hot module reloading
+
+HMR moves your development builds further away from production builds which can lead to very hard-to-trace bugs surfacing in production without very careful testing (in the best case it can lead to head-scratching about why tests fail but locally you’re all good).
+
+True incremental HMR is disabled by default for CRA scaffolded projects. This is in-line with latest builds of [Parcel](https://parceljs.org/hmr.html). You will still get page reloading out of the box and with Parcel’s aggressive incremental caching this can still get you a lightning fast feedback loop between saving your files and seeing the changes running.
+
+HMR is particularly sensitive to files that generate side effect. Raid supports a single store, which inherently generates side effects in some files. These files are often root files and so are liable to be reloaded for any changes further down the tree. This isn’t the only way to use Raid and so if you’re happy you know _which_ updates are safe and which aren’t then you can enable incremental HMR.
+
+The default stance (for create-raid-app) is that true HMR generates more problems than it solves for the majority of projects (a sentiment echoed by the latest Parcel changes) and so is disabled by default as of `cra@6.0.1`.
+
 ## Contributing
 
 Pull requests are always welcome, the project uses the [standard](http://standardjs.com) code style. Please run `yarn test` to ensure all tests are passing and add tests for any new features or updates.
