@@ -25,17 +25,17 @@ if (module.hot) {
   module.hot.dispose(() => {
     console.group('[HMR] dispose')
     console.log('disposing signal updates, detaching observers')
-
-    signal.disposeAll()
-    signal.detachAll()
+    // signal.disposeAll()
+    // signal.detachAll()
 
     console.groupEnd('[HMR] dispose')
   })
-  module.hot.accept(() => {
-    console.group('[HMR] accept')
-    signal.emit({
-      hmr: 'accept'
-    })
-    console.groupEnd('[HMR] accept')
-  })
+  // Enable if you're happy with HMR for your app
+  // module.hot.accept(() => {
+  //   console.group('[HMR] accept')
+  //   signal.emit({
+  //     hmr: 'accept'
+  //   })
+  //   console.groupEnd('[HMR] accept')
+  // })
 }
