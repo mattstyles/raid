@@ -21,14 +21,6 @@
     "presets": [
       "@babel/preset-env",
       "@babel/preset-react"
-    ],
-    "plugins": [
-      [
-        "@babel/plugin-proposal-class-properties",
-        {
-          "loose": false
-        }
-      ]
     ]
   },
   "sideEffects": false,
@@ -48,7 +40,8 @@
   "author": "Matt Styles",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattstyles/raid"
+    "url": "https://github.com/mattstyles/raid",,
+    "directory": "packages/addons"
   },
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",

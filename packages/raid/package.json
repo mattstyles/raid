@@ -49,7 +49,8 @@
   "author": "Matt Styles",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattstyles/raid"
+    "url": "https://github.com/mattstyles/raid",
+    "directory": "packages/raid"
   },
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
@@ -60,7 +61,7 @@
   "dependencies": {
     "@most/hold": "^2.0.0",
     "eventemitter3": "^4.0.0",
-    "most": "^1.8.0"
+    "most": "^1.8.1"
   },
   "gitHead": "133ec598275946f14fe0a0e8ef1fcdae8e2ba3d6"
 }

@@ -22,13 +22,7 @@
       "@babel/preset-react"
     ],
     "plugins": [
-      "transform-react-require",
-      [
-        "@babel/plugin-proposal-class-properties",
-        {
-          "loose": false
-        }
-      ]
+      "transform-react-require"
     ]
   },
   "sideEffects": false,
@@ -45,7 +39,8 @@
   "author": "Matt Styles",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattstyles/raid"
+    "url": "https://github.com/mattstyles/raid",
+    "directory": "packages/navigator"
   },
   "bugs": "https://github.com/mattstyles/raid/issues",
   "devDependencies": {

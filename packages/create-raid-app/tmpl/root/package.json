@@ -23,12 +23,6 @@
       "transform-react-require",
       "lodash",
       [
-        "@babel/plugin-proposal-class-properties",
-        {
-          "loose": false
-        }
-      ],
-      [
         "module-resolver",
         {
           "root": [
@@ -60,16 +54,15 @@
   },
   "homepage": "https://{{username}}.github.io/{{projectName}}",
   "devDependencies": {
-    "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.1",
-    "@babel/plugin-proposal-class-properties": "^7.10.1",
-    "@babel/polyfill": "^7.10.1",
-    "@babel/preset-env": "^7.10.1",
-    "@babel/preset-react": "^7.10.1",
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
     "babel-eslint": "^10.1.0",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^4.0.0",
-    "babel-plugin-styled-components": "^1.10.7",
+    "babel-plugin-styled-components": "^1.11.1",
     "babel-plugin-transform-react-require": "^1.0.1",
     "create-raid-app": "^6.0.0",
     "gh-pages": "^2.2.0",
@@ -88,10 +81,10 @@
     "@styled-system/css": "5.1.5",
     "@styled-system/theme-get": "5.1.2",
     "@styled-system/variant": "5.1.5",
-    "eventemitter3": "^4.0.0",
+    "eventemitter3": "^4.0.7",
     "history": "^4.10.1",
-    "lodash": "^4.17.15",
-    "most": "^1.8.0",
+    "lodash": "^4.17.20",
+    "most": "^1.8.1",
     "prop-types": "^15.7.2",
     "raid": "^6.0.0",
     "react": "^16.13.1",

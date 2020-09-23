@@ -13,7 +13,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattstyles/raid.git"
+    "url": "git+https://github.com/mattstyles/raid.git",
+    "directory": "packages/create-raid-app"
   },
   "keywords": [
     "raid",
@@ -53,7 +54,7 @@
     "esm": "^3.2.25",
     "event-stream": "^4.0.1",
     "inquirer": "^7.0.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "minimist": "^1.2.0",
     "mkdirp": "^1.0.3",
     "mustache": "^4.0.0",
