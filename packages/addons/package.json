@@ -40,7 +40,7 @@
   "author": "Matt Styles",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattstyles/raid",,
+    "url": "https://github.com/mattstyles/raid",
     "directory": "packages/addons"
   },
   "bugs": "https://github.com/mattstyles/raid/issues",
