@@ -13,8 +13,8 @@ export const actions = {
 export const dispatcher = (signal, type) =>
   payload => signal.emit({ type, payload })
 
-export const back = () => getHistory().goBack()
-export const forward = () => getHistory().goForward()
+export const back = () => getHistory().back()
+export const forward = () => getHistory().forward()
 export const push = function () {
   return getHistory().push(...arguments)
 }
@@ -23,8 +23,8 @@ export const go = function () {
 }
 
 export const createActions = history => ({
-  back: () => getHistory(history).goBack(),
-  forward: () => getHistory(history).goForward(),
+  back: () => getHistory(history).back(),
+  forward: () => getHistory(history).forward(),
   push: function () {
     return getHistory(history).push(...arguments)
   },

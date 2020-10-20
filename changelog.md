@@ -1,4 +1,9 @@
 
+#
+
+* _update_ navigator::history update history dependency to v5
+* _add_ addons::patch third param which is the full state object
+
 # 6.0.1
 
 * _fix_ CRA self dependency

@@ -34,8 +34,8 @@ tape('listeners should be attached to histories', t => {
 tape('Changing location triggers the signal', t => {
   t.plan(2)
 
-  let signal = new Signal({})
-  let trigger = createListener(signal)
+  const signal = new Signal({})
+  const trigger = createListener(signal)
 
   signal.register((state, event) => {
     if (event.type === actions.pop) {
@@ -47,6 +47,6 @@ tape('Changing location triggers the signal', t => {
     }
   })
 
-  trigger('popper', 'POP')
-  trigger('pusher', 'PUSH')
+  trigger({ location: 'popper', action: 'POP' })
+  trigger({ location: 'pusher', action: 'PUSH' })
 })
