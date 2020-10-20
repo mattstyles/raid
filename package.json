@@ -82,6 +82,7 @@
     "nyc": "^15.0.0",
     "regenerator-runtime": "^0.13.5",
     "rimraf": "^3.0.2",
+    "size-limit": "^4.6.2",
     "standard": "^14.3.4",
     "tape": "^5.0.1"
   },

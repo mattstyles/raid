@@ -1,13 +1,15 @@
 
 import { createStructuredSelector } from 'reselect'
-import { findIndex, isArray, head } from 'lodash/fp'
 
 export const getProps = createStructuredSelector({
   children: props => props.children,
   navigation: props => props[props.root]
 })
 
-export const findKey = key => findIndex(route => route.key === key)
+// export const findKey = key => findIndex(route => route.key === key)
+export const findKey = key => arr => {
+  return arr.findIndex(route => route.key === key)
+}
 
 export const getRouteIndex = (route, stack) => {
   const find = findKey(route.key)
@@ -62,11 +64,11 @@ export const getCurrentRoute = (location, history) => {
 }
 
 export const wrapChildren = children => {
-  if (!isArray(children) || !children.length) {
+  if (!Array.isArray(children) || !children.length) {
     return null
   }
 
   return children.length > 1
     ? <span>{children}</span>
-    : head(children)
+    : children[0]
 }

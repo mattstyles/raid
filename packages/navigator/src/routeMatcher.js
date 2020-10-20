@@ -1,6 +1,4 @@
 
-import { compose } from 'lodash/fp'
-
 import { getProps, wrapChildren } from './utils'
 import { DEFAULT_KEY } from './update'
 
@@ -8,7 +6,7 @@ import { matchRoute } from './env/react/routes'
 import { mapChildren as mapChilds } from './env/react/component'
 
 export const RouteMatcher = props => {
-  const { children, navigation } = getProps({
+  const { children: propChildren, navigation } = getProps({
     ...props,
     root: DEFAULT_KEY
   })
@@ -26,12 +24,11 @@ export const RouteMatcher = props => {
   }
 
   // Invoke the mapper if available
-  const childs = mapChildren
-    ? mapChilds(children, mapChildren)
-    : children
+  const children = mapChildren
+    ? mapChilds(propChildren, mapChildren)
+    : propChildren
 
-  return compose(
-    wrapChildren,
-    matchRoute(stack[index])
-  )(childs)
+  const matcher = matchRoute(stack[index])
+  const route = matcher(children)
+  return wrapChildren(route)
 }

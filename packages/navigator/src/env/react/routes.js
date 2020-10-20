@@ -1,6 +1,5 @@
 
 import React from 'react'
-import { compose, filter, map, defaultTo } from 'lodash/fp'
 
 const clone = ({ child, params }) => {
   return React.cloneElement(child, {
@@ -54,9 +53,19 @@ export const findRoute = route => {
   }
 }
 
-export const matchRoute = route => children => compose(
-  defaultTo(null),
-  map(clone),
-  filter(({ result }) => result),
-  map(findRoute(route))
-)(React.Children.toArray(children))
+/**
+ * Returns an array of children whose parameters match the current route
+ */
+export const matchRoute = route => children => {
+  const childrenArr = React.Children.toArray(children)
+  const output = []
+  const find = findRoute(route)
+  childrenArr.forEach(child => {
+    const found = find(child)
+    if (found.result) {
+      output.push(clone(found))
+    }
+  })
+
+  return output
+}
