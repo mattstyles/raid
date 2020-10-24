@@ -14,7 +14,7 @@ const generateState = (state, key) => {
 // Provides selected key to update and applies back to state
 const select = (key, update) => (state, event) => ({
   ...state,
-  [key]: update(generateState(state, key), event)
+  [key]: update(generateState(state, key), event, state)
 })
 
 // Returns a function accepting an update

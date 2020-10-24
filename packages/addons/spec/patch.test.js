@@ -53,13 +53,13 @@ test('Should apply the update to correct key', t => {
   const fixedArity = patch('bar')(update)
 
   t.deepEqual(patched(state), expected, 'Changes applied correctly')
-  t.deepEqual(fixedArity(state), expected, 'Changes applied correctly')
+  t.deepEqual(fixedArity(state), expected, 'Full state propagated')
 })
 
 test('Passes through all of the state to patched functions', t => {
-  t.plan(1)
+  t.plan(2)
 
-  const state = {
+  const full = {
     foo: { bar: 'foo:bar' },
     baz: {
       quux: 'baz:quux',
@@ -70,9 +70,10 @@ test('Passes through all of the state to patched functions', t => {
     quux: 'baz:quux',
     fred: 'baz:fred'
   }
-  const patched = patch('baz', state => {
-    t.deepEqual(state, expected, 'Correctly passes through all state')
+  const patched = patch('baz', (slice, event, state) => {
+    t.deepEqual(slice, expected, 'Correctly passes through all state')
+    t.deepEqual(state, full)
   })
 
-  patched(state)
+  patched(full)
 })
