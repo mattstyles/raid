@@ -1,6 +1,8 @@
 
 #
 
+* _prep_ shift to rollup builds
+* _update_ navigator remove lodash dependency, navigator is getting skinnier
 * _update_ navigator::history update history dependency to v5
 * _add_ addons::patch third param which is the full state object
 

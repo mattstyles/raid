@@ -1,5 +1,6 @@
 
-import { getHistory, createListener } from './history'
+import { createListener } from './listener'
+import { getHistory } from './history'
 import { DEFAULT_KEY, createUpdate } from './update'
 import { actions } from './actions'
 import { RouteMatcher } from './routeMatcher'

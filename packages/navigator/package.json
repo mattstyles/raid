@@ -2,14 +2,15 @@
   "name": "@raid/navigator",
   "version": "6.0.0",
   "description": "Navigation stack hooked in to a raid signal",
-  "main": "lib",
+  "main": "lib/raid-navigator.js",
+  "module": "lib/raid-navigator.esm.js",
   "scripts": {
     "clean": "rimraf lib",
     "lint": "standard",
     "size": "size-limit",
     "prebuild": "yarn run clean",
-    "build": "babel src --out-dir lib",
-    "watch": "babel --watch src --out-dir lib",
+    "build": "NODE_ENV=production rk build -t ui",
+    "watch": "rk watch -t ui",
     "prestart": "yarn run build",
     "start": "yarn run watch",
     "test": "tape -r @babel/register spec/*.test.js",
@@ -29,8 +30,8 @@
   "sideEffects": false,
   "size-limit": [
     {
-      "path": "./lib/index.js",
-      "limit": "40 KB"
+      "path": "./lib/raid-navigator.esm.js",
+      "limit": "10 KB"
     }
   ],
   "standard": {
@@ -51,6 +52,7 @@
   },
   "bugs": "https://github.com/mattstyles/raid/issues",
   "devDependencies": {
+    "@raid/rk": "^0.20.0",
     "@size-limit/preset-small-lib": "^4.6.0",
     "jsdom": "^16.2.2",
     "standard": "^14.3.1"

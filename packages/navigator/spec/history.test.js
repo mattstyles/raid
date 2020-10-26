@@ -5,7 +5,8 @@ import tape from 'tape'
 import { createMemoryHistory } from 'history'
 import { Signal } from 'raid'
 
-import { getHistory, createListener } from '../src/history'
+import { createListener } from '../src/listener'
+import { getHistory } from '../src/history'
 import { actions } from '../src/actions'
 
 tape('getHistory should return a passed history function', t => {

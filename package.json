@@ -11,6 +11,7 @@
     "preclean": "rm -rf _book",
     "clean": "lerna run clean",
     "build": "lerna run build --ignore @raid/monorepo",
+    "postbuild": "lerna run size",
     "setup": "lerna bootstrap --concurrency=1",
     "postsetup": "yarn run build",
     "cover": "lerna run coverage-report --ignore raid/monorepo",
