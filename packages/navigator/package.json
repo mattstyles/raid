@@ -1,6 +1,6 @@
 {
   "name": "@raid/navigator",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Navigation stack hooked in to a raid signal",
   "main": "lib/raid-navigator.js",
   "module": "lib/raid-navigator.esm.js",
@@ -58,7 +58,7 @@
     "standard": "^14.3.1"
   },
   "dependencies": {
-    "@raid/addons": "^6.0.0",
+    "@raid/addons": "^6.1.0",
     "history": "^5.0.0",
     "reselect": "^4.0.0"
   },
