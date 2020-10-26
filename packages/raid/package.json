@@ -2,14 +2,16 @@
   "name": "raid",
   "version": "6.0.0",
   "description": "Centralised state container",
-  "main": "lib/",
+  "main": "lib/raid.js",
+  "module": "lib/raid.esm.js",
   "scripts": {
     "bench": "node -r @babel/register bench/tape",
     "clean": "rimraf lib",
     "lint": "standard",
+    "size": "size-limit",
     "prebuild": "yarn run clean",
-    "build": "babel src --out-dir lib",
-    "watch": "babel --watch src --out-dir lib",
+    "build": "NODE_ENV=production rk build -t core",
+    "watch": "rk watch -t core",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
     "coverage-report": "nyc report --reporter=lcov",
@@ -31,6 +33,12 @@
     ]
   },
   "sideEffects": false,
+  "size-limit": [
+    {
+      "path": "./lib/raid.esm.js",
+      "limit": "16 KB"
+    }
+  ],
   "standard": {
     "parser": "babel-eslint",
     "ignore": [
@@ -55,6 +63,8 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
+    "@raid/rk": "^0.20.0",
+    "@size-limit/preset-small-lib": "^4.6.0",
     "pretty-hrtime": "^1.0.3",
     "standard": "^14.3.4"
   },

@@ -2,13 +2,15 @@
   "name": "@raid/hooks",
   "version": "6.0.0",
   "description": "React hooks to complement @raid",
-  "main": "lib/",
+  "main": "lib/raid-hooks.js",
+  "module": "lib/raid-hooks.esm.js",
   "scripts": {
     "clean": "rimraf lib",
     "lint": "standard",
+    "size": "size-limit",
     "prebuild": "yarn run clean",
-    "build": "babel src --out-dir lib",
-    "watch": "babel --watch src --out-dir lib",
+    "build": "NODE_ENV=production rk build -t ui",
+    "watch": "rk watch -t ui",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
     "coverage-report": "nyc --reporter=lcov npm run test",
@@ -23,6 +25,12 @@
     ]
   },
   "sideEffects": false,
+  "size-limit": [
+    {
+      "path": "./lib/raid-hooks.esm.js",
+      "limit": "10 KB"
+    }
+  ],
   "standard": {
     "ignore": [
       "**/node_modules/**",
@@ -46,6 +54,8 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
+    "@raid/rk": "^0.20.0",
+    "@size-limit/preset-small-lib": "^4.6.0",
     "@testing-library/react-hooks": "^3.2.1",
     "react-test-renderer": "^16.13.1",
     "standard": "14.3.4"

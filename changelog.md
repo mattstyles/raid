@@ -1,5 +1,5 @@
 
-#
+# 6.1.0
 
 * _prep_ shift to rollup builds
 * _update_ navigator remove lodash dependency, navigator is getting skinnier

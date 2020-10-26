@@ -2,14 +2,16 @@
   "name": "@raid/addons",
   "version": "6.0.0",
   "description": "Add-ons functions for use with Raid",
-  "main": "lib/",
+  "main": "lib/raid-addons.js",
+  "module": "lib/raid-addons.esm.js",
   "scripts": {
     "clean": "rimraf lib",
     "lint": "standard",
+    "size": "size-limit",
     "prebuild": "yarn run clean",
-    "build": "babel src --out-dir lib",
+    "build": "NODE_ENV=production rk build -t ui",
     "postbuild": "node build.js",
-    "watch": "babel --watch src --out-dir lib",
+    "watch": "rk watch -t ui",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
     "coverage-report": "nyc --reporter=lcov npm run test",
@@ -24,6 +26,12 @@
     ]
   },
   "sideEffects": false,
+  "size-limit": [
+    {
+      "path": "./lib/raid-addons.esm.js",
+      "limit": "10 KB"
+    }
+  ],
   "standard": {
     "parser": "babel-eslint",
     "ignore": [
@@ -46,6 +54,8 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
+    "@raid/rk": "^0.20.0",
+    "@size-limit/preset-small-lib": "^4.6.0",
     "standard": "^14.3.1"
   },
   "dependencies": {
