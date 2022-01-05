@@ -54,7 +54,7 @@
   "bugs": "https://github.com/mattstyles/raid/issues",
   "license": "MIT",
   "devDependencies": {
-    "@raid/rk": "^0.20.0",
+    "@raid/rk": "^0.20.1",
     "@size-limit/preset-small-lib": "^4.6.0",
     "@testing-library/react-hooks": "^3.2.1",
     "react-test-renderer": "^16.13.1",
