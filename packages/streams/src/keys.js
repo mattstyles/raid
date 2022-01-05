@@ -115,10 +115,6 @@ export const keys = ({
     .throttle(rate)
     .filter(dt => pressed.size > 0)
     .tap(dt => {
-      console.log(pressed)
-    })
-    // .filter(dt => pressed.size > 0 || ignoreKeys.includes())
-    .tap(dt => {
       for (const [key, value] of pressed) {
         pressed.set(key, value + dt)
       }

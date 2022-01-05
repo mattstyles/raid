@@ -1,4 +1,8 @@
 
+# 6.1.1
+
+* _fix_ keystream log
+
 # 6.1.0
 
 * _prep_ shift to rollup builds
