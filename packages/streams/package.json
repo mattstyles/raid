@@ -1,6 +1,6 @@
 {
   "name": "@raid/streams",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "Collection of event streams ready to mount to raid",
   "main": "lib/",
   "scripts": {
