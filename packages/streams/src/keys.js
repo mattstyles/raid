@@ -37,7 +37,7 @@ export const keydown = (keys, {
   exclude = excludeList
 } = {}) => fromEvent('keydown', el)
   .map(keymap(type, keys))
-  .filter(excludeFn(excludeList))
+  .filter(excludeFn(exclude))
   .filter(({ payload: { key } }) => !keys.has(key))
   .tap(({ payload: { key } }) => keys.set(key, 0))
   .tap(prevent)
@@ -47,20 +47,21 @@ export const keyup = (keys, {
   type = actions.keyup
 } = {}) => fromEvent('keyup', el)
   .map(keymap(type, keys))
-  .filter(excludeFn(excludeList))
+  .filter(excludeFn(exclude))
   .tap(({ payload: { key } }) => keys.delete(key))
   .tap(prevent)
 
 export const keySequence = ({
   length = 10,
   keys = null,
-  type = actions.sequence
+  type = actions.sequence,
+  exclude = excludeList
 } = {}) => {
   const keyMap = keys || new Map()
 
   return mergeArray([
-    keydown(keyMap),
-    keyup(keyMap)
+    keydown(keyMap, {exclude}),
+    keyup(keyMap, {exclude})
   ])
     .filter(({ type }) => type === actions.keydown)
     .scan((keyMap, { payload: { key } }) => {
@@ -80,13 +81,14 @@ export const timedKeySequence = ({
   length = 10,
   keys = null,
   timeout = 200,
-  type = actions.timedSequence
+  type = actions.timedSequence,
+  exclude = excludeList
 } = {}) => {
   const keyMap = keys || new Map()
 
   return mergeArray([
-    keydown(keyMap),
-    keyup(keyMap)
+    keydown(keyMap, {exclude}),
+    keyup(keyMap, {exclude})
   ])
     .filter(({ type }) => type === actions.keydown)
     .scan((keys, { payload: { key, event: { timeStamp } } }) => {
@@ -115,7 +117,7 @@ export const keys = ({
   const keypress = fromEvent('data', raf(el))
     .throttle(rate)
     .filter(dt => pressed.size > 0)
-    .filter(excludeFn(excludeList))
+    .filter(excludeFn(exclude))
     .tap(dt => {
       for (const [key, value] of pressed) {
         pressed.set(key, value + dt)
