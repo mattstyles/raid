@@ -108,12 +108,14 @@ export const keys = ({
   rate = 0,
   el = window,
   type = defaultKeyAction
+  exclude = excludeList
 } = {}) => {
   const pressed = keys || new Map()
 
   const keypress = fromEvent('data', raf(el))
     .throttle(rate)
     .filter(dt => pressed.size > 0)
+    .filter(excludeFn(excludeList))
     .tap(dt => {
       for (const [key, value] of pressed) {
         pressed.set(key, value + dt)
@@ -129,11 +131,13 @@ export const keys = ({
   return mergeArray([
     keydown(pressed, {
       el: el,
-      type: type + ':down'
+      type: type + ':down',
+      exclude: exclude
     }),
     keyup(pressed, {
       el: el,
-      type: type + ':up'
+      type: type + ':up',
+      exclude: exclude
     }),
     keypress
   ])
