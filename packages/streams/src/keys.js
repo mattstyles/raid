@@ -107,7 +107,7 @@ export const keys = ({
   keys = null,
   rate = 0,
   el = window,
-  type = defaultKeyAction
+  type = defaultKeyAction,
   exclude = excludeList
 } = {}) => {
   const pressed = keys || new Map()
