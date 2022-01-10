@@ -44,7 +44,8 @@ export const keydown = (keys, {
 
 export const keyup = (keys, {
   el = window,
-  type = actions.keyup
+  type = actions.keyup,
+  exclude = excludeList
 } = {}) => fromEvent('keyup', el)
   .map(keymap(type, keys))
   .filter(excludeFn(exclude))
@@ -117,9 +118,9 @@ export const keys = ({
   const keypress = fromEvent('data', raf(el))
     .throttle(rate)
     .filter(dt => pressed.size > 0)
-    .filter(excludeFn(exclude))
     .tap(dt => {
       for (const [key, value] of pressed) {
+        if (excludeFn(exclude)({payload: {key}}))
         pressed.set(key, value + dt)
       }
     })
@@ -134,12 +135,12 @@ export const keys = ({
     keydown(pressed, {
       el: el,
       type: type + ':down',
-      exclude: exclude
+      exclude
     }),
     keyup(pressed, {
       el: el,
       type: type + ':up',
-      exclude: exclude
+      exclude
     }),
     keypress
   ])
