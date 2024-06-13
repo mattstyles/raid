@@ -3,7 +3,8 @@
   "private": "true",
   "version": "5.0.0",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/@raid/*"
   ],
   "scripts": {
     "test": "lerna run test --ignore @raid/monorepo",
@@ -88,9 +89,12 @@
     "tape": "^5.0.1"
   },
   "dependencies": {
+    "@biomejs/biome": "^1.8.1",
     "gitbook-cli": "^2.3.2",
     "gitbook-plugin-edit-link": "^2.0.2",
     "gitbook-plugin-github": "^2.0.0",
-    "gitbook-plugin-prism": "^2.4.0"
+    "gitbook-plugin-prism": "^2.4.0",
+    "turbo": "^2.0.3",
+    "typescript": "^5.4.5"
   }
 }
