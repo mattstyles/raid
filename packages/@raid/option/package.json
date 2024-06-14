@@ -1,6 +1,6 @@
 {
   "name": "@raid/option",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "module": "./dist/index.js",
   "main": "./dist/index.js",
