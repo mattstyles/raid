@@ -1,8 +1,24 @@
+import type { Option } from './option'
+import { None, Some } from './option'
+import type { NonNullish } from './types'
 
-import type {Option} from './option'
-import type {NonNullish} from './types'
-import {Some, None} from './option'
+export function some<T>(value: T) {
+  return Some.of(value)
+}
 
-export function fromNullable<T>(value: T): Option<NonNullish<T>> {
+export function none() {
+  return None.of()
+}
+
+export function option<T>(value: T): Option<NonNullish<T>> {
   return value == null ? None.of() : Some.of(value as NonNullish<T>)
+}
+
+export function fromNullable<
+  // biome-ignore lint/suspicious/noExplicitAny: required for TS casting
+  Fn extends (...args: ReadonlyArray<any>) => unknown,
+>(fn: Fn) {
+  return (...args: Parameters<Fn>) => {
+    return option<ReturnType<Fn>>(fn(...args) as ReturnType<Fn>)
+  }
 }
