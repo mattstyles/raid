@@ -12,7 +12,9 @@ export interface Option<T> {
   isSome(): this is Option<T>
   isNone(): this is Option<never>
 
-  map<U>(fn: (a: T) => U): Option<NonNullish<U>>
+  map<U>(fn: (value: T) => U): Option<NonNullish<U>>
+
+  flatMap<U>(fn: (value: T) => Option<NonNullish<U>>): Option<NonNullish<U>>
 
   /**
    * Unwraps an Option and will conditionally run the supplied functions based on the type of the Option.

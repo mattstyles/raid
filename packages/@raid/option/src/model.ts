@@ -19,7 +19,11 @@ export class None implements Option<never> {
     return !this.isSome()
   }
 
-  map<U>(fn: (a: never) => U) {
+  map<U>(fn: (value: never) => U) {
+    return this
+  }
+
+  flatMap<U>(fn: (value: never) => Option<U>) {
     return this
   }
 
@@ -39,16 +43,20 @@ export class Some<T> implements Option<T> {
     this.value = value
   }
 
-  map<U>(fn: (value: T) => U) {
-    return option(fn(this.value))
-  }
-
   isSome() {
     return true
   }
 
   isNone() {
     return !this.isSome()
+  }
+
+  map<U>(fn: (value: T) => U) {
+    return option(fn(this.value))
+  }
+
+  flatMap<U>(fn: (value: T) => Option<NonNullish<U>>) {
+    return this.map(fn).match(() => option(null))
   }
 
   match<

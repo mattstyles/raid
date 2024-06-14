@@ -2,6 +2,7 @@ import { describe, expect, test } from 'bun:test'
 
 import { fromNullable, none, some } from './ctor'
 import { option } from './model'
+import type { Option } from './option'
 
 describe('Match returns values', () => {
   test('Some case takes precedence over the none case', () => {
@@ -74,5 +75,21 @@ describe('Map', () => {
           () => true,
         ),
     ).toBeFalsy()
+  })
+})
+
+describe('flatMap', () => {
+  function inverse(x: number) {
+    if (x === 0) {
+      return none()
+    }
+    return some(1 / x)
+  }
+
+  test('some', () => {
+    expect(some(2).flatMap(inverse)).toStrictEqual(some(0.5))
+  })
+  test('none', () => {
+    expect(none().flatMap(inverse)).toStrictEqual(none())
   })
 })
