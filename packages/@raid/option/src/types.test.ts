@@ -1,7 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import { expectType } from 'tsd'
 
-import { fromNullable, option } from './ctor'
+import { fromNullable } from './ctor'
+import { option } from './model'
 import type { Option } from './option'
 
 describe('constructor types', () => {
@@ -123,5 +124,19 @@ describe('match::typescript type definitions', () => {
     )
     // biome-ignore lint/suspicious/noConfusingVoidType: typing will return the void in a union here in place of an undefined due to how TS models function return
     expectType<number | void>(option(42).match(() => {}))
+  })
+})
+
+describe('map types', () => {
+  test('mapping an unknown type becomes a known type', () => {
+    expectType<Option<boolean>>(option(null).map(() => false))
+    expectType<Option<boolean>>(option(12).map(() => false))
+    expectType<Option<unknown>>(option(null).map((): unknown => null))
+    expectType<Option<never>>(option(42).map(() => null))
+  })
+
+  test('correctly maps known types', () => {
+    expectType<Option<boolean>>(option(42).map(() => false))
+    expectType<Option<string>>(option(42).map(() => 'str'))
   })
 })

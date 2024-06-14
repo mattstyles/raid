@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 
-import { fromNullable, none, option, some } from './ctor'
+import { fromNullable, none, some } from './ctor'
+import { option } from './model'
 
 describe('Match returns values', () => {
   test('Some case takes precedence over the none case', () => {
@@ -38,5 +39,40 @@ describe('Match returns values', () => {
         () => {},
       ),
     ).toBe(undefined)
+  })
+})
+
+describe('Narrowing', () => {
+  test('isX', () => {
+    expect(some(10).isSome()).toBe(true)
+    expect(none().isSome()).toBe(false)
+
+    expect(option(null).isSome()).toBe(false)
+  })
+})
+
+describe('Map', () => {
+  test('some', () => {
+    expect(
+      option(42)
+        .map(() => true)
+        .match(
+          () => false,
+          () => true,
+        ),
+    ).toBeTruthy()
+
+    expect(option(42).map(() => 'foo')).toEqual(option('foo'))
+  })
+
+  test('none', () => {
+    expect(
+      option(null)
+        .map(() => false)
+        .match(
+          () => false,
+          () => true,
+        ),
+    ).toBeFalsy()
   })
 })

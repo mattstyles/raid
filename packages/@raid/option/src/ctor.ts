@@ -1,5 +1,5 @@
+import { None, Some, option } from './model'
 import type { Option } from './option'
-import { None, Some } from './option'
 import type { NonNullish } from './types'
 
 export function some<T>(value: T) {
@@ -8,10 +8,6 @@ export function some<T>(value: T) {
 
 export function none() {
   return None.of()
-}
-
-export function option<T>(value: T): Option<NonNullish<T>> {
-  return value == null ? None.of() : Some.of(value as NonNullish<T>)
 }
 
 export function fromNullable<
