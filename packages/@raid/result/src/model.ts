@@ -1,5 +1,5 @@
 import type { Result } from './result'
-import type { IfError, NonError } from './types'
+import type { NonError } from './types'
 
 /**
  * Converts a value in to a Result with correct type matching.
@@ -33,8 +33,23 @@ export class Ok<T, E extends Error = never> implements Result<T, E> {
     return !this.isOk()
   }
 
-  map<U, E extends Error = Error>(fn: (value: T) => U) {
-    return result<U, E>(fn(this.value))
+  map<U, X extends Error = E>(fn: (value: T) => NonError<U>) {
+    try {
+      const res = fn(this.value)
+      return result<U, E>(res as U)
+    } catch (err) {
+      return result<U, X>(err as X)
+    }
+    // return result<U, E>(fn(this.value))
+  }
+
+  flatMap<U, X extends Error = E>(fn: (value: T) => Result<NonError<U>, X>) {
+    try {
+      const res = fn(this.value)
+      return res
+    } catch (err) {
+      return result<U, X>(err as X)
+    }
   }
 
   match<U>(onErr: (err: E) => U, onResult?: (value: T) => U) {
@@ -64,6 +79,12 @@ export class Err<T = never, E extends Error = Error>
 
   map() {
     return this
+  }
+
+  flatMap<U, X extends Error = E>(
+    fn: (value: never) => Result<NonError<U>, X>,
+  ) {
+    return this as Result<NonError<U>, E>
   }
 
   match<U>(onErr: (err: E) => U) {

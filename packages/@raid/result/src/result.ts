@@ -1,7 +1,7 @@
 import type { IfNever, IfUnknown } from 'type-fest'
 import type { IfError, IfVoid, NonError } from './types'
 
-export interface Result<T, E = Error> {
+export interface Result<T, E extends Error = Error> {
   // static of
   // isOk
   // isErr
@@ -13,7 +13,13 @@ export interface Result<T, E = Error> {
   isOk(): this is Result<T>
   isErr(): this is Result<never, E>
 
-  map<U>(fn: (a: T) => U): Result<NonError<U>, E>
+  map<U, X extends Error = E>(
+    fn: (value: T) => NonError<U>,
+  ): Result<NonError<U>, E | X>
+
+  flatMap<U, X extends Error = E>(
+    fn: (value: T) => Result<NonError<U>, X>,
+  ): Result<NonError<U>, E | X>
 
   // Add constraint for U is T if T is known
   match<

@@ -73,3 +73,30 @@ describe('map', () => {
     )
   })
 })
+
+describe('flatMap', () => {
+  function inverse(x: number) {
+    if (x === 0) {
+      return err(new Error('divide by 0'))
+    }
+    return ok(1 / x)
+  }
+  function withError() {
+    return err(new Error('some error'))
+  }
+
+  test('some', () => {
+    expect(ok(2).flatMap(inverse)).toStrictEqual(ok(0.5))
+    expect(ok(0).flatMap(inverse)).toStrictEqual(err(new Error('divide by 0')))
+  })
+  test('none', () => {
+    expect(err(new Error('oops')).flatMap(inverse)).toStrictEqual(
+      err(new Error('oops')),
+    )
+  })
+
+  test('chain', () => {
+    const o = ok(0).flatMap(inverse).flatMap(withError)
+    expect(o).toStrictEqual(err(new Error('divide by 0')))
+  })
+})
