@@ -1,6 +1,4 @@
 import { None, Some, option } from './model'
-import type { Option } from './option'
-import type { NonNullish } from './types'
 
 export function some<T>(value: T) {
   return Some.of(value)

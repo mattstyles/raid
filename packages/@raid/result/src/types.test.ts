@@ -1,7 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import { expectType } from 'tsd'
 
-import { err, fromThrowable, ok, result } from './ctor'
+import { err, fromThrowable, ok } from './ctor'
+import { result } from './model'
 import type { Result } from './result'
 
 describe('constructor types', () => {
