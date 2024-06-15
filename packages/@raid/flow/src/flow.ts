@@ -1,6 +1,3 @@
-// import { err, ok } from './ctor'
-// import type { Result } from './result'
-
 export function flow<A extends ReadonlyArray<unknown>, B>(
   ab: (...a: A) => B,
 ): (...a: A) => B
@@ -34,13 +31,34 @@ export function flow<A extends ReadonlyArray<unknown>, B, C, D, E, F, G>(
   ef: (e: E) => F,
   fg: (f: F) => G,
 ): (...a: A) => G
-export function flow<A extends ReadonlyArray<unknown>, B, C, D, E, F, G>(
+export function flow<A extends ReadonlyArray<unknown>, B, C, D, E, F, G, H>(
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (c: C) => D,
+  de: (d: D) => E,
+  ef: (e: E) => F,
+  fg: (f: F) => G,
+  gh: (g: G) => H,
+): (...a: A) => H
+export function flow<A extends ReadonlyArray<unknown>, B, C, D, E, F, G, H, I>(
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (c: C) => D,
+  de: (d: D) => E,
+  ef: (e: E) => F,
+  fg: (f: F) => G,
+  gh: (g: G) => H,
+  hi: (h: I) => I,
+): (...a: A) => I
+export function flow<A extends ReadonlyArray<unknown>, B, C, D, E, F, G, H, I>(
   ab: (...a: A) => B,
   bc?: (b: B) => C,
   cd?: (c: C) => D,
   de?: (d: D) => E,
   ef?: (e: E) => F,
   fg?: (f: F) => G,
+  gh?: (g: G) => H,
+  hi?: (h: H) => I,
 ) {
   // biome-ignore lint/style/noArguments: <explanation>
   switch (arguments.length) {
@@ -57,5 +75,15 @@ export function flow<A extends ReadonlyArray<unknown>, B, C, D, E, F, G>(
     case 6:
       return (...a: A) =>
         fg?.(ef?.(de?.(cd?.(bc?.(ab(...a)) as C) as D) as E) as F)
+    case 7:
+      return (...a: A) =>
+        gh?.(fg?.(ef?.(de?.(cd?.(bc?.(ab(...a)) as C) as D) as E) as F) as G)
+    case 8:
+      return (...a: A) =>
+        hi?.(
+          gh?.(
+            fg?.(ef?.(de?.(cd?.(bc?.(ab(...a)) as C) as D) as E) as F) as G,
+          ) as H,
+        )
   }
 }
