@@ -112,6 +112,7 @@ describe('match::typescript type definitions', () => {
       ),
     )
     expectType<unknown>(option<unknown>(42).match(() => 1))
+    expectType<unknown>(option<unknown>(42).match(() => 'foo'))
     expectType<boolean>(option(null).match(() => true))
   })
 
@@ -124,6 +125,14 @@ describe('match::typescript type definitions', () => {
     )
     // biome-ignore lint/suspicious/noConfusingVoidType: typing will return the void in a union here in place of an undefined due to how TS models function return
     expectType<number | void>(option(42).match(() => {}))
+  })
+
+  test('orElse is a restricted match', () => {
+    expectType<number>(option(42).orElse(12))
+    expectType<unknown>(option<unknown>(null).orElse('foo'))
+
+    // @ts-expect-error orElse must match known value
+    option(42).orElse('string')
   })
 })
 

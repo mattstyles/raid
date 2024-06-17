@@ -19,6 +19,10 @@ export class None<T = never> implements Option<T> {
     return !this.isSome()
   }
 
+  orElse<U>(value: U) {
+    return value
+  }
+
   ap<U>(opt: Option<(value: never) => U>) {
     return this
   }
@@ -53,6 +57,10 @@ export class Some<T> implements Option<T> {
 
   isNone() {
     return !this.isSome()
+  }
+
+  orElse<U>(value: U) {
+    return this.value
   }
 
   ap<U>(opt: Option<(value: T) => U>): Option<NonNullish<U>> {
