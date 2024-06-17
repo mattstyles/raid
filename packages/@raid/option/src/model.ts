@@ -1,14 +1,14 @@
 import type { IfNever, IfUnknown } from 'type-fest'
 import type { Option } from './option'
-import type { IfVoid, NonNullish } from './types'
+import type { IfVoid, MapFn, NonNullish } from './types'
 
 export function option<T>(value: T): Option<NonNullish<T>> {
   return value == null ? None.of() : Some.of(value as NonNullish<T>)
 }
 
-export class None implements Option<never> {
-  static of() {
-    return new None()
+export class None<T = never> implements Option<T> {
+  static of<T = never>() {
+    return new None<T>()
   }
 
   isSome() {
@@ -17,6 +17,10 @@ export class None implements Option<never> {
 
   isNone() {
     return !this.isSome()
+  }
+
+  ap<U>(opt: Option<(value: never) => U>) {
+    return this
   }
 
   map<U>(fn: (value: never) => U) {
@@ -51,7 +55,11 @@ export class Some<T> implements Option<T> {
     return !this.isSome()
   }
 
-  map<U>(fn: (value: T) => U) {
+  ap<U>(opt: Option<(value: T) => U>): Option<NonNullish<U>> {
+    return opt.map((fn) => fn(this.value))
+  }
+
+  map<U>(fn: (value: T) => U): Option<NonNullish<U>> {
     return option(fn(this.value))
   }
 

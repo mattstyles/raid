@@ -1,16 +1,19 @@
 import type { IfNever, IfUnknown } from 'type-fest'
-import type { IfVoid, NonNullish } from './types'
+import type { IfVoid, MapFn, NonNullish } from './types'
 
 export interface Option<T> {
   // static of
   // isNone
   // isSome
+  // ap
   // map
   // flatMap
   // match
 
   isSome(): this is Option<T>
   isNone(): this is Option<never>
+
+  ap<U>(opt: Option<(value: T) => U>): Option<NonNullish<U>>
 
   map<U>(fn: (value: T) => U): Option<NonNullish<U>>
 

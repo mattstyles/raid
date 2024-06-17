@@ -93,3 +93,23 @@ describe('flatMap', () => {
     expect(none().flatMap(inverse)).toStrictEqual(none())
   })
 })
+
+describe('applicative', () => {
+  // function inverse(x: Option<number>) {
+  //   return x.map((value) => 1 / value)
+  // }
+  function inverse(x: number) {
+    return 1 / x
+  }
+
+  const fn = some(inverse) as Option<typeof inverse>
+  const n = none<number>() as Option<number>
+
+  test('none', () => {
+    expect(n.ap(fn)).toStrictEqual(none())
+  })
+
+  test('some', () => {
+    expect(some(10).ap(some(inverse))).toStrictEqual(some(0.1))
+  })
+})

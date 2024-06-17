@@ -5,8 +5,8 @@ export function some<T>(value: NonNullish<T>) {
   return Some.of(value)
 }
 
-export function none() {
-  return None.of()
+export function none<T = never>() {
+  return None.of<T>()
 }
 
 export function fromNullable<
