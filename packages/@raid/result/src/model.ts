@@ -33,6 +33,12 @@ export class Ok<T, E extends Error = never> implements Result<T, E> {
     return !this.isOk()
   }
 
+  ap<U, X extends Error = E>(
+    res: Result<(value: T) => NonError<U>>,
+  ): Result<NonError<U>, E | X> {
+    return res.map((fn) => fn(this.value)) as Result<NonError<U>, E | X>
+  }
+
   map<U, X extends Error = E>(fn: (value: T) => NonError<U>) {
     try {
       const res = fn(this.value)
@@ -75,6 +81,10 @@ export class Err<T = never, E extends Error = Error>
   }
   isErr() {
     return !this.isOk()
+  }
+
+  ap() {
+    return this
   }
 
   map() {

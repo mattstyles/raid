@@ -13,6 +13,10 @@ export interface Result<T, E extends Error = Error> {
   isOk(): this is Result<T>
   isErr(): this is Result<never, E>
 
+  ap<U, X extends Error = E>(
+    res: Result<(value: T) => NonError<U>>,
+  ): Result<NonError<U>, E | X>
+
   map<U, X extends Error = E>(
     fn: (value: T) => NonError<U>,
   ): Result<NonError<U>, E | X>
