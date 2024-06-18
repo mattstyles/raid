@@ -2,17 +2,17 @@ import { describe, expect, test } from 'bun:test'
 import { expectType } from 'tsd'
 
 import { fromNullable } from './ctor'
-import { option } from './model'
+import { of } from './model'
 import type { Option } from './model'
 
 describe('constructor types', () => {
   test('option', () => {
-    expectType<Option<never>>(option(null))
-    expectType<Option<string>>(option('str'))
-    expectType<Option<boolean>>(option(true))
+    expectType<Option<never>>(of(null))
+    expectType<Option<string>>(of('str'))
+    expectType<Option<boolean>>(of(true))
 
     // @ts-expect-error value type does not match passed type
-    option<string>(12)
+    of<string>(12)
   })
 
   test('fromNullable', () => {
@@ -24,7 +24,7 @@ describe('constructor types', () => {
 
 describe('match::typescript type definitions', () => {
   test('None case must be handled', () => {
-    const none = option(undefined)
+    const none = of(undefined)
 
     expect(() => {
       // @ts-expect-error
@@ -33,7 +33,7 @@ describe('match::typescript type definitions', () => {
   })
 
   test('None case matching', () => {
-    const none = option(null)
+    const none = of(null)
 
     expectType<Option<never>>(none)
     expectType<string>(none.match(() => 'foo'))
@@ -52,12 +52,12 @@ describe('match::typescript type definitions', () => {
 
   // If the type is not known then the type will be preserved unless both arms return a value
   test('Unknown case matching', () => {
-    const opt = option<unknown>('foo')
+    const opt = of<unknown>('foo')
 
     expectType<Option<unknown>>(opt)
     expectType<unknown>(opt.match(() => 12)) // could be string, but could be unknown
 
-    const o = option<unknown>('str')
+    const o = of<unknown>('str')
     const oo = o.match(
       () => false,
       () => true,
@@ -80,7 +80,7 @@ describe('match::typescript type definitions', () => {
 
   // If the type is a known type then it should be preserved via match
   test('Known type case matching', () => {
-    const str = option('foo')
+    const str = of('foo')
 
     expectType<Option<string>>(str)
     expectType<string>(str.match(() => 'foo'))
@@ -110,48 +110,48 @@ describe('match::typescript type definitions', () => {
   })
 
   test('onSome arm is optional', () => {
-    expectType<number>(option(42).match(() => 1))
+    expectType<number>(of(42).match(() => 1))
     expectType<number>(
-      option(42).match(
+      of(42).match(
         () => 1,
         () => 2,
       ),
     )
-    expectType<unknown>(option<unknown>(42).match(() => 1))
-    expectType<unknown>(option<unknown>(42).match(() => 'foo'))
-    expectType<boolean>(option(null).match(() => true))
+    expectType<unknown>(of<unknown>(42).match(() => 1))
+    expectType<unknown>(of<unknown>(42).match(() => 'foo'))
+    expectType<boolean>(of(null).match(() => true))
   })
 
   test('match does not require a return type', () => {
     expectType<undefined>(
-      option(42).match(
+      of(42).match(
         () => {},
         () => {},
       ),
     )
 
-    expectType<number | undefined>(option(42).match(() => {}))
+    expectType<number | undefined>(of(42).match(() => {}))
   })
 
   test('orElse is a restricted match', () => {
-    expectType<number>(option(42).orElse(12))
-    expectType<unknown>(option<unknown>(null).orElse('foo'))
+    expectType<number>(of(42).orElse(12))
+    expectType<unknown>(of<unknown>(null).orElse('foo'))
 
     // @ts-expect-error orElse must match known value
-    option(42).orElse('string')
+    of(42).orElse('string')
   })
 })
 
 describe('map types', () => {
   test('mapping an unknown type becomes a known type', () => {
-    expectType<Option<boolean>>(option(null).map(() => false))
-    expectType<Option<boolean>>(option(12).map(() => false))
-    expectType<Option<unknown>>(option(null).map((): unknown => null))
-    expectType<Option<never>>(option(42).map(() => null))
+    expectType<Option<boolean>>(of(null).map(() => false))
+    expectType<Option<boolean>>(of(12).map(() => false))
+    expectType<Option<unknown>>(of(null).map((): unknown => null))
+    expectType<Option<never>>(of(42).map(() => null))
   })
 
   test('correctly maps known types', () => {
-    expectType<Option<boolean>>(option(42).map(() => false))
-    expectType<Option<string>>(option(42).map(() => 'str'))
+    expectType<Option<boolean>>(of(42).map(() => false))
+    expectType<Option<string>>(of(42).map(() => 'str'))
   })
 })

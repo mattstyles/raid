@@ -42,7 +42,7 @@ export interface Option<T> {
   // match<U extends T>(onNone: () => U, onSome?: (v: T) => U): U | T
 }
 
-export function option<T>(value: T): Option<OValue<T>> {
+export function of<T>(value: T): Option<OValue<T>> {
   // return value == null ? None.of() : Some.of(value)
   if (value == null) {
     return none()
@@ -58,46 +58,6 @@ export function some<T extends {}>(value: T) {
 export function none<T = never>() {
   return None.of<T>()
 }
-
-// const s1 = some(null)
-const s2 = some(12) // number
-
-/** ------------------------------------------------------------------------ */
-
-// const rnd = () => Math.random()
-// const inv = (x: number) => (x == null ? null : 1 / x)
-// // function inv(x: number) {
-// //   if (x === 0) {
-// //     return null
-// //   }
-// //   return 1 / x
-// // }
-// const on = option(rnd())
-// on.match(
-//   () => 42,
-//   () => 12,
-// )
-// const mnon = none().match(() => 42)
-// const non = some(42).map(inv)
-
-// function double(o: Option<number>): Option<number> {
-//   return o.map((x) => x * 2)
-// }
-// const nd = double(non)
-
-// const v = some('str').match(
-//   () => {},
-//   () => {},
-// )
-
-// const r = option<unknown>('str').match(
-//   () => false,
-//   () => true,
-// )
-
-// const ou = option<unknown>(42)
-
-/** ------------------------------------------------------------------------ */
 
 export class None<T = never> implements Option<T> {
   static of<T = never>() {
@@ -158,12 +118,12 @@ export class Some<T> implements Option<T> {
     return this.value
   }
 
-  ap<U>(opt: Option<(value: T) => U>): Option<OValue<U>> {
-    return opt.map((fn) => fn(this.value))
+  ap<U>(o: Option<(value: T) => U>): Option<OValue<U>> {
+    return o.map((fn) => fn(this.value))
   }
 
   map<U>(fn: (value: T) => U) {
-    return option(fn(this.value))
+    return of(fn(this.value))
   }
 
   flatMap<U>(fn: (value: T) => Option<OValue<U>>) {

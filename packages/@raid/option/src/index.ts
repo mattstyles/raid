@@ -1,3 +1,8 @@
-export type { Option } from './option.ts'
-export { fromNullable, some, none } from './ctor'
+export type { Option } from './model'
+
+// Constructors
+export { fromNullable } from './ctor'
+export { some, none, of } from './model'
+
+// Option
 export { map } from './option'

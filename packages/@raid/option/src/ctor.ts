@@ -1,5 +1,5 @@
 import type { Option } from './model'
-import { None, Some, none, option, some } from './model'
+import { None, Some, none, of, some } from './model'
 import type { NonNullish } from './types'
 
 export function fromNullable<
@@ -8,12 +8,9 @@ export function fromNullable<
 >(fn: Fn) {
   return (...args: Parameters<Fn>) => {
     const value = fn(...args)
-    return option<ReturnType<Fn>>(value)
+    return of<ReturnType<Fn>>(value)
   }
 }
-
-// type T = number | null
-// type S = NonNullish<T>
 
 // const inverse = (x: number): number | null => {
 //   if (x === 0) {
@@ -26,4 +23,3 @@ export function fromNullable<
 // const oo = fn(12)
 // const o2 = option(12).flatMap(fn)
 // const o3 = option(inverse(0))
-// const fn = fromNullable(inverse)

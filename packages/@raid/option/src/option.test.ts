@@ -2,27 +2,27 @@ import { describe, expect, test } from 'bun:test'
 import { flow } from '@raid/flow'
 
 import { fromNullable } from './ctor'
-import { none, option, some } from './model'
+import { none, of, some } from './model'
 import type { Option } from './model'
 import { map } from './option'
 import type { NonNullish } from './types'
 
 describe('Match returns values', () => {
   test('Some case takes precedence over the none case', () => {
-    expect(option(10).match(() => 42)).toBe(10)
+    expect(of(10).match(() => 42)).toBe(10)
     expect(
-      option(10).match(
+      of(10).match(
         () => 42,
         (value) => value + 10,
       ),
     ).toBe(20)
-    expect(option(null).match(() => 42)).toBe(42)
+    expect(of(null).match(() => 42)).toBe(42)
   })
 
   test('None always returns the none clause return', () => {
-    expect(option(null).match(() => 'foo')).toBe('foo')
+    expect(of(null).match(() => 'foo')).toBe('foo')
     expect(
-      option(undefined).match(
+      of(undefined).match(
         () => 'foo',
         () => 'bar',
       ),
@@ -30,15 +30,15 @@ describe('Match returns values', () => {
   })
 
   test('Match does not require a return type', () => {
-    expect(option(null).match(() => {})).toBe(undefined)
+    expect(of(null).match(() => {})).toBe(undefined)
     expect(
-      option(null).match(
+      of(null).match(
         () => {},
         () => 42,
       ),
     ).toBe(undefined)
     expect(
-      option(42).match(
+      of(42).match(
         () => {},
         () => {},
       ),
@@ -51,14 +51,14 @@ describe('Narrowing', () => {
     expect(some(10).isSome()).toBe(true)
     expect(none().isSome()).toBe(false)
 
-    expect(option(null).isSome()).toBe(false)
+    expect(of(null).isSome()).toBe(false)
   })
 })
 
 describe('Map', () => {
   test('some', () => {
     expect(
-      option(42)
+      of(42)
         .map(() => true)
         .match(
           () => false,
@@ -66,12 +66,12 @@ describe('Map', () => {
         ),
     ).toBeTruthy()
 
-    expect(option(42).map(() => 'foo')).toEqual(option('foo'))
+    expect(of(42).map(() => 'foo')).toEqual(some('foo'))
   })
 
   test('none', () => {
     expect(
-      option(null)
+      of(null)
         .map(() => false)
         .match(
           () => false,
@@ -152,47 +152,3 @@ describe('Option::map', () => {
     expect(seq(some(2))).toStrictEqual(some(1 / 16))
   })
 })
-
-// // Function can return number or null, we want to refine to only number, how?
-// const inverse = (x: number) => {
-//   if (x === 0) {
-//     return null
-//   }
-//   return 1 / x
-// }
-// option<number>(inverse(12))
-// const fn = fromNullable(inverse)
-// const oo = fn(12)
-// option(12).flatMap(fn)
-
-// const s = some(12)
-// const n = none()
-// function foo(x: Option<number>) {
-//   return x
-// }
-// function bar(x: number) {
-//   return x === 0 ? none() : some(x)
-// }
-
-// function isNonNullish<T>(x: T): x is NonNullable<T> {
-//   return x != null
-// }
-// const b: null | number = 2
-// if (isNonNullish(b)) {
-//   console.log(b)
-// }
-
-// foo(bar(12))
-// foo(bar(0))
-
-// function fnn<A extends ReadonlyArray<any>, B>(fn: (...args: A) => B) {
-//   return (...args: A) => {
-//     const value = fn(...args)
-//     if (isNonNullish(value)) {
-//       return some(value)
-//     }
-
-//     return none()
-//   }
-// }
-// const fn4 = fnn(inverse)
