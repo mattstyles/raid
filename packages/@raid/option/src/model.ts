@@ -2,7 +2,7 @@ import type { IfNever, IfUnknown } from 'type-fest'
 // import type { Option } from './option'
 import type { IfVoid, MapFn, NonNullish } from './types'
 
-type OValue<U> = IfUnknown<U, unknown, NonNullable<U>>
+export type OValue<U> = IfUnknown<U, unknown, NonNullable<U>>
 
 export interface Option<T> {
   // static of

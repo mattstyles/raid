@@ -4,7 +4,7 @@ import { flow } from '@raid/flow'
 // import { fromNullable } from './ctor'
 import { none, of, some } from './model'
 import type { Option } from './model'
-import { map } from './option'
+import { flatMap, map } from './option'
 import type { NonNullish } from './types'
 
 describe('Match returns values', () => {
@@ -150,5 +150,15 @@ describe('Option::map', () => {
     const seq = flow(map(double), map(inverse), map(square))
     expect(seq(some(0))).toStrictEqual(none())
     expect(seq(some(2))).toStrictEqual(some(1 / 16))
+  })
+})
+
+describe('Option::flatMap', () => {
+  const inverse = (x: number) => (x === 0 ? none() : some(1 / x))
+
+  test('flatmap option', () => {
+    expect(flatMap(inverse)(none())).toStrictEqual(none())
+    expect(flatMap(inverse)(some(0))).toStrictEqual(none())
+    expect(flatMap(inverse)(some(8))).toStrictEqual(some(0.125))
   })
 })

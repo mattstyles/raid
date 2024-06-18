@@ -1,5 +1,5 @@
 import type { IfNever, IfUnknown } from 'type-fest'
-import type { Option } from './model'
+import type { OValue, Option } from './model'
 import type { IfVoid, MapFn, NonNullish } from './types'
 
 // export interface Option<T> {
@@ -34,5 +34,11 @@ import type { IfVoid, MapFn, NonNullish } from './types'
 export function map<T, U>(fn: (value: T) => U) {
   return function mapOption(o: Option<T>) {
     return o.map(fn)
+  }
+}
+
+export function flatMap<T, U>(fn: (value: T) => Option<OValue<U>>) {
+  return function flatMapOption(o: Option<T>) {
+    return o.flatMap(fn)
   }
 }

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { expectType } from 'tsd'
 
-// import { fromNullable } from './ctor'
+import { fromNullable, fromPredicate } from './ctor'
 import { of } from './model'
 import type { Option } from './model'
 
@@ -15,11 +15,17 @@ describe('constructor types', () => {
     of<string>(12)
   })
 
-  // test('fromNullable', () => {
-  //   expectType<Option<never>>(fromNullable(() => null)())
-  //   expectType<Option<string>>(fromNullable(() => 'str')())
-  //   expectType<Option<boolean>>(fromNullable(() => true)())
-  // })
+  test('fromNullable', () => {
+    expectType<Option<never>>(fromNullable(() => null)())
+    expectType<Option<string>>(fromNullable(() => 'str')())
+    expectType<Option<boolean>>(fromNullable(() => true)())
+  })
+
+  test('fromPredicate', () => {
+    expectType<(x: number) => Option<number>>(
+      fromPredicate((x: number) => x != null),
+    )
+  })
 })
 
 describe('match::typescript type definitions', () => {
