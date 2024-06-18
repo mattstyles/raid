@@ -2,6 +2,8 @@ import type { IfNever, IfUnknown } from 'type-fest'
 // import type { Option } from './option'
 import type { IfVoid, MapFn, NonNullish } from './types'
 
+type OValue<U> = IfUnknown<U, unknown, NonNullable<U>>
+
 export interface Option<T> {
   // static of
   // isNone
@@ -15,7 +17,8 @@ export interface Option<T> {
   isNone(): this is Option<T>
 
   // ap<U>(opt: Option<(value: T) => U>): Option<NonNullish<U>>
-  map<U>(fn: (value: T) => U): Some<NonNullable<U>> | None<NonNullable<U>>
+  // map<U>(fn: (value: T) => U): Some<NonNullable<U>> | None<NonNullable<U>>
+  map<U>(fn: (value: T) => U): Option<OValue<U>>
   // flatMap<U>(fn: (value: T) => Option<NonNullish<U>>): Option<NonNullish<U>>
 
   // orElse<U extends IfUnknown<T, unknown, T>>(value: U): U | T
@@ -39,7 +42,7 @@ export interface Option<T> {
   // match<U extends T>(onNone: () => U, onSome?: (v: T) => U): U | T
 }
 
-export function option<T>(value: T): Option<NonNullable<T>> {
+export function option<T>(value: T): Option<OValue<T>> {
   // return value == null ? None.of() : Some.of(value)
   if (value == null) {
     return none()
@@ -159,7 +162,7 @@ export class Some<T> implements Option<T> {
   //   return opt.map((fn) => fn(this.value))
   // }
 
-  map<U>(fn: (value: T) => U): Some<NonNullable<U>> | None<NonNullable<U>> {
+  map<U>(fn: (value: T) => U) {
     return option<U>(fn(this.value))
   }
 
