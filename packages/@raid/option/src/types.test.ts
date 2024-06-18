@@ -3,7 +3,7 @@ import { expectType } from 'tsd'
 
 import { fromNullable } from './ctor'
 import { option } from './model'
-import type { Option } from './option'
+import type { Option } from './model'
 
 describe('constructor types', () => {
   test('option', () => {
@@ -43,9 +43,9 @@ describe('match::typescript type definitions', () => {
         () => 2,
       ),
     )
+    // @ts-expect-error types should always match
     none.match(
       () => 1,
-      // @ts-expect-error types should always match
       () => 'foo',
     )
   })
@@ -57,6 +57,12 @@ describe('match::typescript type definitions', () => {
     expectType<Option<unknown>>(opt)
     expectType<unknown>(opt.match(() => 12)) // could be string, but could be unknown
 
+    const o = option<unknown>('str')
+    const oo = o.match(
+      () => false,
+      () => true,
+    )
+
     // must be boolean as one of the arms will return a value and that value must match
     expectType<boolean>(
       opt.match(
@@ -65,9 +71,9 @@ describe('match::typescript type definitions', () => {
       ),
     )
 
+    // @ts-expect-error return types must match each other even in unknown case
     opt.match(
       () => 1,
-      // @ts-expect-error return types must match each other even in unknown case
       () => 'foo',
     )
   })
@@ -86,9 +92,9 @@ describe('match::typescript type definitions', () => {
       () => 0,
       () => 1,
     )
+    // @ts-expect-error match is not a type mapper
     str.match(
       () => 'foo',
-      // @ts-expect-error match is not a type mapper
       () => 1,
     )
     str.match(
@@ -123,8 +129,8 @@ describe('match::typescript type definitions', () => {
         () => {},
       ),
     )
-    // biome-ignore lint/suspicious/noConfusingVoidType: typing will return the void in a union here in place of an undefined due to how TS models function return
-    expectType<number | void>(option(42).match(() => {}))
+
+    expectType<number | undefined>(option(42).match(() => {}))
   })
 
   test('orElse is a restricted match', () => {
