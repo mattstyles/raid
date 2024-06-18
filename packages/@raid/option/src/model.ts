@@ -16,10 +16,10 @@ export interface Option<T> {
   isSome(): this is Option<T>
   isNone(): this is Option<T>
 
-  // ap<U>(opt: Option<(value: T) => U>): Option<NonNullish<U>>
+  ap<U>(opt: Option<(value: T) => U>): Option<OValue<U>>
   // map<U>(fn: (value: T) => U): Some<NonNullable<U>> | None<NonNullable<U>>
   map<U>(fn: (value: T) => U): Option<OValue<U>>
-  // flatMap<U>(fn: (value: T) => Option<NonNullish<U>>): Option<NonNullish<U>>
+  flatMap<U>(fn: (value: T) => Option<OValue<U>>): Option<OValue<U>>
 
   orElse<U extends IfUnknown<T, unknown, T>>(value: U): U | T
 
@@ -116,17 +116,17 @@ export class None<T = never> implements Option<T> {
     return value
   }
 
-  // ap<U>(opt: Option<(value: never) => U>) {
-  //   return this
-  // }
+  ap<U>(opt: Option<(value: never) => U>) {
+    return this as unknown as None<NonNullable<U>>
+  }
 
   map<U>(fn: (value: T) => U): None<NonNullable<U>> {
     return this as unknown as None<NonNullable<U>>
   }
 
-  // flatMap<U>(fn: (value: never) => Option<U>) {
-  //   return this
-  // }
+  flatMap<U>(fn: (value: never) => Option<U>) {
+    return this as unknown as None<NonNullable<U>>
+  }
 
   match<
     U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
@@ -158,17 +158,17 @@ export class Some<T> implements Option<T> {
     return this.value
   }
 
-  // ap<U>(opt: Option<(value: T) => U>): Option<NonNullish<U>> {
-  //   return opt.map((fn) => fn(this.value))
-  // }
-
-  map<U>(fn: (value: T) => U) {
-    return option<U>(fn(this.value))
+  ap<U>(opt: Option<(value: T) => U>): Option<OValue<U>> {
+    return opt.map((fn) => fn(this.value))
   }
 
-  // flatMap<U>(fn: (value: T) => Option<NonNullish<U>>) {
-  //   return this.map(fn).match(() => None.of())
-  // }
+  map<U>(fn: (value: T) => U) {
+    return option(fn(this.value))
+  }
+
+  flatMap<U>(fn: (value: T) => Option<OValue<U>>) {
+    return this.map(fn).match(() => None.of())
+  }
 
   match<
     U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,

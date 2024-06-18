@@ -81,41 +81,46 @@ describe('Map', () => {
   })
 })
 
-// describe('flatMap', () => {
-//   function inverse(x: number) {
-//     if (x === 0) {
-//       return none()
-//     }
-//     return some(1 / x)
-//   }
+describe('flatMap', () => {
+  function inverse(x: number) {
+    if (x === 0) {
+      return none()
+    }
+    return some(1 / x)
+  }
 
-//   test('some', () => {
-//     expect(some(2).flatMap(inverse)).toStrictEqual(some(0.5))
-//   })
-//   test('none', () => {
-//     expect(none().flatMap(inverse)).toStrictEqual(none())
-//   })
-// })
+  test('some', () => {
+    expect(some(2).flatMap(inverse)).toStrictEqual(some(0.5))
+  })
+  test('none', () => {
+    expect(none().flatMap(inverse)).toStrictEqual(none())
+  })
+})
 
-// describe('applicative', () => {
-//   // function inverse(x: Option<number>) {
-//   //   return x.map((value) => 1 / value)
-//   // }
-//   function inverse(x: number) {
-//     return 1 / x
-//   }
+describe('applicative', () => {
+  // function inverse(x: Option<number>) {
+  //   return x.map((value) => 1 / value)
+  // }
+  function inverse(x: number) {
+    return 1 / x
+  }
 
-//   const fn = some(inverse) as Option<typeof inverse>
-//   const n = none<number>() as Option<number>
+  const fn = some(inverse) as Option<typeof inverse>
+  const n = none<number>() as Option<number>
 
-//   test('none', () => {
-//     expect(n.ap(fn)).toStrictEqual(none())
-//   })
+  test('none', () => {
+    expect(n.ap(fn)).toStrictEqual(none())
+  })
 
-//   test('some', () => {
-//     expect(some(10).ap(some(inverse))).toStrictEqual(some(0.1))
-//   })
-// })
+  test('some', () => {
+    expect(some(10).ap(fn)).toStrictEqual(some(0.1))
+  })
+
+  test('applicative with none type', () => {
+    expect(some(10).ap(none())).toStrictEqual(none())
+    expect(none().ap(none())).toStrictEqual(none())
+  })
+})
 
 describe('Option::map', () => {
   const double = (x: number) => x * 2
@@ -142,10 +147,9 @@ describe('Option::map', () => {
   })
 
   test('map flow with none', () => {
-    // @TODO this should be handled by functions i.e. a function should be able to return none but we handle it at the end, not at each individual function.
     const seq = flow(map(double), map(inverse), map(square))
-
-    const o = some(10).map(inverse)
+    expect(seq(some(0))).toStrictEqual(none())
+    expect(seq(some(2))).toStrictEqual(some(1 / 16))
   })
 })
 
