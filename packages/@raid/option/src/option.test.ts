@@ -1,11 +1,10 @@
 import { describe, expect, test } from 'bun:test'
 import { flow } from '@raid/flow'
 
-// import { fromNullable } from './ctor'
+import { fromPredicate } from './ctor'
 import { none, of, some } from './model'
 import type { Option } from './model'
-import { flatMap, map } from './option'
-import type { NonNullish } from './types'
+import { flatMap, map, match } from './option'
 
 describe('Match returns values', () => {
   test('Some case takes precedence over the none case', () => {
@@ -160,5 +159,72 @@ describe('Option::flatMap', () => {
     expect(flatMap(inverse)(none())).toStrictEqual(none())
     expect(flatMap(inverse)(some(0))).toStrictEqual(none())
     expect(flatMap(inverse)(some(8))).toStrictEqual(some(0.125))
+  })
+
+  test('with flow', () => {
+    const hasNumbers = fromPredicate((x: string) => /[0-9]/g.test(x))
+    const hasSpecials = fromPredicate((x: string) => /[!|?|*]/g.test(x))
+    const isLonger = (x: number) => (y: string) => y.length > x
+    const assert = flow(
+      map((x: string) => Boolean(x)),
+      match(
+        () => false,
+        () => true,
+      ),
+    )
+
+    const validate = flow(
+      flatMap(hasNumbers),
+      flatMap(hasSpecials),
+      flatMap(fromPredicate(isLonger(8))),
+      assert,
+    )
+
+    expect(validate(some('foo'))).toBeFalsy()
+    expect(validate(some('f0!o'))).toBeFalsy()
+    expect(validate(some('foo!bar?baz'))).toBeFalsy()
+    expect(validate(some('foo!bar?baz23456'))).toBeTruthy()
+  })
+})
+
+describe('Option::match', () => {
+  test('Preserves type', () => {
+    const add = match(
+      () => -1,
+      (v) => v + 1,
+    )
+
+    expect(add(some(10))).toBe(11)
+    expect(add(none())).toBe(-1)
+
+    // @ts-expect-error match preserves type
+    add(some('foo'))
+
+    match(
+      () => true,
+      // @ts-expect-error some clause must match none clause type
+      () => 'false',
+    )
+  })
+
+  test('Handles unknown type', () => {
+    const truthy = match<unknown>(
+      () => false,
+      () => true,
+    )
+    expect(truthy(of<unknown>('foo'))).toBeTruthy()
+    expect(truthy(of<unknown>(null))).toBeFalsy()
+  })
+
+  test('with flow', () => {
+    const reLU = flow(
+      fromPredicate((x: number) => x > 0),
+      match(() => 0),
+    )
+
+    expect(reLU(0)).toBe(0)
+    expect(reLU(0.5)).toBe(0.5)
+    expect(reLU(2)).toBe(2)
+    expect(reLU(-2)).toBe(0)
   })
 })

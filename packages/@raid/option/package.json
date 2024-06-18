@@ -32,6 +32,7 @@
     "@types/node": "^20.12.2",
     "@urban-ui/arc": "^0.2.0",
     "del-cli": "^5.1.0",
+    "ts-pattern": "^5.2.0",
     "tsd": "^0.31.0",
     "type-fest": "^4.20.0",
     "typescript": "^5.4.5"

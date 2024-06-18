@@ -42,3 +42,9 @@ export function flatMap<T, U>(fn: (value: T) => Option<OValue<U>>) {
     return o.flatMap(fn)
   }
 }
+
+export function match<T>(...args: Parameters<Option<T>['match']>) {
+  return function matchOption(o: Option<T>) {
+    return o.match(...args)
+  }
+}

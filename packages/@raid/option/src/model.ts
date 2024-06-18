@@ -24,11 +24,9 @@ export interface Option<T> {
   orElse<U extends IfUnknown<T, unknown, T>>(value: U): U | T
 
   /**
-   * Unwraps an Option and will conditionally run the supplied functions based on the type of the Option.
+   * Handle None and Some types.
+   * match<U>(onNone: () => U, onSome?: () => U): U | T
    */
-  // match<
-  //   U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
-  // >(onNone: () => U): U | T
   match<
     U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
   >(onNone: () => U, onSome: (v: T) => U): IfVoid<U, undefined, U>
