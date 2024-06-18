@@ -21,7 +21,7 @@ export interface Option<T> {
   map<U>(fn: (value: T) => U): Option<OValue<U>>
   // flatMap<U>(fn: (value: T) => Option<NonNullish<U>>): Option<NonNullish<U>>
 
-  // orElse<U extends IfUnknown<T, unknown, T>>(value: U): U | T
+  orElse<U extends IfUnknown<T, unknown, T>>(value: U): U | T
 
   /**
    * Unwraps an Option and will conditionally run the supplied functions based on the type of the Option.
@@ -112,9 +112,9 @@ export class None<T = never> implements Option<T> {
     return !this.isSome()
   }
 
-  // orElse<U>(value: U) {
-  //   return value
-  // }
+  orElse<U>(value: U) {
+    return value
+  }
 
   // ap<U>(opt: Option<(value: never) => U>) {
   //   return this
@@ -154,9 +154,9 @@ export class Some<T> implements Option<T> {
     return !this.isSome()
   }
 
-  // orElse<U>(value: U) {
-  //   return this.value
-  // }
+  orElse<U>(value: U) {
+    return this.value
+  }
 
   // ap<U>(opt: Option<(value: T) => U>): Option<NonNullish<U>> {
   //   return opt.map((fn) => fn(this.value))
