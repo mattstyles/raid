@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { flow } from '@raid/flow'
 
-import { fromNullable } from './ctor'
+// import { fromNullable } from './ctor'
 import { none, of, some } from './model'
 import type { Option } from './model'
 import { map } from './option'
