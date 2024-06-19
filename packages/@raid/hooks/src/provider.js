@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, createContext } from 'react'
 
 export const SignalContext = createContext()
@@ -9,10 +8,11 @@ export const SignalConsumer = SignalContext.Consumer
 export const SignalProvider = ({
   signal,
   // update,
-  children
+  children,
 }) => {
   const [state, setState] = useState(signal.current)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: not sure what will happen here and dont want to dive in right now
   useEffect(() => {
     // if (update) {
     //   signal.register(update)

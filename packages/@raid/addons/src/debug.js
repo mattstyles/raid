@@ -1,4 +1,3 @@
-
 export const debug = (pre = '') => {
   if (typeof pre !== 'string') {
     throw new Error('raid-addons::debug expects a string')
@@ -11,9 +10,7 @@ export const debug = (pre = '') => {
     }
 
     const type = event.type || event['@@type']
-    const group = type
-      ? pre + ' ' + type
-      : pre + ' raid'
+    const group = type ? `${pre} ${type}` : `${pre} raid`
 
     console.group(group)
     console.log(state)

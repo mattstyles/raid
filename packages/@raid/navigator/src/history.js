@@ -1,7 +1,6 @@
-
 import { createBrowserHistory } from 'history'
 
-var defaultHistory = null
+let defaultHistory = null
 
 const create = () => {
   defaultHistory = createBrowserHistory()

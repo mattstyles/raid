@@ -1,4 +1,3 @@
-
 /**
  * A fold function for iterator values
  * @param it <MapIterator> passes values to the supplied reducer
@@ -8,10 +7,11 @@
  * @returns <any> the result of folding the iterator values
  */
 export const fold = (it, fn, initial) => {
+  let i = initial
   for (const value of it) {
-    initial = fn(initial, value)
+    i = fn(i, value)
   }
-  return initial
+  return i
 }
 
 /**

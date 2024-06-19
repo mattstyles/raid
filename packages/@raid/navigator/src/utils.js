@@ -1,14 +1,13 @@
-
 import { createStructuredSelector } from 'reselect'
 
 export const getProps = createStructuredSelector({
-  children: props => props.children,
-  navigation: props => props[props.root]
+  children: (props) => props.children,
+  navigation: (props) => props[props.root],
 })
 
 // export const findKey = key => findIndex(route => route.key === key)
-export const findKey = key => arr => {
-  return arr.findIndex(route => route.key === key)
+export const findKey = (key) => (arr) => {
+  return arr.findIndex((route) => route.key === key)
 }
 
 export const getRouteIndex = (route, stack) => {
@@ -17,18 +16,16 @@ export const getRouteIndex = (route, stack) => {
 }
 
 const getWindowPathname = () => {
-  return window && window.location
-    ? window.location.pathname
-    : '/'
+  return window?.location ? window.location.pathname : '/'
 }
 
-const getHistoryState = history => {
-  const key = (Math.random() * 1e5 | 0).toString(16)
+const getHistoryState = (history) => {
+  const key = ((Math.random() * 1e5) | 0).toString(16)
 
   if (!history) {
     return {
       state: null,
-      key
+      key,
     }
   }
 
@@ -41,14 +38,14 @@ const getHistoryState = history => {
     return { state, key }
   }
 
-  history.replaceState(Object.assign({},
-    history.state,
-    { key }
-  ), getWindowPathname())
+  history.replaceState(
+    Object.assign({}, history.state, { key }),
+    getWindowPathname(),
+  )
 
   return {
     state: null,
-    key: history.state.key
+    key: history.state.key,
   }
 }
 
@@ -57,18 +54,18 @@ const getHistoryState = history => {
  * the current route
  */
 export const getCurrentRoute = (location, history) => {
-  return location || {
-    pathname: getWindowPathname(),
-    ...getHistoryState(history || window.history || null)
-  }
+  return (
+    location || {
+      pathname: getWindowPathname(),
+      ...getHistoryState(history || window.history || null),
+    }
+  )
 }
 
-export const wrapChildren = children => {
+export const wrapChildren = (children) => {
   if (!Array.isArray(children) || !children.length) {
     return null
   }
 
-  return children.length > 1
-    ? <span>{children}</span>
-    : children[0]
+  return children.length > 1 ? <span>{children}</span> : children[0]
 }

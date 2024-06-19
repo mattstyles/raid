@@ -5,7 +5,7 @@
   "workspaces": ["packages/*", "packages/@raid/*"],
   "scripts": {
     "test": "lerna run test --ignore @raid/monorepo",
-    "lint": "standard",
+    "lint": "turbo run lint",
     "preclean": "rm -rf _book",
     "clean": "lerna run clean",
     "build": "lerna run build --ignore @raid/monorepo",

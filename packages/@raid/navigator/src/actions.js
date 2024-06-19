@@ -1,4 +1,3 @@
-
 import { getHistory } from './history'
 
 export const actions = {
@@ -7,28 +6,28 @@ export const actions = {
   init: '@navigator:init',
 
   // @TODO
-  replace: '@navigator:replace'
+  replace: '@navigator:replace',
 }
 
-export const dispatcher = (signal, type) =>
-  payload => signal.emit({ type, payload })
+export const dispatcher = (signal, type) => (payload) =>
+  signal.emit({ type, payload })
 
 export const back = () => getHistory().back()
 export const forward = () => getHistory().forward()
-export const push = function () {
-  return getHistory().push(...arguments)
+export function push(...args) {
+  return getHistory().push(...args)
 }
-export const go = function () {
-  return getHistory().go(...arguments)
+export function go(...args) {
+  return getHistory().go(...args)
 }
 
-export const createActions = history => ({
+export const createActions = (history) => ({
   back: () => getHistory(history).back(),
   forward: () => getHistory(history).forward(),
-  push: function () {
-    return getHistory(history).push(...arguments)
+  push: function push(...args) {
+    return getHistory(history).push(...args)
   },
-  go: function () {
-    return getHistory(history).go(...arguments)
-  }
+  go: function go(...args) {
+    return getHistory(history).go(...args)
+  },
 })

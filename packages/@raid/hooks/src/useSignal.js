@@ -1,9 +1,8 @@
-
-import { useState, useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { SignalContext } from './provider'
 
-const identity = _ => _
+const identity = (_) => _
 
 /**
  * @typedef {Object} SignalResponse
@@ -18,25 +17,24 @@ const identity = _ => _
  * @param options.selector {?Function[state:Object]} - can be used to transform the returned state
  * @returns {SignalResponse}
  */
-export const useSignal = (signal, {
-  selector = identity
-} = {}) => {
+export const useSignal = (signal, { selector = identity } = {}) => {
   if (!signal) {
     const value = useContext(SignalContext)
     return {
       state: selector(value.state),
-      emit: value.emit
+      emit: value.emit,
     }
   }
 
   const [state, setState] = useState(signal.current)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: not right now
   useEffect(() => {
     return signal.observe(setState)
   }, [])
 
   return {
     state: selector(state),
-    emit: signal.emit
+    emit: signal.emit,
   }
 }
