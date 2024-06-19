@@ -17,17 +17,12 @@
     "start": "yarn run watch"
   },
   "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
+    "presets": ["@babel/preset-env"]
   },
   "sideEffects": false,
   "standard": {
     "parser": "babel-eslint",
-    "ignore": [
-      "**/node_modules/**",
-      "**/lib/"
-    ]
+    "ignore": ["**/node_modules/**", "**/lib/"]
   },
   "keywords": [
     "raid",
@@ -49,9 +44,9 @@
     "standard": "^14.3.1"
   },
   "dependencies": {
-    "most": "^1.8.0",
-    "raf-stream": "^3.0.0",
-    "vkey": "^1.0.1"
+    "most": "1.9.0",
+    "raf-stream": "3.0.0",
+    "vkey": "1.0.1"
   },
   "gitHead": "47cac1c6ecb206f0fc01cd52824fee7518c21b52"
 }
