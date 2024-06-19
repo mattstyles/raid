@@ -10,20 +10,16 @@
     "lint": "biome lint src",
     "format": "biome format src --write",
     "size": "size-limit",
-    "prebuild": "yarn run clean",
     "build": "NODE_ENV=production rk build -t core",
     "watch": "rk watch -t core",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
     "coverage-report": "nyc report --reporter=lcov",
-    "prepublish": "yarn run build",
     "prestart": "yarn run build",
     "start": "yarn run watch"
   },
   "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ],
+    "presets": ["@babel/preset-env"],
     "plugins": [
       [
         "@babel/plugin-proposal-class-properties",
@@ -40,14 +36,7 @@
       "limit": "16 KB"
     }
   ],
-  "keywords": [
-    "raid",
-    "stream",
-    "scan",
-    "state",
-    "signal",
-    "component"
-  ],
+  "keywords": ["raid", "stream", "scan", "state", "signal", "component"],
   "author": "Matt Styles",
   "repository": {
     "type": "git",

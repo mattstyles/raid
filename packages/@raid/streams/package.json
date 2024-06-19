@@ -7,20 +7,16 @@
     "clean": "rimraf lib",
     "lint": "biome lint src",
     "format": "biome format src --write",
-    "prebuild": "yarn run clean",
     "build": "babel src --out-dir ./",
     "watch": "babel --watch src --out-dir ./",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
     "coverage-report": "nyc --reporter=lcov npm run test",
-    "prepublish": "yarn run build",
     "prestart": "yarn run build",
     "start": "yarn run watch"
   },
   "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
+    "presets": ["@babel/preset-env"]
   },
   "sideEffects": false,
   "keywords": [

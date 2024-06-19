@@ -7,15 +7,13 @@
     "clean": "rimraf lib && rimraf compat",
     "lint": "biome lint src",
     "format": "biome format src --write",
-    "prebuild": "yarn run clean",
     "build:latest": "babel src --out-dir lib",
     "build:compat": "BABEL_ENV=compat babel src --out-dir compat",
-    "build": "yarn run build:compat && yarn run build:latest",
+    "build": "bun run build:compat && bun run build:latest",
     "watch": "babel --watch src --out-dir lib",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
     "coverage-report": "nyc --reporter=lcov npm run test",
-    "prepublish": "yarn run build",
     "prestart": "yarn run build",
     "start": "yarn run watch"
   },
@@ -37,19 +35,12 @@
     ],
     "env": {
       "compat": {
-        "presets": [
-          "@babel/preset-env"
-        ]
+        "presets": ["@babel/preset-env"]
       }
     }
   },
   "sideEffects": false,
-  "keywords": [
-    "raid",
-    "fantasy-land",
-    "helpers",
-    "utility"
-  ],
+  "keywords": ["raid", "fantasy-land", "helpers", "utility"],
   "author": "Matt Styles",
   "repository": {
     "type": "git",

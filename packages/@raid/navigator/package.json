@@ -9,24 +9,17 @@
     "lint": "biome lint src",
     "format": "biome format src --write",
     "size": "size-limit",
-    "prebuild": "yarn run clean",
     "build": "NODE_ENV=production rk build -t ui",
     "watch": "rk watch -t ui",
     "prestart": "yarn run build",
     "start": "yarn run watch",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
-    "coverage-report": "nyc report --reporter=lcov",
-    "prepublish": "npm run build"
+    "coverage-report": "nyc report --reporter=lcov"
   },
   "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "transform-react-require"
-    ]
+    "presets": ["@babel/preset-env", "@babel/preset-react"],
+    "plugins": ["transform-react-require"]
   },
   "sideEffects": false,
   "size-limit": [
@@ -35,13 +28,7 @@
       "limit": "10 KB"
     }
   ],
-  "keywords": [
-    "raid",
-    "navigator",
-    "router",
-    "history",
-    "stack"
-  ],
+  "keywords": ["raid", "navigator", "router", "history", "stack"],
   "author": "Matt Styles",
   "repository": {
     "type": "git",

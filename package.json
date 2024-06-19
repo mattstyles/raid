@@ -9,7 +9,7 @@
     "preclean": "rm -rf _book",
     "clean": "turbo run clean",
     "build": "turbo run build",
-    "postbuild": "lerna run size",
+    "_postbuild": "lerna run size",
     "setup": "lerna bootstrap --concurrency=1",
     "postsetup": "yarn run build",
     "cover": "lerna run coverage-report --ignore raid/monorepo",
@@ -20,7 +20,8 @@
     "docs:watch": "gitbook serve",
     "predocs:deploy": "yarn run docs",
     "docs:deploy": "gh-pages -d _book",
-    "start": "yarn workspace @raid/examples start"
+    "start": "yarn workspace @raid/examples start",
+    "publish": "dotenvx run -- changeset publish"
   },
   "babel": {
     "presets": ["@babel/preset-env", "@babel/preset-react"],
@@ -47,14 +48,15 @@
   },
   "homepage": "https://github.com/mattstyles/raid#readme",
   "devDependencies": {
-    "@biomejs/biome": "^1.8.1",
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.1",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/preset-env": "^7.10.1",
     "@babel/preset-react": "^7.10.1",
     "@babel/register": "^7.10.1",
+    "@biomejs/biome": "^1.8.1",
     "@changesets/cli": "^2.27.1",
+    "@dotenvx/dotenvx": "^0.45.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-styled-components": "^1.10.6",
     "babel-plugin-transform-react-require": "^1.0.1",

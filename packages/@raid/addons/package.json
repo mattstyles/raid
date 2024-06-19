@@ -9,22 +9,17 @@
     "lint": "biome lint src",
     "format": "biome format src --write",
     "size": "size-limit",
-    "prebuild": "yarn run clean",
     "build": "NODE_ENV=production rk build -t ui",
     "postbuild": "node build.js",
     "watch": "rk watch -t ui",
     "test": "tape -r @babel/register spec/*.test.js",
     "cover": "nyc tape -r @babel/register spec/*.test.js",
     "coverage-report": "nyc --reporter=lcov npm run test",
-    "prepublish": "yarn run build",
     "prestart": "yarn run build",
     "start": "yarn run watch"
   },
   "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ]
+    "presets": ["@babel/preset-env", "@babel/preset-react"]
   },
   "sideEffects": false,
   "size-limit": [
@@ -33,12 +28,7 @@
       "limit": "10 KB"
     }
   ],
-  "keywords": [
-    "raid",
-    "addons",
-    "helpers",
-    "utility"
-  ],
+  "keywords": ["raid", "addons", "helpers", "utility"],
   "author": "Matt Styles",
   "repository": {
     "type": "git",
