@@ -1,4 +1,8 @@
 
+# 7.x
+
+* :house: use changesets instead of manual changelog updating
+
 # 6.1.1
 
 * _fix_ keystream log

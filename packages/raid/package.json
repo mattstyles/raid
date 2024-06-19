@@ -7,7 +7,8 @@
   "scripts": {
     "bench": "node -r @babel/register bench/tape",
     "clean": "rimraf lib",
-    "lint": "standard",
+    "lint": "biome lint src",
+    "format": "biome format src --write",
     "size": "size-limit",
     "prebuild": "yarn run clean",
     "build": "NODE_ENV=production rk build -t core",
@@ -20,9 +21,7 @@
     "start": "yarn run watch"
   },
   "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ],
+    "presets": ["@babel/preset-env"],
     "plugins": [
       [
         "@babel/plugin-proposal-class-properties",
@@ -39,21 +38,7 @@
       "limit": "16 KB"
     }
   ],
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "**/node_modules/**",
-      "**/lib/"
-    ]
-  },
-  "keywords": [
-    "raid",
-    "stream",
-    "scan",
-    "state",
-    "signal",
-    "component"
-  ],
+  "keywords": ["raid", "stream", "scan", "state", "signal", "component"],
   "author": "Matt Styles",
   "repository": {
     "type": "git",

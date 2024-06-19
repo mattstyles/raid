@@ -6,7 +6,8 @@
   "module": "lib/raid-addons.esm.js",
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "standard",
+    "lint": "biome lint src",
+    "format": "biome format src --write",
     "size": "size-limit",
     "prebuild": "yarn run clean",
     "build": "NODE_ENV=production rk build -t ui",
@@ -20,10 +21,7 @@
     "start": "yarn run watch"
   },
   "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ]
+    "presets": ["@babel/preset-env", "@babel/preset-react"]
   },
   "sideEffects": false,
   "size-limit": [
@@ -32,19 +30,7 @@
       "limit": "10 KB"
     }
   ],
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "**/node_modules/**",
-      "**/lib/"
-    ]
-  },
-  "keywords": [
-    "raid",
-    "addons",
-    "helpers",
-    "utility"
-  ],
+  "keywords": ["raid", "addons", "helpers", "utility"],
   "author": "Matt Styles",
   "repository": {
     "type": "git",
@@ -55,8 +41,7 @@
   "license": "MIT",
   "devDependencies": {
     "@raid/rk": "^0.20.1",
-    "@size-limit/preset-small-lib": "^4.6.0",
-    "standard": "^14.3.1"
+    "@size-limit/preset-small-lib": "^4.6.0"
   },
   "dependencies": {
     "@mattstyles/match": "^1.0.1",

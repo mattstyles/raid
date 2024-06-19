@@ -35,10 +35,6 @@
       ]
     ]
   },
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": ["**/node_modules/**", "**/lib/"]
-  },
   "keywords": ["raid", "stream", "scan", "state", "signal", "component"],
   "author": "Matt Styles",
   "repository": {
@@ -66,12 +62,10 @@
     "coveralls": "^3.0.9",
     "gh-pages": "^2.0.1",
     "istanbul-combine": "^0.3.0",
-    "lerna": "^3.22.0",
     "nyc": "^15.0.0",
     "regenerator-runtime": "^0.13.5",
     "rimraf": "^3.0.2",
     "size-limit": "^4.6.2",
-    "standard": "^14.3.4",
     "tape": "^5.0.1",
     "turbo": "^2.0.3",
     "typescript": "^5.4.5"

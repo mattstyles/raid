@@ -6,7 +6,8 @@
   "module": "lib/raid-navigator.esm.js",
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "standard",
+    "lint": "biome lint src",
+    "format": "biome format src --write",
     "size": "size-limit",
     "prebuild": "yarn run clean",
     "build": "NODE_ENV=production rk build -t ui",
@@ -19,13 +20,8 @@
     "prepublish": "npm run build"
   },
   "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "transform-react-require"
-    ]
+    "presets": ["@babel/preset-env", "@babel/preset-react"],
+    "plugins": ["transform-react-require"]
   },
   "sideEffects": false,
   "size-limit": [
@@ -34,16 +30,7 @@
       "limit": "10 KB"
     }
   ],
-  "standard": {
-    "parser": "babel-eslint"
-  },
-  "keywords": [
-    "raid",
-    "navigator",
-    "router",
-    "history",
-    "stack"
-  ],
+  "keywords": ["raid", "navigator", "router", "history", "stack"],
   "author": "Matt Styles",
   "repository": {
     "type": "git",
@@ -54,8 +41,7 @@
   "devDependencies": {
     "@raid/rk": "^0.20.1",
     "@size-limit/preset-small-lib": "^4.6.0",
-    "jsdom": "^16.2.2",
-    "standard": "^14.3.1"
+    "jsdom": "^16.2.2"
   },
   "dependencies": {
     "@raid/addons": "^6.1.1",
