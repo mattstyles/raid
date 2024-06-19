@@ -1,4 +1,4 @@
-export type { Option } from './model'
+export type { Option, Value, Extract } from './model'
 
 // Constructors
 export { fromNullable, fromPredicate } from './ctor'

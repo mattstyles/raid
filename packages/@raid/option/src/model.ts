@@ -1,16 +1,22 @@
 import type { IfNever, IfUnknown } from 'type-fest'
-// import type { Option } from './option'
-import type { IfVoid, MapFn, NonNullish } from './types'
+import type { IfVoid } from './types'
 
-export type OValue<U> = IfUnknown<U, unknown, NonNullable<U>>
+export type Value<U> = IfUnknown<U, unknown, NonNullable<U>>
+
+/**
+ * Extracts a type from an Option
+ */
+export type Extract<T extends Option<unknown>> = T extends Option<infer U>
+  ? U
+  : never
 
 export interface Option<T> {
   isSome(): this is Option<T>
   isNone(): this is Option<T>
 
-  ap<U>(opt: Option<(value: T) => U>): Option<OValue<U>>
-  map<U>(fn: (value: T) => U): Option<OValue<U>>
-  flatMap<U>(fn: (value: T) => Option<OValue<U>>): Option<OValue<U>>
+  ap<U>(opt: Option<(value: T) => U>): Option<Value<U>>
+  map<U>(fn: (value: T) => U): Option<Value<U>>
+  flatMap<U>(fn: (value: T) => Option<Value<U>>): Option<Value<U>>
 
   orElse<U extends IfUnknown<T, unknown, T>>(value: U): U | T
 
@@ -29,7 +35,7 @@ export interface Option<T> {
   >(onNone: () => U, onSome?: (v: T) => U): IfVoid<U, undefined, U | T>
 }
 
-export function of<T>(value: T): Option<OValue<T>> {
+export function of<T>(value: T): Option<Value<T>> {
   if (value == null) {
     return none()
   }
@@ -104,7 +110,7 @@ export class Some<T> implements Option<T> {
     return this.value
   }
 
-  ap<U>(o: Option<(value: T) => U>): Option<OValue<U>> {
+  ap<U>(o: Option<(value: T) => U>): Option<Value<U>> {
     return o.map((fn) => fn(this.value))
   }
 
@@ -112,7 +118,7 @@ export class Some<T> implements Option<T> {
     return of(fn(this.value))
   }
 
-  flatMap<U>(fn: (value: T) => Option<OValue<U>>) {
+  flatMap<U>(fn: (value: T) => Option<Value<U>>) {
     return this.map(fn).match(() => None.of())
   }
 

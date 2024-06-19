@@ -20,5 +20,3 @@ export type IfNullish<T, A = true, B = true> = IsNullish<T> extends true ? A : B
 export type NonNullish<T> = IfAny<T, unknown, IfNullish<T, never, T>>
 
 export type MapFn<A, B> = (value: A) => B
-
-const fn: MapFn<number, number> = (x: number) => x

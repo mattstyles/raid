@@ -3,7 +3,7 @@ import { expectType } from 'tsd'
 
 import { fromNullable, fromPredicate } from './ctor'
 import { of } from './model'
-import type { Option } from './model'
+import type { Extract, Option } from './model'
 
 describe('constructor types', () => {
   test('option', () => {
@@ -159,5 +159,13 @@ describe('map types', () => {
   test('correctly maps known types', () => {
     expectType<Option<boolean>>(of(42).map(() => false))
     expectType<Option<string>>(of(42).map(() => 'str'))
+  })
+})
+
+describe('extract', () => {
+  test('extracts a value from an option', () => {
+    expectType<Extract<Option<boolean>>>(true)
+    expectType<Extract<Option<unknown>>>('foo')
+    expectType<Extract<Option<unknown>>>(undefined)
   })
 })
