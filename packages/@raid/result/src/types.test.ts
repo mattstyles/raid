@@ -34,6 +34,14 @@ describe('constructor types', () => {
     expectType<Result<unknown, Error>>(
       fromThrowable(() => new Error('err returned'))(),
     )
+
+    function inverse(x: number) {
+      if (x === 0) {
+        throw new Error('divide by 0')
+      }
+      return 1 / x
+    }
+    expectType<Result<number, Error>>(fromThrowable(inverse)(0))
   })
 
   test('Error casting', () => {

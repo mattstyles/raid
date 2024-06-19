@@ -50,6 +50,10 @@ describe('constructor', () => {
     expect(fromThrowable(inverse)(0)).toStrictEqual(
       err(new Error('divide by 0')),
     )
+
+    expect(fromThrowable(() => new Error('oops'))()).toStrictEqual(
+      err(new Error('oops')),
+    )
   })
 })
 
@@ -70,6 +74,18 @@ describe('map', () => {
       of<number>(new Error('foo')),
     )
   })
+
+  test('catch', () => {
+    function inverse(x: number) {
+      if (x === 0) {
+        throw new Error('divide by 0')
+      }
+      return 1 / x
+    }
+
+    expect(ok(0).map(inverse)).toStrictEqual(err(new Error('divide by 0')))
+    expect(ok(5).map(inverse)).toStrictEqual(ok(0.2))
+  })
 })
 
 describe('flatMap', () => {
@@ -82,8 +98,11 @@ describe('flatMap', () => {
   function withError() {
     return err(new Error('some error'))
   }
-  function throwError() {
-    throw new Error('thrown')
+  function throwError(x: number) {
+    if (x === 0) {
+      throw new Error('thrown')
+    }
+    return ok(x)
   }
 
   test('some', () => {
@@ -99,6 +118,14 @@ describe('flatMap', () => {
   test('chain', () => {
     const o = ok(0).flatMap(inverse).flatMap(withError)
     expect(o).toStrictEqual(err(new Error('divide by 0')))
+  })
+
+  test('catch', () => {
+    const o = ok(0).flatMap(inverse).flatMap(throwError)
+    expect(o).toStrictEqual(err(new Error('divide by 0')))
+
+    const o2 = ok(0).flatMap(throwError)
+    expect(o2).toStrictEqual(err(new Error('thrown')))
   })
 })
 
