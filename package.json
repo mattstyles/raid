@@ -21,7 +21,7 @@
     "predocs:deploy": "yarn run docs",
     "docs:deploy": "gh-pages -d _book",
     "start": "yarn workspace @raid/examples start",
-    "publish": "dotenvx run -- changeset publish"
+    "publish": "dotenvx run -- bun run build && changeset version && changeset publish"
   },
   "babel": {
     "presets": ["@babel/preset-env", "@babel/preset-react"],
