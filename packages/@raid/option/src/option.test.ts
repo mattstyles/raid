@@ -4,7 +4,7 @@ import { flow } from '@raid/flow'
 import { fromPredicate } from './ctor'
 import { none, of, some } from './model'
 import type { Option } from './model'
-import { flatMap, map, match } from './option'
+import { ap, flatMap, map, match } from './option'
 
 describe('Match returns values', () => {
   test('Some case takes precedence over the none case', () => {
@@ -226,5 +226,15 @@ describe('Option::match', () => {
     expect(reLU(0.5)).toBe(0.5)
     expect(reLU(2)).toBe(2)
     expect(reLU(-2)).toBe(0)
+  })
+})
+
+describe('option::apply', () => {
+  test('option', () => {
+    const inc = of((x: number) => x + 1)
+
+    expect(ap(inc)(some(1))).toStrictEqual(some(2))
+    expect(ap(inc)(none<number>())).toStrictEqual(none())
+    expect(ap(none<(x: number) => number>())(some(1))).toStrictEqual(none())
   })
 })

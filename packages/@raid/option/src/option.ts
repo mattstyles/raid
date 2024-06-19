@@ -31,6 +31,12 @@ import type { IfVoid, MapFn, NonNullish } from './types'
 //   >(onNone: () => U, onSome: (v: T) => U): IfVoid<U, undefined, U>
 // }
 
+export function ap<T, U>(fn: Option<(value: T) => U>) {
+  return function apOption(o: Option<T>) {
+    return o.ap(fn)
+  }
+}
+
 export function map<T, U>(fn: (value: T) => U) {
   return function mapOption(o: Option<T>) {
     return o.map(fn)
