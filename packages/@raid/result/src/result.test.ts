@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 
-import { err, fromThrowable, ok } from './ctor'
-import { result } from './model'
+import { fromThrowable } from './ctor'
+import { err, of, ok } from './model'
 
 describe('Match returns values', () => {
   test('Err arm runs on results containing errors', () => {
@@ -46,7 +46,7 @@ describe('constructor', () => {
       }
       return 1 / x
     }
-    expect(fromThrowable(inverse)(10)).toStrictEqual(result(0.1))
+    expect(fromThrowable(inverse)(10)).toStrictEqual(of(0.1))
     expect(fromThrowable(inverse)(0)).toStrictEqual(
       err(new Error('divide by 0')),
     )
@@ -55,21 +55,19 @@ describe('constructor', () => {
 
 describe('map', () => {
   test('Ok', () => {
-    expect(result(42).map(() => 'str')).toStrictEqual(result('str'))
-    expect(result(42).map((): unknown => 'str')).toStrictEqual(
-      result<unknown>('str'),
-    )
+    expect(of(42).map(() => 'str')).toStrictEqual(ok('str'))
+    expect(of(42).map((): unknown => 'str')).toStrictEqual(ok<unknown>('str'))
   })
 
   test('Err - type is preserved through the map', () => {
-    expect(result(new Error('foo')).map(() => 42)).toStrictEqual(
-      result<number>(new Error('foo')),
+    expect(of(new Error('foo')).map(() => 42)).toStrictEqual(
+      of<number>(new Error('foo')),
     )
   })
 
   test('Err - subsequent errors are not collected', () => {
-    expect(result(new Error('foo')).map(() => new Error('bar'))).toStrictEqual(
-      result<number>(new Error('foo')),
+    expect(of(new Error('foo')).map(() => new Error('bar'))).toStrictEqual(
+      of<number>(new Error('foo')),
     )
   })
 })

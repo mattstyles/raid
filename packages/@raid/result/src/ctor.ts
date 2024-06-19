@@ -1,14 +1,6 @@
-import { Err, Ok } from './model'
-import type { Result } from './result'
+import type { Result } from './model'
+import { err, ok } from './model'
 import type { IfError, NonError } from './types'
-
-export function err<E extends Error>(e: E): Result<never, E> {
-  return Err.of(e)
-}
-
-export function ok<T>(value: NonError<T>): Result<NonError<T>, never> {
-  return Ok.of(value)
-}
 
 /**
  * Wraps a function to return a result

@@ -1,11 +1,51 @@
-import type { Result } from './result'
-import type { NonError } from './types'
+import type { IfNever, IfUnknown } from 'type-fest'
+import type { IfError, IfVoid, NonError } from './types'
+
+export interface Result<T, E extends Error = Error> {
+  // static of
+  // isOk
+  // isErr
+  // ap -> unwrap fn and use it within map
+  // map
+  // flatMap
+  // match
+
+  isOk(): this is Result<T>
+  isErr(): this is Result<never, E>
+
+  ap<U, X extends Error = E>(
+    res: Result<(value: T) => NonError<U>>,
+  ): Result<NonError<U>, E | X>
+
+  map<U, X extends Error = E>(
+    fn: (value: T) => NonError<U>,
+  ): Result<NonError<U>, E | X>
+
+  flatMap<U, X extends Error = E>(
+    fn: (value: T) => Result<NonError<U>, X>,
+  ): Result<NonError<U>, E | X>
+
+  // Add constraint for U is T if T is known
+  match<
+    U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
+  >(onErr: (err: E) => U): U | T
+  match<
+    U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
+  >(onErr: (err: E) => U, onResult: (value: T) => U): IfVoid<U, undefined, U>
+}
+
+export function err<E extends Error>(e: E): Result<never, E> {
+  return Err.of(e)
+}
+
+export function ok<T>(value: NonError<T>): Result<NonError<T>, never> {
+  return Ok.of(value)
+}
 
 /**
  * Converts a value in to a Result with correct type matching.
- * @TODO do we ever need to expose this function? or ok/err only?
  */
-export function result<T = unknown, E extends Error = Error>(
+export function of<T = unknown, E extends Error = Error>(
   value: T | E,
 ): Result<NonError<T>, E> {
   if (value instanceof Error) {
@@ -42,9 +82,9 @@ export class Ok<T, E extends Error = never> implements Result<T, E> {
   map<U, X extends Error = E>(fn: (value: T) => NonError<U>) {
     try {
       const res = fn(this.value)
-      return result<U, E>(res as U)
+      return of<U, E>(res as U)
     } catch (err) {
-      return result<U, X>(err as X)
+      return of<U, X>(err as X)
     }
     // return result<U, E>(fn(this.value))
   }
@@ -54,7 +94,7 @@ export class Ok<T, E extends Error = never> implements Result<T, E> {
       const res = fn(this.value)
       return res
     } catch (err) {
-      return result<U, X>(err as X)
+      return of<U, X>(err as X)
     }
   }
 

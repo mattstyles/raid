@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import { expectType } from 'tsd'
 
-import { err, fromThrowable, ok } from './ctor'
-import { result } from './model'
-import type { Result } from './result'
+import { fromThrowable } from './ctor'
+import { err, of, ok } from './model'
+import type { Result } from './model'
 
 describe('constructor types', () => {
   test('Err', () => {
@@ -13,9 +13,9 @@ describe('constructor types', () => {
     expectType<Result<string, never>>(ok('foo'))
   })
   test('Result', () => {
-    expectType<Result<unknown, Error>>(result(new Error('oops')))
-    expectType<Result<number, Error>>(result(12))
-    expectType<Result<number, Error>>(result<number>(new Error('oops')))
+    expectType<Result<unknown, Error>>(of(new Error('oops')))
+    expectType<Result<number, Error>>(of(12))
+    expectType<Result<number, Error>>(of<number>(new Error('oops')))
   })
 
   test('fromThrowable', () => {
@@ -38,7 +38,7 @@ describe('constructor types', () => {
 
   test('Error casting', () => {
     class MyError extends Error {}
-    expectType<Result<unknown, MyError>>(result(new MyError()))
+    expectType<Result<unknown, MyError>>(of(new MyError()))
   })
 })
 

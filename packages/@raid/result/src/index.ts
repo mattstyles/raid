@@ -1,2 +1,3 @@
-export type { Result } from './result'
-export { fromThrowable, ok, err } from './ctor'
+export type { Result } from './model'
+export { ok, err, of } from './model'
+export { fromThrowable } from './ctor'
