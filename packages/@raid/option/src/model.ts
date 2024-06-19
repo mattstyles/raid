@@ -5,19 +5,10 @@ import type { IfVoid, MapFn, NonNullish } from './types'
 export type OValue<U> = IfUnknown<U, unknown, NonNullable<U>>
 
 export interface Option<T> {
-  // static of
-  // isNone
-  // isSome
-  // ap
-  // map
-  // flatMap
-  // match
-
   isSome(): this is Option<T>
   isNone(): this is Option<T>
 
   ap<U>(opt: Option<(value: T) => U>): Option<OValue<U>>
-  // map<U>(fn: (value: T) => U): Some<NonNullable<U>> | None<NonNullable<U>>
   map<U>(fn: (value: T) => U): Option<OValue<U>>
   flatMap<U>(fn: (value: T) => Option<OValue<U>>): Option<OValue<U>>
 
@@ -36,12 +27,9 @@ export interface Option<T> {
   match<
     U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
   >(onNone: () => U, onSome?: (v: T) => U): IfVoid<U, undefined, U | T>
-
-  // match<U extends T>(onNone: () => U, onSome?: (v: T) => U): U | T
 }
 
 export function of<T>(value: T): Option<OValue<T>> {
-  // return value == null ? None.of() : Some.of(value)
   if (value == null) {
     return none()
   }
