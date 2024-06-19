@@ -1,5 +1,5 @@
 {
-  "name": "@raid/function",
+  "name": "@raid/pipe",
   "version": "0.0.1",
   "type": "module",
   "module": "./dist/index.js",
@@ -24,10 +24,7 @@
     "build": "arc build",
     "test": "bun test"
   },
-  "dependencies": {
-    "@raid/flow": "workspace:*",
-    "@raid/pipe": "workspace:*"
-  },
+  "dependencies": {},
   "peerDependencies": {},
   "devDependencies": {
     "@types/bun": "latest",
