@@ -34,11 +34,13 @@ export interface Result<T, E extends Error = Error> {
   >(onErr: (err: E) => U, onResult: (value: T) => U): IfVoid<U, undefined, U>
 }
 
-export function err<E extends Error>(e: E): Result<never, E> {
+export function err<E extends Error, T = never>(e: E): Result<T, E> {
   return Err.of(e)
 }
 
-export function ok<T>(value: NonError<T>): Result<NonError<T>, never> {
+export function ok<T, E extends Error = Error>(
+  value: NonError<T>,
+): Result<NonError<T>, E> {
   return Ok.of(value)
 }
 
