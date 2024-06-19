@@ -1,6 +1,6 @@
 {
   "name": "@raid/streams",
-  "version": "6.2.3",
+  "version": "7.0.0",
   "description": "Collection of event streams ready to mount to raid",
   "main": "lib/",
   "scripts": {
@@ -18,7 +18,9 @@
     "start": "yarn run watch"
   },
   "babel": {
-    "presets": ["@babel/preset-env"]
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "sideEffects": false,
   "keywords": [

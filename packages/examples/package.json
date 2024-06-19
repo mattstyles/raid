@@ -1,7 +1,7 @@
 {
   "name": "@raid/examples",
   "private": "true",
-  "version": "6.1.1",
+  "version": "7.0.0",
   "description": "Examples of raid use cases",
   "license": "MIT",
   "author": "Matt Styles <matt@personalurban.com>",

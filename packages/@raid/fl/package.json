@@ -1,6 +1,6 @@
 {
   "name": "@raid/fl",
-  "version": "6.1.0",
+  "version": "7.0.0",
   "description": "Raid with fantasy-land compliant structures",
   "main": "lib/",
   "scripts": {
@@ -37,12 +37,19 @@
     ],
     "env": {
       "compat": {
-        "presets": ["@babel/preset-env"]
+        "presets": [
+          "@babel/preset-env"
+        ]
       }
     }
   },
   "sideEffects": false,
-  "keywords": ["raid", "fantasy-land", "helpers", "utility"],
+  "keywords": [
+    "raid",
+    "fantasy-land",
+    "helpers",
+    "utility"
+  ],
   "author": "Matt Styles",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "@raid/navigator",
-  "version": "6.1.1",
+  "version": "7.0.0",
   "description": "Navigation stack hooked in to a raid signal",
   "main": "lib/raid-navigator.js",
   "module": "lib/raid-navigator.esm.js",
@@ -20,8 +20,13 @@
     "prepublish": "npm run build"
   },
   "babel": {
-    "presets": ["@babel/preset-env", "@babel/preset-react"],
-    "plugins": ["transform-react-require"]
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "transform-react-require"
+    ]
   },
   "sideEffects": false,
   "size-limit": [
@@ -30,7 +35,13 @@
       "limit": "10 KB"
     }
   ],
-  "keywords": ["raid", "navigator", "router", "history", "stack"],
+  "keywords": [
+    "raid",
+    "navigator",
+    "router",
+    "history",
+    "stack"
+  ],
   "author": "Matt Styles",
   "repository": {
     "type": "git",
@@ -44,12 +55,12 @@
     "jsdom": "^16.2.2"
   },
   "dependencies": {
-    "@raid/addons": "^6.1.1",
+    "@raid/addons": "^7.0.0",
     "history": "^5.0.0",
     "reselect": "^4.0.0"
   },
   "peerDependencies": {
-    "raid": "^6.0.0",
+    "raid": "^7.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-is": "^16.9.0"
