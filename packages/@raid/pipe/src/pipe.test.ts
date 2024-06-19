@@ -20,4 +20,10 @@ describe('Pipe', () => {
     expect(pipe(1, (x) => x + 1)).toBe(2)
     expect(pipe('foo', (x) => x.length)).toBe(3)
   })
+
+  test('pointed', () => {
+    const fn = (x: number) => pipe(x, (x) => x ** 2)
+
+    expect(fn(4)).toBe(16)
+  })
 })

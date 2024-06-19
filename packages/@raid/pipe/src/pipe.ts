@@ -1,3 +1,13 @@
+/**
+ * Pointed. Performs left to right evaluation of a sequence of transforms.
+ *
+ * @example
+ * (a -> b) ~> (string, boolean)
+ * const fn = (x: string) => pipe(x, x => x.length, x => x > 0)
+ * fn('foo') // true
+ * fn() // false
+ *
+ */
 export function pipe<A, B>(value: A, ab: (a: A) => B): B
 export function pipe<A, B, C>(value: A, ab: (a: A) => B, bc: (b: B) => C): C
 export function pipe<A, B, C, D>(
