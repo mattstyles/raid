@@ -5,7 +5,7 @@ export interface Result<T, E extends Error = Error> {
   // static of
   // isOk
   // isErr
-  // ap -> unwrap fn and use it within map
+  // ap
   // map
   // flatMap
   // match
@@ -25,6 +25,8 @@ export interface Result<T, E extends Error = Error> {
     fn: (value: T) => Result<NonError<U>, X>,
   ): Result<NonError<U>, E | X>
 
+  orElse<U>(value: U): U | T
+
   // Add constraint for U is T if T is known
   match<
     U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
@@ -32,6 +34,12 @@ export interface Result<T, E extends Error = Error> {
   match<
     U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
   >(onErr: (err: E) => U, onResult: (value: T) => U): IfVoid<U, undefined, U>
+  match<
+    U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
+  >(
+    onErr: (err: E) => U,
+    onResult?: (value: T) => U,
+  ): IfVoid<U, undefined, U> | T
 }
 
 export function err<E extends Error, T = never>(e: E): Result<T, E> {
@@ -88,7 +96,6 @@ export class Ok<T, E extends Error = never> implements Result<T, E> {
     } catch (err) {
       return of<U, X>(err as X)
     }
-    // return result<U, E>(fn(this.value))
   }
 
   flatMap<U, X extends Error = E>(fn: (value: T) => Result<NonError<U>, X>) {
@@ -98,6 +105,10 @@ export class Ok<T, E extends Error = never> implements Result<T, E> {
     } catch (err) {
       return of<U, X>(err as X)
     }
+  }
+
+  orElse<U>(value: U) {
+    return this.value
   }
 
   match<U>(onErr: (err: E) => U, onResult?: (value: T) => U) {
@@ -137,6 +148,10 @@ export class Err<T = never, E extends Error = Error>
     fn: (value: never) => Result<NonError<U>, X>,
   ) {
     return this as Result<NonError<U>, E>
+  }
+
+  orElse<U>(value: U) {
+    return value
   }
 
   match<U>(onErr: (err: E) => U) {

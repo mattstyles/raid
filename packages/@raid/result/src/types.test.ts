@@ -65,9 +65,9 @@ describe('match::typescript type definitions', () => {
     )
 
     expectType<string>(
+      // @ts-expect-error both clauses should match on the type
       result.match(
         () => 'handled',
-        // @ts-expect-error both clauses should match on the type
         () => 12,
       ),
     )
