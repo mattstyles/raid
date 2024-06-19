@@ -48,6 +48,7 @@
     "force-array": "^3.1.0"
   },
   "peerDependencies": {
+    "raid": "workspace:*",
     "react": "^16.9"
   },
   "gitHead": "133ec598275946f14fe0a0e8ef1fcdae8e2ba3d6"
