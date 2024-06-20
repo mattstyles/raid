@@ -16,6 +16,9 @@ export interface Option<T> {
 
   ap<U>(opt: Option<(value: T) => U>): Option<Value<U>>
   map<U>(fn: (value: T) => U): Option<Value<U>>
+  chain<U>(fn: (value: T) => Option<Value<U>>): Option<Value<U>>
+
+  // @alias chain
   flatMap<U>(fn: (value: T) => Option<Value<U>>): Option<Value<U>>
 
   orElse<U extends IfUnknown<T, unknown, T>>(value: U): U | T
@@ -76,9 +79,10 @@ export class None<T = never> implements Option<T> {
     return this as unknown as None<NonNullable<U>>
   }
 
-  flatMap<U>(fn: (value: never) => Option<U>) {
+  chain<U>(fn: (value: never) => Option<U>) {
     return this as unknown as None<NonNullable<U>>
   }
+  flatMap = this.chain
 
   match<
     U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,
@@ -110,6 +114,7 @@ export class Some<T> implements Option<T> {
     return this.value
   }
 
+  // @TODO should this be (value: T) => Option<Value<U>> and use flatmap instead of map?
   ap<U>(o: Option<(value: T) => U>): Option<Value<U>> {
     return o.map((fn) => fn(this.value))
   }
@@ -118,9 +123,11 @@ export class Some<T> implements Option<T> {
     return of(fn(this.value))
   }
 
-  flatMap<U>(fn: (value: T) => Option<Value<U>>) {
+  chain<U>(fn: (value: T) => Option<Value<U>>) {
     return this.map(fn).match(() => None.of())
   }
+
+  flatMap = this.chain
 
   match<
     U extends IfVoid<U, void, IfNever<T, unknown, IfUnknown<T, unknown, T>>>,

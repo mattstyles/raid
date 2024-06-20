@@ -4,7 +4,7 @@ import { flow } from '@raid/flow'
 import { fromPredicate } from './ctor'
 import { none, of, some } from './model'
 import type { Option } from './model'
-import { ap, flatMap, map, match } from './option'
+import { ap, chain, flatMap, map, match } from './option'
 
 describe('Match returns values', () => {
   test('Some case takes precedence over the none case', () => {
@@ -80,7 +80,7 @@ describe('Map', () => {
   })
 })
 
-describe('flatMap', () => {
+describe('chain', () => {
   function inverse(x: number) {
     if (x === 0) {
       return none()
